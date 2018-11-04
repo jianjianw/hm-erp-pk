@@ -3,6 +3,8 @@ package com.qiein.erp.pk.web.entity.po;
 import java.io.Serializable;
 
 public class Room implements Serializable {
+    private static final long serialVersionUID = 474466157479846785L;
+
     private Integer roomId;
 
     private Integer venueId;
@@ -18,8 +20,6 @@ public class Room implements Serializable {
     private Short roomStatus;
 
     private Integer companyId;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getRoomId() {
         return roomId;

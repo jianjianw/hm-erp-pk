@@ -3,6 +3,8 @@ package com.qiein.erp.pk.web.entity.po;
 import java.io.Serializable;
 
 public class Venue implements Serializable {
+    private static final long serialVersionUID = -1302559071626317704L;
+
     private Integer id;
 
     private Integer baseId;
@@ -21,7 +23,6 @@ public class Venue implements Serializable {
 
     private Integer companyId;
 
-    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

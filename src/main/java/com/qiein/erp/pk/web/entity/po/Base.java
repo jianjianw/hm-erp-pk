@@ -3,13 +3,14 @@ package com.qiein.erp.pk.web.entity.po;
 import java.io.Serializable;
 
 public class Base implements Serializable {
+    private static final long serialVersionUID = 21266182125583448L;
+
     private Integer id;
 
     private String baseName;
 
     private Integer companyId;
 
-    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

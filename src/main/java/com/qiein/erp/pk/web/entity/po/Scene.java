@@ -3,6 +3,8 @@ package com.qiein.erp.pk.web.entity.po;
 import java.io.Serializable;
 
 public class Scene implements Serializable {
+    private static final long serialVersionUID = 8656946036214356631L;
+
     private Integer id;
 
     private Integer shootId;
@@ -15,7 +17,6 @@ public class Scene implements Serializable {
 
     private Integer companyId;
 
-    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
