@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+/**
+ * 房间   1 化妆间  2 拍摄间
+ * */
 @RestController
 @RequestMapping("/room")
 public class RoomController {
