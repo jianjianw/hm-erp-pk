@@ -20,8 +20,8 @@ public class SceneServiceImpl implements SceneService {
     }
 
     @Override
-    public int insert(Scene record) {
-        return sceneDao.insert(record);
+    public int insert(Scene scene) {
+        return sceneDao.insert(scene);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class SceneServiceImpl implements SceneService {
     }
 
     @Override
-    public int updateByPrimaryKey(Scene record) {
-        return sceneDao.updateByPrimaryKey(record);
+    public int updateByPrimaryKey(Scene scene) {
+        return sceneDao.updateByPrimaryKey(scene);
     }
 }

@@ -7,11 +7,11 @@ import java.util.List;
 public interface VenueDao {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Venue record);
+    int insert(Venue venue);
 
     Venue selectByPrimaryKey(Integer id);
 
     List<Venue> selectAll();
 
-    int updateByPrimaryKey(Venue record);
+    int updateByPrimaryKey(Venue venue);
 }

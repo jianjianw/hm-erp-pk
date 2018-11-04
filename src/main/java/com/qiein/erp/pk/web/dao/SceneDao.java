@@ -7,11 +7,11 @@ import java.util.List;
 public interface SceneDao {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Scene record);
+    int insert(Scene scene);
 
     Scene selectByPrimaryKey(Integer id);
 
     List<Scene> selectAll();
 
-    int updateByPrimaryKey(Scene record);
+    int updateByPrimaryKey(Scene scene);
 }

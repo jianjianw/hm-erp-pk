@@ -20,8 +20,8 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
-    public int insert(Venue record) {
-        return venueDao.insert(record);
+    public int insert(Venue venue) {
+        return venueDao.insert(venue);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
-    public int updateByPrimaryKey(Venue record) {
-        return venueDao.updateByPrimaryKey(record);
+    public int updateByPrimaryKey(Venue venue) {
+        return venueDao.updateByPrimaryKey(venue);
     }
 }

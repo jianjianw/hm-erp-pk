@@ -19,8 +19,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public int insert(Room record) {
-        return roomDao.insert(record);
+    public int insert(Room room) {
+        return roomDao.insert(room);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public int updateByPrimaryKey(Room record) {
-        return roomDao.updateByPrimaryKey(record);
+    public int updateByPrimaryKey(Room room) {
+        return roomDao.updateByPrimaryKey(room);
     }
 }

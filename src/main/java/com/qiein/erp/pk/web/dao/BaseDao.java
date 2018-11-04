@@ -7,7 +7,7 @@ import java.util.List;
 public interface BaseDao {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Base record);
+    int insert(Base base);
 
     Base selectByPrimaryKey(Integer id);
 

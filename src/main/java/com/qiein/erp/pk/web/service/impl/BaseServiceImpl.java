@@ -19,8 +19,8 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public int insert(Base record) {
-        return baseDao.insert(record);
+    public int insert(Base base) {
+        return baseDao.insert(base);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public int updateByPrimaryKey(Base record) {
-        return baseDao.updateByPrimaryKey(record);
+    public int updateByPrimaryKey(Base base) {
+        return baseDao.updateByPrimaryKey(base);
     }
 }

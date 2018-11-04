@@ -8,11 +8,11 @@ public interface BaseService {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Base record);
+    int insert(Base base);
 
     Base selectByPrimaryKey(Integer id);
 
     List<Base> selectAll();
 
-    int updateByPrimaryKey(Base record);
+    int updateByPrimaryKey(Base base);
 }

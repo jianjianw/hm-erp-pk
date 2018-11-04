@@ -7,11 +7,11 @@ import java.util.List;
 public interface RoomDao {
     int deleteByPrimaryKey(Integer roomId);
 
-    int insert(Room record);
+    int insert(Room room);
 
     Room selectByPrimaryKey(Integer roomId);
 
     List<Room> selectAll();
 
-    int updateByPrimaryKey(Room record);
+    int updateByPrimaryKey(Room room);
 }
