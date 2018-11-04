@@ -4,10 +4,7 @@ package com.qiein.erp.pk.web.controller;
 import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class VenueController {
     }
 
     @PostMapping("/insert")
-    public int insert(Venue venue){
+    public int insert(@RequestBody Venue venue){
         int insert = venueService.insert(venue);
         return insert;
     }
@@ -40,7 +37,7 @@ public class VenueController {
         return venues;
     }
     @PostMapping("/updateByPrimaryKey")
-    public int updateByPrimaryKey(Venue venue){
+    public int updateByPrimaryKey(@RequestBody Venue venue){
         int i = venueService.updateByPrimaryKey(venue);
         return i;
     }
