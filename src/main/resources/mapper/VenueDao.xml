@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiein.erp.pk.web.dao.VenueDao" >
+  <resultMap id="BaseResultMap" type="com.qiein.erp.pk.web.entity.po.Venue" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
+    <result column="venue_type" property="venueType" jdbcType="SMALLINT" />
+    <result column="venue_phone" property="venuePhone" jdbcType="VARCHAR" />
+    <result column="respo" property="respo" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="venue_status" property="venueStatus" jdbcType="SMALLINT" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hm_erp_venue
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Venue" >
+    insert into hm_erp_venue (id, base_id, venue_name, 
+      venue_type, venue_phone, respo, 
+      address, venue_status, company_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{venueName,jdbcType=VARCHAR}, 
+      #{venueType,jdbcType=SMALLINT}, #{venuePhone,jdbcType=VARCHAR}, #{respo,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{venueStatus,jdbcType=SMALLINT}, #{companyId,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Venue" >
+    update hm_erp_venue
+    set base_id = #{baseId,jdbcType=INTEGER},
+      venue_name = #{venueName,jdbcType=VARCHAR},
+      venue_type = #{venueType,jdbcType=SMALLINT},
+      venue_phone = #{venuePhone,jdbcType=VARCHAR},
+      respo = #{respo,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      venue_status = #{venueStatus,jdbcType=SMALLINT},
+      company_id = #{companyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, base_id, venue_name, venue_type, venue_phone, respo, address, venue_status, 
+    company_id
+    from hm_erp_venue
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, base_id, venue_name, venue_type, venue_phone, respo, address, venue_status, 
+    company_id
+    from hm_erp_venue
+  </select>
+</mapper>

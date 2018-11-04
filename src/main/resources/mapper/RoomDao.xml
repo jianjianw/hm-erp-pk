@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiein.erp.pk.web.dao.RoomDao" >
+  <resultMap id="BaseResultMap" type="com.qiein.erp.pk.web.entity.po.Room" >
+    <id column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="venue_id" property="venueId" jdbcType="INTEGER" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="room_level" property="roomLevel" jdbcType="INTEGER" />
+    <result column="room_type" property="roomType" jdbcType="SMALLINT" />
+    <result column="priority" property="priority" jdbcType="SMALLINT" />
+    <result column="room_status" property="roomStatus" jdbcType="SMALLINT" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hm_erp_venue_room
+    where room_id = #{roomId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Room" >
+    insert into hm_erp_venue_room (room_id, venue_id, room_name, 
+      room_level, room_type, priority, 
+      room_status, company_id)
+    values (#{roomId,jdbcType=INTEGER}, #{venueId,jdbcType=INTEGER}, #{roomName,jdbcType=VARCHAR}, 
+      #{roomLevel,jdbcType=INTEGER}, #{roomType,jdbcType=SMALLINT}, #{priority,jdbcType=SMALLINT}, 
+      #{roomStatus,jdbcType=SMALLINT}, #{companyId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Room" >
+    update hm_erp_venue_room
+    set venue_id = #{venueId,jdbcType=INTEGER},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      room_level = #{roomLevel,jdbcType=INTEGER},
+      room_type = #{roomType,jdbcType=SMALLINT},
+      priority = #{priority,jdbcType=SMALLINT},
+      room_status = #{roomStatus,jdbcType=SMALLINT},
+      company_id = #{companyId,jdbcType=INTEGER}
+    where room_id = #{roomId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select room_id, venue_id, room_name, room_level, room_type, priority, room_status, 
+    company_id
+    from hm_erp_venue_room
+    where room_id = #{roomId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select room_id, venue_id, room_name, room_level, room_type, priority, room_status, 
+    company_id
+    from hm_erp_venue_room
+  </select>
+</mapper>

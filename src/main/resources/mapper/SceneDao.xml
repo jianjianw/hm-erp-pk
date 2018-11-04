@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiein.erp.pk.web.dao.SceneDao" >
+  <resultMap id="BaseResultMap" type="com.qiein.erp.pk.web.entity.po.Scene" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="shoot_id" property="shootId" jdbcType="INTEGER" />
+    <result column="scene_name" property="sceneName" jdbcType="VARCHAR" />
+    <result column="scene_status" property="sceneStatus" jdbcType="SMALLINT" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hm_erp_scene
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Scene" >
+    insert into hm_erp_scene (id, shoot_id, scene_name, 
+      scene_status, priority, company_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{shootId,jdbcType=INTEGER}, #{sceneName,jdbcType=VARCHAR}, 
+      #{sceneStatus,jdbcType=SMALLINT}, #{priority,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Scene" >
+    update hm_erp_scene
+    set shoot_id = #{shootId,jdbcType=INTEGER},
+      scene_name = #{sceneName,jdbcType=VARCHAR},
+      scene_status = #{sceneStatus,jdbcType=SMALLINT},
+      priority = #{priority,jdbcType=INTEGER},
+      company_id = #{companyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, shoot_id, scene_name, scene_status, priority, company_id
+    from hm_erp_scene
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, shoot_id, scene_name, scene_status, priority, company_id
+    from hm_erp_scene
+  </select>
+</mapper>
