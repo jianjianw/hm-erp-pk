@@ -1,7 +1,9 @@
 package com.qiein.erp.pk.web.entity.po;
 
 import java.io.Serializable;
-
+/**
+ * 基地
+ * */
 public class Base implements Serializable {
     private static final long serialVersionUID = 21266182125583448L;
 

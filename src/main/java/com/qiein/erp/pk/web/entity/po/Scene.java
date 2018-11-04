@@ -2,12 +2,15 @@ package com.qiein.erp.pk.web.entity.po;
 
 import java.io.Serializable;
 
+/***
+ * 场景
+ */
 public class Scene implements Serializable {
     private static final long serialVersionUID = 8656946036214356631L;
 
     private Integer id;
 
-    private Integer shootId;
+    private Integer shootId;    //拍摄间id
 
     private String sceneName;
 

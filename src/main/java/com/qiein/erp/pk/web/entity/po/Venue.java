@@ -1,7 +1,9 @@
 package com.qiein.erp.pk.web.entity.po;
 
 import java.io.Serializable;
-
+/**
+ * 场馆
+ * */
 public class Venue implements Serializable {
     private static final long serialVersionUID = -1302559071626317704L;
 

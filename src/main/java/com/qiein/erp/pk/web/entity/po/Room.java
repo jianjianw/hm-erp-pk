@@ -1,7 +1,9 @@
 package com.qiein.erp.pk.web.entity.po;
 
 import java.io.Serializable;
-
+/*
+*  房间
+* */
 public class Room implements Serializable {
     private static final long serialVersionUID = 474466157479846785L;
 
@@ -13,7 +15,7 @@ public class Room implements Serializable {
 
     private Integer roomLevel;
 
-    private Short roomType;
+    private Short roomType; //化妆间 1  拍摄间2
 
     private Short priority;
 
