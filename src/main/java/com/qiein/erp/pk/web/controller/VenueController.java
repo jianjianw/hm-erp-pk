@@ -45,4 +45,11 @@ public class VenueController {
         int i = venueService.updateByPrimaryKey(venue);
         return ResultInfoUtil.success();
     }
+
+    @GetMapping("/showIndex")
+    public ResultInfo showIndex(){
+
+
+        return ResultInfoUtil.success();
+    }
 }
