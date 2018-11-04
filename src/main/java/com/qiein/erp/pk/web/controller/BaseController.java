@@ -1,5 +1,7 @@
 package com.qiein.erp.pk.web.controller;
 
+import com.qiein.erp.pk.util.ResultInfo;
+import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.Base;
 import com.qiein.erp.pk.web.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,30 +21,30 @@ public class BaseController {
     @Autowired
     private BaseService baseService;
     @PostMapping("/deleteByPrimaryKey")
-    public int deleteByPrimaryKey(Integer id){
+    public ResultInfo deleteByPrimaryKey(Integer id){
         int i = baseService.deleteByPrimaryKey(id);
-        return i;
+        return  ResultInfoUtil.success();
     }
     @PostMapping("/insert")
-    public int insert(Base base){
+    public ResultInfo insert(Base base){
         int insert = baseService.insert(base);
-        return insert;
+        return ResultInfoUtil.success();
     }
     @GetMapping("/selectByPrimaryKey")
-    public Base selectByPrimaryKey(Integer id){
+    public ResultInfo selectByPrimaryKey(Integer id){
         Base base = baseService.selectByPrimaryKey(id);
-        return base;
+        return ResultInfoUtil.success(base);
     }
 
     @GetMapping("/selectAll")
-    public List<Base> selectAll(){
+    public ResultInfo selectAll(){
         List<Base> bases = baseService.selectAll();
-        return bases;
+        return ResultInfoUtil.success(bases);
     }
 
     @PostMapping("/updateByPrimaryKey")
-    public int updateByPrimaryKey(Base base){
+    public ResultInfo updateByPrimaryKey(Base base){
         int i = baseService.updateByPrimaryKey(base);
-        return i;
+        return ResultInfoUtil.success();
     }
 }

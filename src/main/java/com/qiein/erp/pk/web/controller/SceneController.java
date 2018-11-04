@@ -1,6 +1,8 @@
 package com.qiein.erp.pk.web.controller;
 
 
+import com.qiein.erp.pk.util.ResultInfo;
+import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,28 +24,28 @@ public class SceneController {
     private SceneService sceneService;
 
     @PostMapping("/deleteByPrimaryKey")
-    public int deleteByPrimaryKey(Integer id){
+    public ResultInfo deleteByPrimaryKey(Integer id){
         int i = sceneService.deleteByPrimaryKey(id);
-        return i;
+        return ResultInfoUtil.success();
     }
     @PostMapping("/insert")
-    public int insert(Scene scene){
+    public ResultInfo insert(Scene scene){
         int insert = sceneService.insert(scene);
-        return insert;
+        return ResultInfoUtil.success();
     }
     @GetMapping("/selectByPrimaryKey")
-    public Scene selectByPrimaryKey(Integer id){
+    public ResultInfo selectByPrimaryKey(Integer id){
         Scene scene = sceneService.selectByPrimaryKey(id);
-        return scene;
+        return ResultInfoUtil.success(scene);
     }
     @GetMapping("/selectAll")
-    public List<Scene> selectAll(){
+    public ResultInfo selectAll(){
         List<Scene> scenes = sceneService.selectAll();
-        return scenes;
+        return ResultInfoUtil.success(scenes);
     }
     @PostMapping("/updateByPrimaryKey")
-    public int updateByPrimaryKey(Scene scene){
+    public ResultInfo updateByPrimaryKey(Scene scene){
         int i = sceneService.updateByPrimaryKey(scene);
-        return i;
+        return ResultInfoUtil.success();
     }
 }

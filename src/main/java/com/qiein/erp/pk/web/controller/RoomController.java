@@ -1,6 +1,8 @@
 package com.qiein.erp.pk.web.controller;
 
 
+import com.qiein.erp.pk.util.ResultInfo;
+import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,28 +23,28 @@ public class RoomController {
     private RoomService roomService;
 
     @PostMapping("/deleteByPrimaryKey")
-    public int deleteByPrimaryKey(Integer roomId){
+    public ResultInfo deleteByPrimaryKey(Integer roomId){
         int i = roomService.deleteByPrimaryKey(roomId);
-        return i;
+        return ResultInfoUtil.success();
     }
     @PostMapping("/insert")
-    public int insert(Room room){
+    public ResultInfo insert(Room room){
         int insert = roomService.insert(room);
-        return insert;
+        return ResultInfoUtil.success();
     }
     @GetMapping("/selectByPrimaryKey")
-    public Room selectByPrimaryKey(Integer roomId){
+    public ResultInfo selectByPrimaryKey(Integer roomId){
         Room room = roomService.selectByPrimaryKey(roomId);
-        return room;
+        return ResultInfoUtil.success(room);
     }
     @GetMapping("/selectAll")
-    public List<Room> selectAll(){
+    public ResultInfo selectAll(){
         List<Room> rooms = roomService.selectAll();
-        return rooms;
+        return ResultInfoUtil.success(rooms);
     }
     @PostMapping("/updateByPrimaryKey")
-    public int updateByPrimaryKey(Room record){
+    public ResultInfo updateByPrimaryKey(Room record){
         int i = roomService.updateByPrimaryKey(record);
-        return i;
+        return ResultInfoUtil.success();
     }
 }

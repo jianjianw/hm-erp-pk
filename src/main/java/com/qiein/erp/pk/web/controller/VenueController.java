@@ -1,6 +1,8 @@
 package com.qiein.erp.pk.web.controller;
 
 
+import com.qiein.erp.pk.util.ResultInfo;
+import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,29 +20,29 @@ public class VenueController {
     private VenueService venueService;
 
     @PostMapping("/deleteByPrimaryKey")
-    public int deleteByPrimaryKey(Integer id){
+    public ResultInfo deleteByPrimaryKey(Integer id){
         int i = venueService.deleteByPrimaryKey(id);
-        return i;
+        return ResultInfoUtil.success();
     }
 
     @PostMapping("/insert")
-    public int insert(@RequestBody Venue venue){
+    public ResultInfo insert(@RequestBody Venue venue){
         int insert = venueService.insert(venue);
-        return insert;
+        return ResultInfoUtil.success();
     }
     @GetMapping("/selectByPrimaryKey")
-    public Venue selectByPrimaryKey(Integer id){
+    public ResultInfo selectByPrimaryKey(Integer id){
         Venue venue = venueService.selectByPrimaryKey(id);
-        return venue;
+        return ResultInfoUtil.success(venue);
     }
     @GetMapping("/selectAll")
-    public List<Venue> selectAll(){
+    public ResultInfo selectAll(){
         List<Venue> venues = venueService.selectAll();
-        return venues;
+        return ResultInfoUtil.success(venues);
     }
     @PostMapping("/updateByPrimaryKey")
-    public int updateByPrimaryKey(@RequestBody Venue venue){
+    public ResultInfo updateByPrimaryKey(@RequestBody Venue venue){
         int i = venueService.updateByPrimaryKey(venue);
-        return i;
+        return ResultInfoUtil.success();
     }
 }
