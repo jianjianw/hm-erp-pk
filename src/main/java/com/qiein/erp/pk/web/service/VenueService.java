@@ -12,7 +12,7 @@ public interface VenueService {
 
     Venue selectByPrimaryKey(Integer id);
 
-    List<Venue> selectAll();
+    List<Venue> selectAll(int companyId);
 
     int updateByPrimaryKey(Venue venue);
 }

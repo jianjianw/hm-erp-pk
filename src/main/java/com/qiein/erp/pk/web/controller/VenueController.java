@@ -37,7 +37,8 @@ public class VenueController {
     }
     @GetMapping("/selectAll")
     public ResultInfo selectAll(){
-        List<Venue> venues = venueService.selectAll();
+        int companyId=1;
+        List<Venue> venues = venueService.selectAll(companyId);
         return ResultInfoUtil.success(venues);
     }
     @PostMapping("/updateByPrimaryKey")

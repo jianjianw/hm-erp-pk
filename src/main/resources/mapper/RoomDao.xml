@@ -45,4 +45,11 @@
     company_id
     from hm_erp_venue_room
   </select>
+  <select id="selectMakeupRoomByServiceId" resultMap="BaseResultMap">
+    select room_id,room_name from hm_erp_venue_room where room_type=1 and venue_id in (${venueIds})
+  </select>
+  <select id="selectShootRoomByServiceId" resultMap="BaseResultMap">
+    select room_id,room_name from hm_erp_venue_room where room_type=2 and venue_id in (${venueIds})
+  </select>
+
 </mapper>

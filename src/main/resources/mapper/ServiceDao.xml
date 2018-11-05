@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiein.erp.pk.web.dao.ServiceDao" >
+    <!--新增服务 -->
+    <insert id="addService" parameterType="com.qiein.erp.pk.web.entity.po.ServicePO" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into hm_erp_service(service_name,service_type,shoot_num,makeup_num,video_num,serice_status,company_id)
+        values(#{serviceName},#{serviceType},#{shootNum},#{makeupNum},#{videoNum},#{serviceStatus},#{companyId})
+    </insert>
+    <!--新增服务场馆关联-->
+    <insert id="addServiceVenue" parameterType="com.qiein.erp.pk.web.entity.po.ServiceVenuePO" >
+        insert into hm_erp_service_venue(serivce_id,venue_id,company_id) values
+        <foreach collection="serviceVenuePOS" item="item" separator="," index="index">
+            (#{item.serviceId},#{item.venueId},#{item.companyId})
+        </foreach>
+    </insert>
+    <!--新增服务场馆房间关联-->
+    <insert id="addServiceVenueLink">
+        INSERT INTO hm_erp_service_venue_link (
+            service_venue_id,
+            link_id,
+            link_type,
+            company_id
+        )(
+            SELECT
+                service_venue.id,
+                venue_room.room_id,
+                venue_room.room_type,
+                venue_room.company_id
+            FROM
+                hm_erp_service_venue service_venue
+            LEFT JOIN hm_erp_venue_room venue_room ON service_venue.venue_id = venue_room.venue_id
+            AND service_venue.company_id = venue_room.company_id
+            WHERE
+               ( venue_room.room_id IN (${shootRoomIds}) or venue_room.room_id IN (${makeupRoomIds}) )
+            AND service_venue.company_id = #{companyId} and service_venue.service_id=#{serviceId}
+        )
+    </insert>
+    <delete id="deleteServiceVenue">
+        delete from hm_erp_service_venue where service_id=#{serviceId} and company_id=#{companyId}
+    </delete>
+
+    <delete id="deleteServiceVenueLink">
+        delete from hm_erp_service_venue_link where service_venue_id in (select id from hm_erp_service_venue where service_id=#{serviceId}) and company_id=#{companyId}
+    </delete>
+
+    <update id="updateService">
+        update hm_erp_service_venue set service_name=#{serviceName},service_type=#{serviceType} ,shoot_num=#{shootNum},makeup_num=#{makeupNum},video_num=#{videoNum},serice_status=#{serviceStatus} where id=#{id}
+    </update>
+    <select id="select" resultType="com.qiein.erp.pk.web.entity.vo.ServiceVO">
+        SELECT
+            service.id id,
+            service.service_name serviceName,
+            service.service_type serviceType,
+            service.shoot_num shootNum,
+            service.makeup_num makeupNum,
+            service.video_num videoNum,
+            service_status serviceStatus,
+            concat(
+                (
+                    SELECT
+                        count(1)
+                    FROM
+                        hm_erp_service a
+                    LEFT JOIN hm_erp_service_venue b ON a.company_id = b.company_id
+                    AND a.id = b.service_id
+                    LEFT JOIN hm_erp_service_venue_link c ON b.company_id = c.company_id
+                    AND c.service_venue_id = b.id
+                    WHERE
+                        c.service_venue_id IS NOT NULL
+                    AND a.id = service.id
+                    AND c.link_type = 1
+                ), '/',
+                (
+                    SELECT
+                        count(1)
+                    FROM
+                        hm_erp_venue_room a
+                    WHERE
+                        a.venue_id IN (
+                            SELECT
+                                c.venue_id
+                            FROM
+                                hm_erp_service b
+                            LEFT JOIN hm_erp_service_venue c ON b.company_id = c.company_id
+                            AND b.id = c.service_id
+                            WHERE
+                                b.id = service.id
+                        )
+                    AND a.room_type = 1
+                )
+            )as  makeupRoomNum,
+            concat(
+                (
+                    SELECT
+                        count(1)
+                    FROM
+                        hm_erp_service a
+                    LEFT JOIN hm_erp_service_venue b ON a.company_id = b.company_id
+                    AND a.id = b.service_id
+                    LEFT JOIN hm_erp_service_venue_link c ON b.company_id = c.company_id
+                    AND c.service_venue_id = b.id
+                    WHERE
+                        c.service_venue_id IS NOT NULL
+                    AND a.id = service.id
+                    AND c.link_type = 2
+                ),
+                '/',
+                (
+                    SELECT
+                        count(1)
+                    FROM
+                        hm_erp_venue_room a
+                    WHERE
+                        a.venue_id IN (
+                            SELECT
+                                c.venue_id
+                            FROM
+                                hm_erp_service b
+                            LEFT JOIN hm_erp_service_venue c ON b.company_id = c.company_id
+                            AND b.id = c.service_id
+                            WHERE
+                                b.id = service.id
+                        )
+                    AND a.room_type = 2
+                )
+            ) as shootRoomNum,
+            GROUP_CONCAT(
+                venue.venue_name SEPARATOR ','
+            ) venueName
+        FROM
+            hm_erp_service service
+        LEFT JOIN hm_erp_service_venue service_venue ON service_venue.company_id = service.company_id
+        AND service_venue.service_id = service.id
+        LEFT JOIN hm_erp_venue venue ON venue.company_id = service.company_id
+        AND venue.id = service_venue.venue_id where service.company_id=#{companyId}
+        GROUP BY
+            service.id
+    </select>
+
+</mapper>

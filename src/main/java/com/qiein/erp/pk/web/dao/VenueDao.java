@@ -1,6 +1,7 @@
 package com.qiein.erp.pk.web.dao;
 
 import com.qiein.erp.pk.web.entity.po.Venue;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface VenueDao {
 
     Venue selectByPrimaryKey(Integer id);
 
-    List<Venue> selectAll();
+    List<Venue> selectAll(@Param("companyId") int companyId);
 
     int updateByPrimaryKey(Venue venue);
 }

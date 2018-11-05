@@ -30,8 +30,8 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
-    public List<Venue> selectAll() {
-        return venueDao.selectAll();
+    public List<Venue> selectAll(int companyId) {
+        return venueDao.selectAll(companyId);
     }
 
     @Override
