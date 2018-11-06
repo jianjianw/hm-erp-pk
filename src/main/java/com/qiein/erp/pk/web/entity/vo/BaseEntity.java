@@ -1,0 +1,41 @@
+package com.qiein.erp.pk.web.entity.vo;
+
+import com.alibaba.fastjson.JSONObject;
+
+import java.io.Serializable;
+
+/**
+ * 实体类基类
+ *
+ * @author JZL 2018-04-03 17:25
+ */
+public class BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private int id;
+
+
+
+
+
+	public BaseEntity() {
+	}
+
+	public BaseEntity(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
+}

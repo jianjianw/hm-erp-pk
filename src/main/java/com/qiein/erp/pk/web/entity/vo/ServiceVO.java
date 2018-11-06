@@ -5,17 +5,17 @@ package com.qiein.erp.pk.web.entity.vo;
  * author：xiangliang
  */
 public class ServiceVO {
-    private int id;
-    private String serviceName;
-    private int serviceType;
+    private int id;//排序
+    private String serviceName;//服务名称
+    private int serviceType;//服务类型
     private int shootNum;
     private int makeupNum;
     private int videoNum;
-    private boolean serviceStatus;
-    private String makeupRoomNum;
-    private String shootRoomNum;
-    private String venueName;
-    private String peopleNum;
+    private boolean serviceStatus;//状态
+    private String makeupRoomNum;//化妆间
+    private String shootRoomNum;//拍摄间
+    private String venueName;//场馆
+    private String peopleNum;//人员配比
 
     public String getPeopleNum() {
         return peopleNum;
