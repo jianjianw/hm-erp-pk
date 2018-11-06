@@ -57,7 +57,9 @@
 
      <foreach collection="list" item="item" index="index" separator=";" >
        update hm_erp_venue set  priority = #{item.priority}
-       where company_id=#{item.companyId} and venue_type = #{item.venueType}
+       where id = #{item.id}
+       and company_id=#{item.companyId}
+       and venue_type = #{item.venueType}
      </foreach>
   </update>
 
