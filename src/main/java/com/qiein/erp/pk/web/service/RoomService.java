@@ -17,7 +17,7 @@ public interface RoomService {
 
     Room selectByPrimaryKey(Integer roomId,Integer companyId);
 
-    List<Room> selectAll(Integer companyId);
+    List<Room> selectAll(Integer companyId,Integer roomType);
 
     int updateByPrimaryKey(Room room);
 

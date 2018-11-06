@@ -3,8 +3,6 @@ package com.qiein.erp.pk.web.controller;
 
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
-import com.qiein.erp.pk.web.entity.po.Room;
-import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.service.RoomService;
 import com.qiein.erp.pk.web.service.SceneService;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * 场馆 内景馆
+ * 场馆 内景馆  门店
  * author:wang lei
  * date : 2018-11-04
  * */
@@ -48,9 +46,9 @@ public class VenueController {
         return ResultInfoUtil.success(venue);
     }
     @GetMapping("/select_all")
-    public ResultInfo selectAll(){
+    public ResultInfo selectAll(Integer venueType){//venueType 1 内景馆   2 门店
         int companyId=1;
-        List<Venue> venues = venueService.selectAll(companyId);
+        List<Venue> venues = venueService.selectAll(companyId,venueType);
         return ResultInfoUtil.success(venues);
     }
     @PostMapping("/update_by_primary_key")

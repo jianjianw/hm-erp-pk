@@ -44,7 +44,7 @@
     select room_id, venue_id, room_name, room_level, room_type, priority, room_status, 
     company_id
     from hm_erp_venue_room
-    where company_id ={companyId}
+    where company_id ={companyId} and room_type = #{roomType}
   </select>
 
 

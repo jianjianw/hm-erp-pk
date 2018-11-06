@@ -34,8 +34,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<Room> selectAll(Integer companyId) {
-        return roomDao.selectAll(companyId);
+    public List<Room> selectAll(Integer companyId,Integer roomType) {
+        return roomDao.selectAll(companyId,roomType);
     }
 
     @Override

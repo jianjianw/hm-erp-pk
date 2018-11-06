@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 /**
- * 场馆 内景馆
+ * 场馆 内景馆  门店
  * author:wang lei
  * date : 2018-11-04
  * */
@@ -34,8 +34,8 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
-    public List<Venue> selectAll(Integer companyId) {
-        return venueDao.selectAll(companyId);
+    public List<Venue> selectAll(Integer companyId,Integer venueType) {
+        return venueDao.selectAll(companyId,venueType);
     }
 
     @Override

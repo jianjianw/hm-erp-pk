@@ -37,13 +37,13 @@ public class RoomController {
         return ResultInfoUtil.success();
     }
     @GetMapping("/select_by_primary_key")
-    public ResultInfo selectByPrimaryKey(Integer roomId){
+    public ResultInfo selectByPrimaryKey(Integer roomId){//id已经确定了是化妆间还是拍摄间。
         Room room = roomService.selectByPrimaryKey(roomId,companyId);
         return ResultInfoUtil.success(room);
     }
     @GetMapping("/select_all")
-    public ResultInfo selectAll(){
-        List<Room> rooms = roomService.selectAll(companyId);
+    public ResultInfo selectAll(Integer roomType){
+        List<Room> rooms = roomService.selectAll(companyId,roomType);
         return ResultInfoUtil.success(rooms);
     }
 
@@ -59,7 +59,7 @@ public class RoomController {
     }
 
 
-    //查询场馆下面的化妆间 1 和 拍摄间 2
+    //查询场馆下面的化妆间 1 或者 拍摄间 2
     @GetMapping("/find_room_by_venue_id")
     public ResultInfo findRoomByVenueId(Integer venueId, Integer roomType){
         List<Room> rooms = roomService.findRoomByVenueId(companyId, venueId, roomType);

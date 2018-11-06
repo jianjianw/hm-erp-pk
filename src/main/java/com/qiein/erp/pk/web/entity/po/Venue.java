@@ -2,7 +2,8 @@ package com.qiein.erp.pk.web.entity.po;
 
 import java.io.Serializable;
 /**
- * 场馆
+ * 内景馆 venue_type 1
+ * 门店 venue_type 2
  * author:wang lei
  * date : 2018-11-04
  * */

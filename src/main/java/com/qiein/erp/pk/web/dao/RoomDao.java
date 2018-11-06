@@ -16,7 +16,7 @@ public interface RoomDao {
 
     Room selectByPrimaryKey(@Param("roomId") Integer roomId,@Param("companyId")Integer companyId);
 
-    List<Room> selectAll(@Param("companyId")Integer companyId);
+    List<Room> selectAll(@Param("companyId")Integer companyId,@Param("roomType")Integer roomType);
 
     int updateByPrimaryKey(Room room);
 

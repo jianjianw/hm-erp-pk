@@ -4,7 +4,7 @@ import com.qiein.erp.pk.web.entity.po.Venue;
 
 import java.util.List;
 /**
- * 场馆 内景馆
+ * 场馆 内景馆 门店
  * author:wang lei
  * date : 2018-11-04
  * */
@@ -16,7 +16,7 @@ public interface VenueService {
 
     Venue selectByPrimaryKey(Integer id,Integer companyId);
 
-    List<Venue> selectAll(Integer companyId);
+    List<Venue> selectAll(Integer companyId,Integer venueType);
 
     int updateByPrimaryKey(Venue venue);
 }
