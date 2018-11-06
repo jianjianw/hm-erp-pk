@@ -42,4 +42,9 @@ public class VenueServiceImpl implements VenueService {
     public int updateByPrimaryKey(Venue venue) {
         return venueDao.updateByPrimaryKey(venue);
     }
+
+    @Override
+    public void venueSort(List<Venue> venues) {
+        venueDao.venueSort(venues);
+    }
 }

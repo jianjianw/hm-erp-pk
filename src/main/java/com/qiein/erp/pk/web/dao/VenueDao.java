@@ -19,4 +19,6 @@ public interface VenueDao {
     List<Venue> selectAll(@Param("companyId") Integer companyId, @Param("venueType")Integer venueType);
 
     int updateByPrimaryKey(Venue venue);
+
+    void venueSort(List<Venue> venues);
 }

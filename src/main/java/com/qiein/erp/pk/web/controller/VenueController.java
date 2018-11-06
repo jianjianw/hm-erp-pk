@@ -57,6 +57,13 @@ public class VenueController {
         return ResultInfoUtil.success();
     }
 
+    //场馆门店排序  或  门店排序
+    public ResultInfo venueSort(List<Venue> Venues){
+
+        venueService.venueSort(Venues);
+        return null;
+    }
+
    /* @GetMapping("/show_index")
     public ResultInfo showIndex(){
 

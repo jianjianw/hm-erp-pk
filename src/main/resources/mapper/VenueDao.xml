@@ -11,6 +11,7 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="venue_status" property="venueStatus" jdbcType="SMALLINT" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="priority" property = "priority" jdbcType="INTEGER"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="map" >
     delete from hm_erp_venue
@@ -19,11 +20,11 @@
   <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Venue" >
     insert into hm_erp_venue (id, base_id, venue_name, 
       venue_type, venue_phone, respo, 
-      address, venue_status, company_id
+      address, venue_status, company_id,priority
       )
     values (#{id}, #{baseId}, #{venueName}, 
       #{venueType}, #{venuePhone}, #{respo}, 
-      #{address}, #{venueStatus}, #{companyId}
+      #{address}, #{venueStatus}, #{companyId},#{priority}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Venue" >
@@ -36,6 +37,7 @@
       address = #{address},
       venue_status = #{venueStatus},
       company_id = #{companyId}
+      priority = #{priority}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
@@ -46,8 +48,19 @@
   </select>
   <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
     select id, base_id, venue_name, venue_type, venue_phone, respo, address, venue_status, 
-    company_id
+    company_id,priority
     from hm_erp_venue
     where company_id=#{companyId} and venue_type = #{venueType}
   </select>
+
+  <update id="venueSort" parameterType="java.util.List">
+
+     <foreach collection="list" item="item" index="index" >
+       update hm_erp_venue set  priority = #{item.priority}
+       where company_id=#{item.companyId} and venue_type = #{item.venueType}
+     </foreach>
+  </update>
+
+
+
 </mapper>

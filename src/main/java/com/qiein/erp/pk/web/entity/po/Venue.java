@@ -28,6 +28,8 @@ public class Venue implements Serializable {
 
     private Integer companyId;
 
+    private Integer priority;
+
 
     public Integer getId() {
         return id;
@@ -99,5 +101,13 @@ public class Venue implements Serializable {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 }

@@ -19,4 +19,7 @@ public interface VenueService {
     List<Venue> selectAll(Integer companyId,Integer venueType);
 
     int updateByPrimaryKey(Venue venue);
+
+    void venueSort(List<Venue> venues);
+
 }
