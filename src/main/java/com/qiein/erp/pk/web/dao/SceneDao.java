@@ -19,4 +19,6 @@ public interface SceneDao {
     List<Scene> selectAll( @Param("companyId")Integer companyId);
 
     int updateByPrimaryKey(Scene scene);
+
+    List<Scene> findSceneByRoomId(@Param("companyId") Integer companyId, @Param("roomId") Integer roomId);
 }

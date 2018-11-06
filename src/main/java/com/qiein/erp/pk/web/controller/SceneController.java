@@ -51,4 +51,11 @@ public class SceneController {
         int i = sceneService.updateByPrimaryKey(scene);
         return ResultInfoUtil.success();
     }
+
+    //查询拍摄间下面的拍摄景
+    public ResultInfo findSceneByRoomId(Integer roomId){
+        List<Scene> list  = sceneService.findSceneByRoomId(companyId,roomId);
+        return ResultInfoUtil.success(list);
+
+    }
 }

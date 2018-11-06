@@ -42,4 +42,9 @@ public class SceneServiceImpl implements SceneService {
     public int updateByPrimaryKey(Scene scene) {
         return sceneDao.updateByPrimaryKey(scene);
     }
+
+    @Override
+    public List<Scene> findSceneByRoomId(Integer companyId, Integer roomId) {
+        return sceneDao.findSceneByRoomId(companyId,roomId);
+    }
 }

@@ -61,7 +61,6 @@
 
   <select id="findRoomByVenueId" resultMap="BaseResultMap"  parameterType="map">
 
-    select
     <include refid="baseColumn"/>
     from hm_erp_venue_room
     where company_id = #{companyId}
