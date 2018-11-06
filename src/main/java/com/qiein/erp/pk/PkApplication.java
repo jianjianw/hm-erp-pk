@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 //扫描DAO包
 @MapperScan("com.qiein.erp.pk.web.dao")
 //扫描实体类包
-@EntityScan("com.qiein.erp,pk.web.entity.*")
+@EntityScan("com.qiein.erp.pk.web.entity.*")
 public class PkApplication {
 
     public static void main(String[] args) {
