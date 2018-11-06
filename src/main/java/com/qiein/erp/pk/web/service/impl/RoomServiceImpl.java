@@ -53,4 +53,9 @@ public class RoomServiceImpl implements RoomService {
         roomVO.setShootRoom(roomDao.selectShootRoomByServiceId(venueIds));
         return roomVO;
     }
+
+    @Override
+    public List<Room> findRoomByVenueId(Integer companyId,Integer venueId, Integer roomType) {
+        return roomDao.findRoomByVenueId(companyId,venueId,roomType);
+    }
 }

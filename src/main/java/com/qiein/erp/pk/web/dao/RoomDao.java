@@ -23,4 +23,7 @@ public interface RoomDao {
     List<Room> selectMakeupRoomByServiceId(@Param("venueIds") String venueIds);
 
     List<Room> selectShootRoomByServiceId(@Param("venueIds") String venueIds);
+
+    List<Room> findRoomByVenueId(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId,
+                                 @Param("roomType")Integer roomType);
 }

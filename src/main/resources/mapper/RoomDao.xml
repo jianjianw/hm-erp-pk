@@ -46,11 +46,27 @@
     from hm_erp_venue_room
     where company_id ={companyId}
   </select>
+
+
   <select id="selectMakeupRoomByServiceId" resultMap="BaseResultMap">
     select room_id,room_name from hm_erp_venue_room where room_type=1 and venue_id in (${venueIds})
   </select>
   <select id="selectShootRoomByServiceId" resultMap="BaseResultMap">
     select room_id,room_name from hm_erp_venue_room where room_type=2 and venue_id in (${venueIds})
+  </select>
+
+  <sql id="baseColumn">
+        room_id,venue_id,room_name,room_level,room_type,priority,room_status,company_id
+   </sql>
+
+  <select id="findRoomByVenueId" resultMap="BaseResultMap"  parameterType="map">
+
+    select
+    <include refid="baseColumn"/>
+    from hm_erp_venue_room
+    where company_id = #{companyId}
+    and venue_id = #{venueId}
+    and roomType = #{roomType}
   </select>
 
 </mapper>
