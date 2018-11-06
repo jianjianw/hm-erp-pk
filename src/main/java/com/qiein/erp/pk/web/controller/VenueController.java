@@ -15,13 +15,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/venue")
 public class VenueController {
+    int companyId = 1;
 
     @Autowired
     private VenueService venueService;
 
-    @PostMapping("/deleteByPrimaryKey")
+    @PostMapping("/delete_by_primary_key")
     public ResultInfo deleteByPrimaryKey(Integer id){
-        int i = venueService.deleteByPrimaryKey(id);
+        int i = venueService.deleteByPrimaryKey(id,companyId);
         return ResultInfoUtil.success();
     }
 
@@ -30,27 +31,25 @@ public class VenueController {
         int insert = venueService.insert(venue);
         return ResultInfoUtil.success();
     }
-    @GetMapping("/selectByPrimaryKey")
+    @GetMapping("/select_by_primary_key")
     public ResultInfo selectByPrimaryKey(Integer id){
-        Venue venue = venueService.selectByPrimaryKey(id);
+        Venue venue = venueService.selectByPrimaryKey(id,companyId);
         return ResultInfoUtil.success(venue);
     }
-    @GetMapping("/selectAll")
+    @GetMapping("/select_all")
     public ResultInfo selectAll(){
         int companyId=1;
         List<Venue> venues = venueService.selectAll(companyId);
         return ResultInfoUtil.success(venues);
     }
-    @PostMapping("/updateByPrimaryKey")
+    @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Venue venue){
         int i = venueService.updateByPrimaryKey(venue);
         return ResultInfoUtil.success();
     }
 
-    @GetMapping("/showIndex")
+    @GetMapping("/show_index")
     public ResultInfo showIndex(){
-
-
         return ResultInfoUtil.success();
     }
 }

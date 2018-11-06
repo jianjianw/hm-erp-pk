@@ -15,8 +15,8 @@ public class RoomServiceImpl implements RoomService {
     @Autowired
     private RoomDao roomDao;
     @Override
-    public int deleteByPrimaryKey(Integer roomId) {
-        return roomDao.deleteByPrimaryKey(roomId);
+    public int deleteByPrimaryKey(Integer roomId,Integer companyId) {
+        return roomDao.deleteByPrimaryKey(roomId,companyId);
     }
 
     @Override
@@ -25,13 +25,13 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room selectByPrimaryKey(Integer roomId) {
-        return roomDao.selectByPrimaryKey(roomId);
+    public Room selectByPrimaryKey(Integer roomId,Integer companyId) {
+        return roomDao.selectByPrimaryKey(roomId,companyId);
     }
 
     @Override
-    public List<Room> selectAll() {
-        return roomDao.selectAll();
+    public List<Room> selectAll(Integer companyId) {
+        return roomDao.selectAll(companyId);
     }
 
     @Override

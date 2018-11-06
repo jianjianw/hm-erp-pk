@@ -15,8 +15,8 @@ public class SceneServiceImpl implements SceneService {
     private SceneDao sceneDao;
 
     @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return sceneDao.deleteByPrimaryKey(id);
+    public int deleteByPrimaryKey(Integer id,Integer companyId) {
+        return sceneDao.deleteByPrimaryKey(id,companyId);
     }
 
     @Override
@@ -25,13 +25,13 @@ public class SceneServiceImpl implements SceneService {
     }
 
     @Override
-    public Scene selectByPrimaryKey(Integer id) {
-        return sceneDao.selectByPrimaryKey(id);
+    public Scene selectByPrimaryKey(Integer id,Integer companyId) {
+        return sceneDao.selectByPrimaryKey(id,companyId);
     }
 
     @Override
-    public List<Scene> selectAll() {
-        return sceneDao.selectAll();
+    public List<Scene> selectAll(Integer companyId) {
+        return sceneDao.selectAll(companyId);
     }
 
     @Override

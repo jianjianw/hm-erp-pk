@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface VenueService {
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer id,Integer companyId);
 
     int insert(Venue venue);
 
-    Venue selectByPrimaryKey(Integer id);
+    Venue selectByPrimaryKey(Integer id,Integer companyId);
 
-    List<Venue> selectAll(int companyId);
+    List<Venue> selectAll(Integer companyId);
 
     int updateByPrimaryKey(Venue venue);
 }

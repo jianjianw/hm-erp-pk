@@ -6,13 +6,13 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface VenueDao {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(@Param("id")Integer id,@Param("companyId") Integer companyId);
 
     int insert(Venue venue);
 
-    Venue selectByPrimaryKey(Integer id);
+    Venue selectByPrimaryKey(@Param("id")Integer id,@Param("companyId") Integer companyId);
 
-    List<Venue> selectAll(@Param("companyId") int companyId);
+    List<Venue> selectAll(@Param("companyId") Integer companyId);
 
     int updateByPrimaryKey(Venue venue);
 }

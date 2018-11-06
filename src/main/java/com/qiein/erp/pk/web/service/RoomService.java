@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface RoomService {
 
-    int deleteByPrimaryKey(Integer roomId);
+    int deleteByPrimaryKey(Integer roomId,Integer companyId);
 
     int insert(Room room);
 
-    Room selectByPrimaryKey(Integer roomId);
+    Room selectByPrimaryKey(Integer roomId,Integer companyId);
 
-    List<Room> selectAll();
+    List<Room> selectAll(Integer companyId);
 
     int updateByPrimaryKey(Room room);
 

@@ -19,13 +19,14 @@ import java.util.List;
 @RequestMapping("/scene")
 public class SceneController {
 
+    Integer companyId = 1;
 
     @Autowired
     private SceneService sceneService;
 
-    @PostMapping("/deleteByPrimaryKey")
+    @PostMapping("/delete_by_primary_key")
     public ResultInfo deleteByPrimaryKey(Integer id){
-        int i = sceneService.deleteByPrimaryKey(id);
+        int i = sceneService.deleteByPrimaryKey(id,companyId);
         return ResultInfoUtil.success();
     }
     @PostMapping("/insert")
@@ -33,17 +34,17 @@ public class SceneController {
         int insert = sceneService.insert(scene);
         return ResultInfoUtil.success();
     }
-    @GetMapping("/selectByPrimaryKey")
+    @GetMapping("/select_by_primary_key")
     public ResultInfo selectByPrimaryKey(Integer id){
-        Scene scene = sceneService.selectByPrimaryKey(id);
+        Scene scene = sceneService.selectByPrimaryKey(id,companyId);
         return ResultInfoUtil.success(scene);
     }
-    @GetMapping("/selectAll")
+    @GetMapping("/select_all")
     public ResultInfo selectAll(){
-        List<Scene> scenes = sceneService.selectAll();
+        List<Scene> scenes = sceneService.selectAll(companyId);
         return ResultInfoUtil.success(scenes);
     }
-    @PostMapping("/updateByPrimaryKey")
+    @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(Scene scene){
         int i = sceneService.updateByPrimaryKey(scene);
         return ResultInfoUtil.success();

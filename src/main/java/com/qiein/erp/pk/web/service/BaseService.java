@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface BaseService {
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer id,Integer companyId);
 
     int insert(Base base);
 
-    Base selectByPrimaryKey(Integer id);
+    Base selectByPrimaryKey(Integer id,Integer companyId);
 
-    List<Base> selectAll();
+    List<Base> selectAll(Integer companyId);
 
     int updateByPrimaryKey(Base base);
 }

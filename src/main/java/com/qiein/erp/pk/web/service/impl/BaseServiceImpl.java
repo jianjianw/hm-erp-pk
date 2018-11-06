@@ -14,8 +14,8 @@ public class BaseServiceImpl implements BaseService {
     @Autowired
     private BaseDao baseDao;
     @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return baseDao.deleteByPrimaryKey(id);
+    public int deleteByPrimaryKey(Integer id,Integer companyId) {
+        return baseDao.deleteByPrimaryKey(id,companyId);
     }
 
     @Override
@@ -24,13 +24,13 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public Base selectByPrimaryKey(Integer id) {
-        return baseDao.selectByPrimaryKey(id);
+    public Base selectByPrimaryKey(Integer id,Integer companyId) {
+        return baseDao.selectByPrimaryKey(id,companyId);
     }
 
     @Override
-    public List<Base> selectAll() {
-        return baseDao.selectAll();
+    public List<Base> selectAll(Integer companyId) {
+        return baseDao.selectAll(companyId);
     }
 
     @Override

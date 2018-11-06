@@ -12,41 +12,42 @@
     <result column="venue_status" property="venueStatus" jdbcType="SMALLINT" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="map" >
     delete from hm_erp_venue
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id} and company_id = #{companyId}
   </delete>
   <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Venue" >
     insert into hm_erp_venue (id, base_id, venue_name, 
       venue_type, venue_phone, respo, 
       address, venue_status, company_id
       )
-    values (#{id,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{venueName,jdbcType=VARCHAR}, 
-      #{venueType,jdbcType=SMALLINT}, #{venuePhone,jdbcType=VARCHAR}, #{respo,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{venueStatus,jdbcType=SMALLINT}, #{companyId,jdbcType=INTEGER}
+    values (#{id}, #{baseId}, #{venueName}, 
+      #{venueType}, #{venuePhone}, #{respo}, 
+      #{address}, #{venueStatus}, #{companyId}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Venue" >
     update hm_erp_venue
-    set base_id = #{baseId,jdbcType=INTEGER},
-      venue_name = #{venueName,jdbcType=VARCHAR},
-      venue_type = #{venueType,jdbcType=SMALLINT},
-      venue_phone = #{venuePhone,jdbcType=VARCHAR},
-      respo = #{respo,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      venue_status = #{venueStatus,jdbcType=SMALLINT},
-      company_id = #{companyId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    set base_id = #{baseId},
+      venue_name = #{venueName},
+      venue_type = #{venueType},
+      venue_phone = #{venuePhone},
+      respo = #{respo},
+      address = #{address},
+      venue_status = #{venueStatus},
+      company_id = #{companyId}
+    where id = #{id}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
     select id, base_id, venue_name, venue_type, venue_phone, respo, address, venue_status, 
     company_id
     from hm_erp_venue
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id} and company_id = #{companyId}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
     select id, base_id, venue_name, venue_type, venue_phone, respo, address, venue_status, 
     company_id
-    from hm_erp_venue   where company_id=#{companyId}
+    from hm_erp_venue
+    where company_id=#{companyId}
   </select>
 </mapper>

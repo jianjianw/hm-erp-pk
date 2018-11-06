@@ -6,29 +6,30 @@
     <result column="base_name" property="baseName" jdbcType="VARCHAR" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="map" >
     delete from hm_erp_base
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id} and company_id = #{companyId}
   </delete>
   <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
     insert into hm_erp_base (id, base_name, company_id
       )
-    values (#{id,jdbcType=INTEGER}, #{baseName,jdbcType=VARCHAR}, #{companyId,jdbcType=INTEGER}
+    values (#{id}, #{baseName}, #{companyId}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
     update hm_erp_base
-    set base_name = #{baseName,jdbcType=VARCHAR},
-      company_id = #{companyId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    set base_name = #{baseName},
+      company_id = #{companyId}
+    where id = #{id}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
     select id, base_name, company_id
     from hm_erp_base
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id} and companyId = #{companyId}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map">
     select id, base_name, company_id
     from hm_erp_base
+    where company_id = #{companyId}
   </select>
 </mapper>

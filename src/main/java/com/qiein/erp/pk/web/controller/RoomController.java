@@ -19,12 +19,14 @@ import java.util.List;
 @RequestMapping("/room")
 public class RoomController {
 
+    Integer companyId = 1 ;
+
     @Autowired
     private RoomService roomService;
 
-    @PostMapping("/deleteByPrimaryKey")
+    @PostMapping("/delete_by_primary_key")
     public ResultInfo deleteByPrimaryKey(Integer roomId){
-        int i = roomService.deleteByPrimaryKey(roomId);
+        int i = roomService.deleteByPrimaryKey(roomId,companyId);
         return ResultInfoUtil.success();
     }
     @PostMapping("/insert")
@@ -32,17 +34,17 @@ public class RoomController {
         int insert = roomService.insert(room);
         return ResultInfoUtil.success();
     }
-    @GetMapping("/selectByPrimaryKey")
+    @GetMapping("/select_by_primary_key")
     public ResultInfo selectByPrimaryKey(Integer roomId){
-        Room room = roomService.selectByPrimaryKey(roomId);
+        Room room = roomService.selectByPrimaryKey(roomId,companyId);
         return ResultInfoUtil.success(room);
     }
-    @GetMapping("/selectAll")
+    @GetMapping("/select_all")
     public ResultInfo selectAll(){
-        List<Room> rooms = roomService.selectAll();
+        List<Room> rooms = roomService.selectAll(companyId);
         return ResultInfoUtil.success(rooms);
     }
-    @PostMapping("/updateByPrimaryKey")
+    @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(Room record){
         int i = roomService.updateByPrimaryKey(record);
         return ResultInfoUtil.success();

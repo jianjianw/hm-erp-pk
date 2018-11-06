@@ -15,8 +15,8 @@ public class VenueServiceImpl implements VenueService {
     private VenueDao venueDao;
 
     @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return venueDao.deleteByPrimaryKey(id);
+    public int deleteByPrimaryKey(Integer id,Integer companyId) {
+        return venueDao.deleteByPrimaryKey(id,companyId);
     }
 
     @Override
@@ -25,12 +25,12 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
-    public Venue selectByPrimaryKey(Integer id) {
-        return venueDao.selectByPrimaryKey(id);
+    public Venue selectByPrimaryKey(Integer id,Integer companyId) {
+        return venueDao.selectByPrimaryKey(id,companyId);
     }
 
     @Override
-    public List<Venue> selectAll(int companyId) {
+    public List<Venue> selectAll(Integer companyId) {
         return venueDao.selectAll(companyId);
     }
 
