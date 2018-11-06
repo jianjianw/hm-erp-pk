@@ -68,4 +68,16 @@
     and roomType = #{roomType}
   </select>
 
+  <update id="roomSort" parameterType="ArrayList">
+
+    <foreach collection="list" index="index" item="item" separator=";">
+      update hm_erp_venue_room set priority = #{item.priority}
+      where room_id = #{item.roomId}
+      and company_id = #{item.companyId}
+      and room_type = #{item.roomType}
+    </foreach>
+
+
+  </update>
+
 </mapper>

@@ -6,10 +6,7 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
@@ -58,4 +55,13 @@ public class SceneController {
         return ResultInfoUtil.success(list);
 
     }
+
+    //场景排序，修改优先级
+    @PostMapping("/scene_sort")
+    public ResultInfo sceneSort(@RequestBody List<Scene> scenes){
+        sceneService.sceneSort(scenes);
+        return ResultInfoUtil.success();
+    }
+
+
 }

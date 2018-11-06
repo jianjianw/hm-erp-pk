@@ -58,4 +58,9 @@ public class RoomServiceImpl implements RoomService {
     public List<Room> findRoomByVenueId(Integer companyId,Integer venueId, Integer roomType) {
         return roomDao.findRoomByVenueId(companyId,venueId,roomType);
     }
+
+    @Override
+    public void roomSort(List<Room> rooms) {
+        roomDao.roomSort(rooms);
+    }
 }

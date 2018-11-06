@@ -58,5 +58,16 @@
     where company_id = #{companyId} and room_id = #{roomId}
   </select>
 
+ <update id="sceneSort">
+
+   <foreach collection="list" index="index" item="item" separator=";">
+     update hm_erp_scene set priority = #{item.priority}
+     where id = #{item.id}
+     and company_id = #{item.companyId}
+
+   </foreach>
+
+ </update>
+
 
 </mapper>

@@ -47,4 +47,9 @@ public class SceneServiceImpl implements SceneService {
     public List<Scene> findSceneByRoomId(Integer companyId, Integer roomId) {
         return sceneDao.findSceneByRoomId(companyId,roomId);
     }
+
+    @Override
+    public void sceneSort(List<Scene> scenes) {
+        sceneDao.sceneSort(scenes);
+    }
 }

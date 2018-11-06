@@ -53,15 +53,18 @@
     where company_id=#{companyId} and venue_type = #{venueType}
   </select>
 
-  <update id="venueSort" parameterType="java.util.List">
+  <update id="venueSort" parameterType="com.qiein.erp.pk.web.entity.po.Venue">
 
-     <foreach collection="list" item="item" index="index" separator=";" >
-       update hm_erp_venue set  priority = #{item.priority}
-       where id = #{item.id}
-       and company_id=#{item.companyId}
-       and venue_type = #{item.venueType}
-     </foreach>
+    <foreach collection="list" item="item" index="index" separator=";" >
+      update hm_erp_venue set  priority = #{item.priority}
+      where id = #{item.id}
+      and company_id=#{item.companyId}
+      and venue_type = #{item.venueType}
+    </foreach>
   </update>
+
+
+
 
 
 

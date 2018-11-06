@@ -20,5 +20,13 @@ public interface SceneDao {
 
     int updateByPrimaryKey(Scene scene);
 
+    /**
+     * 根据房间id 查找拍摄场景
+     * @param companyId
+     * @param roomId
+     * @return
+     */
     List<Scene> findSceneByRoomId(@Param("companyId") Integer companyId, @Param("roomId") Integer roomId);
+
+    void sceneSort(List<Scene> scenes);
 }

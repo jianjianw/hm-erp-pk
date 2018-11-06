@@ -57,7 +57,7 @@ public class VenueController {
         return ResultInfoUtil.success();
     }
 
-    //场馆门店排序  或  门店排序
+    //内场馆排序 1  或  门店排序 2
     @PostMapping("/venue_sort")
     public ResultInfo venueSort(@RequestBody List<Venue> Venues){
         venueService.venueSort(Venues);

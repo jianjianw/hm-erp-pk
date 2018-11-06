@@ -36,4 +36,10 @@ public interface RoomService {
      * @return
      */
     List<Room> findRoomByVenueId(Integer companyId,Integer venueId, Integer roomType);
+
+    /**
+     * 化妆间 拍摄间排序
+     * @param rooms
+     */
+    void roomSort(List<Room> rooms);
 }
