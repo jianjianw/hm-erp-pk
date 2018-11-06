@@ -72,4 +72,10 @@ public class RoomController {
         return ResultInfoUtil.success();
     }
 
+    //添加分类   应该把表拿出来。
+    @PostMapping()
+    public ResultInfo addRoomLevel(){
+        return null;
+    }
+
 }
