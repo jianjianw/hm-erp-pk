@@ -59,9 +59,8 @@ public class VenueController {
 
     //场馆门店排序  或  门店排序
     public ResultInfo venueSort(List<Venue> Venues){
-
         venueService.venueSort(Venues);
-        return null;
+        return ResultInfoUtil.success();
     }
 
    /* @GetMapping("/show_index")
