@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 /**
  * 房间   1 化妆间  2 拍摄间
+ * author:wang lei
+ * date : 2018-11-04
  * */
 @RestController
 @RequestMapping("/room")

@@ -4,7 +4,11 @@ import com.qiein.erp.pk.web.entity.po.Venue;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+/**
+ * 场馆 内景馆
+ * author:wang lei
+ * date : 2018-11-04
+ * */
 public interface VenueDao {
     int deleteByPrimaryKey(@Param("id")Integer id,@Param("companyId") Integer companyId);
 

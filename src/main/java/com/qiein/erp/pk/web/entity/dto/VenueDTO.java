@@ -5,6 +5,10 @@ import com.qiein.erp.pk.web.entity.po.Room;
 import java.io.Serializable;
 import java.util.List;
 
+/* 场馆dto
+* author:wang lei
+* date : 2018-11-04
+* */
 public class VenueDTO implements Serializable {
     private static final long serialVersionUID = 2483186702999950057L;
 

@@ -4,7 +4,11 @@ import com.qiein.erp.pk.web.entity.po.Room;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+/**
+ * 房间   1 化妆间  2 拍摄间
+ * author:wang lei
+ * date : 2018-11-04
+ * */
 public interface RoomDao {
     int deleteByPrimaryKey(@Param("roomId")Integer roomId,@Param("companyId")Integer companyId);
 

@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * 场景
+ * author:wang lei
+ * date : 2018-11-04
+ * */
 @Service
 public class SceneServiceImpl implements SceneService {
 

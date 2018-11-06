@@ -3,6 +3,8 @@ package com.qiein.erp.pk.web.entity.po;
 import java.io.Serializable;
 /*
 *  房间
+*  author:wang lei
+*  date : 2018-11-04
 * */
 public class Room implements Serializable {
     private static final long serialVersionUID = 474466157479846785L;

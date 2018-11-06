@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * 场馆 内景馆
+ * author:wang lei
+ * date : 2018-11-04
+ * */
 @Service
 public class VenueServiceImpl implements VenueService {
 

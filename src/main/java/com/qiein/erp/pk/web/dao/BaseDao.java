@@ -4,7 +4,11 @@ import com.qiein.erp.pk.web.entity.po.Base;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+/**
+ * 场地
+ * author:wang lei
+ * date : 2018-11-04
+ * */
 public interface BaseDao {
     int deleteByPrimaryKey(@Param("id") Integer id, @Param("companyId")Integer companyId);
 

@@ -4,7 +4,11 @@ import com.qiein.erp.pk.web.entity.po.Scene;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+/**
+ * 场景
+ * author:wang lei
+ * date : 2018-11-04
+ * */
 public interface SceneDao {
     int deleteByPrimaryKey(@Param("id") Integer id, @Param("companyId")Integer companyId);
 

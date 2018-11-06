@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 /**
  * 场景
+ * author:wang lei
+ * date : 2018-11-04
  * */
 @RestController
 @RequestMapping("/scene")

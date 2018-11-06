@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 /**
  * 场馆 内景馆
+ * author:wang lei
+ * date : 2018-11-04
  * */
 @RestController
 @RequestMapping("/venue")
