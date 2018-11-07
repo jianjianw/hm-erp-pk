@@ -66,4 +66,10 @@ public class SceneServiceImpl implements SceneService {
         return roomAndSceneDTOS;
     }
 
+    @Override
+    public void batInsertOrUpdateScene(List<Scene> scenes) {
+
+        sceneDao.batInsertOrUpdateScene(scenes);
+    }
+
 }

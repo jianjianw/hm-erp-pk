@@ -96,5 +96,31 @@
 
   </select>
 
+  <update id="batInsertOrUpdateScene" parameterType="ArrayList">
+
+
+
+    <foreach collection="list" index="index" item="item" separator=";">
+      update hm_erp_scene set shoot_id = #{shootId},
+      scene_name = #{sceneName},
+      scene_status = #{sceneStatus},
+      priority = #{priority},
+      company_id = #{companyId}
+      where id = #{id}
+      and company_id = #{item.companyId}
+    </foreach>
+  </update>
+
+
+  <insert id="batInsertOrUpdateScene" parameterType="ArrayList">
+    insert into hm_erp_scene (id, shoot_id, scene_name, scene_status, priority, company_id) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id}, #{item.shootId}, #{item.sceneName}, #{item.sceneStatus}, #{item.priority}, #{item.companyId})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    id=values(id)
+
+  </insert>
+
 
 </mapper>

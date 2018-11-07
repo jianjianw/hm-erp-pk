@@ -72,6 +72,13 @@ public class SceneController {
         return ResultInfoUtil.success(roomAndScene);
     }
 
+    //批量编辑
+    @PostMapping("/bat_insert_or_update_scene")
+    public ResultInfo batInsertOrUpdateScene(@RequestBody List<Scene> scenes){
+        sceneService.batInsertOrUpdateScene(scenes);
+        return ResultInfoUtil.success();
+    }
+
 
 
 }

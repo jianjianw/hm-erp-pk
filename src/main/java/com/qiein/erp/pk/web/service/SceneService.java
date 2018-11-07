@@ -38,4 +38,10 @@ public interface SceneService {
      */
     List<RoomAndSceneDTO> findRoomAndSceneByVenueId(Integer companyId, Integer venueId);
 
+    /**
+     * 批量编辑拍摄景
+     * @param scenes
+     */
+    void batInsertOrUpdateScene(List<Scene> scenes);
+
 }

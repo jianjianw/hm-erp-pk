@@ -40,4 +40,10 @@ public interface SceneDao {
     List<RoomAndSceneDTO> findRoomAndSceneByVenueId(@Param("companyId") Integer companyId,
                                              @Param("venueId") Integer venueId,
                                              @Param("roomType") Integer roomType);
+
+    /**
+     * 批量编辑拍摄景
+     * @param scenes
+     */
+    void batInsertOrUpdateScene(List<Scene> scenes);
 }
