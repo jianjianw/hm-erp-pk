@@ -45,6 +45,7 @@ public class VenueController {
         Venue venue = venueService.selectByPrimaryKey(id,companyId);
         return ResultInfoUtil.success(venue);
     }
+    //显示所有门店 或者 内景馆
     @GetMapping("/select_all")
     public ResultInfo selectAll(Integer venueType){//venueType 1 内景馆   2 门店
         int companyId=1;

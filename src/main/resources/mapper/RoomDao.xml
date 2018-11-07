@@ -33,6 +33,7 @@
       room_status = #{roomStatus},
       company_id = #{companyId}
     where room_id = #{roomId}
+    and company_id = #{companyId}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select room_id, venue_id, room_name, room_level, room_type, priority, room_status, 

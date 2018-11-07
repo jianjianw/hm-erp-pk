@@ -62,6 +62,10 @@ public interface RoomService {
     void addRoomLevel(LevelAndRoomDTO levelAndRoomDTO);
 
 
-
+    /**
+     * 批量编辑或者更新
+     * @param rooms
+     */
+    void batInsertOrUpdate(List<Room> rooms);
 
 }

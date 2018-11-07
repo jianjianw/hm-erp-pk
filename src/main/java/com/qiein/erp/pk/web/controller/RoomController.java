@@ -107,5 +107,12 @@ public class RoomController {
         return ResultInfoUtil.success();
     }
 
+    //批量编辑
+    @PostMapping("/bat_insert_or_update")
+    public ResultInfo batInsertOrUpdate(List<Room> rooms){
+        roomService.batInsertOrUpdate(rooms);
+        return ResultInfoUtil.success();
+    }
+
 
 }

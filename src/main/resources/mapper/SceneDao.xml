@@ -37,6 +37,7 @@
       priority = #{priority},
       company_id = #{companyId}
     where id = #{id}
+    and company_id = #{companyId}
   </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
