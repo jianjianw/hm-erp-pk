@@ -52,8 +52,13 @@ public class RoomServiceImpl implements RoomService {
      * @param venueIds
      * @return
      */
-    public List<RoomSelectVO> selectRoomByServiceId(String venueIds,Integer companyId,Integer type){
-        return roomDao.roomSelect(venueIds,companyId,type);
+    public RoomVO selectRoomByServiceId(String venueIds,Integer companyId){
+        RoomVO roomVO=new RoomVO();
+        List<RoomSelectVO> makeupRoom=roomDao.roomSelect(venueIds,1,companyId);
+        List<RoomSelectVO> shootRoom=roomDao.roomSelect(venueIds,2,companyId);
+        roomVO.setMakeupRoom(makeupRoom);
+        roomVO.setShootRoom(shootRoom);
+        return roomVO;
     }
 
     @Override

@@ -60,8 +60,8 @@ public class RoomController {
         return ResultInfoUtil.success();
     }
     @GetMapping("/select_room_for_service")
-    public ResultInfo selectRoomForService(@RequestParam String venueIds,@RequestParam Integer type){
-        return ResultInfoUtil.success(roomService.selectRoomByServiceId(venueIds,companyId,type));
+    public ResultInfo selectRoomForService(@RequestParam String venueIds){
+        return ResultInfoUtil.success(roomService.selectRoomByServiceId(venueIds,companyId));
     }
 
 

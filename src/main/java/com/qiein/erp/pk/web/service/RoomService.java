@@ -28,7 +28,7 @@ public interface RoomService {
      * @param venueIds
      * @return
      */
-    List<RoomSelectVO> selectRoomByServiceId(String venueIds, Integer companyId, Integer type);
+    RoomVO selectRoomByServiceId(String venueIds, Integer companyId);
 
     /**
      * 查询场馆下面的 化妆间 或 房间
