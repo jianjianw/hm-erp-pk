@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.controller;
 
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
 import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class SceneController {
     }
 
     //查询拍摄间下面的拍摄景
+    @GetMapping("/find_scene_by_room_id")
     public ResultInfo findSceneByRoomId(Integer roomId){
         List<Scene> list  = sceneService.findSceneByRoomId(companyId,roomId);
         return ResultInfoUtil.success(list);
@@ -62,6 +64,14 @@ public class SceneController {
         sceneService.sceneSort(scenes);
         return ResultInfoUtil.success();
     }
+
+    //查询场馆下面的所有拍摄景
+    @GetMapping("/find_scene_by_venue_id")
+    public ResultInfo findSceneByVenueId(@RequestBody Integer venueId){
+        List<RoomAndSceneDTO> roomAndScene = sceneService.findRoomAndSceneByVenueId(companyId, venueId);
+        return ResultInfoUtil.success(roomAndScene);
+    }
+
 
 
 }

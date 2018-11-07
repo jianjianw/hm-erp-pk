@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.dao;
 
+import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
 import com.qiein.erp.pk.web.entity.po.Scene;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,4 +30,14 @@ public interface SceneDao {
     List<Scene> findSceneByRoomId(@Param("companyId") Integer companyId, @Param("roomId") Integer roomId);
 
     void sceneSort(List<Scene> scenes);
+    /**
+     * 获取场馆下面的拍摄间
+     * @param companyId
+     * @param venueId
+     * @param roomType
+     * @return
+     */
+    List<RoomAndSceneDTO> findRoomAndSceneByVenueId(@Param("companyId") Integer companyId,
+                                             @Param("venueId") Integer venueId,
+                                             @Param("roomType") Integer roomType);
 }
