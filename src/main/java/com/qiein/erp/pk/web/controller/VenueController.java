@@ -57,7 +57,6 @@ public class VenueController {
 
     //显示所有门店 或者 内景馆
     @GetMapping("/select_all")
-
     public ResultInfo selectAll(Integer venueType){//venueType 1 内景馆   2 门店
         List<VenueDTO> result = venueService.selectAll(companyId,venueType);
         return ResultInfoUtil.success(result);
