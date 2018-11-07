@@ -17,7 +17,7 @@ public interface VenueService {
 
     Venue selectByPrimaryKey(Integer id,Integer companyId);
 
-    List<Venue> selectAll(Integer companyId,Integer venueType);
+    List<VenueDTO> selectAll(Integer companyId,Integer venueType);
 
     int updateByPrimaryKey(Venue venue);
 

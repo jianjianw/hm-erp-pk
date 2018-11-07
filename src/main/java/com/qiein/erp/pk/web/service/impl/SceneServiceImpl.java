@@ -77,7 +77,11 @@ public class SceneServiceImpl implements SceneService {
                 updateByPrimaryKey(scene);
             }
         }
-        //sceneDao.batInsertOrUpdateScene(scenes);
+    }
+
+    @Override
+    public List<Scene> findSceneByVenueId(Integer companyId, Integer venueId) {
+        return sceneDao.findSceneByVenueId(companyId,venueId);
     }
 
 }

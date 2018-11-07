@@ -4,11 +4,13 @@ package com.qiein.erp.pk.web.controller;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.VenueDTO;
-import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.service.BaseService;
 import com.qiein.erp.pk.web.service.RoomService;
 import com.qiein.erp.pk.web.service.SceneService;
 import com.qiein.erp.pk.web.service.VenueService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/venue")
 public class VenueController {
+
+    private static Logger logger = LoggerFactory.getLogger(VenueController.class);
     Integer companyId = 1;
 
     @Autowired
@@ -29,6 +33,8 @@ public class VenueController {
     private RoomService roomService;
     @Autowired
     private SceneService sceneService;
+    @Autowired
+    private BaseService baseService;
 
 
     @PostMapping("/delete_by_primary_key")
@@ -47,13 +53,17 @@ public class VenueController {
         Venue venue = venueService.selectByPrimaryKey(id,companyId);
         return ResultInfoUtil.success(venue);
     }
+
+
     //显示所有门店 或者 内景馆
     @GetMapping("/select_all")
     public ResultInfo selectAll(Integer venueType){//venueType 1 内景馆   2 门店
         int companyId=1;
-        List<Venue> venues = venueService.selectAll(companyId,venueType);
-        return ResultInfoUtil.success(venues);
+        List<VenueDTO> result = venueService.selectAll(companyId,venueType);
+        return ResultInfoUtil.success(result);
     }
+
+
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Venue venue){
         int i = venueService.updateByPrimaryKey(venue);
@@ -73,12 +83,7 @@ public class VenueController {
      */
     @GetMapping("/show_index")
     public ResultInfo showIndex(){
-
         List<VenueDTO> venueDTOS = venueService.showIndex(companyId);
-
-
-
-
         return ResultInfoUtil.success(venueDTOS);
     }
 }

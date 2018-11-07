@@ -97,22 +97,6 @@
 
   </select>
 
-  <!--<update id="batInsertOrUpdateScene" parameterType="ArrayList">
-
-
-
-    <foreach collection="list" index="index" item="item" separator=";">
-      update hm_erp_scene set shoot_id = #{shootId},
-      scene_name = #{sceneName},
-      scene_status = #{sceneStatus},
-      priority = #{priority},
-      company_id = #{companyId}
-      where id = #{id}
-      and company_id = #{item.companyId}
-    </foreach>
-  </update>-->
-
-
   <insert id="batInsertOrUpdateScene" parameterType="ArrayList">
     insert into hm_erp_scene (id, shoot_id, scene_name, scene_status, priority, company_id) values
 
@@ -124,6 +108,15 @@
     id=values(id)
 
   </insert>
+
+  <select id="findSceneByVenueId" parameterType="map" resultMap="BaseResultMap">
+     select scene.id, scene.shoot_id, scene.scene_name, scene.scene_status, scene.priority, scene.company_id
+    from hm_erp_venue_room room inner join hm_erp_scene scene
+    on  room.room_id = scene.shoot_id and room.company_id = scene.company_id
+    where room.company_id = #{companyId}
+    and room.venue_id = #{venueId}
+    and room.room_type = #{roomType}
+  </select>
 
 
 </mapper>

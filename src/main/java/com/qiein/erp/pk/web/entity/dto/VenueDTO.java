@@ -32,6 +32,7 @@ public class VenueDTO implements Serializable {
 
     private String makeupRoomNums;  //化妆间
     private String shootRoomNums;  //拍摄间/拍摄景
+    private String baseName;  //场馆名字
 
 
     public Integer getId() {
@@ -120,5 +121,13 @@ public class VenueDTO implements Serializable {
 
     public void setShootRoomNums(String shootRoomNums) {
         this.shootRoomNums = shootRoomNums;
+    }
+
+    public String getBaseName() {
+        return baseName;
+    }
+
+    public void setBaseName(String baseName) {
+        this.baseName = baseName;
     }
 }
