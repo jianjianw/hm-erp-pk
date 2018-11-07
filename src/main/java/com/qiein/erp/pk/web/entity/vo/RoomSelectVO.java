@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * 房间下拉框
+ * author：xiangliang 2018/11/07
  */
 public class RoomSelectVO {
     private Integer venueId;
