@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.service;
 
+import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
 import com.qiein.erp.pk.web.entity.po.Scene;
 
 import java.util.List;
@@ -22,4 +23,19 @@ public interface SceneService {
 
     //根据房间id查询房间下面的拍摄景
     List<Scene> findSceneByRoomId(Integer companyId, Integer roomId);
+
+    /**
+     * 场景排序，修改优先级
+     * @param scenes
+     */
+    void sceneSort(List<Scene> scenes);
+
+    /**
+     * 查询场馆下面的拍摄景
+     * @param companyId
+     * @param venueId
+     * @return
+     */
+    List<RoomAndSceneDTO> findRoomAndSceneByVenueId(Integer companyId, Integer venueId);
+
 }

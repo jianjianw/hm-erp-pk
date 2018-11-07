@@ -1,15 +1,15 @@
 package com.qiein.erp.pk.web.controller;
 
 
+import com.qiein.erp.pk.constant.RoomConstant;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
 import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.service.RoomService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
@@ -31,6 +31,12 @@ public class RoomController {
         int i = roomService.deleteByPrimaryKey(roomId,companyId);
         return ResultInfoUtil.success();
     }
+
+    /**
+     * 添加房间
+     * @param room
+     * @return
+     */
     @PostMapping("/insert")
     public ResultInfo insert(Room room){
         int insert = roomService.insert(room);
@@ -65,5 +71,41 @@ public class RoomController {
         List<Room> rooms = roomService.findRoomByVenueId(companyId, venueId, roomType);
         return ResultInfoUtil.success(rooms);
     }
+
+
+    //化妆间排序 1  或  拍摄间排序 2
+    @PostMapping("/room_sort")
+    public ResultInfo roomSort(@RequestBody List<Room> rooms){
+        roomService.roomSort(rooms);
+        return ResultInfoUtil.success();
+    }
+
+    @PostMapping("/room_level_sort")
+    public ResultInfo roomLevelSort(@RequestBody List<LevelAndRoomDTO> levelAndRoomDTOS){
+        roomService.roomLevelSort(levelAndRoomDTOS);
+        return ResultInfoUtil.success();
+    }
+
+    //点击新增 先查询所有的数据
+    @GetMapping("get_all_room_and_type")
+    public ResultInfo getLevelAndRoom(Integer companyId,Integer venueId,String roomType){
+
+        if(StringUtils.equals(roomType, RoomConstant.MAKEUP_ROOM)){//化妆间
+            roomType = RoomConstant.MAKEUP_ROOM_LEVEL;
+        }
+        if(StringUtils.equals(roomType,RoomConstant.SHOOT_ROOM)){//拍摄间
+            roomType = RoomConstant.SHOOT_ROOM_LEVEL;
+        }
+        List<LevelAndRoomDTO> list = roomService.getLevelAndRoom(companyId,venueId,roomType);
+        return ResultInfoUtil.success(list);
+    }
+
+    //添加分类(化妆间)  添加到字典表
+    @PostMapping("/add_room_type")
+    public ResultInfo addRoomLevel(@RequestBody LevelAndRoomDTO levelAndRoomDTO){
+        roomService.addRoomLevel(levelAndRoomDTO);
+        return ResultInfoUtil.success();
+    }
+
 
 }

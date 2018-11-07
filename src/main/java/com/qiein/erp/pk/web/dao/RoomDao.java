@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.dao;
 
+import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
 import com.qiein.erp.pk.web.entity.po.Room;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,4 +27,31 @@ public interface RoomDao {
 
     List<Room> findRoomByVenueId(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId,
                                  @Param("roomType")Integer roomType);
+
+    void roomSort(List<Room> rooms);
+
+    void roomLevelSort(List<LevelAndRoomDTO> levelAndRoomDTOS);
+
+    //添加房间等级
+    void addRoomLevel(LevelAndRoomDTO levelAndRoomDTO);
+    //批量添加房间
+    void batAddRoom(List<Room> rooms);
+
+    /**
+     * 获取房间等级 和 房间
+     */
+    List<LevelAndRoomDTO> getLevelAndRoom(@Param("companyId") Integer companyId,
+                                                 @Param("venueId") Integer venueId,
+                                                 @Param("roomType") String roomType);
+
+
+    /**
+     * 获取等级下面的房间
+     */
+    List<LevelAndRoomDTO> findRoomByLevelId(@Param("companyId") Integer companyId,
+                                                      @Param("venueId") Integer venueId,
+                                                      @Param("levelId") Integer levelId);
+
+
+
 }

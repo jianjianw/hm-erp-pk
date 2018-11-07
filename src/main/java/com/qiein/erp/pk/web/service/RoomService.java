@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.service;
 
+import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
 import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.entity.vo.RoomVO;
 
@@ -36,4 +37,31 @@ public interface RoomService {
      * @return
      */
     List<Room> findRoomByVenueId(Integer companyId,Integer venueId, Integer roomType);
+
+    /**
+     * 化妆间 拍摄间排序
+     * @param rooms
+     */
+    void roomSort(List<Room> rooms);
+
+    /**
+     * 房间分类排序
+     * @param
+     */
+    void roomLevelSort(List<LevelAndRoomDTO> levelAndRoomDTOS);
+
+    /**
+     * 获取等级 和 房间
+     * */
+    List<LevelAndRoomDTO> getLevelAndRoom(Integer companyId, Integer venueId, String roomType);
+
+    /**
+     * 添加房间等级
+     * @param levelAndRoomDTO
+     */
+    void addRoomLevel(LevelAndRoomDTO levelAndRoomDTO);
+
+
+
+
 }
