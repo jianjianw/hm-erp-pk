@@ -51,9 +51,9 @@ public class RoomController {
         int i = roomService.updateByPrimaryKey(record);
         return ResultInfoUtil.success();
     }
-    @GetMapping("/select_room_by_service_id")
-    public ResultInfo selectMakeupRoomByServiceId(String venueIds){
-        return ResultInfoUtil.success(roomService.selectRoomByServiceId(venueIds));
+    @GetMapping("/select_room_for_service")
+    public ResultInfo selectRoomForService(@RequestParam String venueIds,@RequestParam Integer type){
+        return ResultInfoUtil.success(roomService.selectRoomByServiceId(venueIds,companyId,type));
     }
 
 

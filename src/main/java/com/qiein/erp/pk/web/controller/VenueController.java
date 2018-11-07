@@ -79,4 +79,8 @@ public class VenueController {
 
         return ResultInfoUtil.success();
     }*/
+   @GetMapping("/get_venues")
+    public ResultInfo getVenues(){
+       return ResultInfoUtil.success(venueService.getVenues(companyId));
+   }
 }

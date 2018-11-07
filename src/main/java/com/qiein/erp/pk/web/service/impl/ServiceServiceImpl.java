@@ -91,11 +91,11 @@ public class ServiceServiceImpl implements ServiceService {
         List<ServiceVO> list = serviceDao.select(companyId);
         for(ServiceVO serviceVO:list){
             String[] counts=serviceVO.getMakeupRoomNum().split(CommonConstant.FILE_SEPARATOR);
-            if(counts[1].equals(counts[2])){
+            if(counts[0].equals(counts[1])){
                 serviceVO.setMakeupRoomNum("全部");
             }
             counts=serviceVO.getShootRoomNum().split(CommonConstant.FILE_SEPARATOR);
-            if(counts[1].equals(counts[2])){
+            if(counts[0].equals(counts[1])){
                 serviceVO.setShootRoomNum("全部");
             }
             StringBuilder sb=new StringBuilder();

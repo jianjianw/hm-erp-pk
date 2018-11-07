@@ -6,17 +6,15 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.ServiceDTO;
 import com.qiein.erp.pk.web.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 /**
  * 服务controller
  * author:xiangliang 2018/11/05
  */
 @RestController
 @RequestMapping("/service")
-public class ServiceController{
+public class ServiceController extends BaseController{
     @Autowired
     private ServiceService serviceService;
 
@@ -44,10 +42,9 @@ public class ServiceController{
     /**
      * 查询服务
      */
-    @PostMapping("/select")
+    @GetMapping("/select")
     public ResultInfo select(){
-        int companyId=1;
-        return ResultInfoUtil.success(serviceService.select(companyId));
+        return ResultInfoUtil.success(serviceService.select(1));
     }
 
 }

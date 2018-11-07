@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.service.impl;
 
 import com.qiein.erp.pk.web.dao.RoomDao;
 import com.qiein.erp.pk.web.entity.po.Room;
+import com.qiein.erp.pk.web.entity.vo.RoomSelectVO;
 import com.qiein.erp.pk.web.entity.vo.RoomVO;
 import com.qiein.erp.pk.web.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +48,8 @@ public class RoomServiceImpl implements RoomService {
      * @param venueIds
      * @return
      */
-    public RoomVO selectRoomByServiceId(String venueIds){
-        RoomVO roomVO=new RoomVO();
-        roomVO.setMakeupRoom(roomDao.selectMakeupRoomByServiceId(venueIds));
-        roomVO.setShootRoom(roomDao.selectShootRoomByServiceId(venueIds));
-        return roomVO;
+    public List<RoomSelectVO> selectRoomByServiceId(String venueIds,Integer companyId,Integer type){
+        return roomDao.roomSelect(venueIds,companyId,type);
     }
 
     @Override

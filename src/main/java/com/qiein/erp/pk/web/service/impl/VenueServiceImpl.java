@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.service.impl;
 
 import com.qiein.erp.pk.web.dao.VenueDao;
 import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
 import com.qiein.erp.pk.web.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,13 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public void venueSort(List<Venue> venues) {
         venueDao.venueSort(venues);
+    }
+    /**
+     * 获取场景馆下拉框
+     * @param companyId
+     * @return
+     */
+    public List<VenueSelectVO> getVenues(Integer companyId){
+        return venueDao.getVenues(companyId);
     }
 }
