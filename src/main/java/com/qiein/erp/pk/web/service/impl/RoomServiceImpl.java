@@ -1,12 +1,16 @@
 package com.qiein.erp.pk.web.service.impl;
 
+import com.qiein.erp.pk.constant.RoomConstant;
 import com.qiein.erp.pk.web.dao.RoomDao;
+import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
 import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.entity.vo.RoomSelectVO;
 import com.qiein.erp.pk.web.entity.vo.RoomVO;
 import com.qiein.erp.pk.web.service.RoomService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 /**
@@ -61,4 +65,41 @@ public class RoomServiceImpl implements RoomService {
     public void roomSort(List<Room> rooms) {
         roomDao.roomSort(rooms);
     }
+
+    @Override
+    public void roomLevelSort(List<LevelAndRoomDTO> levelAndRoomDTOS) {
+        roomDao.roomLevelSort(levelAndRoomDTOS);
+    }
+
+
+    @Override
+    public List<LevelAndRoomDTO> getLevelAndRoom(Integer companyId, Integer venueId, String roomType) {
+        List<LevelAndRoomDTO> roomLevels = roomDao.getLevelAndRoom(companyId, venueId, roomType);
+        return roomLevels;
+    }
+
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void addRoomLevel(LevelAndRoomDTO levelAndRoomDTO) {
+
+        //添加之前先查询
+        String roomType = levelAndRoomDTO.getRoomType();
+        if(StringUtils.equals(roomType, RoomConstant.MAKEUP_ROOM)){//化妆间
+            levelAndRoomDTO.setRoomLevelType(RoomConstant.MAKEUP_ROOM_LEVEL);
+        }
+        if(StringUtils.equals(roomType,RoomConstant.SHOOT_ROOM)){//拍摄间
+            levelAndRoomDTO.setRoomLevelType(RoomConstant.SHOOT_ROOM_LEVEL);
+        }
+        //添加分类
+        roomDao.addRoomLevel(levelAndRoomDTO);
+        //添加房间
+        List<Room> rooms = levelAndRoomDTO.getRooms();
+        if(rooms != null && rooms.size()>0){
+            roomDao.batAddRoom(rooms);
+        }
+    }
+
+
+
 }

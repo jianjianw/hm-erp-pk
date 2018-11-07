@@ -1,11 +1,16 @@
 package com.qiein.erp.pk.web.service.impl;
 
+import com.qiein.erp.pk.constant.RoomConstant;
 import com.qiein.erp.pk.web.dao.SceneDao;
+import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
+import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.entity.po.Scene;
+import com.qiein.erp.pk.web.service.RoomService;
 import com.qiein.erp.pk.web.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * 场景
@@ -17,6 +22,8 @@ public class SceneServiceImpl implements SceneService {
 
     @Autowired
     private SceneDao sceneDao;
+    @Autowired
+    private RoomService roomService;
 
     @Override
     public int deleteByPrimaryKey(Integer id,Integer companyId) {
@@ -52,4 +59,25 @@ public class SceneServiceImpl implements SceneService {
     public void sceneSort(List<Scene> scenes) {
         sceneDao.sceneSort(scenes);
     }
+
+    @Override
+    public List<RoomAndSceneDTO> findRoomAndSceneByVenueId(Integer companyId, Integer venueId) {
+        List<RoomAndSceneDTO> roomAndSceneDTOS = sceneDao.findRoomAndSceneByVenueId(companyId,venueId,2);
+        return roomAndSceneDTOS;
+    }
+
+    @Override
+    public void batInsertOrUpdateScene(List<Scene> scenes) {
+
+        for(Scene scene : scenes ){
+            Scene scene1 = sceneDao.selectByPrimaryKey(scene.getId(), scene.getCompanyId());
+            if(scene1 == null){
+                sceneDao.insert(scene);
+            }else{
+                updateByPrimaryKey(scene);
+            }
+        }
+        //sceneDao.batInsertOrUpdateScene(scenes);
+    }
+
 }

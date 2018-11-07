@@ -98,4 +98,79 @@
 
   </update>
 
+  <update id="roomLevelSort" parameterType="ArrayList" >
+
+    <foreach collection="list" index="index" item="item" separator=";">
+      update hm_crm_dictionary set priority = #{item.priority}
+      where COMPANYID = #{item.companyId}
+      and DICTYPE = #{item.roomLevelType}
+      and DICCODE = #{item.roomLevelCode}
+    </foreach>
+
+
+  </update>
+
+  <insert id="addRoomLevel" parameterType="com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO" >
+
+
+   INSERT INTO
+        hm_crm_dictionary
+        (DICTYPE, DICCODE, DICNAME, PRIORITY, COMPANYID)
+        SELECT
+            #{roomLevelType},
+            (SELECT IFNULL(MAX(DICCODE), 0) + 1
+             FROM hm_crm_dictionary
+             WHERE COMPANYID = #{companyId} AND DICTYPE = #{roomLevelType}),
+            #{roomLevelName},
+            (SELECT IFNULL(MAX(PRIORITY), 0) + 1
+             FROM hm_crm_dictionary
+             WHERE COMPANYID = #{companyId} AND DICTYPE = #{roomLevelType}),
+            #{COMPANYID}
+  </insert>
+
+  <insert id="batAddRoom" parameterType="ArrayList">
+
+    <foreach collection="list" index="index" item="item" separator=";">
+      insert into hm_erp_venue_room (room_id, venue_id, room_name,
+      room_level, room_type, priority,
+      room_status, company_id)
+      values (#{item.roomId}, #{item.venueId}, #{item.roomName},
+      #{item.roomLevel}, #{item.roomType}, #{item.priority},
+      #{item.roomStatus}, #{item.companyId})
+    </foreach>
+
+  </insert>
+
+
+  <resultMap id="RoomLevelMap" type="com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO" >
+
+    <id column="ID" property="roomLevelId" jdbcType="INTEGER" />
+    <result column="DICTYPE" property="roomLevelType" />
+    <result column="DICCODE" property="roomLevelCode"  />
+    <result column="DICNAME" property="roomLevelName" />
+    <result column="PRIORITY" property="priority"/>
+    <result column="ISSHOW" property="roomLevelStatus" />
+    <result column="COMPANYID" property="companyId" />
+    <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.Room" resultMap="BaseResultMap"/>
+
+  </resultMap>
+
+  <select id="getLevelAndRoom" parameterType="map" resultMap="RoomLevelMap">
+    select ID,DICTYPE,DICCODE,DICNAME,PRIORITY,ISSHOW,COMPANYID,room.*
+    from  hm_crm_dictionary dic inner join hm_erp_venue_room room
+    on  dic.COMPANYID = room.company_id and dic.DICCODE = room.room_level
+    where dic.COMPANYID = #{companyId}
+    and dic.DICTYPE = #{roomLevelType}
+    and room.venueId = #{venueId}
+
+  </select>
+
+  <select id="findRoomByLevelId" resultMap="BaseResultMap">
+    select room_id, venue_id, room_name, room_level, room_type, priority, room_status,
+    company_id
+    from hm_erp_venue_room
+    where company_id ={companyId} and room_type = #{roomType}
+
+  </select>
+
 </mapper>

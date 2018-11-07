@@ -62,6 +62,7 @@
       company_id = #{companyId}
       priority = #{priority}
     where id = #{id}
+    and companyId = #{companyId}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
     select id, base_id, venue_name, venue_type, venue_phone, respo, address, venue_status, 
