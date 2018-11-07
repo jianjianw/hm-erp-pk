@@ -103,17 +103,19 @@ public class VenueServiceImpl implements VenueService {
                 venue.setMakeupRoomNums(String.valueOf(makeupRooms.size()));
             }
             //拍摄间的个数
+            StringBuilder sb = new StringBuilder();
             List<Room> shootRooms = roomService.findRoomByVenueId(companyId,venue.getId(),2);
             if(shootRooms == null && shootRooms.size()> 0 ){
-                venue.setShootRoomNums(String.valueOf(shootRooms.size()));
+                int size = shootRooms.size();
+                sb.append(String.valueOf(size));
             }
             //查询拍摄间下面的拍摄景
-
             List<Scene> scenes = sceneService.findSceneByVenueId(companyId, venue.getId());
             if(scenes == null && scenes.size()>0){
-
+                int size = scenes.size();
+                sb.append("/").append(String.valueOf(size));
+                venue.setShootRoomNums(sb.toString());
             }
-
 
         }
 
