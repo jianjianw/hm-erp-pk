@@ -93,10 +93,21 @@
   </update>
 
   <insert id="addRoomLevel" parameterType="com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO" >
-        insert into hm_crm_dictionary (DICTYPE, DICCODE, DICNAME,
-      PRIORITY, ISSHOW, COMPANYID)
-       values (#{roomLevelType},#{roomLevelCode},#{roomLevelName},#{priority},#{roomLevelStatus},#{companyId})
 
+
+   INSERT INTO
+        hm_crm_dictionary
+        (DICTYPE, DICCODE, DICNAME, PRIORITY, COMPANYID)
+        SELECT
+            #{roomLevelType},
+            (SELECT IFNULL(MAX(DICCODE), 0) + 1
+             FROM hm_crm_dictionary
+             WHERE COMPANYID = #{companyId} AND DICTYPE = #{roomLevelType}),
+            #{roomLevelName},
+            (SELECT IFNULL(MAX(PRIORITY), 0) + 1
+             FROM hm_crm_dictionary
+             WHERE COMPANYID = #{companyId} AND DICTYPE = #{roomLevelType}),
+            #{COMPANYID}
   </insert>
 
   <insert id="batAddRoom" parameterType="ArrayList">
