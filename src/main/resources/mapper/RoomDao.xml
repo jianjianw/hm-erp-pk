@@ -11,6 +11,14 @@
     <result column="room_status" property="roomStatus" jdbcType="SMALLINT" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="roomSelectMap" type="com.qiein.erp.pk.web.entity.vo.RoomSelectVO">
+    <id column="venue_id" property="venueId"/>
+    <result column="venue_name" property="venueName"/>
+    <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.Room">
+      <result column="room_id" property="roomId"/>
+      <result column="room_name" property="roomName"/>
+    </collection>
+  </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="map" >
     delete from hm_erp_venue_room
     where room_id = #{roomId} and company_id ={companyId}
@@ -49,12 +57,22 @@
   </select>
 
 
-  <select id="selectMakeupRoomByServiceId" resultMap="BaseResultMap">
-    select room_id,room_name from hm_erp_venue_room where room_type=1 and venue_id in (${venueIds})
+  <select id="roomSelect" resultMap="roomSelectMap">
+        SELECT
+        room.room_id,
+        room.room_name,
+        room.venue_id,
+        venue.venue_name
+    FROM
+        hm_erp_venue_room room
+    LEFT JOIN hm_erp_venue venue ON venue.id = room.venue_id
+    AND venue.company_id = room.company_id
+    WHERE
+        room.room_type = #{type}
+    AND room.venue_id in (${venueIds})
+    and room.company_id = #{companyId}
   </select>
-  <select id="selectShootRoomByServiceId" resultMap="BaseResultMap">
-    select room_id,room_name from hm_erp_venue_room where room_type=2 and venue_id in (${venueIds})
-  </select>
+
 
   <sql id="baseColumn">
         room_id,venue_id,room_name,room_level,room_type,priority,room_status,company_id

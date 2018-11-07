@@ -4,6 +4,7 @@ import com.qiein.erp.pk.constant.RoomConstant;
 import com.qiein.erp.pk.web.dao.RoomDao;
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
 import com.qiein.erp.pk.web.entity.po.Room;
+import com.qiein.erp.pk.web.entity.vo.RoomSelectVO;
 import com.qiein.erp.pk.web.entity.vo.RoomVO;
 import com.qiein.erp.pk.web.service.RoomService;
 import org.apache.commons.lang3.StringUtils;
@@ -51,10 +52,12 @@ public class RoomServiceImpl implements RoomService {
      * @param venueIds
      * @return
      */
-    public RoomVO selectRoomByServiceId(String venueIds){
+    public RoomVO selectRoomByServiceId(String venueIds,Integer companyId){
         RoomVO roomVO=new RoomVO();
-        roomVO.setMakeupRoom(roomDao.selectMakeupRoomByServiceId(venueIds));
-        roomVO.setShootRoom(roomDao.selectShootRoomByServiceId(venueIds));
+        List<RoomSelectVO> makeupRoom=roomDao.roomSelect(venueIds,1,companyId);
+        List<RoomSelectVO> shootRoom=roomDao.roomSelect(venueIds,2,companyId);
+        roomVO.setMakeupRoom(makeupRoom);
+        roomVO.setShootRoom(shootRoom);
         return roomVO;
     }
 

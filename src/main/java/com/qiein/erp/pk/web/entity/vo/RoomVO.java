@@ -8,22 +8,22 @@ import java.util.List;
  * 下拉框展示
  */
 public class RoomVO {
-    private List<Room> makeupRoom;
-    private List<Room> shootRoom;
+    private List<RoomSelectVO> makeupRoom;
+    private List<RoomSelectVO> shootRoom;
 
-    public List<Room> getMakeupRoom() {
+    public List<RoomSelectVO> getMakeupRoom() {
         return makeupRoom;
     }
 
-    public void setMakeupRoom(List<Room> makeupRoom) {
+    public void setMakeupRoom(List<RoomSelectVO> makeupRoom) {
         this.makeupRoom = makeupRoom;
     }
 
-    public List<Room> getShootRoom() {
+    public List<RoomSelectVO> getShootRoom() {
         return shootRoom;
     }
 
-    public void setShootRoom(List<Room> shootRoom) {
+    public void setShootRoom(List<RoomSelectVO> shootRoom) {
         this.shootRoom = shootRoom;
     }
 }

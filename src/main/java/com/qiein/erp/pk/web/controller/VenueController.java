@@ -86,4 +86,8 @@ public class VenueController {
         List<VenueDTO> venueDTOS = venueService.showIndex(companyId);
         return ResultInfoUtil.success(venueDTOS);
     }
+   @GetMapping("/get_venues")
+    public ResultInfo getVenues(){
+       return ResultInfoUtil.success(venueService.getVenues(companyId));
+   }
 }

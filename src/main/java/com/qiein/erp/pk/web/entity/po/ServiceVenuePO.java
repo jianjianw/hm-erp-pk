@@ -4,10 +4,10 @@ package com.qiein.erp.pk.web.entity.po;
  * author：xiangliang 2018/11/05
  */
 public class ServiceVenuePO {
-    private int id;
-    private int serviceId;//服务id
-    private int venueId;//场馆id
-    private int companyId;//公司id
+    private Integer id;
+    private Integer serviceId;//服务id
+    private Integer venueId;//场馆id
+    private Integer companyId;//公司id
 
     public int getId() {
         return id;

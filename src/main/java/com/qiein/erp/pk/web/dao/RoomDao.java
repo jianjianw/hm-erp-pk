@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.dao;
 
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
 import com.qiein.erp.pk.web.entity.po.Room;
+import com.qiein.erp.pk.web.entity.vo.RoomSelectVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,9 +22,8 @@ public interface RoomDao {
 
     int updateByPrimaryKey(Room room);
 
-    List<Room> selectMakeupRoomByServiceId(@Param("venueIds") String venueIds);
+    List<RoomSelectVO> roomSelect(@Param("venueIds") String venueIds,@Param("type") Integer type,@Param("companyId") Integer companyId);
 
-    List<Room> selectShootRoomByServiceId(@Param("venueIds") String venueIds);
 
     List<Room> findRoomByVenueId(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId,
                                  @Param("roomType")Integer roomType);

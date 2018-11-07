@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
 import com.qiein.erp.pk.web.entity.po.Room;
+import com.qiein.erp.pk.web.entity.vo.RoomSelectVO;
 import com.qiein.erp.pk.web.entity.vo.RoomVO;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface RoomService {
      * @param venueIds
      * @return
      */
-    RoomVO selectRoomByServiceId(String venueIds);
+    RoomVO selectRoomByServiceId(String venueIds, Integer companyId);
 
     /**
      * 查询场馆下面的 化妆间 或 房间

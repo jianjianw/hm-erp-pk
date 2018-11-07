@@ -13,6 +13,29 @@
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
     <result column="priority" property = "priority" jdbcType="INTEGER"/>
   </resultMap>
+  <resultMap id="BaseVenueMap" type="com.qiein.erp.pk.web.entity.vo.VenueSelectVO">
+    <id column="base_id" property="baseId"/>
+    <result column="base_name" property="baseName"/>
+    <collection property="venues" ofType="com.qiein.erp.pk.web.entity.po.Venue">
+      <result column="id" property="id"/>
+      <result column="venue_name" property="venueName"/>
+    </collection>
+  </resultMap>
+  <select id="getVenues" resultMap="BaseVenueMap">
+    SELECT
+        venue.base_id,
+        base.base_name,
+        venue.id,
+        venue.venue_name
+    FROM
+        hm_erp_venue venue
+    LEFT JOIN hm_erp_base base ON base.id = venue.base_id
+    AND base.company_id = venue.company_id
+    WHERE
+        venue.company_id = #{companyId}
+        	and venue.venue_type=1
+
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="map" >
     delete from hm_erp_venue
     where id = #{id} and company_id = #{companyId}

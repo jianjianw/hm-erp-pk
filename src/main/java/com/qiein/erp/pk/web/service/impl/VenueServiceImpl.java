@@ -10,6 +10,7 @@ import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.service.BaseService;
 import com.qiein.erp.pk.web.service.RoomService;
 import com.qiein.erp.pk.web.service.SceneService;
+import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
 import com.qiein.erp.pk.web.service.VenueService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
@@ -87,6 +88,14 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public void venueSort(List<Venue> venues) {
         venueDao.venueSort(venues);
+    }
+    /**
+     * 获取场景馆下拉框
+     * @param companyId
+     * @return
+     */
+    public List<VenueSelectVO> getVenues(Integer companyId){
+        return venueDao.getVenues(companyId);
     }
 
     @Override

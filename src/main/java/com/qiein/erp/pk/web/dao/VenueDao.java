@@ -1,6 +1,7 @@
 package com.qiein.erp.pk.web.dao;
 
 import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,4 +22,10 @@ public interface VenueDao {
     int updateByPrimaryKey(Venue venue);
 
     void venueSort(List<Venue> venues);
+    /**
+     * 获取场景馆下拉框
+     * @param companyId
+     * @return
+     */
+    List<VenueSelectVO> getVenues(Integer companyId);
 }

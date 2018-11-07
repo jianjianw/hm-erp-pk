@@ -1,17 +1,21 @@
 package com.qiein.erp.pk.web.entity.dto;
 
+/**
+ * 服务传参数
+ * author:xiangliang 20181107
+ */
 public class ServiceDTO {
-    private int id;
-    private String serviceName;
-    private int serviceType;
-    private int shootNum;
-    private int makeupNum;
-    private int videoNum;
-    private String venueIds;
-    private String makeupLinkIds;
-    private String shookLinkIds;
-    private boolean status;
-    private int companyId;
+    private Integer id;
+    private String serviceName;//服务名称
+    private Integer serviceType;//服务类型
+    private int shootNum;//摄像师人数
+    private int makeupNum;//化妆师人数
+    private int videoNum;//摄影师人数
+    private String venueIds;//场馆id
+    private String makeupLinkIds;//化妆间id
+    private String shookLinkIds;//拍摄间id
+    private boolean status;//服务状态
+    private Integer companyId;//公司id
 
     public int getId() {
         return id;

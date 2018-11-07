@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.web.entity.dto.VenueDTO;
 import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
 
 import java.util.List;
 /**
@@ -29,5 +30,14 @@ public interface VenueService {
      * @return
      */
     List<VenueDTO> showIndex(Integer companyId);
+
+    /**
+     * 获取场景馆下拉框
+     * @param companyId
+     * @return
+     */
+    List<VenueSelectVO> getVenues(Integer companyId);
+
+
 
 }
