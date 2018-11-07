@@ -3,6 +3,8 @@ package com.qiein.erp.pk.web.controller;
 
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.web.entity.dto.VenueDTO;
+import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.service.RoomService;
 import com.qiein.erp.pk.web.service.SceneService;
@@ -19,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/venue")
 public class VenueController {
-    int companyId = 1;
+    Integer companyId = 1;
 
     @Autowired
     private VenueService venueService;
@@ -65,19 +67,18 @@ public class VenueController {
         return ResultInfoUtil.success();
     }
 
-   /* @GetMapping("/show_index")
+    /**
+     * 内景馆的首页展示
+     * @return
+     */
+    @GetMapping("/show_index")
     public ResultInfo showIndex(){
 
-        //要查询场馆下面的化妆间
-        List<Room> rooms = roomService.selectAll(companyId);
-
-        //查询场馆下面的拍摄间
+        List<VenueDTO> venueDTOS = venueService.showIndex(companyId);
 
 
-        //查询拍摄间下面的场景，场景只关联了拍摄间
 
-        List<Scene> scenes = sceneService.selectAll(companyId);
 
-        return ResultInfoUtil.success();
-    }*/
+        return ResultInfoUtil.success(venueDTOS);
+    }
 }
