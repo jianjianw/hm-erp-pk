@@ -157,12 +157,12 @@
   </resultMap>
 
   <select id="getLevelAndRoom" parameterType="map" resultMap="RoomLevelMap">
-    select ID,DICTYPE,DICCODE,DICNAME,PRIORITY,ISSHOW,COMPANYID,room.*
+    select dic.ID,dic.DICTYPE,dic.DICCODE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID,room.*
     from  hm_crm_dictionary dic inner join hm_erp_venue_room room
     on  dic.COMPANYID = room.company_id and dic.DICCODE = room.room_level
     where dic.COMPANYID = #{companyId}
-    and dic.DICTYPE = #{roomLevelType}
-    and room.venueId = #{venueId}
+    and dic.DICTYPE = #{roomType}
+    and room.venue_id = #{venueId}
 
   </select>
 
