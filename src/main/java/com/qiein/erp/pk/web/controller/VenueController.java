@@ -25,7 +25,7 @@ import java.util.List;
 public class VenueController {
 
     private static Logger logger = LoggerFactory.getLogger(VenueController.class);
-    Integer companyId = 2;
+    Integer companyId = 1;
 
     @Autowired
     private VenueService venueService;
