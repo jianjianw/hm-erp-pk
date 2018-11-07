@@ -30,9 +30,10 @@ public class VenueDTO implements Serializable {
 
     private Integer companyId;
 
+    private String makeupRoomNums;  //化妆间
+    private String shootRoomNums;  //拍摄间/拍摄景
+    private String baseName;  //场馆名字
 
-    private List<Room> shootRooms;  //拍摄间
-    private List<Room> dressingRooms;  //拍摄间
 
     public Integer getId() {
         return id;
@@ -104,5 +105,29 @@ public class VenueDTO implements Serializable {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public String getMakeupRoomNums() {
+        return makeupRoomNums;
+    }
+
+    public void setMakeupRoomNums(String makeupRoomNums) {
+        this.makeupRoomNums = makeupRoomNums;
+    }
+
+    public String getShootRoomNums() {
+        return shootRoomNums;
+    }
+
+    public void setShootRoomNums(String shootRoomNums) {
+        this.shootRoomNums = shootRoomNums;
+    }
+
+    public String getBaseName() {
+        return baseName;
+    }
+
+    public void setBaseName(String baseName) {
+        this.baseName = baseName;
     }
 }

@@ -31,7 +31,7 @@ public interface SceneService {
     void sceneSort(List<Scene> scenes);
 
     /**
-     * 查询场馆下面的拍摄景
+     * 查询场馆下面的房间和拍摄景
      * @param companyId
      * @param venueId
      * @return
@@ -43,5 +43,13 @@ public interface SceneService {
      * @param scenes
      */
     void batInsertOrUpdateScene(List<Scene> scenes);
+
+    /**
+     * 查询场馆下面的拍摄景
+     * @param companyId
+     * @param venueId
+     * @return
+     */
+    List<Scene> findSceneByVenueId(Integer companyId, Integer venueId);
 
 }

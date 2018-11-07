@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.service;
 
+import com.qiein.erp.pk.web.entity.dto.VenueDTO;
 import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
 
@@ -17,11 +18,18 @@ public interface VenueService {
 
     Venue selectByPrimaryKey(Integer id,Integer companyId);
 
-    List<Venue> selectAll(Integer companyId,Integer venueType);
+    List<VenueDTO> selectAll(Integer companyId,Integer venueType);
 
     int updateByPrimaryKey(Venue venue);
 
     void venueSort(List<Venue> venues);
+
+    /**
+     * 内景馆的首页展示
+     * @param companyId
+     * @return
+     */
+    List<VenueDTO> showIndex(Integer companyId);
 
     /**
      * 获取场景馆下拉框

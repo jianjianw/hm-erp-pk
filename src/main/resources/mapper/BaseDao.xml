@@ -21,6 +21,7 @@
     set base_name = #{baseName},
       company_id = #{companyId}
     where id = #{id}
+    and company_id = #{companyId}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
     select id, base_name, company_id
