@@ -36,10 +36,14 @@
         	and venue.venue_type=1
 
   </select>
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="map" >
     delete from hm_erp_venue
     where id = #{id} and company_id = #{companyId}
   </delete>
+
   <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Venue" >
     insert into hm_erp_venue (id, base_id, venue_name, 
       venue_type, venue_phone, respo, 
@@ -50,6 +54,7 @@
       #{address}, #{venueStatus}, #{companyId},#{priority}
       )
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Venue" >
     update hm_erp_venue
     set base_id = #{baseId},
@@ -64,12 +69,14 @@
     where id = #{id}
     and companyId = #{companyId}
   </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
     select id, base_id, venue_name, venue_type, venue_phone, respo, address, venue_status, 
     company_id
     from hm_erp_venue
     where id = #{id} and company_id = #{companyId}
   </select>
+
   <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
     select id, base_id, venue_name, venue_type, venue_phone, respo, address, venue_status, 
     company_id,priority
@@ -86,6 +93,7 @@
       and venue_type = #{item.venueType}
     </foreach>
   </update>
+
 
 
 
