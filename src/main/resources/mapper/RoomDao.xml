@@ -45,25 +45,25 @@
 
     update hm_erp_venue_room
    <set>
-     <if test="venue_id != null">
+     <if test="venueId != null">
        venue_id = #{venueId},
      </if>
-     <if test="room_name != null and room_name != '' ">
+     <if test="roomName != null and roomName != '' ">
        room_name = #{roomName},
      </if>
      <if test = "roomLevel != null">
-       roomLevel = #{roomLevel},
+       room_level = #{roomLevel},
      </if>
-     <if test = "room_type != null">
+     <if test = "roomType != null">
        room_type = #{roomType},
      </if>
      <if test = "priority != null">
        priority = #{priority},
      </if>
-     <if test = " room_status != null">
+     <if test = " roomStatus != null">
        room_status = #{roomStatus},
      </if>
-     <if test = "company_id != null">
+     <if test = "companyId != null">
        company_id = #{companyId}
      </if>
    </set>

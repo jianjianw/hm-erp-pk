@@ -19,4 +19,11 @@ public interface BaseService {
     List<Base> selectAll(Integer companyId);
 
     int updateByPrimaryKey(Base base);
+
+    /**
+     * 批量编辑场馆
+     * @param bases
+     */
+    void batInsertOrUpdate(List<Base> bases);
+
 }

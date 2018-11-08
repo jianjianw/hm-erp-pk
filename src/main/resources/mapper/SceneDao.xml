@@ -33,14 +33,14 @@
 
     update hm_erp_scene
     <set>
-      <if test="shoot_id != null">
+      <if test="shootId != null">
         shoot_id = #{shootId},
       </if>
-      <if test="scene_name != null and scene_name != ''">
+      <if test="sceneName != null and sceneName != ''">
         scene_name = #{sceneName},
       </if>
 
-      <if test="scene_status != null">
+      <if test="sceneStatus != null">
         scene_status = #{sceneStatus},
       </if>
 
@@ -48,7 +48,7 @@
         priority = #{priority},
       </if>
 
-      <if test="company_id != null">
+      <if test="companyId != null">
         company_id = #{companyId}
       </if>
     </set>

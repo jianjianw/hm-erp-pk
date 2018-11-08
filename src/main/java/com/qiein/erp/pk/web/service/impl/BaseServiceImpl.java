@@ -41,4 +41,19 @@ public class BaseServiceImpl implements BaseService {
     public int updateByPrimaryKey(Base base) {
         return baseDao.updateByPrimaryKey(base);
     }
+
+    @Override
+    public void batInsertOrUpdate(List<Base> bases) {
+
+        for(Base base : bases){
+            //Integer id = base.getId();
+            Base base1 = baseDao.selectByPrimaryKey(base.getId(), base.getCompanyId());
+            if(base1 == null){
+                baseDao.insert(base);
+            }else{
+                baseDao.updateByPrimaryKey(base);
+            }
+
+        }
+    }
 }

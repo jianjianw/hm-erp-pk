@@ -18,5 +18,5 @@ public interface BaseDao {
 
     List<Base> selectAll(@Param("companyId")Integer companyId);
 
-    int updateByPrimaryKey(Base record);
+    int updateByPrimaryKey(Base base);
 }

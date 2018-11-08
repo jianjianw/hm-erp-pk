@@ -109,9 +109,9 @@ public class RoomServiceImpl implements RoomService {
     public void batInsertOrUpdate(List<Room> rooms) {
 
         for(Room room : rooms){
+            //Integer roomId = room.getRoomId();
             Room room1 = roomDao.selectByPrimaryKey(room.getRoomId(), room.getCompanyId());
             if(room1 == null){
-                //insert
                 roomDao.insert(room);
             }else{
                 roomDao.updateByPrimaryKey(room);

@@ -32,7 +32,7 @@ public class Base implements Serializable {
     }
 
     public void setBaseName(String baseName) {
-        this.baseName = baseName == null ? null : baseName.trim();
+        this.baseName = baseName;
     }
 
     public Integer getCompanyId() {
