@@ -26,4 +26,8 @@ public interface BaseService {
      */
     void batInsertOrUpdate(List<Base> bases);
 
+    /*
+    * 查询没有关闭的基地
+    * */
+    List<Base> selectOpenAll(Integer companyId);
 }

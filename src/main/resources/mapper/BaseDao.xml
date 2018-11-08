@@ -35,4 +35,12 @@
     from hm_erp_base
     where company_id = #{companyId}
   </select>
+
+
+  <select id="selectOpenAll" resultMap="BaseResultMap" parameterType="integer">
+     select id, base_name, company_id,base_status
+    from hm_erp_base
+    where company_id = #{companyId} and base_status != 0
+  </select>
+
 </mapper>

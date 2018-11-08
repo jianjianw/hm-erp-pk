@@ -55,6 +55,16 @@ public class BaseController {
         return ResultInfoUtil.success();
     }
 
+    /**
+     * 查询所有开启的基地
+     * @return
+     */
+    @GetMapping("/select_open_all")
+    public ResultInfo selectOpenAll(){
+        List<Base> bases = baseService.selectOpenAll(companyId);
+        return ResultInfoUtil.success(bases);
+    }
+
 
 
 

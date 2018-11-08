@@ -56,4 +56,9 @@ public class BaseServiceImpl implements BaseService {
 
         }
     }
+
+    @Override
+    public List<Base> selectOpenAll(Integer companyId) {
+        return baseDao.selectOpenAll(companyId);
+    }
 }
