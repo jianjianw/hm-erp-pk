@@ -201,8 +201,5 @@
 
   </select>
 
-  <update id="batUpdate" parameterType="ArrayList">
-
-  </update>
 
 </mapper>

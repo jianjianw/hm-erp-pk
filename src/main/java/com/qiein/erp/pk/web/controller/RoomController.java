@@ -115,7 +115,7 @@ public class RoomController {
     }
 
     //批量添加房间
-    @PostMapping("/add_room_room")
+    @PostMapping("/bat_add_room")
     public ResultInfo batAddRoom(@RequestBody List<Room> rooms){
         roomService.batAddRoom(rooms);
         return ResultInfoUtil.success();
@@ -128,12 +128,6 @@ public class RoomController {
         return ResultInfoUtil.success();
     }
 
-    //批量更新
-    @PostMapping("/bat_update")
-    public ResultInfo batUpdate(@RequestBody List<Room> rooms){
-        roomService.batUpdate(rooms);
-        return ResultInfoUtil.success();
-    }
 
 
 }

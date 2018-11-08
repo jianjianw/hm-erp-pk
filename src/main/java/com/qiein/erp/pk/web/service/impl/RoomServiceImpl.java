@@ -124,10 +124,6 @@ public class RoomServiceImpl implements RoomService {
 
     }
 
-    @Override
-    public void batUpdate(List<Room> rooms) {
-        roomDao.batUpdate(rooms);
-    }
 
 
 }

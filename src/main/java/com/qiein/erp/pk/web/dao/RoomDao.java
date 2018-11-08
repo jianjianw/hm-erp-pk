@@ -51,11 +51,4 @@ public interface RoomDao {
     List<LevelAndRoomDTO> findRoomByLevelId(@Param("companyId") Integer companyId,
                                                       @Param("venueId") Integer venueId,
                                                       @Param("levelId") Integer levelId);
-
-
-    /**
-     * 批量更新
-     * @param rooms
-     */
-    void batUpdate(List<Room> rooms);
 }
