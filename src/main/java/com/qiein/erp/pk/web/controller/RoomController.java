@@ -86,7 +86,7 @@ public class RoomController {
         return ResultInfoUtil.success();
     }
 
-    //点击新增 先查询所有的数据
+    //排序前 先查询所有的数据
     @GetMapping("get_all_room_and_type")
     public ResultInfo getLevelAndRoom(Integer companyId,Integer venueId,String roomType){
 
