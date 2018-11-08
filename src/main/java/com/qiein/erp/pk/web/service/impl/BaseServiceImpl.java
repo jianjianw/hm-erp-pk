@@ -47,8 +47,8 @@ public class BaseServiceImpl implements BaseService {
 
         for(Base base : bases){
             Integer id = base.getId();
-            //Base base1 = baseDao.selectByPrimaryKey(base.getId(), base.getCompanyId());
-            if(id == null){
+            Base base1 = baseDao.selectByPrimaryKey(base.getId(), base.getCompanyId());
+            if(base1 == null){
                 baseDao.insert(base);
             }else{
                 baseDao.updateByPrimaryKey(base);

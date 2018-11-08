@@ -69,4 +69,10 @@ public interface RoomService {
      */
     void batInsertOrUpdate(List<Room> rooms);
 
+    /**
+     * 批量更新
+     * @param rooms
+     */
+    void batUpdate(List<Room> rooms);
+
 }

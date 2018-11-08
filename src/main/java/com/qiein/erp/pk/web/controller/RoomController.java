@@ -121,5 +121,12 @@ public class RoomController {
         return ResultInfoUtil.success();
     }
 
+    //批量新增
+    @PostMapping("/bat_update")
+    public ResultInfo batUpdate(@RequestBody List<Room> rooms){
+        roomService.batUpdate(rooms);
+        return ResultInfoUtil.success();
+    }
+
 
 }
