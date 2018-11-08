@@ -64,20 +64,22 @@ public class MealController {
     public ResultInfo selectServiceId(){
     	 int companyId=1;
          List<ServicePO> servicePo= mealService.selectServiceId(companyId);
-         List<DictionaryErp> mealTypes= mealService.selectMealType(companyId);
-         List<Object> lists=new ArrayList<>();
-         lists.addAll(servicePo);
-         lists.addAll(mealTypes);
-        return ResultInfoUtil.success(lists);
+         //List<DictionaryErp> mealTypes= mealService.selectMealType(companyId);
+         //List<Object> lists=new ArrayList<>();
+         //lists.addAll(servicePo);
+         //lists.addAll(mealTypes);
+        return ResultInfoUtil.success(servicePo);
     }
     /**
      * 新增套餐
      * @return
      */
     @PostMapping("/insert_meal")
-    public ResultInfo insertMeal(@RequestBody Meal meal){
-    	meal.setCompanyId(1);
-        mealService.insertMeal(meal);
+    public ResultInfo insertMeal(@RequestBody List<Meal> meals){
+    	for (Meal meal : meals) {
+    		meal.setCompanyId(1);
+    		mealService.insertMeal(meal);
+		}
         return ResultInfoUtil.success();
     }
     
