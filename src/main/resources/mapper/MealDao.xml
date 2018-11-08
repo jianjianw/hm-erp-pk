@@ -35,7 +35,8 @@
   </resultMap> 
   
   <sql id="baseColumn">
-  	meal_name, photo_type, meal_type,meal_status,meal_amount,memo,priority,clothes_num,company_id
+  	id,meal_name, photo_type, meal_type,meal_status,meal_amount,memo,priority,clothes_num,company_id,
+  	meal_type_name,service_id,service_name
   </sql>
   
   <!--查询服务ID  -->
@@ -75,10 +76,13 @@
     	<if test="dicName != null and dicName != '' ">
     		DICNAME = #{dicName},
     	</if>
-    	<if test="priority != 0 ">
+    	<if test="priority != 0 and priority != null">
     		PRIORITY = #{priority},
     	</if>
+    	<if test="showFlag != null">
     		ISSHOW = #{showFlag}
+    	</if>
+    		
     </set> 
     WHERE
 		id = #{id} AND COMPANYID = #{companyId}
@@ -101,26 +105,36 @@
     	<if test="mealName != null and mealName != '' ">
     		meal_name=#{mealName},
     	</if>
-    	<if test="photoType != 0 ">
+    	<if test="photoType != 0 and photoType != null">
     		photo_type=#{photoType},
     	</if>
-    	<if test="mealType != 0 ">
+    	<if test="mealType != 0 and mealType != null">
     		meal_type=#{mealType},
     	</if>
-    	<if test="mealAmount != 0 ">
+    	<if test="mealAmount != 0 and mealAmount != null">
     		meal_amount=#{mealAmount},
     	</if>
     	<if test="memo != null and memo != '' ">
     		memo=#{memo},
     	</if>
-    	<if test="clothesNum != 0 ">
+    	<if test="clothesNum != 0 and clothesNum != null">
     		clothes_num=#{clothesNum},
     	</if>
-    	meal_status=#{mealStatus},
-    	priority=#{priority},
-    	meal_type_name=#{mealTypeName},
-    	service_id=#{serviceId},
-    	service_name=#{serviceName}
+    	<if test="mealStatus != null">
+    		meal_status=#{mealStatus},
+    	</if>
+    	<if test="priority != null">
+    		priority=#{priority},
+    	</if>
+    	<if test="mealTypeName != null and mealTypeName != '' ">
+    		meal_type_name=#{mealTypeName},
+    	</if>
+    	<if test="serviceId != 0 and serviceId != null">
+    		service_id=#{serviceId},
+    	</if>
+    	<if test="serviceName != '' and serviceName != null">
+    		service_name=#{serviceName}
+    	</if>
     </set> 
     WHERE 
     	id = #{id} and company_id=#{companyId}
@@ -131,7 +145,7 @@
     SELECT 
     	<include refid="baseColumn"/>
     FROM 
-    	hm_erp_base
+    	hm_erp_meal
   </select>
   
   
