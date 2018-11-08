@@ -70,11 +70,12 @@ public class SceneServiceImpl implements SceneService {
     public void batInsertOrUpdateScene(List<Scene> scenes) {
 
         for(Scene scene : scenes ){
-            Scene scene1 = sceneDao.selectByPrimaryKey(scene.getId(), scene.getCompanyId());
-            if(scene1 == null){
+            Integer id = scene.getId();
+            //Scene scene1 = sceneDao.selectByPrimaryKey(scene.getId(), scene.getCompanyId());
+            if(id == null){
                 sceneDao.insert(scene);
             }else{
-                updateByPrimaryKey(scene);
+                sceneDao.updateByPrimaryKey(scene);
             }
         }
     }

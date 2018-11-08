@@ -31,7 +31,7 @@ public interface SceneDao {
 
     void sceneSort(List<Scene> scenes);
     /**
-     * 获取场馆下面的拍摄间
+     * 获取场馆下面的拍摄间和拍摄景
      * @param companyId
      * @param venueId
      * @param roomType

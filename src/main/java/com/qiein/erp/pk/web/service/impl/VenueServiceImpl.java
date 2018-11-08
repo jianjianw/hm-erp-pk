@@ -68,8 +68,10 @@ public class VenueServiceImpl implements VenueService {
                 VenueDTO venueDTO = new VenueDTO();
                 BeanUtils.copyProperties(venueDTO, venue);
                 for(Base base : bases){
-                    venueDTO.setBaseName(base.getBaseName());
-                    break;
+                    if(base.getId().equals(venueDTO.getBaseId())){
+                        venueDTO.setBaseName(base.getBaseName());
+                        break;
+                    }
                 }
                 result.add(venueDTO);
             }

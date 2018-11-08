@@ -1,16 +1,20 @@
 package com.qiein.erp.pk.web.entity.po;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 /*
 *  房间
 *  author:wang lei
 *  date : 2018-11-04
 * */
+@ApiModel(value="房间对象",description="roomType = 1 化妆间,roomType = 2 拍摄间")
 public class Room implements Serializable {
     private static final long serialVersionUID = 474466157479846785L;
-
+    @ApiModelProperty(value="房间id,新插入时不用传，编辑时要传",name = "roomId", required = true)
     private Integer roomId;  //房间id
-
+    @ApiModelProperty(value="场馆id",name = "venueId", required = true)
     private Integer venueId; //场馆id
 
     private String roomName; //房间名字

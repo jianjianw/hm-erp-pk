@@ -7,6 +7,9 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
 import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.service.RoomService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -53,10 +56,10 @@ public class RoomController {
         return ResultInfoUtil.success(rooms);
     }
 
-
+    @ApiOperation(value = "根据主键编辑房间", notes = "roomType 房间类型 化妆间 1  拍摄间2")
     @PostMapping("/update_by_primary_key")
-    public ResultInfo updateByPrimaryKey(@RequestBody Room record){
-        int i = roomService.updateByPrimaryKey(record);
+    public ResultInfo updateByPrimaryKey(@RequestBody Room room){
+        int i = roomService.updateByPrimaryKey(room);
         return ResultInfoUtil.success();
     }
     @GetMapping("/select_room_for_service")
@@ -64,7 +67,11 @@ public class RoomController {
         return ResultInfoUtil.success(roomService.selectRoomByServiceId(venueIds,companyId));
     }
 
-
+    @ApiOperation(value = "查询场馆下面的拍摄间或者房间")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "venueId",value = "场馆id", dataType = "Integer"),
+            @ApiImplicitParam(name = "roomType",value = "房间类型(化妆间：1 拍摄间：2)",dataType = "Integer")
+    })
     //查询场馆下面的化妆间 1 或者 拍摄间 2
     @GetMapping("/find_room_by_venue_id")
     public ResultInfo findRoomByVenueId(Integer venueId, Integer roomType){
@@ -107,7 +114,7 @@ public class RoomController {
         return ResultInfoUtil.success();
     }
 
-    //批量编辑
+    //批量编辑和新增
     @PostMapping("/bat_insert_or_update")
     public ResultInfo batInsertOrUpdate(@RequestBody List<Room> rooms){
         roomService.batInsertOrUpdate(rooms);

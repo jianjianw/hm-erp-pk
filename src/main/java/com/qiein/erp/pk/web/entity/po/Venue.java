@@ -10,25 +10,25 @@ import java.io.Serializable;
 public class Venue implements Serializable {
     private static final long serialVersionUID = -1302559071626317704L;
 
-    private Integer id;
+    private Integer id;   //场馆id
 
-    private Integer baseId;
+    private Integer baseId;   //基地id
 
-    private String venueName;
+    private String venueName;   //场馆名字
 
-    private Short venueType;
+    private Short venueType;    //场馆类型
 
-    private String venuePhone;
+    private String venuePhone;  //场馆电话
 
-    private String respo;
+    private String respo;       //负责人
 
-    private String address;
+    private String address;     //地址
 
-    private Short venueStatus;
+    private Short venueStatus;      //场馆状态 1开启 0 关闭
 
-    private Integer companyId;
+    private Integer companyId;      //公司id
 
-    private Integer priority;
+    private Integer priority;       //排序
 
 
     public Integer getId() {

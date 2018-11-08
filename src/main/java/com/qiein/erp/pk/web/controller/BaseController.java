@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.controller;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.Base;
+import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,4 +48,14 @@ public class BaseController {
         int i = baseService.updateByPrimaryKey(base);
         return ResultInfoUtil.success();
     }
+
+    @PostMapping("/bat_insert_or_update")
+    public ResultInfo batInsertOrUpdate(@RequestBody List<Base> bases){
+        baseService.batInsertOrUpdate(bases);
+        return ResultInfoUtil.success();
+    }
+
+
+
+
 }
