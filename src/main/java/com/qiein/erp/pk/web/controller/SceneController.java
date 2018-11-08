@@ -30,7 +30,7 @@ public class SceneController {
         return ResultInfoUtil.success();
     }
     @PostMapping("/insert")
-    public ResultInfo insert(Scene scene){
+    public ResultInfo insert(@RequestBody Scene scene){
         int insert = sceneService.insert(scene);
         return ResultInfoUtil.success();
     }
@@ -45,7 +45,7 @@ public class SceneController {
         return ResultInfoUtil.success(scenes);
     }
     @PostMapping("/update_by_primary_key")
-    public ResultInfo updateByPrimaryKey(Scene scene){
+    public ResultInfo updateByPrimaryKey(@RequestBody Scene scene){
         int i = sceneService.updateByPrimaryKey(scene);
         return ResultInfoUtil.success();
     }
