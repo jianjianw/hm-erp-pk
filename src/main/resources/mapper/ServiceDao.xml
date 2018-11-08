@@ -42,11 +42,11 @@
     </delete>
 
     <delete id="deleteServiceVenueLink">
-        delete from hm_erp_service_venue_link where service_venue_id in (select id from hm_erp_service_venue where service_id=#{serviceId}) and company_id=#{companyId}
+        delete from hm_erp_service_venue_link where service_venue_id in (select id from hm_erp_service_venue where service_id=#{serviceId}) and company_id=#{companyId})
     </delete>
 
     <update id="updateService">
-        update hm_erp_service_venue set service_name=#{serviceName},service_type=#{serviceType} ,shoot_num=#{shootNum},makeup_num=#{makeupNum},video_num=#{videoNum},serice_status=#{serviceStatus} where id=#{id}
+        update hm_erp_service set service_name=#{serviceName},service_type=#{serviceType} ,shoot_num=#{shootNum},makeup_num=#{makeupNum},video_num=#{videoNum},service_status=#{serviceStatus} where id=#{id}
     </update>
     <select id="select" resultType="com.qiein.erp.pk.web.entity.vo.ServiceVO">
         SELECT
