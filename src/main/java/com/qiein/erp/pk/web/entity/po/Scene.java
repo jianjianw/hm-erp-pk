@@ -10,17 +10,17 @@ import java.io.Serializable;
 public class Scene implements Serializable {
     private static final long serialVersionUID = 8656946036214356631L;
 
-    private Integer id;
+    private Integer id;     //场景id
 
     private Integer shootId;    //拍摄间id
 
-    private String sceneName;
+    private String sceneName;  //场景名字
 
-    private Short sceneStatus;
+    private Short sceneStatus;  //场景状态  1 开启  0 关闭
 
-    private Integer priority;
+    private Integer priority;   //排序
 
-    private Integer companyId;
+    private Integer companyId;  //公司id
 
 
     public Integer getId() {

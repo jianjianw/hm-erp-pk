@@ -9,11 +9,11 @@ import java.io.Serializable;
 public class Base implements Serializable {
     private static final long serialVersionUID = 21266182125583448L;
 
-    private Integer id;
+    private Integer id;     //场馆id
 
-    private String baseName;
+    private String baseName; //场馆名字
 
-    private Integer companyId;
+    private Integer companyId;  //公司id
 
     //新加基地状态
     private Short baseStatus;
