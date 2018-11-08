@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * 场馆 内景馆  门店
+ * 场馆 1 内景馆  2 门店
  * author:wang lei
  * date : 2018-11-04
  * */
@@ -58,7 +58,6 @@ public class VenueController {
     //显示所有门店 或者 内景馆
     @GetMapping("/select_all")
     public ResultInfo selectAll(Integer venueType){//venueType 1 内景馆   2 门店
-        int companyId=1;
         List<VenueDTO> result = venueService.selectAll(companyId,venueType);
         return ResultInfoUtil.success(result);
     }
@@ -86,6 +85,8 @@ public class VenueController {
         List<VenueDTO> venueDTOS = venueService.showIndex(companyId);
         return ResultInfoUtil.success(venueDTOS);
     }
+
+
    @GetMapping("/get_venues")
     public ResultInfo getVenues(){
        return ResultInfoUtil.success(venueService.getVenues(companyId));

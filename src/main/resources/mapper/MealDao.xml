@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiein.erp.pk.web.dao.MealDao" >
+
+  <resultMap id="MealMap" type="com.qiein.erp.pk.web.entity.po.Meal" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
+    <result column="photo_type" property="photoType" jdbcType="INTEGER" />
+    <result column="meal_type" property="mealType" jdbcType="INTEGER" />
+    <result column="meal_status" property="mealStatus" jdbcType="INTEGER" />
+    <result column="meal_amount" property="mealAmount" jdbcType="INTEGER" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="clothes_num" property="clothesNum" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="meal_type_name" property="mealTypeName" jdbcType="VARCHAR" />
+    <result column="service_id" property="serviceId" jdbcType="INTEGER" />
+    <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="DictionayMap" type="com.qiein.erp.pk.web.entity.po.DictionaryErp" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="DICTYPE" property="dicType" jdbcType="VARCHAR" />
+    <result column="DICCODE" property="dicCode" jdbcType="INTEGER" />
+    <result column="DICNAME" property="dicName" jdbcType="VARCHAR" />
+    <result column="PRIORITY" property="priority" jdbcType="INTEGER" />
+    <result column="SPARE" property="spare" jdbcType="VARCHAR" />
+    <result column="COMPANYID" property="companyId" jdbcType="INTEGER" />
+    <result column="ISSHOW" property="showFlag" jdbcType="BOOLEAN" />
+  </resultMap> 
+  
+  <resultMap id="ServiceMap" type="com.qiein.erp.pk.web.entity.po.ServicePO" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
+  </resultMap> 
+  
+  <sql id="baseColumn">
+  	id,meal_name, photo_type, meal_type,meal_status,meal_amount,memo,priority,clothes_num,company_id,
+  	meal_type_name,service_id,service_name
+  </sql>
+  
+  <!--查询服务ID  -->
+  <select id="selectServiceId" resultMap="ServiceMap">
+  	SELECT
+		ser.id,ser.service_name
+	FROM
+	 	hm_erp_service ser
+	WHERE
+		ser.company_id=#{companyId}
+  </select>
+  
+  <!--查询套餐类别 -->
+  <select id="selectMealType" resultMap="DictionayMap">
+	SELECT
+		dic.ID,dic.DICTYPE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW
+	FROM
+		hm_crm_dictionary dic
+	WHERE
+		dic.COMPANYID = #{companyId}
+	AND dic.DICTYPE = 'meal_type'  	
+  </select>
+  
+  <!--新增套餐分类  -->
+  <insert id="insertMealType">
+	INSERT 
+		hm_crm_dictionary (DICTYPE,DICNAME,PRIORITY,COMPANYID,ISSHOW)
+	VALUES
+	(#{dicType},#{dicName},#{priority},#{companyId},#{showFlag})
+  </insert>
+  
+  <!--编辑套餐  -->
+  <update id="updateMealType" parameterType="com.qiein.erp.pk.web.entity.po.DictionaryErp" >
+    UPDATE 
+    	hm_crm_dictionary
+    <set>
+    	<if test="dicName != null and dicName != '' ">
+    		DICNAME = #{dicName},
+    	</if>
+    	<if test="priority != 0 and priority != null">
+    		PRIORITY = #{priority},
+    	</if>
+    	<if test="showFlag != null">
+    		ISSHOW = #{showFlag}
+    	</if>
+    		
+    </set> 
+    WHERE
+		id = #{id} AND COMPANYID = #{companyId}
+  </update>
+  <!--新增主套餐  -->
+  <insert id="insertMeal" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
+    insert into 
+    	hm_erp_meal (meal_name, photo_type, meal_type,meal_status,meal_amount,
+    			memo,priority,clothes_num,company_id,meal_type_name,service_id,service_name)
+    	values (#{mealName}, #{photoType}, #{mealType}, #{mealStatus}, #{mealAmount},
+    		 #{memo}, #{priority}, #{clothesNum}, #{companyId},#{mealTypeName},#{serviceId},#{serviceName}
+      )
+  </insert>
+  
+  <!--编辑套餐  -->
+  <update id="updateByMeal" parameterType="com.qiein.erp.pk.web.entity.po.Meal" >
+    UPDATE 
+    	hm_erp_meal
+    <set>
+    	<if test="mealName != null and mealName != '' ">
+    		meal_name=#{mealName},
+    	</if>
+    	<if test="photoType != 0 and photoType != null">
+    		photo_type=#{photoType},
+    	</if>
+    	<if test="mealType != 0 and mealType != null">
+    		meal_type=#{mealType},
+    	</if>
+    	<if test="mealAmount != 0 and mealAmount != null">
+    		meal_amount=#{mealAmount},
+    	</if>
+    	<if test="memo != null and memo != '' ">
+    		memo=#{memo},
+    	</if>
+    	<if test="clothesNum != 0 and clothesNum != null">
+    		clothes_num=#{clothesNum},
+    	</if>
+    	<if test="mealStatus != null">
+    		meal_status=#{mealStatus},
+    	</if>
+    	<if test="priority != null">
+    		priority=#{priority},
+    	</if>
+    	<if test="mealTypeName != null and mealTypeName != '' ">
+    		meal_type_name=#{mealTypeName},
+    	</if>
+    	<if test="serviceId != 0 and serviceId != null">
+    		service_id=#{serviceId},
+    	</if>
+    	<if test="serviceName != '' and serviceName != null">
+    		service_name=#{serviceName}
+    	</if>
+    </set> 
+    WHERE 
+    	id = #{id} and company_id=#{companyId}
+  </update>
+  
+  <!--查询套餐  -->
+  <select id="selectAll" resultMap="MealMap" >
+    SELECT 
+    	<include refid="baseColumn"/>
+    FROM 
+    	hm_erp_meal
+  </select>
+  
+  
+</mapper>

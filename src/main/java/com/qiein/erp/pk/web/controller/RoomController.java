@@ -38,7 +38,7 @@ public class RoomController {
      * @return
      */
     @PostMapping("/insert")
-    public ResultInfo insert(Room room){
+    public ResultInfo insert(@RequestBody Room room){
         int insert = roomService.insert(room);
         return ResultInfoUtil.success();
     }
@@ -55,7 +55,7 @@ public class RoomController {
 
 
     @PostMapping("/update_by_primary_key")
-    public ResultInfo updateByPrimaryKey(Room record){
+    public ResultInfo updateByPrimaryKey(@RequestBody Room record){
         int i = roomService.updateByPrimaryKey(record);
         return ResultInfoUtil.success();
     }
@@ -109,7 +109,7 @@ public class RoomController {
 
     //批量编辑
     @PostMapping("/bat_insert_or_update")
-    public ResultInfo batInsertOrUpdate(List<Room> rooms){
+    public ResultInfo batInsertOrUpdate(@RequestBody List<Room> rooms){
         roomService.batInsertOrUpdate(rooms);
         return ResultInfoUtil.success();
     }

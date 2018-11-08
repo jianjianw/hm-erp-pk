@@ -5,10 +5,7 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.Base;
 import com.qiein.erp.pk.web.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
@@ -29,7 +26,7 @@ public class BaseController {
         return  ResultInfoUtil.success();
     }
     @PostMapping("/insert")
-    public ResultInfo insert(Base base){
+    public ResultInfo insert(@RequestBody Base base){
         int insert = baseService.insert(base);
         return ResultInfoUtil.success();
     }
@@ -46,7 +43,7 @@ public class BaseController {
     }
 
     @PostMapping("/update_by_primary_key")
-    public ResultInfo updateByPrimaryKey(Base base){
+    public ResultInfo updateByPrimaryKey(@RequestBody Base base){
         int i = baseService.updateByPrimaryKey(base);
         return ResultInfoUtil.success();
     }
