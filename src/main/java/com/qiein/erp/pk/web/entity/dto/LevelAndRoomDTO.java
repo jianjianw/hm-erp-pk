@@ -20,7 +20,7 @@ public class LevelAndRoomDTO implements Serializable {
     private String roomLevelName;
     //排序
     private Integer priority;
-    //等级状态    1 开启    2 关闭
+    //等级状态    1 开启    0关闭
     private Integer roomLevelStatus;
 
     private Integer companyId;
