@@ -21,7 +21,7 @@
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="map" >
     delete from hm_erp_venue_room
-    where room_id = #{roomId} and company_id ={companyId}
+    where room_id = #{roomId} and company_id = #{companyId}
   </delete>
   <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Room" >
     insert into hm_erp_venue_room (room_id, venue_id, room_name, 
@@ -75,7 +75,7 @@
     select room_id, venue_id, room_name, room_level, room_type, priority, room_status, 
     company_id
     from hm_erp_venue_room
-    where room_id = #{roomId} and company_id ={companyId}
+    where room_id = #{roomId} and company_id =#{companyId}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select room_id, venue_id, room_name, room_level, room_type, priority, room_status, 
