@@ -30,6 +30,8 @@ public class VenueDTO implements Serializable {
 
     private Integer companyId;
 
+    private Integer priority;       //排序
+
     private String makeupRoomNums;  //化妆间
     private String shootRoomNums;  //拍摄间/拍摄景
     private String baseName;  //场馆名字
@@ -105,6 +107,14 @@ public class VenueDTO implements Serializable {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
     public String getMakeupRoomNums() {
