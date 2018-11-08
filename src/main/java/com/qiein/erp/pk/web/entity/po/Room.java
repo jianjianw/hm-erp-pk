@@ -24,7 +24,7 @@ public class Room implements Serializable {
 
     private Short priority; // 排序
 
-    private Short roomStatus;  //房间状态  1 启用  2 停用
+    private Short roomStatus;  //房间状态  1 启用  0 停用
 
     private Integer companyId;  //公司id
 
