@@ -52,7 +52,7 @@
   <!--查询套餐类别 -->
   <select id="selectMealType" resultMap="DictionayMap">
 	SELECT
-		dic.ID,dic.DICTYPE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW
+		dic.ID,dic.DICTYPE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID
 	FROM
 		hm_crm_dictionary dic
 	WHERE
@@ -123,7 +123,7 @@
     	<if test="mealStatus != null">
     		meal_status=#{mealStatus},
     	</if>
-    	<if test="priority != null">
+    	<if test="priority != null and priority != 0">
     		priority=#{priority},
     	</if>
     	<if test="mealTypeName != null and mealTypeName != '' ">
