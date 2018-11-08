@@ -1,4 +1,4 @@
-package com.qiein.erp.pk.web.entity.vo;
+package com.qiein.erp.pk.web.entity;
 
 import com.alibaba.fastjson.JSONObject;
 

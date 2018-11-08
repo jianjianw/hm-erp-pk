@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiein.erp.pk.web.dao.StaffDao" >
+
+    <select id="selectStaffByGroupId" resultType="com.qiein.erp.pk.web.entity.vo.StaffSelectVO">
+        SELECT
+            staff.ID id,
+            staff.NICKNAME nickName,
+            staff.USERNAME staffName,
+            staff.PHONE phone,
+            staff.HEADIMG headImg,
+            ifnull(
+                GROUP_CONCAT(role.role_id SEPARATOR ","),
+                ''
+            ) roleIds
+        FROM
+            hm_pub_group_staff group_staff
+        LEFT JOIN hm_pub_staff staff ON staff.id = group_staff.STAFFID
+        AND staff.COMPANYID = group_staff.COMPANYID
+        LEFT JOIN hm_erp_staff_role role ON group_staff.STAFFID = role.staff_id
+        AND group_staff.COMPANYID = role.company_id
+        WHERE
+            group_staff.COMPANYID = #{companyId}
+        AND group_staff.groupid =#{groupId}
+        AND staff.ISDEL = 0
+        GROUP BY
+            group_staff.STAFFID
+    </select>
+    <select id="findVenueByGroupId"  resultType="com.qiein.erp.pk.web.entity.vo.StaffSelectVO">
+        SELECT
+        staff.ID id,
+        ifnull(
+        GROUP_CONCAT(
+        staff_venue.venue_id SEPARATOR ","
+        ),
+        ''
+        ) venueIds,
+        ifnull(
+        GROUP_CONCAT(
+        venue.venue_name SEPARATOR ","
+        ),
+        ''
+        ) venueNames
+        FROM
+        hm_pub_group_staff group_staff
+        LEFT JOIN hm_pub_staff staff ON staff.id = group_staff.STAFFID
+        AND staff.COMPANYID = group_staff.COMPANYID
+        LEFT JOIN hm_erp_staff_venue staff_venue ON staff_venue.staff_id = group_staff.STAFFID
+        AND staff_venue.company_id = group_staff.COMPANYID
+        LEFT JOIN hm_erp_venue venue ON venue.id = staff_venue.venue_id
+        AND venue.company_id = staff_venue.company_id
+        WHERE
+        group_staff.COMPANYID = #{companyId}
+        AND group_staff.groupid = #{groupId}
+        AND staff.ISDEL = 0
+        GROUP BY
+        group_staff.STAFFID
+    </select>
+</mapper>
