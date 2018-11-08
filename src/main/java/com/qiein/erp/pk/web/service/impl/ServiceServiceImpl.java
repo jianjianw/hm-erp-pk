@@ -58,9 +58,9 @@ public class ServiceServiceImpl implements ServiceService {
         for(String makeupLinkId:serviceDTO.getMakeupLinkIds().split(CommonConstant.STR_SEPARATOR)){
             makeupIds+=makeupLinkId.split(CommonConstant.ROD_SEPARATOR)[1]+CommonConstant.STR_SEPARATOR;
         }
-        shootIds=shootIds.substring(0,makeupIds.length()-1);
+        shootIds=shootIds.substring(0,shootIds.length()-1);
         makeupIds=makeupIds.substring(0,makeupIds.length()-1);
-        serviceDao.addServiceVenueLink(serviceDTO.getMakeupLinkIds(), serviceDTO.getShootLinkIds(), serviceDTO.getCompanyId(), i);
+        serviceDao.addServiceVenueLink(makeupIds,shootIds, serviceDTO.getCompanyId(), i);
     }
 
     /**
@@ -99,7 +99,7 @@ public class ServiceServiceImpl implements ServiceService {
         for(String makeupLinkId:serviceDTO.getMakeupLinkIds().split(CommonConstant.STR_SEPARATOR)){
             makeupIds+=makeupLinkId.split(CommonConstant.ROD_SEPARATOR)[1]+CommonConstant.STR_SEPARATOR;
         }
-        shootIds=shootIds.substring(0,makeupIds.length()-1);
+        shootIds=shootIds.substring(0,shootIds.length()-1);
         makeupIds=makeupIds.substring(0,makeupIds.length()-1);
         serviceDao.addServiceVenueLink(makeupIds, shootIds, serviceDTO.getCompanyId(), serviceDTO.getId());
 
