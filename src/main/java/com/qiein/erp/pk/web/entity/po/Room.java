@@ -9,21 +9,21 @@ import java.io.Serializable;
 public class Room implements Serializable {
     private static final long serialVersionUID = 474466157479846785L;
 
-    private Integer roomId;
+    private Integer roomId;  //房间id
 
-    private Integer venueId;
+    private Integer venueId; //场馆id
 
-    private String roomName;
+    private String roomName; //房间名字
 
-    private Integer roomLevel;
+    private Integer roomLevel; //房间等级
 
-    private Short roomType; //化妆间 1  拍摄间2
+    private Short roomType; // 房间类型 化妆间 1  拍摄间2
 
-    private Short priority;
+    private Short priority; // 排序
 
-    private Short roomStatus;
+    private Short roomStatus;  //房间状态  1 启用  2 停用
 
-    private Integer companyId;
+    private Integer companyId;  //公司id
 
     public Integer getRoomId() {
         return roomId;
