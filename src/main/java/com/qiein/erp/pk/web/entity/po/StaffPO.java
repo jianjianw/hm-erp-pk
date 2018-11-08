@@ -2,7 +2,7 @@ package com.qiein.erp.pk.web.entity.po;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.qiein.erp.pk.aop.validate.annotation.NotEmptyStr;
-import com.qiein.erp.pk.web.entity.vo.BaseEntity;
+import com.qiein.erp.pk.web.entity.BaseEntity;
 import com.qiein.erp.pk.web.entity.vo.StaffDetailVO;
 
 /**

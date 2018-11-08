@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiein.erp.pk.web.dao.GroupDao" >
+    <resultMap id="baseMap" type="com.qiein.erp.pk.web.entity.po.GroupPO">
+        <id column="ID" property="id" jdbcType="BIGINT"/>
+        <result column="GROUPID" property="groupId" jdbcType="VARCHAR"/>
+        <result column="GROUPNAME" property="groupName" jdbcType="VARCHAR"/>
+        <result column="PARENTID" property="parentId" jdbcType="VARCHAR"/>
+        <result column="GROUPTYPE" property="groupType" jdbcType="VARCHAR"/>
+        <result column="COMPANYID" property="companyId" jdbcType="VARCHAR"/>
+        <result column="CHIEFIDS" property="chiefIds" jdbcType="VARCHAR"/>
+        <result column="CHIEFNAMES" property="chiefNames" jdbcType="VARCHAR"/>
+        <result column="PRIORITY" property="priority" jdbcType="INTEGER"/>
+        <result column="ATTRIDS" property="attrIds" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="GroupVOMap" type="com.qiein.erp.pk.web.entity.vo.GroupVO" extends="baseMap">
+        <collection property="groupList" ofType="com.qiein.erp.pk.web.entity.po.GroupPO" resultMap="sonMap"/>
+    </resultMap>
+
+    <resultMap id="sonMap" type="com.qiein.erp.pk.web.entity.po.GroupPO">
+        <result column="GID" property="id" jdbcType="INTEGER"/>
+        <result column="GRPID" property="groupId" jdbcType="INTEGER"/>
+        <result column="GRPNAME" property="groupName" jdbcType="VARCHAR"/>
+        <result column="PARID" property="parentId" jdbcType="VARCHAR"/>
+        <result column="TYPE" property="groupType" jdbcType="VARCHAR"/>
+        <result column="COMPID" property="companyId" jdbcType="VARCHAR"/>
+        <result column="CIDS" property="chiefIds" jdbcType="VARCHAR"/>
+        <result column="CNAMES" property="chiefNames" jdbcType="VARCHAR"/>
+        <result column="SHOPID" property="shopId" jdbcType="INTEGER"/>
+        <result column="PRI" property="priority" jdbcType="INTEGER"/>
+        <result column="PATTRIDS" property="attrIds" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getCompanyAllDeptList" parameterType="map" resultMap="GroupVOMap">
+        SELECT
+        par.ID,
+        par.GROUPID,
+        par.GROUPNAME,
+        par.PARENTID,
+        par.GROUPTYPE,
+        par.COMPANYID,
+        par.CHIEFIDS,
+        par.CHIEFNAMES,
+        par.PRIORITY,
+        par.ATTRIDS,
+        grp.ID         AS GID,
+        grp.GROUPID    AS GRPID,
+        grp.GROUPNAME  AS GRPNAME,
+        grp.PARENTID   AS PARID,
+        grp.GROUPTYPE  AS TYPE,
+        grp.COMPANYID  AS CMPID,
+        grp.CHIEFIDS   AS CIDS,
+        grp.CHIEFNAMES AS CNAMES,
+        grp.PRIORITY   AS PRI,
+        grp.ATTRIDS AS PATTRIDS,
+        grp.SHOPID
+        FROM
+        hm_pub_group par
+        LEFT JOIN hm_pub_group grp ON grp.PARENTID = par.GROUPID
+        AND grp.COMPANYID = par.COMPANYID
+        WHERE
+        par.COMPANYID = #{companyId}
+        AND par.PARENTID = '0'
+        ORDER BY par.PRIORITY, par.GROUPTYPE, par.GROUPNAME, grp.PRIORITY, grp.GROUPNAME
+    </select>
+</mapper>
