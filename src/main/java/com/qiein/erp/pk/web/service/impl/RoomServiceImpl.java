@@ -106,6 +106,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public void batAddRoom(List<Room> rooms) {
+        roomDao.batAddRoom(rooms);
+    }
+
+    @Override
     public void batInsertOrUpdate(List<Room> rooms) {
 
         for(Room room : rooms){

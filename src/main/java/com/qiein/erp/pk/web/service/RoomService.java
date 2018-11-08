@@ -62,6 +62,9 @@ public interface RoomService {
      */
     void addRoomLevel(LevelAndRoomDTO levelAndRoomDTO);
 
+    //批量添加房间
+    void batAddRoom(List<Room> rooms);
+
 
     /**
      * 批量编辑或者更新

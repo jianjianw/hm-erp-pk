@@ -158,16 +158,6 @@
   </insert>
 
   <insert id="batAddRoom" parameterType="ArrayList">
-
-    <!--<foreach collection="list" index="index" item="item" separator=";">
-      insert into hm_erp_venue_room (room_id, venue_id, room_name,
-      room_level, room_type, priority,
-      room_status, company_id)
-      values (#{item.roomId}, #{item.venueId}, #{item.roomName},
-      #{item.roomLevel}, #{item.roomType}, #{item.priority},
-      #{item.roomStatus}, #{item.companyId})
-    </foreach>-->
-
     insert into hm_erp_venue_room
     (room_id, venue_id, room_name,room_level,room_type,priority,room_status,company_id)
     values
