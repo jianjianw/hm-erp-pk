@@ -42,7 +42,7 @@
     </delete>
 
     <delete id="deleteServiceVenueLink">
-        delete from hm_erp_service_venue_link where service_venue_id in (select id from hm_erp_service_venue where service_id=#{serviceId}) and company_id=#{companyId})
+        delete from hm_erp_service_venue_link where service_venue_id in (select id from hm_erp_service_venue where service_id=#{serviceId}) and company_id=#{companyId}
     </delete>
 
     <update id="updateService">
