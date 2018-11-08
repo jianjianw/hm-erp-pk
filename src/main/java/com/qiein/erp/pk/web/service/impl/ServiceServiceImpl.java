@@ -5,6 +5,7 @@ import com.qiein.erp.pk.web.dao.ServiceDao;
 import com.qiein.erp.pk.web.entity.dto.ServiceDTO;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.po.ServiceVenuePO;
+import com.qiein.erp.pk.web.entity.vo.RoomGroupByServiceIdVO;
 import com.qiein.erp.pk.web.entity.vo.ServiceVO;
 import com.qiein.erp.pk.web.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,8 @@ public class ServiceServiceImpl implements ServiceService {
         servicePO.setVideoNum(serviceDTO.getVideoNum());
         servicePO.setServiceStatus(serviceDTO.isStatus());
 
-        int i = serviceDao.addService(servicePO);
+        serviceDao.addService(servicePO);
+        int i=servicePO.getId();
         List<ServiceVenuePO> serviceVenuePOS = new ArrayList<>();
         for (String venceId : serviceDTO.getVenueIds().split(CommonConstant.STR_SEPARATOR)) {
             ServiceVenuePO serviceVenuePO = new ServiceVenuePO();
@@ -48,7 +50,17 @@ public class ServiceServiceImpl implements ServiceService {
         }
 
         serviceDao.addServiceVenue(serviceVenuePOS);
-        serviceDao.addServiceVenueLink(serviceDTO.getMakeupLinkIds(), serviceDTO.getShookLinkIds(), serviceDTO.getCompanyId(), i);
+        String makeupIds=CommonConstant.NULL_STR;
+        String shootIds=CommonConstant.NULL_STR;
+        for(String shootId:serviceDTO.getShootLinkIds().split(CommonConstant.STR_SEPARATOR)){
+            shootIds+=shootId.split(CommonConstant.ROD_SEPARATOR)[1]+CommonConstant.STR_SEPARATOR;
+        }
+        for(String makeupLinkId:serviceDTO.getMakeupLinkIds().split(CommonConstant.STR_SEPARATOR)){
+            makeupIds+=makeupLinkId.split(CommonConstant.ROD_SEPARATOR)[1]+CommonConstant.STR_SEPARATOR;
+        }
+        shootIds=shootIds.substring(0,makeupIds.length()-1);
+        makeupIds=makeupIds.substring(0,makeupIds.length()-1);
+        serviceDao.addServiceVenueLink(serviceDTO.getMakeupLinkIds(), serviceDTO.getShootLinkIds(), serviceDTO.getCompanyId(), i);
     }
 
     /**
@@ -79,7 +91,17 @@ public class ServiceServiceImpl implements ServiceService {
         }
 
         serviceDao.addServiceVenue(serviceVenuePOS);
-        serviceDao.addServiceVenueLink(serviceDTO.getMakeupLinkIds(), serviceDTO.getShookLinkIds(), serviceDTO.getCompanyId(), serviceDTO.getId());
+        String makeupIds=CommonConstant.NULL_STR;
+        String shootIds=CommonConstant.NULL_STR;
+        for(String shootId:serviceDTO.getShootLinkIds().split(CommonConstant.STR_SEPARATOR)){
+            shootIds+=shootId.split(CommonConstant.ROD_SEPARATOR)[1]+CommonConstant.STR_SEPARATOR;
+        }
+        for(String makeupLinkId:serviceDTO.getMakeupLinkIds().split(CommonConstant.STR_SEPARATOR)){
+            makeupIds+=makeupLinkId.split(CommonConstant.ROD_SEPARATOR)[1]+CommonConstant.STR_SEPARATOR;
+        }
+        shootIds=shootIds.substring(0,makeupIds.length()-1);
+        makeupIds=makeupIds.substring(0,makeupIds.length()-1);
+        serviceDao.addServiceVenueLink(makeupIds, shootIds, serviceDTO.getCompanyId(), serviceDTO.getId());
 
 
     }
@@ -89,6 +111,22 @@ public class ServiceServiceImpl implements ServiceService {
      */
     public List<ServiceVO> select(int companyId) {
         List<ServiceVO> list = serviceDao.select(companyId);
+        List<RoomGroupByServiceIdVO> check=serviceDao.selectRoomGroupByServiceId(companyId);
+        for(ServiceVO serviceVO:list){
+            List<RoomGroupByServiceIdVO> makeupRooms=new ArrayList<>();
+            List<RoomGroupByServiceIdVO> shootRooms=new ArrayList<>();
+            for(RoomGroupByServiceIdVO roomGroupByServiceIdVO:check){
+                if(serviceVO.getId().equals(roomGroupByServiceIdVO.getServiceId())&&roomGroupByServiceIdVO.getRoomType()==1){
+                    makeupRooms.add(roomGroupByServiceIdVO);
+                }
+                if(serviceVO.getId().equals(roomGroupByServiceIdVO.getServiceId())&&roomGroupByServiceIdVO.getRoomType()==2){
+                    shootRooms.add(roomGroupByServiceIdVO);
+                }
+
+            }
+            serviceVO.setShootRoom(shootRooms);
+            serviceVO.setMakeupRoom(makeupRooms);
+        }
         for(ServiceVO serviceVO:list){
             String[] counts=serviceVO.getMakeupRoomNum().split(CommonConstant.FILE_SEPARATOR);
             if(counts[0].equals(counts[1])){
