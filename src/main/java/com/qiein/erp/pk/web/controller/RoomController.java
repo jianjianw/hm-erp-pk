@@ -40,23 +40,27 @@ public class RoomController {
      * @param room
      * @return
      */
+    @ApiOperation(value = "添加房间")
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody Room room){
-        int insert = roomService.insert(room);
+        roomService.insert(room);
         return ResultInfoUtil.success();
     }
+    @ApiOperation(value = "根据主键查询房间")
     @GetMapping("/select_by_primary_key")
     public ResultInfo selectByPrimaryKey(Integer roomId){//id已经确定了是化妆间还是拍摄间。
         Room room = roomService.selectByPrimaryKey(roomId,companyId);
         return ResultInfoUtil.success(room);
     }
+    @ApiOperation(value = "根据主键查询房间")
+    @ApiImplicitParam(name = "roomType",value = "房间类型  化妆间:1 拍摄间:2 ", dataType = "Integer")
     @GetMapping("/select_all")
     public ResultInfo selectAll(Integer roomType){
         List<Room> rooms = roomService.selectAll(companyId,roomType);
         return ResultInfoUtil.success(rooms);
     }
 
-    @ApiOperation(value = "根据主键编辑房间", notes = "roomType 房间类型 化妆间 1  拍摄间2")
+    @ApiOperation(value = "根据主键编辑房间")
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Room room){
         int i = roomService.updateByPrimaryKey(room);
@@ -79,7 +83,7 @@ public class RoomController {
         return ResultInfoUtil.success(rooms);
     }
 
-
+    @ApiOperation(value = "化妆间或者房间排序")
     //化妆间排序 1  或  拍摄间排序 2
     @PostMapping("/room_sort")
     public ResultInfo roomSort(@RequestBody List<Room> rooms){
@@ -87,6 +91,7 @@ public class RoomController {
         return ResultInfoUtil.success();
     }
 
+    @ApiOperation(value = "化妆间等级或者房间等级排序")
     @PostMapping("/room_level_sort")
     public ResultInfo roomLevelSort(@RequestBody List<LevelAndRoomDTO> levelAndRoomDTOS){
         roomService.roomLevelSort(levelAndRoomDTOS);
@@ -94,8 +99,13 @@ public class RoomController {
     }
 
     //排序前 先查询所有的数据
+    @ApiOperation(value = "查询房间等级 和 下面的房间")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "venueId",value = "场馆id", dataType = "Integer"),
+            @ApiImplicitParam(name = "roomType",value = "房间类型(化妆间：1 拍摄间：2)",dataType = "Integer")
+    })
     @GetMapping("get_all_room_and_type")
-    public ResultInfo getLevelAndRoom(Integer companyId,Integer venueId,String roomType){
+    public ResultInfo getLevelAndRoom(Integer venueId,String roomType){
 
         if(StringUtils.equals(roomType, RoomConstant.MAKEUP_ROOM)){//化妆间
             roomType = RoomConstant.MAKEUP_ROOM_LEVEL;
@@ -108,6 +118,7 @@ public class RoomController {
     }
 
     //添加分类(化妆间)  添加到字典表
+    @ApiOperation(value = "添加房间等级和房间")
     @PostMapping("/add_room_type")
     public ResultInfo addRoomLevel(@RequestBody LevelAndRoomDTO levelAndRoomDTO){
         roomService.addRoomLevel(levelAndRoomDTO);
@@ -115,12 +126,13 @@ public class RoomController {
     }
 
     //批量添加房间
+    @ApiOperation(value = "批量添加房间")
     @PostMapping("/bat_add_room")
     public ResultInfo batAddRoom(@RequestBody List<Room> rooms){
         roomService.batAddRoom(rooms);
         return ResultInfoUtil.success();
     }
-
+    @ApiOperation(value = "批量添加和编辑房间")
     //批量编辑和新增
     @PostMapping("/bat_insert_or_update")
     public ResultInfo batInsertOrUpdate(@RequestBody List<Room> rooms){
