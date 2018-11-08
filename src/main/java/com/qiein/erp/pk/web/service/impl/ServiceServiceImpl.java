@@ -60,7 +60,7 @@ public class ServiceServiceImpl implements ServiceService {
         }
         shootIds=shootIds.substring(0,shootIds.length()-1);
         makeupIds=makeupIds.substring(0,makeupIds.length()-1);
-        serviceDao.addServiceVenueLink(serviceDTO.getMakeupLinkIds(), serviceDTO.getShootLinkIds(), serviceDTO.getCompanyId(), i);
+        serviceDao.addServiceVenueLink(makeupIds,shootIds, serviceDTO.getCompanyId(), i);
     }
 
     /**
