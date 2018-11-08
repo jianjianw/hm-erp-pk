@@ -15,6 +15,9 @@ public class Base implements Serializable {
 
     private Integer companyId;
 
+    //新加基地状态
+    private Short baseStatus;
+
 
     public Integer getId() {
         return id;
@@ -38,5 +41,13 @@ public class Base implements Serializable {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public Short getBaseStatus() {
+        return baseStatus;
+    }
+
+    public void setBaseStatus(Short baseStatus) {
+        this.baseStatus = baseStatus;
     }
 }

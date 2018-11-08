@@ -5,31 +5,33 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="base_name" property="baseName" jdbcType="VARCHAR" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="base_status" property="baseStatus" jdbcType="SMALLINT" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="map" >
     delete from hm_erp_base
     where id = #{id} and company_id = #{companyId}
   </delete>
   <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
-    insert into hm_erp_base (id, base_name, company_id
+    insert into hm_erp_base (id, base_name, company_id,base_status
       )
-    values (#{id}, #{baseName}, #{companyId}
+    values (#{id}, #{baseName}, #{companyId},#{baseStatus}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
     update hm_erp_base
     set base_name = #{baseName},
-      company_id = #{companyId}
+      company_id = #{companyId},
+      base_status = #{baseStatus}
     where id = #{id}
     and company_id = #{companyId}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
-    select id, base_name, company_id
+    select id, base_name, company_id ,base_status
     from hm_erp_base
     where id = #{id} and companyId = #{companyId}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" parameterType="map">
-    select id, base_name, company_id
+    select id, base_name, company_id,base_status
     from hm_erp_base
     where company_id = #{companyId}
   </select>
