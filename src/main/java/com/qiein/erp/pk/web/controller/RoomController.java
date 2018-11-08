@@ -132,8 +132,10 @@ public class RoomController {
         roomService.batAddRoom(rooms);
         return ResultInfoUtil.success();
     }
-    @ApiOperation(value = "批量添加和编辑房间")
+
+
     //批量编辑和新增
+    @ApiOperation(value = "批量添加和编辑房间")
     @PostMapping("/bat_insert_or_update")
     public ResultInfo batInsertOrUpdate(@RequestBody List<Room> rooms){
         roomService.batInsertOrUpdate(rooms);
