@@ -32,7 +32,7 @@
       #{roomStatus}, #{companyId})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Room" >
-    /*update hm_erp_venue_room
+    update hm_erp_venue_room
     set venue_id = #{venueId},
       room_name = #{roomName},
       room_level = #{roomLevel},
@@ -41,9 +41,9 @@
       room_status = #{roomStatus},
       company_id = #{companyId}
     where room_id = #{roomId}
-    and company_id = #{companyId}*/
+    and company_id = #{companyId}
 
-    update hm_erp_venue_room
+   <!-- update hm_erp_venue_room
    <set>
      <if test="venueId != null">
        venue_id = #{venueId},
@@ -68,7 +68,7 @@
      </if>
    </set>
     where room_id = #{roomId}
-    and company_id = #{companyId}
+    and company_id = #{companyId}-->
 
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
