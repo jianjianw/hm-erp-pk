@@ -1,11 +1,13 @@
 package com.qiein.erp.pk.web.entity.vo;
 
+import java.util.List;
+
 /**
  * 服务展示VO
  * author：xiangliang
  */
 public class ServiceVO {
-    private int id;//排序
+    private Integer id;//排序
     private String serviceName;//服务名称
     private int serviceType;//服务类型
     private int shootNum;
@@ -15,7 +17,43 @@ public class ServiceVO {
     private String makeupRoomNum;//化妆间
     private String shootRoomNum;//拍摄间
     private String venueName;//场馆
+    private String venueIds;
     private String peopleNum;//人员配比
+    private String linkIds;
+    private List<RoomGroupByServiceIdVO> makeupRoom;//化妆间
+    private List<RoomGroupByServiceIdVO> shootRoom;//拍摄间
+
+    public List<RoomGroupByServiceIdVO> getMakeupRoom() {
+        return makeupRoom;
+    }
+
+    public void setMakeupRoom(List<RoomGroupByServiceIdVO> makeupRoom) {
+        this.makeupRoom = makeupRoom;
+    }
+
+    public List<RoomGroupByServiceIdVO> getShootRoom() {
+        return shootRoom;
+    }
+
+    public void setShootRoom(List<RoomGroupByServiceIdVO> shootRoom) {
+        this.shootRoom = shootRoom;
+    }
+
+    public String getLinkIds() {
+        return linkIds;
+    }
+
+    public void setLinkIds(String linkIds) {
+        this.linkIds = linkIds;
+    }
+
+    public String getVenueIds() {
+        return venueIds;
+    }
+
+    public void setVenueIds(String venueIds) {
+        this.venueIds = venueIds;
+    }
 
     public String getPeopleNum() {
         return peopleNum;
@@ -25,11 +63,11 @@ public class ServiceVO {
         this.peopleNum = peopleNum;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

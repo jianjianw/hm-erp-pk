@@ -14,7 +14,7 @@
   <resultMap id="roomSelectMap" type="com.qiein.erp.pk.web.entity.vo.RoomSelectVO">
     <id column="venue_id" property="venueId"/>
     <result column="venue_name" property="venueName"/>
-    <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.Room">
+    <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.RoomPO">
       <result column="room_id" property="roomId"/>
       <result column="room_name" property="roomName"/>
     </collection>
@@ -59,7 +59,7 @@
 
   <select id="roomSelect" resultMap="roomSelectMap">
         SELECT
-        room.room_id,
+        concat(room.venue_id,"-",room.room_id) room_id,
         room.room_name,
         room.venue_id,
         venue.venue_name

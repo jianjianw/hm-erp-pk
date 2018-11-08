@@ -13,9 +13,17 @@ public class ServiceDTO {
     private int videoNum;//摄影师人数
     private String venueIds;//场馆id
     private String makeupLinkIds;//化妆间id
-    private String shookLinkIds;//拍摄间id
+    private String shootLinkIds;//拍摄间id
     private boolean status;//服务状态
     private Integer companyId;//公司id
+
+    public String getShootLinkIds() {
+        return shootLinkIds;
+    }
+
+    public void setShootLinkIds(String shootLinkIds) {
+        this.shootLinkIds = shootLinkIds;
+    }
 
     public int getId() {
         return id;
@@ -89,13 +97,7 @@ public class ServiceDTO {
         this.makeupLinkIds = makeupLinkIds;
     }
 
-    public String getShookLinkIds() {
-        return shookLinkIds;
-    }
 
-    public void setShookLinkIds(String shookLinkIds) {
-        this.shookLinkIds = shookLinkIds;
-    }
 
     public boolean isStatus() {
         return status;

@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.dao;
 
 import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.po.ServiceVenuePO;
+import com.qiein.erp.pk.web.entity.vo.RoomGroupByServiceIdVO;
 import com.qiein.erp.pk.web.entity.vo.ServiceVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,7 @@ public interface ServiceDao {
      */
      int addService(ServicePO servicePO);
 
-     void addServiceVenue(List<ServiceVenuePO> serviceVenuePOS);
+     void addServiceVenue(@Param("serviceVenuePOS")List<ServiceVenuePO> serviceVenuePOS);
 
      void addServiceVenueLink(@Param("makeupRoomIds") String makeupRoomIds, @Param("shootRoomIds")String shootRoomIds,@Param("companyId") int companyId,@Param("serviceId") int serviceId);
 
@@ -37,6 +38,8 @@ public interface ServiceDao {
      * 查询页面
      */
     List<ServiceVO> select(@Param("companyId")int companyId);
+
+    List<RoomGroupByServiceIdVO> selectRoomGroupByServiceId(@Param("companyId")int companyId);
 
 
 }
