@@ -74,7 +74,7 @@ public class SceneServiceImpl implements SceneService {
             if(scene1 == null){
                 sceneDao.insert(scene);
             }else{
-                updateByPrimaryKey(scene);
+                sceneDao.updateByPrimaryKey(scene);
             }
         }
     }

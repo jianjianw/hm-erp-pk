@@ -45,7 +45,7 @@
 
     update hm_erp_venue_room
    <set>
-     <if test='venue_id != null'>
+     <if test="venue_id != null">
        venue_id = #{venueId},
      </if>
      <if test="room_name != null and room_name != '' ">

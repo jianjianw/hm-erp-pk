@@ -30,12 +30,28 @@
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Scene" >
+
     update hm_erp_scene
-    set shoot_id = #{shootId},
-      scene_name = #{sceneName},
-      scene_status = #{sceneStatus},
-      priority = #{priority},
-      company_id = #{companyId}
+    <set>
+      <if test="shoot_id != null">
+        shoot_id = #{shootId},
+      </if>
+      <if test="scene_name != null and scene_name != ''">
+        scene_name = #{sceneName},
+      </if>
+
+      <if test="scene_status != null">
+        scene_status = #{sceneStatus},
+      </if>
+
+      <if test="priority != null">
+        priority = #{priority},
+      </if>
+
+      <if test="company_id != null">
+        company_id = #{companyId}
+      </if>
+    </set>
     where id = #{id}
     and company_id = #{companyId}
   </update>

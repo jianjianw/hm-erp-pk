@@ -47,4 +47,8 @@ public class BaseController {
         int i = baseService.updateByPrimaryKey(base);
         return ResultInfoUtil.success();
     }
+
+
+
+
 }
