@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.dao;
 import com.qiein.erp.pk.web.entity.po.StaffInsertPO;
 import com.qiein.erp.pk.web.entity.po.StaffRoleInsertPO;
 import com.qiein.erp.pk.web.entity.po.StaffVenueInsertPO;
+import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -44,5 +45,19 @@ public interface StaffDao {
      * 删除员工关联角色
      */
     void insertRole(@Param("list")List<StaffRoleInsertPO> list);
+
+    /**
+     * 生产者页面
+     */
+    List<StaffRoleTypeVO> selectProducer(@Param("companyId")Integer companyId,@Param("roleId")Integer roleId);
+
+    /**
+     * 修改生产者等级
+     * @param roleId
+     * @param staffId
+     * @param roleLevel
+     * @param companyId
+     */
+    void editRoleLevel(@Param("roleId")Integer roleId,@Param("staffId")Integer staffId,@Param("roleLevel")Integer roleLevel,@Param("companyId")Integer companyId);
 
 }

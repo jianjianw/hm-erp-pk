@@ -85,4 +85,36 @@
             (#{item.staffId},#{item.roleId},#{item.companyId})
         </foreach>
     </insert>
+    <resultMap id="producerMap" type="com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO">
+        <result property="staffId" column="staff_id"/>
+        <result property="venueId" column="venue_id"/>
+        <result property="staffName" column="NICKNAME"/>
+        <result property="phone" column="PHONE"/>
+        <result property="roleLevel" column="role_level"/>
+        <result property="roleId" column="role_id"/>
+        <result property="companyId" column="company_id"/>
+
+    </resultMap>
+    <select id="selectProducer" resultMap="producerMap">
+        SELECT
+            venue.staff_id,
+            staff.NICKNAME,
+            staff.PHONE,
+            venue_id,
+            role_level,
+            role_id,
+            venue.company_id
+        FROM
+            hm_erp_staff_venue venue
+        LEFT JOIN hm_pub_staff staff ON venue.staff_id = staff.ID
+        AND venue.company_id = staff.COMPANYID
+        LEFT JOIN hm_erp_staff_role role ON role.staff_id = venue.staff_id
+        AND role.company_id = venue.company_id
+        WHERE
+            venue.company_id = #{companyId}
+        AND role.role_id = #{roleId}
+    </select>
+    <update id="editRoleLevel">
+        update hm_erp_staff_role set role_level=#{roleLevel} where company_id=#{companyId} and staff_id=#{staffId} and role_id=#{roleId}
+    </update>
 </mapper>
