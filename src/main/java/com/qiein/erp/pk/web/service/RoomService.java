@@ -65,12 +65,16 @@ public interface RoomService {
     //批量添加房间
     void batAddRoom(List<Room> rooms);
 
-
     /**
-     * 批量编辑或者更新
+     * 批量新增或更新
      * @param rooms
      */
     void batInsertOrUpdate(List<Room> rooms);
+
+    /**
+     * 批量编辑房间
+     */
+    void batUpdateRoom(List<Room> rooms);
 
 
 }

@@ -201,5 +201,22 @@
 
   </select>
 
+  <update id="batUpdateRoom" parameterType="ArrayList">
+
+    <foreach collection="list" index="index" item="item" separator=";">
+      update hm_erp_venue_room
+      set venue_id = #{item.venueId},
+      room_name = #{item.roomName},
+      room_level = #{item.roomLevel},
+      room_type = #{item.roomType},
+      priority = #{item.priority},
+      room_status = #{item.roomStatus},
+      company_id = #{item.companyId}
+      where room_id = #{item.roomId}
+      and company_id = #{item.companyId}
+    </foreach>
+
+  </update>
+
 
 </mapper>

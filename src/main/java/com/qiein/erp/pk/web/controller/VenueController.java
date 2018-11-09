@@ -29,12 +29,6 @@ public class VenueController {
 
     @Autowired
     private VenueService venueService;
-    @Autowired
-    private RoomService roomService;
-    @Autowired
-    private SceneService sceneService;
-    @Autowired
-    private BaseService baseService;
 
 
     @PostMapping("/delete_by_primary_key")
