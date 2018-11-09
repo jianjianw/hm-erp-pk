@@ -14,4 +14,8 @@ public interface StaffService {
      * @return
      */
     List<StaffSelectVO> selectStaffByGroupId(String groupId,Integer companyId);
+    /**
+     * 编辑员工
+     */
+    void insertStaff(String staffIds,String venueIds,String roleIds,Integer companyId);
 }

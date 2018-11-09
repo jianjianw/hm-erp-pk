@@ -56,4 +56,33 @@
         GROUP BY
         group_staff.STAFFID
     </select>
+    <select id="checkHave" resultType="Integer">
+        select staff_id from hm_erp_staff staff where staff.staff_id in(#{staffIds})
+    </select>
+    <insert id="insertToStaff">
+        replace into hm_erp_staff(staff_id,staff_status,company_id,create_time,update_time) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.staffId},#{item.status},#{item.companyId} ,UNIX_TIMESTAMP(now()),UNIX_TIMESTAMP(now()))
+        </foreach>
+    </insert>
+    <delete id="deleteVenue">
+        delete from hm_erp_staff_venue where staff_id in (${staffIds})
+    </delete>
+    <delete id="deleteRole">
+        delete from hm_erp_staff_role where staff_id in (${staffIds})
+    </delete>
+    <insert id="insertVenue">
+        insert into hm_erp_staff_venue(staff_id,venue_id,company_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.staffId},#{item.venueId},#{item.companyId})
+        </foreach>
+    </insert>
+    <insert id="insertRole">
+        insert into hm_erp_staff_role(staff_id,role_id,company_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.staffId},#{item.roleId},#{item.companyId})
+        </foreach>
+    </insert>
 </mapper>
