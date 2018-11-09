@@ -2,6 +2,8 @@ package com.qiein.erp.pk.web.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
 import com.qiein.erp.pk.web.entity.po.Meal;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
@@ -50,5 +52,6 @@ public interface MealDao {
      * @return
      */
 	void updateMealType(DictionaryErp dictionaryErp);
+	DictionaryErp selecDicName(@Param("mealType") Integer mealType,@Param("companyId")Integer companyId);
 	
 }

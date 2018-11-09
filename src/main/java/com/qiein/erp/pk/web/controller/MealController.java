@@ -68,10 +68,6 @@ public class MealController {
     public ResultInfo selectServiceId(){
     	 int companyId=1;
          List<ServicePO> servicePo= mealService.selectServiceId(companyId);
-         //List<DictionaryErp> mealTypes= mealService.selectMealType(companyId);
-         //List<Object> lists=new ArrayList<>();
-         //lists.addAll(servicePo);
-         //lists.addAll(mealTypes);
         return ResultInfoUtil.success(servicePo);
     }
     /**
@@ -100,6 +96,8 @@ public class MealController {
     @PostMapping("/update_by_meal")
     public ResultInfo updateByPrimaryKey(@RequestBody Meal meal){
     	meal.setCompanyId(1);
+    	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
+    	meal.setMealTypeName(dictionaryErp.getDicName());
         mealService.updateByMeal(meal);
         return ResultInfoUtil.success();
     }
