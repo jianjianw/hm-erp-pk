@@ -104,7 +104,6 @@
     	<if test="showFlag != null">
     		ISSHOW = #{showFlag}
     	</if>
-    		
     </set> 
     WHERE
 		id = #{id} AND COMPANYID = #{companyId}
