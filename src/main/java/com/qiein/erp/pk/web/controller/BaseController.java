@@ -55,6 +55,20 @@ public class BaseController {
         return ResultInfoUtil.success();
     }
 
+    //批量新增
+    @PostMapping("/bat_insert")
+    public ResultInfo batInsert(@RequestBody List<Base> bases){
+        baseService.batInsert(bases);
+        return ResultInfoUtil.success();
+    }
+    //批量编辑
+    @PostMapping("/bat_update")
+    public ResultInfo batUpdate(@RequestBody List<Base> bases){
+        baseService.batUpdate(bases);
+        return ResultInfoUtil.success();
+    }
+
+
     /**
      * 查询所有开启的基地
      * @return

@@ -52,4 +52,15 @@ public interface SceneService {
      */
     List<Scene> findSceneByVenueId(Integer companyId, Integer venueId);
 
+    /**
+     * 批量新增
+     * @param scenes
+     */
+    void batInsertScene(List<Scene> scenes);
+
+    /**
+     * 批量编辑
+     * @param scenes
+     */
+    void batUpdateScene(List<Scene> scenes);
 }

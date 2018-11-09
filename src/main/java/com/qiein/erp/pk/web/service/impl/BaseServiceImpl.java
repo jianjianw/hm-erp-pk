@@ -61,4 +61,14 @@ public class BaseServiceImpl implements BaseService {
     public List<Base> selectOpenAll(Integer companyId) {
         return baseDao.selectOpenAll(companyId);
     }
+
+    @Override
+    public void batInsert(List<Base> bases) {
+        baseDao.batInsert(bases);
+    }
+
+    @Override
+    public void batUpdate(List<Base> bases) {
+        baseDao.batUpdate(bases);
+    }
 }
