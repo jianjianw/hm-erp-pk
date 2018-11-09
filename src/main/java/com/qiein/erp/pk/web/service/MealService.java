@@ -42,7 +42,6 @@ public interface MealService {
 
 	DictionaryErp selecDicName(Integer mealType,Integer companyId);
 
-
-
+	ServicePO selectServiceName(Integer serviceId, Integer companyId);
     
 }

@@ -99,8 +99,16 @@ public class MealController {
     @PostMapping("/update_by_meal")
     public ResultInfo updateByPrimaryKey(@RequestBody Meal meal){
     	meal.setCompanyId(1);
+    	//查询套餐类别名称
     	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
     	meal.setMealTypeName(dictionaryErp.getDicName());
+    	//查询服务类别名称
+    	ServicePO servicePO=mealService.selectServiceName(meal.getServiceId(),meal.getCompanyId());
+    	System.out.println(JSONObject.toJSONString(servicePO));
+    	
+        meal.setServiceName(servicePO.getServiceName());
+        System.out.println(JSONObject.toJSONString(meal));
+        
         mealService.updateByMeal(meal);
         return ResultInfoUtil.success();
     }
