@@ -85,13 +85,6 @@ public class Meal implements Serializable{
 		this.serviceName = serviceName;
 	}
 
-	@Override
-	public String toString() {
-		return "meal [id=" + id + ", mealName=" + mealName + ", photoType=" + photoType + ", mealType=" + mealType
-				+ ", mealStatus=" + mealStatus + ", mealAmount=" + mealAmount + ", memo=" + memo + ", clothesNum="
-				+ clothesNum + ", companyId=" + companyId + "]";
-	}
-	
 	public Integer getPriority() {
 		return priority;
 	}
