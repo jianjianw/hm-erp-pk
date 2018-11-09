@@ -2,11 +2,16 @@ package com.qiein.erp.pk.web.service.impl;
 
 import com.qiein.erp.pk.constant.CommonConstant;
 import com.qiein.erp.pk.web.dao.StaffDao;
+import com.qiein.erp.pk.web.entity.po.StaffInsertPO;
+import com.qiein.erp.pk.web.entity.po.StaffRoleInsertPO;
+import com.qiein.erp.pk.web.entity.po.StaffVenueInsertPO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
 import com.qiein.erp.pk.web.service.StaffService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,5 +67,50 @@ public class StaffServiceImpl implements StaffService {
                 break;
         }
         return roleName;
+    }
+    /**
+     * 编辑员工
+     */
+    public void insertStaff(String staffIds,String venueIds,String roleIds,Integer companyId){
+        //查询员工是否已添加到erp
+//        List<Integer> check=staffDao.checkHave(staffIds);
+        //添加员工
+        List<StaffInsertPO> staffInsertPOS=new ArrayList<>();
+        for(String staffId:staffIds.split(CommonConstant.STR_SEPARATOR)){
+            StaffInsertPO staffInsertPO=new StaffInsertPO();
+            staffInsertPO.setStaffId(Integer.parseInt(staffId));
+            staffInsertPO.setCompanyId(companyId);
+            staffInsertPO.setStatus(true);
+            staffInsertPOS.add(staffInsertPO);
+        }
+        //修改员工
+        staffDao.insertToStaff(staffInsertPOS);
+        //删除员工对应场馆和角色
+        staffDao.deleteRole(staffIds);
+        staffDao.deleteVenue(staffIds);
+        //添加员工对应场馆
+        List<StaffVenueInsertPO> list=new ArrayList<>();
+        for(StaffInsertPO staffInsertPO:staffInsertPOS){
+            for(String venueId:venueIds.split(CommonConstant.STR_SEPARATOR)){
+                StaffVenueInsertPO staffVenueInsertPO=new StaffVenueInsertPO();
+                staffVenueInsertPO.setCompanyId(companyId);
+                staffVenueInsertPO.setStaffId(staffInsertPO.getStaffId());
+                staffVenueInsertPO.setVenueId(Integer.parseInt(venueId));
+                list.add(staffVenueInsertPO);
+            }
+        }
+        staffDao.insertVenue(list);
+        //添加员工对应角色
+        List<StaffRoleInsertPO> staffRoleInsertPOS=new ArrayList<>();
+        for(StaffInsertPO staffInsertPO:staffInsertPOS){
+            for(String roleId:roleIds.split(CommonConstant.STR_SEPARATOR)){
+                StaffRoleInsertPO staffVenueInsertPO=new StaffRoleInsertPO();
+                staffVenueInsertPO.setCompanyId(companyId);
+                staffVenueInsertPO.setStaffId(staffInsertPO.getStaffId());
+                staffVenueInsertPO.setRoleId(Integer.parseInt(roleId));
+                staffRoleInsertPOS.add(staffVenueInsertPO);
+            }
+        }
+        staffDao.insertRole(staffRoleInsertPOS);
     }
 }

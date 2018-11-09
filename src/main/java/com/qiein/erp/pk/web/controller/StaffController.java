@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.controller;
 
+import com.qiein.erp.pk.enums.TipMsgEnum;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.service.StaffService;
@@ -28,5 +29,12 @@ public class StaffController {
     public ResultInfo selectStaffByGroupId(@RequestParam("groupId")String groupId){
         Integer companyId=1;
         return ResultInfoUtil.success(staffService.selectStaffByGroupId(groupId,companyId));
+    }
+
+    @GetMapping("/insert_staff")
+    public ResultInfo insertStaff(@RequestParam("staffIds")String staffIds,@RequestParam("venueIds")String venueIds,@RequestParam("roleIds")String roleIds){
+        Integer companyId=1;
+        staffService.insertStaff(staffIds,venueIds,roleIds,companyId);
+        return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
     }
 }
