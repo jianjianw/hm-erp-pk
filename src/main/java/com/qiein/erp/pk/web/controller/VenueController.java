@@ -9,6 +9,7 @@ import com.qiein.erp.pk.web.service.BaseService;
 import com.qiein.erp.pk.web.service.RoomService;
 import com.qiein.erp.pk.web.service.SceneService;
 import com.qiein.erp.pk.web.service.VenueService;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/venue")
+@Api("场馆")
 public class VenueController {
 
     private static Logger logger = LoggerFactory.getLogger(VenueController.class);

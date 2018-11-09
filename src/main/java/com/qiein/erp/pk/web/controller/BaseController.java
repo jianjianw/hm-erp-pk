@@ -5,6 +5,7 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.Base;
 import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.service.BaseService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/base")
+@Api(value = "基地")
 public class BaseController {
 
     Integer companyId = 1;

@@ -6,6 +6,7 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
 import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.service.SceneService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/scene")
+@Api("场景")
 public class SceneController {
 
     Integer companyId = 1;

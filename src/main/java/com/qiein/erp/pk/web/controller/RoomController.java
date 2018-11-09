@@ -7,6 +7,7 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
 import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.service.RoomService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +23,7 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/room")
+@Api(value = "化妆间 和 房间")
 public class RoomController {
 
     Integer companyId = 1 ;
