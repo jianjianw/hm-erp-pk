@@ -71,8 +71,8 @@ public class SceneServiceImpl implements SceneService {
 
         for(Scene scene : scenes ){
             Integer id = scene.getId();
-            //Scene scene1 = sceneDao.selectByPrimaryKey(scene.getId(), scene.getCompanyId());
-            if(id == null){
+            Scene scene1 = sceneDao.selectByPrimaryKey(scene.getId(), scene.getCompanyId());
+            if(scene1 == null){
                 sceneDao.insert(scene);
             }else{
                 sceneDao.updateByPrimaryKey(scene);
