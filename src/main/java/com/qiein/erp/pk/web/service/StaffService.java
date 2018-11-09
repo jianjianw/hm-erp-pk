@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.service;
 import com.qiein.erp.pk.web.entity.vo.ProducerShowVO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
 import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 /**
@@ -33,4 +34,5 @@ public interface StaffService {
      * @param companyId
      */
     void editRoleLevel(Integer roleId,Integer staffId,Integer roleLevel,Integer companyId);
+
 }

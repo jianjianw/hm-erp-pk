@@ -147,4 +147,10 @@ public class ServiceServiceImpl implements ServiceService {
         }
         return list;
     }
+    /**
+     * 查重
+     */
+    public String checkWasIn(String serviceName,Integer companyId){
+        return serviceDao.checkWasIn(serviceName,companyId);
+    }
 }

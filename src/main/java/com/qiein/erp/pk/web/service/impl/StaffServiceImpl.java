@@ -154,4 +154,5 @@ public class StaffServiceImpl implements StaffService {
     public void editRoleLevel(Integer roleId, Integer staffId, Integer roleLevel, Integer companyId) {
         staffDao.editRoleLevel(roleId, staffId, roleLevel, companyId);
     }
+
 }

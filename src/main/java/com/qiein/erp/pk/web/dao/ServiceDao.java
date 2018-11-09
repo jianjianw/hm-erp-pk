@@ -40,6 +40,10 @@ public interface ServiceDao {
     List<ServiceVO> select(@Param("companyId")int companyId);
 
     List<RoomGroupByServiceIdVO> selectRoomGroupByServiceId(@Param("companyId")int companyId);
+    /**
+     * 查重
+     */
+    String checkWasIn(@Param("serviceName")String serviceName,@Param("companyId")Integer companyId);
 
 
 }

@@ -1,8 +1,11 @@
 package com.qiein.erp.pk.web.controller;
 
 import com.qiein.erp.pk.enums.TipMsgEnum;
+import com.qiein.erp.pk.exception.ExceptionEnum;
+import com.qiein.erp.pk.exception.RException;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.web.entity.dto.ServiceDTO;
 import com.qiein.erp.pk.web.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,9 @@ public class ServiceController extends BaseController{
     @PostMapping("/add_service")
     public ResultInfo addService(@RequestBody ServiceDTO serviceDTO){
         serviceDTO.setCompanyId(1);
-
+        if(StringUtil.isNotEmpty(serviceService.checkWasIn(serviceDTO.getServiceName(),serviceDTO.getCompanyId()))){
+            throw new RException(ExceptionEnum.SERVICE_WAS_IN);
+        }
         serviceService.addService(serviceDTO);
         return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
     }
@@ -36,6 +41,9 @@ public class ServiceController extends BaseController{
     @PostMapping("/edit_service")
     public ResultInfo editService(@RequestBody ServiceDTO serviceDTO){
         serviceDTO.setCompanyId(1);
+        if(StringUtil.isNotEmpty(serviceService.checkWasIn(serviceDTO.getServiceName(),serviceDTO.getCompanyId()))){
+            throw new RException(ExceptionEnum.SERVICE_WAS_IN);
+        }
         serviceService.editService(serviceDTO);
         return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
     }

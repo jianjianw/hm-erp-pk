@@ -22,4 +22,8 @@ public interface ServiceService {
      */
     void editService(ServiceDTO serviceDTO);
     List<ServiceVO> select(int companyId);
+    /**
+     * 查重
+     */
+    String checkWasIn(String serviceName,Integer companyId);
 }
