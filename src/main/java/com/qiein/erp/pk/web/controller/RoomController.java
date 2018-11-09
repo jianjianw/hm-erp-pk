@@ -23,7 +23,6 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/room")
-@Api(value = "化妆间 和 房间")
 public class RoomController {
 
     Integer companyId = 1 ;

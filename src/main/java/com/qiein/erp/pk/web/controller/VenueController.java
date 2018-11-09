@@ -23,7 +23,6 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/venue")
-@Api("场馆")
 public class VenueController {
 
     private static Logger logger = LoggerFactory.getLogger(VenueController.class);

@@ -17,7 +17,6 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/base")
-@Api(value = "基地")
 public class BaseController {
 
     Integer companyId = 1;

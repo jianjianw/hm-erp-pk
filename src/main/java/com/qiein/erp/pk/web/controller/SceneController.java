@@ -18,7 +18,6 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/scene")
-@Api("场景")
 public class SceneController {
 
     Integer companyId = 1;
