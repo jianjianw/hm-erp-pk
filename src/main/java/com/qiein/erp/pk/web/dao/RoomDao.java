@@ -57,4 +57,10 @@ public interface RoomDao {
      * @param rooms
      */
     void batUpdateRoom(List<Room> rooms);
+
+    /**
+     * 批量编辑和新增
+     * @param rooms
+     */
+    void batInsertOrUpdate(List<Room> rooms);
 }
