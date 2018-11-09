@@ -2,9 +2,11 @@ package com.qiein.erp.pk.web.service.impl;
 
 import com.qiein.erp.pk.constant.CommonConstant;
 import com.qiein.erp.pk.web.dao.StaffDao;
+import com.qiein.erp.pk.web.dao.VenueDao;
 import com.qiein.erp.pk.web.entity.po.StaffInsertPO;
 import com.qiein.erp.pk.web.entity.po.StaffRoleInsertPO;
 import com.qiein.erp.pk.web.entity.po.StaffVenueInsertPO;
+import com.qiein.erp.pk.web.entity.vo.ProducerShowVO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
 import com.qiein.erp.pk.web.service.StaffService;
 import io.swagger.models.auth.In;
@@ -21,6 +23,8 @@ import java.util.List;
 public class StaffServiceImpl implements StaffService {
     @Autowired
     private StaffDao staffDao;
+    @Autowired
+    private VenueDao venueDao;
 
     /**
      * 根据小组id获取员工列表
@@ -112,5 +116,25 @@ public class StaffServiceImpl implements StaffService {
             }
         }
         staffDao.insertRole(staffRoleInsertPOS);
+    }
+    /**
+     * 生产者展示页面
+     */
+    public ProducerShowVO getStaffByRoleId(Integer roleId, Integer companyId){
+        ProducerShowVO producerShowVO=new ProducerShowVO();
+        producerShowVO.setVenues(venueDao.getVenues(companyId));
+        producerShowVO.setStaffRoleTypeVOS(staffDao.selectProducer(companyId,roleId));
+        return producerShowVO;
+    }
+
+    /**
+     * 修改生产者等级
+     * @param roleId
+     * @param staffId
+     * @param roleLevel
+     * @param companyId
+     */
+    public void editRoleLevel(Integer roleId,Integer staffId,Integer roleLevel,Integer companyId){
+        staffDao.editRoleLevel(roleId,staffId,roleLevel,companyId);
     }
 }

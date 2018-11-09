@@ -31,10 +31,35 @@ public class StaffController {
         return ResultInfoUtil.success(staffService.selectStaffByGroupId(groupId,companyId));
     }
 
+    /**
+     * 修改员工信息
+     * @param staffIds
+     * @param venueIds
+     * @param roleIds
+     * @return
+     */
     @GetMapping("/insert_staff")
     public ResultInfo insertStaff(@RequestParam("staffIds")String staffIds,@RequestParam("venueIds")String venueIds,@RequestParam("roleIds")String roleIds){
         Integer companyId=1;
         staffService.insertStaff(staffIds,venueIds,roleIds,companyId);
         return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
+    }
+
+    /**
+     * 生产者展示页面
+     */
+    @GetMapping("/get_staff_by_role_id")
+    public ResultInfo getStaffByRoleId(@RequestParam("roleId")Integer roleId){
+        Integer companyId=1;
+        return ResultInfoUtil.success(staffService.getStaffByRoleId(roleId,companyId));
+    }
+    /**
+     * 修改角色等级
+     */
+    @GetMapping("/edit_role_level")
+    public ResultInfo editRoleLevel(@RequestParam("roleId")Integer roleId,@RequestParam("staffId")Integer staffId,@RequestParam("roleLevel")Integer roleLevel){
+        Integer companyId=1;
+        staffService.editRoleLevel(roleId,staffId,roleLevel,companyId);
+        return ResultInfoUtil.success();
     }
 }
