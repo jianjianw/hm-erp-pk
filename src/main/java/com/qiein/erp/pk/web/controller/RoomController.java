@@ -147,6 +147,7 @@ public class RoomController {
      * 批量更新房间
      */
     @ApiOperation(value = "批量编辑房间")
+    @PostMapping("/bat_update_room")
     public ResultInfo batUpdateRoom(@RequestBody List<Room> rooms){
         roomService.batUpdateRoom(rooms);
         return ResultInfoUtil.success();
