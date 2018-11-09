@@ -5,6 +5,7 @@ import com.qiein.erp.pk.web.entity.po.Base;
 import com.qiein.erp.pk.web.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 /**
@@ -13,6 +14,7 @@ import java.util.List;
  * date : 2018-11-04
  * */
 @Service
+@Transactional
 public class BaseServiceImpl implements BaseService {
 
     @Autowired
