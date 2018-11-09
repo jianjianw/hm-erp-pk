@@ -40,9 +40,13 @@ public class MealController {
      * @return
      */
     @PostMapping("/insert_meal_type")
-    public ResultInfo insertMealType(@RequestBody DictionaryErp dictionaryErp){
-    	dictionaryErp.setCompanyId(1);
-    	 mealService.insertMealType(dictionaryErp);
+    public ResultInfo insertMealType(@RequestBody List<DictionaryErp> dictionaryErps ){
+    	for (DictionaryErp dictionaryErp : dictionaryErps) {
+    		dictionaryErp.setCompanyId(1);
+    		mealService.insertMealType(dictionaryErp);
+		}
+    	//dictionaryErp.setCompanyId(1);
+    	 //mealService.insertMealType(dictionaryErp);
         return ResultInfoUtil.success();
     }
     /**
@@ -75,11 +79,8 @@ public class MealController {
      * @return
      */
     @PostMapping("/insert_meal")
-    public ResultInfo insertMeal(@RequestBody List<Meal> meals){
-    	for (Meal meal : meals) {
-    		meal.setCompanyId(1);
+    public ResultInfo insertMeal(@RequestBody Meal meal){
     		mealService.insertMeal(meal);
-		}
         return ResultInfoUtil.success();
     }
     

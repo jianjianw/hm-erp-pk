@@ -35,7 +35,7 @@ public class DictionaryErp implements Serializable {
     /**
      * 是否启用
      */
-    private boolean showFlag;
+    private Integer showFlag;
     
 	public Integer getId() {
 		return id;
@@ -79,12 +79,13 @@ public class DictionaryErp implements Serializable {
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}
-	public boolean isShowFlag() {
+	public Integer getShowFlag() {
 		return showFlag;
 	}
-	public void setShowFlag(boolean showFlag) {
+	public void setShowFlag(Integer showFlag) {
 		this.showFlag = showFlag;
 	}
+	
 	
 	
 }
