@@ -98,6 +98,7 @@ public class MealController {
      */
     @PostMapping("/update_by_meal")
     public ResultInfo updateByPrimaryKey(@RequestBody Meal meal){
+    	System.out.println(JSONObject.toJSONString(meal));
     	meal.setCompanyId(1);
     	//查询套餐类别名称
     	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
