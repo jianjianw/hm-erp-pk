@@ -52,6 +52,9 @@ public interface RoomDao {
                                                       @Param("venueId") Integer venueId,
                                                       @Param("levelId") Integer levelId);
 
-
-
+    /**
+     * 批量编辑房间
+     * @param rooms
+     */
+    void batUpdateRoom(List<Room> rooms);
 }

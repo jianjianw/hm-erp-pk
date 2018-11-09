@@ -134,5 +134,27 @@
     and room.room_type = #{roomType}
   </select>
 
+  <insert id="batInsertScene" parameterType="ArrayList">
+
+    insert into hm_erp_scene (id, shoot_id, scene_name, scene_status, priority, company_id) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id}, #{item.shootId}, #{item.sceneName}, #{item.sceneStatus}, #{item.priority}, #{item.companyId})
+    </foreach>
+
+  </insert>
+
+  <update id="batUpdateScene" parameterType="ArrayList">
+    <foreach collection="list" index="index" item="item" separator=";">
+      update hm_erp_scene set
+          shoot_id = #{item.shootId},
+          scene_name = #{item.sceneName},
+          scene_status = #{item.sceneStatus},
+          priority = #{item.priority},
+          company_id = #{item.companyId}
+      where id = #{item.id}
+      and company_id = #{item.companyId}
+    </foreach>
+  </update>
+
 
 </mapper>

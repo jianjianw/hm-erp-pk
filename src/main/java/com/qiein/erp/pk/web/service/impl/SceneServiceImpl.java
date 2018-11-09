@@ -85,4 +85,14 @@ public class SceneServiceImpl implements SceneService {
         return sceneDao.findSceneByVenueId(companyId,venueId);
     }
 
+    @Override
+    public void batInsertScene(List<Scene> scenes) {
+        sceneDao.batInsertScene(scenes);
+    }
+
+    @Override
+    public void batUpdateScene(List<Scene> scenes) {
+        sceneDao.batUpdateScene(scenes);
+    }
+
 }

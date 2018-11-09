@@ -6,6 +6,7 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
 import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.service.SceneService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,10 +73,24 @@ public class SceneController {
         return ResultInfoUtil.success(roomAndScene);
     }
 
-    //批量编辑
+    //批量编辑或新增
     @PostMapping("/bat_insert_or_update_scene")
     public ResultInfo batInsertOrUpdateScene(@RequestBody List<Scene> scenes){
         sceneService.batInsertOrUpdateScene(scenes);
+        return ResultInfoUtil.success();
+    }
+
+    //批量新增
+    @PostMapping("/bat_insert_scene")
+    public ResultInfo batInsertScene(@RequestBody List<Scene> scenes){
+        sceneService.batInsertScene(scenes);
+        return ResultInfoUtil.success();
+    }
+
+    //批量编辑
+    @PostMapping("/bat_update_scene")
+    public ResultInfo batUpdateScene(@RequestBody List<Scene> scenes){
+        sceneService.batUpdateScene(scenes);
         return ResultInfoUtil.success();
     }
 

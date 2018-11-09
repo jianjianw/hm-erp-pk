@@ -5,6 +5,7 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.Base;
 import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.service.BaseService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +54,30 @@ public class BaseController {
     public ResultInfo batInsertOrUpdate(@RequestBody List<Base> bases){
         baseService.batInsertOrUpdate(bases);
         return ResultInfoUtil.success();
+    }
+
+    //批量新增
+    @PostMapping("/bat_insert")
+    public ResultInfo batInsert(@RequestBody List<Base> bases){
+        baseService.batInsert(bases);
+        return ResultInfoUtil.success();
+    }
+    //批量编辑
+    @PostMapping("/bat_update")
+    public ResultInfo batUpdate(@RequestBody List<Base> bases){
+        baseService.batUpdate(bases);
+        return ResultInfoUtil.success();
+    }
+
+
+    /**
+     * 查询所有开启的基地
+     * @return
+     */
+    @GetMapping("/select_open_all")
+    public ResultInfo selectOpenAll(){
+        List<Base> bases = baseService.selectOpenAll(companyId);
+        return ResultInfoUtil.success(bases);
     }
 
 

@@ -47,13 +47,28 @@ public class BaseServiceImpl implements BaseService {
 
         for(Base base : bases){
             Integer id = base.getId();
-            //Base base1 = baseDao.selectByPrimaryKey(base.getId(), base.getCompanyId());
-            if(id == null){
+            Base base1 = baseDao.selectByPrimaryKey(base.getId(), base.getCompanyId());
+            if(base1 == null){
                 baseDao.insert(base);
             }else{
                 baseDao.updateByPrimaryKey(base);
             }
 
         }
+    }
+
+    @Override
+    public List<Base> selectOpenAll(Integer companyId) {
+        return baseDao.selectOpenAll(companyId);
+    }
+
+    @Override
+    public void batInsert(List<Base> bases) {
+        baseDao.batInsert(bases);
+    }
+
+    @Override
+    public void batUpdate(List<Base> bases) {
+        baseDao.batUpdate(bases);
     }
 }

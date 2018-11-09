@@ -9,6 +9,7 @@ import com.qiein.erp.pk.web.service.BaseService;
 import com.qiein.erp.pk.web.service.RoomService;
 import com.qiein.erp.pk.web.service.SceneService;
 import com.qiein.erp.pk.web.service.VenueService;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,6 @@ public class VenueController {
 
     @Autowired
     private VenueService venueService;
-    @Autowired
-    private RoomService roomService;
-    @Autowired
-    private SceneService sceneService;
-    @Autowired
-    private BaseService baseService;
 
 
     @PostMapping("/delete_by_primary_key")

@@ -35,4 +35,33 @@
     from hm_erp_base
     where company_id = #{companyId}
   </select>
+
+
+  <select id="selectOpenAll" resultMap="BaseResultMap" parameterType="integer">
+     select id, base_name, company_id,base_status
+    from hm_erp_base
+    where company_id = #{companyId} and base_status != 0
+  </select>
+
+  <insert id="batInsert" parameterType="ArrayList">
+    insert into hm_erp_base (id, base_name, company_id,base_status)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.id}, #{item.baseName}, #{item.companyId},#{item.baseStatus})
+    </foreach>
+
+  </insert>
+
+  <update id="batUpdate" parameterType="ArrayList">
+
+    <foreach collection="list" index="index" item="item" separator=";">
+      update hm_erp_base
+      set base_name = #{item.baseName},
+      company_id = #{item.companyId},
+      base_status = #{item.baseStatus}
+      where id = #{item.id}
+      and company_id = #{item.companyId}
+    </foreach>
+  </update>
+
 </mapper>

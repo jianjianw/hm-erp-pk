@@ -106,18 +106,27 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public void batAddRoom(List<Room> rooms) {
+        roomDao.batAddRoom(rooms);
+    }
+
+    @Override
     public void batInsertOrUpdate(List<Room> rooms) {
 
         for(Room room : rooms){
-            Integer roomId = room.getRoomId();
-            //Room room1 = roomDao.selectByPrimaryKey(room.getRoomId(), room.getCompanyId());
-            if(roomId == null){
+            Room room1 = roomDao.selectByPrimaryKey(room.getRoomId(), room.getCompanyId());
+            if(room1 == null){
                 roomDao.insert(room);
             }else{
                 roomDao.updateByPrimaryKey(room);
             }
         }
 
+    }
+
+    @Override
+    public void batUpdateRoom(List<Room> rooms) {
+        roomDao.batUpdateRoom(rooms);
     }
 
 

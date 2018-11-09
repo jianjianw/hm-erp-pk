@@ -19,4 +19,23 @@ public interface BaseDao {
     List<Base> selectAll(@Param("companyId")Integer companyId);
 
     int updateByPrimaryKey(Base base);
+
+    /**
+     * 查询所有开启的基地
+     * @param companyId
+     * @return
+     */
+    List<Base> selectOpenAll(Integer companyId);
+
+    /**
+     * 批量新增
+     * @param bases
+     */
+    void batInsert(List<Base> bases);
+
+    /**
+     * 批量编辑
+     * @param bases
+     */
+    void batUpdate(List<Base> bases);
 }
