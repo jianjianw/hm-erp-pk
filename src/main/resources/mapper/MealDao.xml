@@ -76,7 +76,7 @@
     	<if test="dicName != null and dicName != '' ">
     		DICNAME = #{dicName},
     	</if>
-    	<if test="priority != 0 and priority != null">
+    	<if test="priority != null and priority != 0  ">
     		PRIORITY = #{priority},
     	</if>
     	<if test="showFlag != null">
@@ -105,19 +105,19 @@
     	<if test="mealName != null and mealName != '' ">
     		meal_name=#{mealName},
     	</if>
-    	<if test="photoType != 0 and photoType != null">
+    	<if test="photoType != null and photoType != 0 ">
     		photo_type=#{photoType},
     	</if>
-    	<if test="mealType != 0 and mealType != null">
+    	<if test="mealType != null and mealType != 0 ">
     		meal_type=#{mealType},
     	</if>
-    	<if test="mealAmount != 0 and mealAmount != null">
+    	<if test="mealAmount != null and mealAmount != 0 ">
     		meal_amount=#{mealAmount},
     	</if>
     	<if test="memo != null and memo != '' ">
     		memo=#{memo},
     	</if>
-    	<if test="clothesNum != 0 and clothesNum != null">
+    	<if test="clothesNum != null and clothesNum != 0 ">
     		clothes_num=#{clothesNum},
     	</if>
     	<if test="mealStatus != null">
@@ -129,10 +129,10 @@
     	<if test="mealTypeName != null and mealTypeName != '' ">
     		meal_type_name=#{mealTypeName},
     	</if>
-    	<if test="serviceId != 0 and serviceId != null">
+    	<if test="serviceId != null and serviceId != 0 ">
     		service_id=#{serviceId},
     	</if>
-    	<if test="serviceName != '' and serviceName != null">
+    	<if test="serviceName != null and serviceName != '' ">
     		service_name=#{serviceName}
     	</if>
     </set> 
