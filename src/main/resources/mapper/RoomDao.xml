@@ -218,5 +218,20 @@
 
   </update>
 
+  <insert id="batInsertOrUpdate" parameterType="ArrayList">
+
+    INSERT INTO hm_erp_venue_room
+    (room_id, venue_id, room_name, room_level, room_type, priority, room_status, company_id)
+    VALUES
+    <foreach collection="list" index="index" item="item" separator=",">
+        (#{item.roomId}, #{item.venueId}, #{item.roomName}, #{item.roomLevel}, #{item.roomType},
+      #{item.priority}, #{item.roomStatus},#{item.companyId})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+                            room_id = values (room_id) AND
+                            venue_id = values (venue_id) AND
+                            company_id = values (company_id);
+  </insert>
+
 
 </mapper>

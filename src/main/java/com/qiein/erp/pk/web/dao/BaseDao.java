@@ -38,4 +38,10 @@ public interface BaseDao {
      * @param bases
      */
     void batUpdate(List<Base> bases);
+
+    /**
+     * 批量新增或修改
+     * @param bases
+     */
+    void batInsertOrUpdate(List<Base> bases);
 }

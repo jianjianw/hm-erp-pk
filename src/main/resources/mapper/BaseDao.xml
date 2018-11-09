@@ -64,4 +64,16 @@
     </foreach>
   </update>
 
+  <insert id="batInsertOrUpdate" parameterType="ArrayList">
+
+    INSERT INTO hm_erp_venue_room
+    (room_id, venue_id, room_name, room_level, room_type, priority, room_status, company_id)
+    VALUES (5, 2, '拍摄场景test', 1, 2, 0, 0, 1)
+    ON DUPLICATE KEY UPDATE venue_id = 2 AND
+                            room_id = 5 AND
+                            company_id = 1;
+
+
+  </insert>
+
 </mapper>

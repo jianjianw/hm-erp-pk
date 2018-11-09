@@ -46,7 +46,6 @@ public class BaseServiceImpl implements BaseService {
     public void batInsertOrUpdate(List<Base> bases) {
 
         for(Base base : bases){
-            Integer id = base.getId();
             Base base1 = baseDao.selectByPrimaryKey(base.getId(), base.getCompanyId());
             if(base1 == null){
                 baseDao.insert(base);
@@ -55,6 +54,9 @@ public class BaseServiceImpl implements BaseService {
             }
 
         }
+        //这个方法不行
+        //baseDao.batInsertOrUpdate(bases);
+
     }
 
     @Override
