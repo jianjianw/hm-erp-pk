@@ -40,6 +40,8 @@ public interface MealService {
      */
 	void updateMealType(DictionaryErp dictionaryErp);
 
+	DictionaryErp selecDicName(Integer mealType,Integer companyId);
+
 
 
     

@@ -75,6 +75,12 @@ public class MealServiceImpl implements MealService {
 	public void updateMealType(DictionaryErp dictionaryErp) {
 		mealDao.updateMealType(dictionaryErp);
 	}
+	@Override
+	public DictionaryErp selecDicName(Integer mealType,Integer companyId) {
+		DictionaryErp dictionaryErp = mealDao.selecDicName(mealType,companyId);
+		return dictionaryErp;
+		
+	}
 
 	
 }

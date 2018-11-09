@@ -85,7 +85,10 @@ public class DictionaryErp implements Serializable {
 	public void setShowFlag(Integer showFlag) {
 		this.showFlag = showFlag;
 	}
-	
-	
-	
+	@Override
+	public String toString() {
+		return "DictionaryErp [id=" + id + ", dicType=" + dicType + ", dicCode=" + dicCode + ", dicName=" + dicName
+				+ ", priority=" + priority + ", spare=" + spare + ", companyId=" + companyId + ", showFlag=" + showFlag
+				+ "]";
+	}
 }

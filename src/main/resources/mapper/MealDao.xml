@@ -60,6 +60,17 @@
 	AND dic.DICTYPE = 'meal_type'  	
   </select>
   
+   <!--查询套餐类别名称 -->
+  <select id="selecDicName" resultMap="DictionayMap">
+	SELECT
+		dic.ID,dic.DICTYPE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID
+	FROM
+		hm_crm_dictionary dic
+	WHERE
+		dic.COMPANYID = #{companyId}
+	AND dic.ID=#{mealType} 	
+  </select>
+  
   <!--新增套餐分类  -->
   <insert id="insertMealType">
 	INSERT 

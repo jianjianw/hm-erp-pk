@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSONObject;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
 import com.qiein.erp.pk.web.entity.po.Meal;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.service.MealService;
+
 /**
  * 套餐
  * */
@@ -68,10 +71,6 @@ public class MealController {
     public ResultInfo selectServiceId(){
     	 int companyId=1;
          List<ServicePO> servicePo= mealService.selectServiceId(companyId);
-         //List<DictionaryErp> mealTypes= mealService.selectMealType(companyId);
-         //List<Object> lists=new ArrayList<>();
-         //lists.addAll(servicePo);
-         //lists.addAll(mealTypes);
         return ResultInfoUtil.success(servicePo);
     }
     /**
@@ -100,6 +99,8 @@ public class MealController {
     @PostMapping("/update_by_meal")
     public ResultInfo updateByPrimaryKey(@RequestBody Meal meal){
     	meal.setCompanyId(1);
+    	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
+    	meal.setMealTypeName(dictionaryErp.getDicName());
         mealService.updateByMeal(meal);
         return ResultInfoUtil.success();
     }
