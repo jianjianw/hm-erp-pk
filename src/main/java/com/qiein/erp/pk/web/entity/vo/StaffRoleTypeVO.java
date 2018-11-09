@@ -9,7 +9,7 @@ public class StaffRoleTypeVO {
     private String staffName;
     private String phone;
     private String roleLevel;//角色等级
-    private String venueId;//场馆id
+    private Integer venueId;//场馆id
     private Integer roleId;
     private Integer companyId;
 
@@ -61,11 +61,11 @@ public class StaffRoleTypeVO {
         this.roleLevel = roleLevel;
     }
 
-    public String getVenueId() {
+    public Integer getVenueId() {
         return venueId;
     }
 
-    public void setVenueId(String venueId) {
+    public void setVenueId(Integer venueId) {
         this.venueId = venueId;
     }
 }

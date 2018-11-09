@@ -1,6 +1,11 @@
 package com.qiein.erp.pk.web.entity.po;
 
+import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
+import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
+
 import java.io.Serializable;
+import java.util.List;
+
 /**
  * 内景馆 venue_type 1
  * 门店 venue_type 2
@@ -30,6 +35,7 @@ public class Venue implements Serializable {
 
     private Integer priority;       //排序
 
+    private List<StaffRoleTypeVO> list;//场景馆对应员工
 
     public Integer getId() {
         return id;
@@ -37,6 +43,14 @@ public class Venue implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<StaffRoleTypeVO> getList() {
+        return list;
+    }
+
+    public void setList(List<StaffRoleTypeVO> list) {
+        this.list = list;
     }
 
     public Integer getBaseId() {

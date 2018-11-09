@@ -26,6 +26,7 @@ public class ServiceController extends BaseController{
     @PostMapping("/add_service")
     public ResultInfo addService(@RequestBody ServiceDTO serviceDTO){
         serviceDTO.setCompanyId(1);
+
         serviceService.addService(serviceDTO);
         return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
     }

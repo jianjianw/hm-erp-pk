@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.web.entity.vo.ProducerShowVO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
+import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
 
 import java.util.List;
 /**
@@ -22,7 +23,7 @@ public interface StaffService {
     /**
      * 生产者展示页面
      */
-    ProducerShowVO getStaffByRoleId(Integer roleId,Integer companyId);
+    List<VenueSelectVO> getStaffByRoleId(Integer roleId, Integer companyId);
 
     /**
      * 修改生产者等级
