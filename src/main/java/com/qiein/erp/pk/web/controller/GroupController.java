@@ -28,7 +28,7 @@ public class GroupController {
     @GetMapping("/get_company_all_dept_list")
     public ResultInfo getCompanyAllDeptList() {
         // 获取当前登录账户
-        Integer companyId=2;
+        Integer companyId=1;
         List<GroupVO> list = groupService.getCompanyAllDeptList(companyId);
         return ResultInfoUtil.success(list);
     }
