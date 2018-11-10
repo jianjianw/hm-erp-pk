@@ -9,7 +9,7 @@ import java.io.Serializable;
 * wang lei
 * 2018-11-9
 * */
-public class ShootSchedulePO implements Serializable {
+public class SceneSchedulePO implements Serializable {
 
     private Integer id;             //拍摄间档期id
 

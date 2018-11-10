@@ -7,10 +7,11 @@ import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
 import com.qiein.erp.pk.web.entity.dto.TimeStampScheduleDTO;
 import com.qiein.erp.pk.web.entity.dto.VenueScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.Scene;
-import com.qiein.erp.pk.web.entity.po.ShootSchedulePO;
+import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
 import com.qiein.erp.pk.web.service.SceneService;
-import com.qiein.erp.pk.web.service.ShootScheduleService;
+import com.qiein.erp.pk.web.service.SceneScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,31 +19,32 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * 拍摄间档期
+ * 拍摄景档期   (拍摄间档期)
  * wang lei
  * 2018-11-9
  */
 @RestController
-@RequestMapping("/shoot_room_schedule")
-public class ShootScheduleController {
+@RequestMapping("/scene_room_schedule")
+public class SceneScheduleController {
 
     @Autowired
-    private ShootScheduleService shootScheduleService;
+    private SceneScheduleService sceneScheduleService;
 
     @Autowired
     private SceneService sceneService;
-
+    @GetMapping("/select_scene_schedule_by_date")
     public ResultInfo selectShootSchedule(Integer companyId, Integer venueId,Integer dateTime){
 
+        Map<String, Integer> startAndEndTime = getStartAndEndTime(dateTime);
         //查询场馆下面的拍摄景
         List<Scene> scenes = sceneService.findSceneByVenueId(companyId, venueId);
         ShootScheduleDTO result = new ShootScheduleDTO();
         //设置拍摄景
         result.setScenes(scenes);
-        Integer beginTime = null;
-        Integer endTime = null;
+        Integer startTime = startAndEndTime.get("start");
+        Integer endTime = startAndEndTime.get("end");
         //查询所有的档期
-        List<ShootSchedulePO> shootSchedulePOS = shootScheduleService.selectScheduleByDateTime(companyId, venueId, beginTime, endTime);
+        List<SceneSchedulePO> sceneSchedulePOS = sceneScheduleService.selectScheduleByDateTime(companyId, venueId,startTime,endTime);
 
         //封装时间戳
         List<TimeStampScheduleDTO> timeStampList = new ArrayList<>();
@@ -56,14 +58,14 @@ public class ShootScheduleController {
 
         for(TimeStampScheduleDTO timeStamp : timeStampList){
             Integer timeStamp1 = timeStamp.getTimeStamp();
-            for (ShootSchedulePO schedule : shootSchedulePOS){
+            for (SceneSchedulePO schedule : sceneSchedulePOS){
                 Integer beginTime1 = schedule.getStartTime();
                 if(timeStamp1.equals(beginTime1)){
                     VenueScheduleDTO venueScheduleDTO = new VenueScheduleDTO();
                     venueScheduleDTO.setSceneId(schedule.getSceneId()); //拍摄景
                     venueScheduleDTO.setShootRoomId(schedule.getShootId()); //拍摄间id
-                    //venueScheduleDTO.setCameramanId(); //摄影师id  //关联人员表
-                    //venueScheduleDTO.setCameramanName(); //摄影师name
+                    venueScheduleDTO.setCameramanId(schedule.getStaffVO().getId()); //摄影师id  //关联人员表
+                    venueScheduleDTO.setCameramanName(schedule.getStaffVO().getNickName()); //摄影师name
                     timeStamp.getVenueSchedule().add(venueScheduleDTO);
                 }
             }
@@ -72,6 +74,32 @@ public class ShootScheduleController {
         return ResultInfoUtil.success(result);
     }
 
+
+    //获取开始时间和结束时间
+    public Map<String,Integer> getStartAndEndTime(Integer dateTime){
+
+        Map<String,Integer>  hashMap = new HashMap<>();
+        Long seconds = dateTime * 1000L;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(seconds);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        Date startTime = calendar.getTime();
+        long start = startTime.getTime()/1000;
+        hashMap.put("start",Integer.valueOf(String.valueOf(start)));
+
+        calendar.set(Calendar.HOUR_OF_DAY,11);
+        calendar.set(Calendar.MINUTE,59);
+        calendar.set(Calendar.SECOND,59);
+        Date endTime = calendar.getTime();
+        long end = endTime.getTime() / 1000;
+        hashMap.put("end",Integer.valueOf(String.valueOf(end)));
+
+        return hashMap;
+    }
+
+    //获取开始时间集合
     public List<Long> getTimeList(Integer second){
         Long seconds = second * 1000L;
         Calendar calendar = Calendar.getInstance();
@@ -91,7 +119,6 @@ public class ShootScheduleController {
             times.add(time3);
             calendar.add(Calendar.MINUTE,30);
         }
-
         return times;
     }
 }
