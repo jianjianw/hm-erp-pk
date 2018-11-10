@@ -48,6 +48,13 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                     venueScheduleVO.setCount(0);
                     venueScheduleVO.setTargetCount(0);
                     venueScheduleVOS.add(venueScheduleVO);
+                    Date date = new Date(day*1000);
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(date);
+                    int i=c.get(Calendar.DAY_OF_WEEK);
+                    if(i==1){
+                        venueScheduleVO.setSunday(true);
+                    }
                 }
                 serviceScheduleVO.setVenueScheduleVOS(venueScheduleVOS);
             }
@@ -65,6 +72,7 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                         if (venueServiceVO.getVenueId().equals(orderVenueScheduleVO.getVenueId()) && serviceScheduleVO.getServiceId().equals(orderVenueScheduleVO.getServiceId()) && venueScheduleVO.getTime().equals(orderVenueScheduleVO.getVenueDay())) {
                             venueScheduleVO.setTargetCount(orderVenueScheduleVO.getVenueDayLimit());
                             venueScheduleVO.setCount(orderVenueScheduleVO.getCount());
+                            venueScheduleVO.setScheduleId(orderVenueScheduleVO.getId());
                             i++;
                         }
                     }
