@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qiein.erp.pk.web.dao.VenueScheduleDao" >
+    <resultMap id="venueScheduleSetMap" type="com.qiein.erp.pk.web.entity.vo.VenueScheduleSetVO">
+        <id column="id" property="id"/>
+        <result column="base_id" property="baseId"/>
+        <result column="base_name" property="baseName"/>
+        <result column="venue_id" property="venueId"/>
+        <result column="venue_name" property="venueName"/>
+        <result column="service_id" property="serviceId"/>
+        <result column="service_name" property="serviceName"/>
+    </resultMap>
         <select id="getVenueSchedule" resultType="com.qiein.erp.pk.web.entity.vo.OrderVenueScheduleVO">
             SELECT
                 sd.venue_id venueId,
@@ -9,12 +18,30 @@
                 sd.service_id serviceId,
                 count(1) count
             FROM
-                hm_erp_order_venue_schedule ord
+                (select company_id,venue_schedule_id from hm_erp_process_shoot_schedule where venue_schedule_id is not null) ord
             LEFT JOIN hm_erp_venue_schedule sd ON sd.id = ord.venue_schedule_id
             AND sd.company_id = ord.company_id
-            where sd.venue_day BETWEEN  #{start} and #{end}
+            where sd.venue_day BETWEEN  #{start} and #{end} and ord.company_id =#{companyId}
             group by ord.venue_schedule_id
         </select>
-
+        <select id="getVenueScheduleSet" resultMap="venueScheduleSetMap">
+            SELECT
+                service_venue.id,
+                venue.base_id,
+                base.base_name,
+                service_venue.venue_id,
+                venue.venue_name,
+                service_venue.service_id,
+                service.service_name
+            FROM
+                hm_erp_service_venue service_venue
+            LEFT JOIN hm_erp_venue venue ON venue.id = service_venue.venue_id
+            AND venue.company_id = service_venue.company_id
+            LEFT JOIN hm_erp_base base ON base.id = venue.base_id
+            AND base.company_id = venue.company_id
+            LEFT JOIN hm_erp_service service ON service.id = service_venue.service_id
+            AND service.company_id = service_venue.company_id
+            where service_venue.company_id=#{companyId} and venue.venue_status=1
+        </select>
 
 </mapper>

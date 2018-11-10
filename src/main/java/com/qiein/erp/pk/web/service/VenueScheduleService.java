@@ -1,6 +1,9 @@
 package com.qiein.erp.pk.web.service;
 
+import com.qiein.erp.pk.web.entity.vo.VenueScheduleSetVO;
 import com.qiein.erp.pk.web.entity.vo.VenueScheduleShowVO;
+
+import java.util.List;
 
 /**
  * 场馆档期service
@@ -13,4 +16,8 @@ public interface VenueScheduleService {
      * @return
      */
     VenueScheduleShowVO getScheduleShow(String monthStr,Integer companyId);
+    /**
+     * 场馆档期设置页面
+     */
+    List<VenueScheduleSetVO> getVenueScheduleSet(Integer companyId);
 }

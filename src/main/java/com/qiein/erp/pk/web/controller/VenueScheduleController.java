@@ -3,7 +3,6 @@ package com.qiein.erp.pk.web.controller;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.service.VenueScheduleService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +28,13 @@ public class VenueScheduleController {
     public ResultInfo getScheduleShow(@RequestParam("monthStr")String monthStr){
         Integer companyId=1;
         return ResultInfoUtil.success(venueScheduleService.getScheduleShow(monthStr,companyId));
+    }
+    /**
+     * 场馆档期设置页面
+     */
+    @GetMapping("/get_venue_schedule_set")
+    public ResultInfo getVenueScheduleSet(){
+        Integer companyId=1;
+        return ResultInfoUtil.success(venueScheduleService.getVenueScheduleSet(companyId));
     }
 }

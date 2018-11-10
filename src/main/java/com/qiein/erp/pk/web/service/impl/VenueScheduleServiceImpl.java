@@ -95,4 +95,10 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
         venueScheduleShowVO.setServiceScheduleVOS(serviceScheduleVOS);
         return venueScheduleShowVO;
     }
+    /**
+     * 场馆档期设置页面
+     */
+    public List<VenueScheduleSetVO> getVenueScheduleSet(Integer companyId){
+        return venueScheduleDao.getVenueScheduleSet(companyId);
+    }
 }
