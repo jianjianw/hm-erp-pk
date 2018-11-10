@@ -254,5 +254,26 @@
     and dic.DICTYPE = #{roomType}
   </select>
 
-
+    <update id="batUpdateRoomLevel" parameterType="ArrayList">
+        <foreach collection="list" index="index" item = "item" separator=";">
+            update hm_crm_dictionary
+            <set>
+                <if test="roomLevelName != null and roomLevelName != ''">
+                    DICNAME = #{item.roomLevelName},
+                </if>
+                <if test="priority != null">
+                    priority = #{item.priority},
+                </if>
+                <if test="roomLevelStatus != null">
+                    ISSHOW = #{item.roomLevelStatus},
+                </if>
+                <if test="companyId != null">
+                    COMPANYID = #{item.companyId}
+                </if>
+            </set>
+            where COMPANYID = #{item.companyId}
+            and DICTYPE = #{item.roomLevelType}
+            and DICCODE = #{item.roomLevelCode}
+        </foreach>
+    </update>
 </mapper>
