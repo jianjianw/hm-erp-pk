@@ -247,6 +247,10 @@ public class CommonConstant {
      * 二维码
      */
     public static final String WECHAT_QRCODE = "二维码";
+    /**
+     * 三年的时间戳
+     */
+    public static final Integer THERE_YEAR_TIME=94608000;
 
 
 }
