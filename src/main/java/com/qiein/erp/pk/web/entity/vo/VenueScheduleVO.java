@@ -8,6 +8,15 @@ public class VenueScheduleVO {
     private int count;//实际拍摄对数
     private int targetCount;//目标拍摄对数
     private Integer scheduleId;//档期id
+    private boolean isSunday;//是否是星期天
+
+    public boolean isSunday() {
+        return isSunday;
+    }
+
+    public void setSunday(boolean sunday) {
+        isSunday = sunday;
+    }
 
     public Integer getTime() {
         return time;

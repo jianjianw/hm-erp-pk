@@ -20,6 +20,7 @@
     </resultMap>
     <select id="getVenueSchedule" resultType="com.qiein.erp.pk.web.entity.vo.OrderVenueScheduleVO">
             SELECT
+                ord.venue_schedule_id id,
                 sd.venue_id venueId,
                 sd.venue_day venueDay,
                 sd.venue_day_limit venueDayLimit,
