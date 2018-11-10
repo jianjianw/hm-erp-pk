@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qiein.erp.pk.web.dao.VenueScheduleDao" >
+<mapper namespace="com.qiein.erp.pk.web.dao.VenueScheduleDao">
     <resultMap id="venueScheduleSetMap" type="com.qiein.erp.pk.web.entity.vo.VenueScheduleSetVO">
         <id column="id" property="id"/>
         <result column="base_id" property="baseId"/>
@@ -10,7 +10,15 @@
         <result column="service_id" property="serviceId"/>
         <result column="service_name" property="serviceName"/>
     </resultMap>
-        <select id="getVenueSchedule" resultType="com.qiein.erp.pk.web.entity.vo.OrderVenueScheduleVO">
+    <resultMap id="setMap" type="com.qiein.erp.pk.web.entity.po.VenueScheduleInsertPO">
+        <id column="id" property="id"/>
+        <result column="venue_id" property="venueId"/>
+        <result column="service_id" property="serviceId"/>
+        <result column="venue_day" property="venueDay"/>
+        <result column="venue_day_limit" property="venueDayLimit"/>
+        <result column="company_id" property="companyId"/>
+    </resultMap>
+    <select id="getVenueSchedule" resultType="com.qiein.erp.pk.web.entity.vo.OrderVenueScheduleVO">
             SELECT
                 sd.venue_id venueId,
                 sd.venue_day venueDay,
@@ -24,7 +32,7 @@
             where sd.venue_day BETWEEN  #{start} and #{end} and ord.company_id =#{companyId}
             group by ord.venue_schedule_id
         </select>
-        <select id="getVenueScheduleSet" resultMap="venueScheduleSetMap">
+    <select id="getVenueScheduleSet" resultMap="venueScheduleSetMap">
             SELECT
                 service_venue.id,
                 venue.base_id,
@@ -43,5 +51,35 @@
             AND service.company_id = service_venue.company_id
             where service_venue.company_id=#{companyId} and venue.venue_status=1
         </select>
+    <select id="getVenueScheduleSetWasIn" resultMap="setMap">
+            SELECT
+                sd.id id,
+                sd.venue_day
+            FROM
+                hm_erp_venue_schedule sd
+            WHERE
+                sd.company_id =#{companyId}
+            AND sd.service_id =#{serviceId}
+            AND sd.venue_id =#{venueId}
+            AND sd.venue_day BETWEEN #{start}
+            AND #{end}
+        </select>
+    <insert id="insertSet">
+        INSERT INTO hm_erp_venue_schedule (
+        id,
+        venue_id,
+        service_id,
+        company_id,
+        venue_day,
+        venue_day_limit
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.venueId}, #{item.serviceId}, #{item.companyId}, #{item.venueDay}, #{item.venueDayLimit})
+        </foreach>
 
+        ON DUPLICATE KEY UPDATE venue_day_limit =
+        VALUES
+        (venue_day_limit)
+    </insert>
 </mapper>

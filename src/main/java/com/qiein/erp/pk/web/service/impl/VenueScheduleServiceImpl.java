@@ -1,14 +1,19 @@
 package com.qiein.erp.pk.web.service.impl;
 
+import com.qiein.erp.pk.constant.CommonConstant;
 import com.qiein.erp.pk.util.TimeUtil;
 import com.qiein.erp.pk.web.dao.ServiceDao;
 import com.qiein.erp.pk.web.dao.VenueScheduleDao;
+import com.qiein.erp.pk.web.entity.dto.VenueScheduleSetDTO;
+import com.qiein.erp.pk.web.entity.po.VenueScheduleInsertPO;
 import com.qiein.erp.pk.web.entity.vo.*;
 import com.qiein.erp.pk.web.service.VenueScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -100,5 +105,48 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
      */
     public List<VenueScheduleSetVO> getVenueScheduleSet(Integer companyId){
         return venueScheduleDao.getVenueScheduleSet(companyId);
+    }
+    /**
+     * 档期设置
+     */
+    public void VenueScheduleSet(VenueScheduleSetDTO venueScheduleSetDTO){
+        List<Integer> dayList=TimeUtil.getMonthEveryDay(venueScheduleSetDTO.getStart(),venueScheduleSetDTO.getEnd());
+        List<Integer> week=new ArrayList<>();
+        List<VenueScheduleInsertPO> venueScheduleInsertPOS=new ArrayList<>();
+        List<VenueScheduleInsertPO> checkPO=venueScheduleDao.getVenueScheduleSetWasIn(venueScheduleSetDTO);
+        for(String day:venueScheduleSetDTO.getWeek().split(CommonConstant.STR_SEPARATOR)){
+            week.add(Integer.parseInt(day));
+        }
+        for(Integer day:dayList){
+            if(checkWeek(week,day)){
+                VenueScheduleInsertPO venueScheduleInsertPO=new VenueScheduleInsertPO();
+                venueScheduleInsertPO.setVenueId(venueScheduleSetDTO.getVenueId());
+                venueScheduleInsertPO.setServiceId(venueScheduleSetDTO.getServiceId());
+                venueScheduleInsertPO.setVenueDay(day);
+                venueScheduleInsertPO.setVenueDayLimit(venueScheduleSetDTO.getTarget());
+                venueScheduleInsertPO.setCompanyId(venueScheduleSetDTO.getCompanyId());
+                for(VenueScheduleInsertPO venueScheduleInsertPO1:checkPO){
+                    if(day.equals(venueScheduleInsertPO1.getVenueDay())){
+                        venueScheduleInsertPO.setId(venueScheduleInsertPO1.getId());
+                    }
+                }
+                venueScheduleInsertPOS.add(venueScheduleInsertPO);
+            }
+        }
+        venueScheduleDao.insertSet(venueScheduleInsertPOS);
+
+    }
+    //校验星期几
+    public boolean checkWeek(List<Integer> week,Integer time){
+        Date date = new Date(time*1000);
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int i=c.get(Calendar.DAY_OF_WEEK);
+        for(Integer weekDay:week){
+            if(i==weekDay){
+                return true;
+            }
+        }
+        return false;
     }
 }

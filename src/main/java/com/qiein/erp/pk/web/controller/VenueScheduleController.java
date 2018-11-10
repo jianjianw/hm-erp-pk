@@ -1,13 +1,12 @@
 package com.qiein.erp.pk.web.controller;
 
+import com.qiein.erp.pk.constant.CommonConstant;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.web.entity.dto.VenueScheduleSetDTO;
 import com.qiein.erp.pk.web.service.VenueScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 场馆档期controller
@@ -36,5 +35,18 @@ public class VenueScheduleController {
     public ResultInfo getVenueScheduleSet(){
         Integer companyId=1;
         return ResultInfoUtil.success(venueScheduleService.getVenueScheduleSet(companyId));
+    }
+    /**
+     * 场馆设置
+     */
+    @PostMapping("/venue_schedule_set")
+    public ResultInfo VenueScheduleSet(@RequestBody VenueScheduleSetDTO venueScheduleSetDTO){
+        Integer companyId=1;
+        venueScheduleSetDTO.setCompanyId(companyId);
+        if(venueScheduleSetDTO.getEnd()==null){
+            venueScheduleSetDTO.setEnd(venueScheduleSetDTO.getStart()+ CommonConstant.THERE_YEAR_TIME);
+        }
+        venueScheduleService.VenueScheduleSet(venueScheduleSetDTO);
+        return ResultInfoUtil.success();
     }
 }
