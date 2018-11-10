@@ -1,6 +1,7 @@
 package com.qiein.erp.pk.web.dao;
 
 import com.qiein.erp.pk.web.entity.vo.OrderVenueScheduleVO;
+import com.qiein.erp.pk.web.entity.vo.VenueScheduleSetVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,6 +17,10 @@ public interface VenueScheduleDao {
      * @return
      */
     List<OrderVenueScheduleVO> getVenueSchedule(@Param("companyId") Integer companyId,@Param("start")Integer start,@Param("end")Integer end);
+    /**
+     * 场馆档期设置页面
+     */
+    List<VenueScheduleSetVO> getVenueScheduleSet(@Param("companyId") Integer companyId);
 
 
 }

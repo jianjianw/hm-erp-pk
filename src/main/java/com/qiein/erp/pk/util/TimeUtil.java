@@ -590,6 +590,13 @@ public class TimeUtil {
         ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
         return getDayLastTimeStamp10ByDate(ca.getTime());
     }
+
+    /**
+     * 获取一个月每天的时间戳
+     * @param start
+     * @param end
+     * @return
+     */
     public static List<Integer> getMonthEveryDay(Integer start,Integer end){
         List<Integer> list=new ArrayList<>();
         for(int i=start;i<=end;i+=86400){
