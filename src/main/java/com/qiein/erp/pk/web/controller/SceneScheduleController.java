@@ -32,8 +32,10 @@ public class SceneScheduleController {
 
     @Autowired
     private SceneService sceneService;
+
+    private Integer  companyId=  1;
     @GetMapping("/select_scene_schedule_by_date")
-    public ResultInfo selectShootSchedule(Integer companyId, Integer venueId,Integer dateTime){
+    public ResultInfo selectShootSchedule(Integer venueId,Integer dateTime){
 
         Map<String, Integer> startAndEndTime = getStartAndEndTime(dateTime);
         //查询场馆下面的拍摄景
