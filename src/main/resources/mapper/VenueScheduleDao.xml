@@ -20,18 +20,27 @@
     </resultMap>
     <select id="getVenueSchedule" resultType="com.qiein.erp.pk.web.entity.vo.OrderVenueScheduleVO">
             SELECT
-                ord.venue_schedule_id id,
+                sd.id id,
                 sd.venue_id venueId,
                 sd.venue_day venueDay,
                 sd.venue_day_limit venueDayLimit,
                 sd.service_id serviceId,
                 count(1) count
             FROM
-                (select company_id,venue_schedule_id from hm_erp_process_shoot_schedule where venue_schedule_id is not null) ord
-            LEFT JOIN hm_erp_venue_schedule sd ON sd.id = ord.venue_schedule_id
+                hm_erp_venue_schedule sd
+            LEFT JOIN (
+                SELECT
+                    company_id,
+                    venue_schedule_id
+                FROM
+                    hm_erp_process_shoot_schedule
+                WHERE
+                    venue_schedule_id IS NOT NULL
+            ) ord ON sd.id = ord.venue_schedule_id
             AND sd.company_id = ord.company_id
-            where sd.venue_day BETWEEN  #{start} and #{end} and ord.company_id =#{companyId}
-            group by ord.venue_schedule_id
+            WHERE
+            sd.venue_day BETWEEN  #{start} and #{end} and sd.company_id =#{companyId}
+            group by sd.id
         </select>
     <select id="getVenueScheduleSet" resultMap="venueScheduleSetMap">
             SELECT

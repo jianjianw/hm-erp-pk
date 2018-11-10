@@ -48,7 +48,9 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                     venueScheduleVO.setCount(0);
                     venueScheduleVO.setTargetCount(0);
                     venueScheduleVOS.add(venueScheduleVO);
-                    Date date = new Date(day*1000);
+                    Long lo=new Long(day);
+                    lo*=1000;
+                    Date date = new Date(lo);
                     Calendar c = Calendar.getInstance();
                     c.setTime(date);
                     int i=c.get(Calendar.DAY_OF_WEEK);
