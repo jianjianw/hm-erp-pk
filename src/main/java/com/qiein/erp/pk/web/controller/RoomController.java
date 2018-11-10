@@ -181,4 +181,12 @@ public class RoomController {
         return ResultInfoUtil.success();
     }
 
+    @ApiOperation(value = "批量修改房间等级")
+    @PostMapping("/bat_update_room_type")
+    public ResultInfo batUpdateRoomLevel(@RequestBody List<LevelAndRoomDTO> levelAndRoomDTOs){
+        roomService.batUpdateRoomLevel(levelAndRoomDTOs);
+        return ResultInfoUtil.success();
+    }
+
+
 }

@@ -68,4 +68,10 @@ public interface RoomDao {
      * @return
      */
     List<LevelAndRoomDTO> findRoomLevel(@Param("companyId") Integer companyId,@Param("roomType")String roomType);
+
+    /**
+     * 批量编辑房间
+     * @param levelAndRoomDTOs
+     */
+    void batUpdateRoomLevel(List<LevelAndRoomDTO> levelAndRoomDTOs);
 }

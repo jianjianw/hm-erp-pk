@@ -84,4 +84,10 @@ public interface RoomService {
      */
     List<LevelAndRoomDTO> findRoomLevel(Integer companyId,String roomType);
 
+    /**
+     * 批量修改房间等级
+     * @param levelAndRoomDTOs
+     */
+    void batUpdateRoomLevel(List<LevelAndRoomDTO> levelAndRoomDTOs);
+
 }
