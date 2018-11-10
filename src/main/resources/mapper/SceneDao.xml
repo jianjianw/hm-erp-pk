@@ -104,7 +104,7 @@
 
   <select id="findRoomAndSceneByVenueId" parameterType="map" resultMap="RoomResultMap">
 
-    select room.venue_id,room.venue_id,room.room_name,scene.id scene.scene_name
+    select room.venue_id,room.venue_id,room.room_name,scene.id, scene.scene_name
     from hm_erp_venue_room room inner join hm_erp_scene scene
     on  room.room_id = scene.shoot_id and room.company_id = scene.company_id
     where room.company_id = #{companyId}

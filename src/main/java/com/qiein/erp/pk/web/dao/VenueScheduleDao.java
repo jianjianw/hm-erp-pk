@@ -6,9 +6,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-
-import com.qiein.erp.pk.web.entity.po.ShootSchedule;
-
 /**
  * 场馆档期dao
  * author:xiangliang 2018/11/05

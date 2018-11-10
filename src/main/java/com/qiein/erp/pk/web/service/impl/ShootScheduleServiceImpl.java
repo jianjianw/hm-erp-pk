@@ -1,8 +1,7 @@
 package com.qiein.erp.pk.web.service.impl;
 
 import com.qiein.erp.pk.web.dao.ShootScheduleDao;
-import com.qiein.erp.pk.web.dao.VenueScheduleDao;
-import com.qiein.erp.pk.web.entity.po.ShootSchedule;
+import com.qiein.erp.pk.web.entity.po.ShootSchedulePO;
 import com.qiein.erp.pk.web.service.ShootScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,7 @@ public class ShootScheduleServiceImpl implements ShootScheduleService {
 
 
     @Override
-    public List<ShootSchedule> selectScheduleByDateTime(Integer companyId, Integer venueId, Integer beginTime, Integer endTime) {
+    public List<ShootSchedulePO> selectScheduleByDateTime(Integer companyId, Integer venueId, Integer beginTime, Integer endTime) {
         return shootScheduleDao.selectScheduleByDateTime(companyId,venueId,beginTime,endTime);
     }
 }

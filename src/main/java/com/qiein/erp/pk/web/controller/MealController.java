@@ -29,6 +29,17 @@ public class MealController {
     private MealService mealService;
     
     /**
+     * 查询拍摄类别
+     * @return
+     */
+    @GetMapping("/select_photo")
+    public ResultInfo selectPhoto(){
+    	 int companyId=1;
+         List<DictionaryErp> photoTypes= mealService.selectPhoto(companyId);
+        return ResultInfoUtil.success(photoTypes);
+    }
+    
+    /**
      * 查询套餐类别
      * @return
      */
@@ -81,6 +92,9 @@ public class MealController {
     		//查询套餐类别名称
         	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
         	meal.setMealTypeName(dictionaryErp.getDicName());
+        	//查询拍摄名称
+        	DictionaryErp photo=mealService.selecDicName(meal.getPhotoType(),meal.getCompanyId());
+        	meal.setPhotoName(photo.getDicName());
         	//查询服务类别名称
         	ServicePO servicePO=mealService.selectServiceName(meal.getServiceId(),meal.getCompanyId());
             meal.setServiceName(servicePO.getServiceName());
@@ -110,6 +124,9 @@ public class MealController {
     	//查询套餐类别名称
     	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
     	meal.setMealTypeName(dictionaryErp.getDicName());
+    	//查询拍摄名称
+    	DictionaryErp photo=mealService.selecDicName(meal.getPhotoType(),meal.getCompanyId());
+    	meal.setPhotoName(photo.getDicName());
     	//查询服务类别名称
     	ServicePO servicePO=mealService.selectServiceName(meal.getServiceId(),meal.getCompanyId());
         meal.setServiceName(servicePO.getServiceName());

@@ -7,7 +7,7 @@ import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
 import com.qiein.erp.pk.web.entity.dto.TimeStampScheduleDTO;
 import com.qiein.erp.pk.web.entity.dto.VenueScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.Scene;
-import com.qiein.erp.pk.web.entity.po.ShootSchedule;
+import com.qiein.erp.pk.web.entity.po.ShootSchedulePO;
 import com.qiein.erp.pk.web.service.SceneService;
 import com.qiein.erp.pk.web.service.ShootScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class ShootScheduleController {
         Integer beginTime = null;
         Integer endTime = null;
         //查询所有的档期
-        List<ShootSchedule> shootSchedules = shootScheduleService.selectScheduleByDateTime(companyId, venueId, beginTime, endTime);
+        List<ShootSchedulePO> shootSchedulePOS = shootScheduleService.selectScheduleByDateTime(companyId, venueId, beginTime, endTime);
 
         //封装时间戳
         List<TimeStampScheduleDTO> timeStampList = new ArrayList<>();
@@ -56,7 +56,7 @@ public class ShootScheduleController {
 
         for(TimeStampScheduleDTO timeStamp : timeStampList){
             Integer timeStamp1 = timeStamp.getTimeStamp();
-            for (ShootSchedule schedule : shootSchedules){
+            for (ShootSchedulePO schedule : shootSchedulePOS){
                 Integer beginTime1 = schedule.getStartTime();
                 if(timeStamp1.equals(beginTime1)){
                     VenueScheduleDTO venueScheduleDTO = new VenueScheduleDTO();

@@ -1,6 +1,6 @@
 package com.qiein.erp.pk.web.service;
 
-import com.qiein.erp.pk.web.entity.po.ShootSchedule;
+import com.qiein.erp.pk.web.entity.po.ShootSchedulePO;
 
 import java.util.List;
 /**
@@ -18,5 +18,5 @@ public interface ShootScheduleService {
      * @param endTime
      * @return
      */
-    public List<ShootSchedule> selectScheduleByDateTime(Integer companyId, Integer venueId, Integer beginTime,Integer endTime);
+    public List<ShootSchedulePO> selectScheduleByDateTime(Integer companyId, Integer venueId, Integer beginTime, Integer endTime);
 }

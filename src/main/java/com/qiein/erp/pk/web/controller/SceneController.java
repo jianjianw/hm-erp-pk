@@ -82,7 +82,7 @@ public class SceneController {
         return ResultInfoUtil.success();
     }
 
-    @ApiOperation(value = "查询场馆下面的拍摄景")
+    @ApiOperation(value = "查询场馆下面的房间和拍摄景")
     @ApiImplicitParam(name = "venueId", value = "场馆id" ,dataType = "Integer")
     //查询场馆下面的所有拍摄景
     @GetMapping("/find_scene_by_venue_id")

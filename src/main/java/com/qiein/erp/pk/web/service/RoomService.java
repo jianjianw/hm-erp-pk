@@ -52,11 +52,6 @@ public interface RoomService {
     void roomLevelSort(List<LevelAndRoomDTO> levelAndRoomDTOS);
 
     /**
-     * 获取等级 和 房间
-     * */
-    List<LevelAndRoomDTO> getLevelAndRoom(Integer companyId, Integer venueId, String roomType);
-
-    /**
      * 添加房间等级
      * @param levelAndRoomDTO
      */
@@ -81,5 +76,12 @@ public interface RoomService {
      * @param levelAndRoomDTO
      */
     void updateRoomLevel(LevelAndRoomDTO levelAndRoomDTO);
+
+    /**
+     * 查询房间等级
+     * @param roomType
+     * @return
+     */
+    List<LevelAndRoomDTO> findRoomLevel(Integer companyId,String roomType);
 
 }
