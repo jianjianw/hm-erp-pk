@@ -64,8 +64,11 @@ public class SceneScheduleController {
                     VenueScheduleDTO venueScheduleDTO = new VenueScheduleDTO();
                     venueScheduleDTO.setSceneId(schedule.getSceneId()); //拍摄景
                     venueScheduleDTO.setShootRoomId(schedule.getShootId()); //拍摄间id
-                    venueScheduleDTO.setCameramanId(schedule.getStaffVO().getId()); //摄影师id  //关联人员表
-                    venueScheduleDTO.setCameramanName(schedule.getStaffVO().getNickName()); //摄影师name
+                    venueScheduleDTO.setStatus(schedule.getStatusId());
+                    if(schedule.getStaffVO() != null){
+                        venueScheduleDTO.setCameramanId(schedule.getStaffVO().getId()); //摄影师id  //关联人员表
+                        venueScheduleDTO.setCameramanName(schedule.getStaffVO().getNickName()); //摄影师name
+                    }
                     timeStamp.getVenueSchedule().add(venueScheduleDTO);
                 }
             }

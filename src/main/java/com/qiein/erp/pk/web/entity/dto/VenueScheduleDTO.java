@@ -16,7 +16,7 @@ public class VenueScheduleDTO implements Serializable {
 
     private String cameramanName;   //摄影师名字
 
-    //private Integer
+    private Integer status;//状态
 
 
     public Integer getShootRoomId() {
@@ -51,4 +51,11 @@ public class VenueScheduleDTO implements Serializable {
         this.cameramanName = cameramanName;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }

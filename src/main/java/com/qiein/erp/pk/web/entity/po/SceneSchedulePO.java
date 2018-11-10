@@ -25,8 +25,6 @@ public class SceneSchedulePO implements Serializable {
 
     private Integer statusId;  //状态 (打卡)
 
-
-    //多对一  关联订单  订单关联员工档期id   员工档期id关联员工id   接着关联员工表  查询员工id和名称
     private StaffVO staffVO;
 
 
