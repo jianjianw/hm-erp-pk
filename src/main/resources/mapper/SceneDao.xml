@@ -87,9 +87,16 @@
  </update>
 
   <resultMap id="RoomResultMap" type="com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO" >
+
     <id column="room_id" property="roomId" jdbcType="INTEGER" />
     <result column="venue_id" property="venueId" jdbcType="INTEGER" />
     <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="room_level" property="roomLevel" jdbcType="INTEGER" />
+    <result column="room_type" property="roomType" jdbcType="SMALLINT" />
+    <result column="priority" property="priority" jdbcType="SMALLINT" />
+    <result column="room_status" property="roomStatus" jdbcType="SMALLINT" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+
     <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.Scene" resultMap="SceneResultMap"/>
   </resultMap>
 
@@ -104,7 +111,7 @@
 
   <select id="findRoomAndSceneByVenueId" parameterType="map" resultMap="RoomResultMap">
 
-    select room.venue_id,room.venue_id,room.room_name,
+    select room.room_id, room.venue_id,room.room_name,room.room_level,room.room_type,room.priority,room.room_status,
             scene.id, scene.scene_name,scene.shoot_id,scene.scene_status,scene.priority,scene.company_id
     from hm_erp_venue_room room inner join hm_erp_scene scene
     on  room.room_id = scene.shoot_id and room.company_id = scene.company_id
