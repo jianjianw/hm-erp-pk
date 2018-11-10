@@ -16,6 +16,8 @@ public class VenueScheduleDTO implements Serializable {
 
     private String cameramanName;   //摄影师名字
 
+    //private Integer
+
 
     public Integer getShootRoomId() {
         return shootRoomId;

@@ -69,10 +69,10 @@
   </select>
 
   <select id="findSceneByRoomId" resultMap="BaseResultMap" parameterType = "map">
-
+    select
     <include refid="baseColumn"/>
     from hm_erp_scene
-    where company_id = #{companyId} and room_id = #{roomId}
+    where company_id = #{companyId} and shoot_id = #{roomId}
   </select>
 
  <update id="sceneSort">

@@ -76,5 +76,10 @@ public interface RoomService {
      */
     void batUpdateRoom(List<Room> rooms);
 
+    /**
+     * 修改房间等级
+     * @param levelAndRoomDTO
+     */
+    void updateRoomLevel(LevelAndRoomDTO levelAndRoomDTO);
 
 }

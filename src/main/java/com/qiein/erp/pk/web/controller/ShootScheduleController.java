@@ -32,7 +32,7 @@ public class ShootScheduleController {
     @Autowired
     private SceneService sceneService;
 
-    public ResultInfo selectShootRoomSchedule(Integer companyId, Integer venueId,Integer dateTime){
+    public ResultInfo selectShootSchedule(Integer companyId, Integer venueId,Integer dateTime){
 
         //查询场馆下面的拍摄景
         List<Scene> scenes = sceneService.findSceneByVenueId(companyId, venueId);

@@ -131,5 +131,10 @@ public class RoomServiceImpl implements RoomService {
         roomDao.batUpdateRoom(rooms);
     }
 
+    @Override
+    public void updateRoomLevel(LevelAndRoomDTO levelAndRoomDTO) {
+        roomDao.updateRoomLevel(levelAndRoomDTO);
+    }
+
 
 }

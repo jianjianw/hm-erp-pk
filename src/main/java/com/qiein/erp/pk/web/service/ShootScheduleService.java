@@ -18,5 +18,5 @@ public interface ShootScheduleService {
      * @param endTime
      * @return
      */
-    public List<ShootSchedule> selectScheduleByDateTime(Integer companyId, Integer venueId, Integer beginTime, Integer endTime);
+    public List<ShootSchedule> selectScheduleByDateTime(Integer companyId, Integer venueId, Integer beginTime,Integer endTime);
 }
