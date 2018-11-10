@@ -63,4 +63,11 @@ public interface RoomDao {
      * @param rooms
      */
     void batInsertOrUpdate(List<Room> rooms);
+
+    /**
+     * 修改房间等级
+     * @param levelAndRoomDTO
+     */
+    void updateRoomLevel(LevelAndRoomDTO levelAndRoomDTO);
+
 }

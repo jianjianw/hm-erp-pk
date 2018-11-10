@@ -81,6 +81,11 @@ public class MealServiceImpl implements MealService {
 		return dictionaryErp;
 		
 	}
+	@Override
+	public ServicePO selectServiceName(Integer serviceId, Integer companyId) {
+		ServicePO servicePO=mealDao.selectServiceName(serviceId,companyId);
+		return servicePO;
+	}
 
 	
 }

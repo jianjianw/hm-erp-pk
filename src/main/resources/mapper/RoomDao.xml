@@ -233,5 +233,28 @@
                             company_id = values (company_id);
   </insert>
 
+  <update id="updateRoomLevel" parameterType="com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO">
+
+      update hm_crm_dictionary
+      <set>
+        <if test="roomLevelName != null and roomLevelName != ''">
+          DICNAME = #{roomLevelName},
+        </if>
+       <if test="priority != null">
+         priority = #{priority},
+       </if>
+        <if test="roomLevelStatus != null">
+          ISSHOW = #{roomLevelStatus},
+        </if>
+        <if test="companyId != null">
+          COMPANYID = #{companyId}
+        </if>
+      </set>
+      where COMPANYID = #{companyId}
+      and DICTYPE = #{roomLevelType}
+      and DICCODE = #{roomLevelCode}
+
+  </update>
+
 
 </mapper>

@@ -153,6 +153,20 @@ public class RoomController {
         return ResultInfoUtil.success();
     }
 
+    @ApiOperation(value = "修改房间等级")
+    @PostMapping("/update_room_type")
+    public ResultInfo updateRoomLevel(@RequestBody LevelAndRoomDTO levelAndRoomDTO){
+        if(StringUtils.equals(levelAndRoomDTO.getRoomType(), RoomConstant.MAKEUP_ROOM)){//化妆间
+            levelAndRoomDTO.setRoomLevelType(RoomConstant.MAKEUP_ROOM_LEVEL);
+        }
+        if(StringUtils.equals(levelAndRoomDTO.getRoomType(),RoomConstant.SHOOT_ROOM)){//拍摄间
+            levelAndRoomDTO.setRoomLevelType(RoomConstant.SHOOT_ROOM_LEVEL);
+        }
+        roomService.updateRoomLevel(levelAndRoomDTO);
+        return ResultInfoUtil.success();
+    }
+
+
 
 
 }

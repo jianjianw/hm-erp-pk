@@ -86,7 +86,7 @@ public class SceneController {
     @ApiImplicitParam(name = "venueId", value = "场馆id" ,dataType = "Integer")
     //查询场馆下面的所有拍摄景
     @GetMapping("/find_scene_by_venue_id")
-    public ResultInfo findSceneByVenueId(@RequestBody Integer venueId){
+    public ResultInfo findSceneByVenueId(Integer venueId){
         List<RoomAndSceneDTO> roomAndScene = sceneService.findRoomAndSceneByVenueId(companyId, venueId);
         return ResultInfoUtil.success(roomAndScene);
     }

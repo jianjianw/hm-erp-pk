@@ -54,4 +54,6 @@ public interface MealDao {
 	void updateMealType(DictionaryErp dictionaryErp);
 	DictionaryErp selecDicName(@Param("mealType") Integer mealType,@Param("companyId")Integer companyId);
 	
+	ServicePO selectServiceName(@Param("serviceId")Integer serviceId, @Param("companyId") Integer companyId);
+	
 }
