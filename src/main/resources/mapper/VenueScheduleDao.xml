@@ -39,7 +39,7 @@
             ) ord ON sd.id = ord.venue_schedule_id
             AND sd.company_id = ord.company_id
             WHERE
-            sd.venue_day BETWEEN  #{start} and #{end} and ord.company_id =#{companyId}
+            sd.venue_day BETWEEN  #{start} and #{end} and sd.company_id =#{companyId}
             group by sd.id
         </select>
     <select id="getVenueScheduleSet" resultMap="venueScheduleSetMap">
