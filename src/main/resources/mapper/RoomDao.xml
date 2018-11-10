@@ -183,15 +183,6 @@
 
   </resultMap>
 
-  <select id="getLevelAndRoom" parameterType="map" resultMap="RoomLevelMap">
-    select dic.ID,dic.DICTYPE,dic.DICCODE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID,room.*
-    from  hm_crm_dictionary dic inner join hm_erp_venue_room room
-    on  dic.COMPANYID = room.company_id and dic.DICCODE = room.room_level
-    where dic.COMPANYID = #{companyId}
-    and dic.DICTYPE = #{roomType}
-    and room.venue_id = #{venueId}
-
-  </select>
 
   <select id="findRoomByLevelId" resultMap="BaseResultMap">
     select room_id, venue_id, room_name, room_level, room_type, priority, room_status,
@@ -255,6 +246,13 @@
       and DICCODE = #{roomLevelCode}
 
   </update>
+
+  <select id="findRoomLevel" parameterType="map" resultMap="RoomLevelMap">
+    select dic.ID,dic.DICTYPE,dic.DICCODE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID
+    from hm_crm_dictionary dic
+    where dic.COMPANYID = #{companyId}
+    and dic.DICTYPE = #{roomType}
+  </select>
 
 
 </mapper>

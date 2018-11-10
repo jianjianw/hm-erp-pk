@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.entity.dto;
 import com.qiein.erp.pk.web.entity.po.Room;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LevelAndRoomDTO implements Serializable {
@@ -26,7 +27,7 @@ public class LevelAndRoomDTO implements Serializable {
     private Integer companyId;
 
     //等级下面的房子
-    private List<Room> rooms;
+    private List<Room> rooms  = new ArrayList<>();
 
 
     public Integer getRoomLevelId() {

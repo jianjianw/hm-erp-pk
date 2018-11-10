@@ -38,14 +38,6 @@ public interface RoomDao {
     void batAddRoom(List<Room> rooms);
 
     /**
-     * 获取房间等级 和 房间
-     */
-    List<LevelAndRoomDTO> getLevelAndRoom(@Param("companyId") Integer companyId,
-                                                 @Param("venueId") Integer venueId,
-                                                 @Param("roomType") String roomType);
-
-
-    /**
      * 获取等级下面的房间
      */
     List<LevelAndRoomDTO> findRoomByLevelId(@Param("companyId") Integer companyId,
@@ -70,4 +62,10 @@ public interface RoomDao {
      */
     void updateRoomLevel(LevelAndRoomDTO levelAndRoomDTO);
 
+    /**
+     * 查询房间等级
+     * @param roomType
+     * @return
+     */
+    List<LevelAndRoomDTO> findRoomLevel(@Param("companyId") Integer companyId,@Param("roomType")String roomType);
 }

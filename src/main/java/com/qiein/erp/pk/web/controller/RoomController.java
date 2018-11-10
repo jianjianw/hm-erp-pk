@@ -108,13 +108,28 @@ public class RoomController {
     @GetMapping("get_all_room_and_type")
     public ResultInfo getLevelAndRoom(Integer venueId,String roomType){
 
+        //查询所有房间
+        List<Room> rooms = roomService.findRoomByVenueId(companyId, venueId, Integer.valueOf(roomType));
+
         if(StringUtils.equals(roomType, RoomConstant.MAKEUP_ROOM)){//化妆间
             roomType = RoomConstant.MAKEUP_ROOM_LEVEL;
         }
         if(StringUtils.equals(roomType,RoomConstant.SHOOT_ROOM)){//拍摄间
             roomType = RoomConstant.SHOOT_ROOM_LEVEL;
         }
-        List<LevelAndRoomDTO> list = roomService.getLevelAndRoom(companyId,venueId,roomType);
+        //查询所有等级
+        List<LevelAndRoomDTO> list =  roomService.findRoomLevel(companyId,roomType);
+
+        //封装房间到等级
+        for(LevelAndRoomDTO levelAndRoomDTO : list){
+            Integer roomLevelCode = levelAndRoomDTO.getRoomLevelCode();
+            for(Room room : rooms){
+                Integer roomLevel = room.getRoomLevel();
+                if(roomLevelCode.equals(roomLevel)){
+                    levelAndRoomDTO.getRooms().add(room);
+                }
+            }
+        }
         return ResultInfoUtil.success(list);
     }
 
@@ -165,8 +180,5 @@ public class RoomController {
         roomService.updateRoomLevel(levelAndRoomDTO);
         return ResultInfoUtil.success();
     }
-
-
-
 
 }

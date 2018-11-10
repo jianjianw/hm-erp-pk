@@ -76,14 +76,6 @@ public class RoomServiceImpl implements RoomService {
         roomDao.roomLevelSort(levelAndRoomDTOS);
     }
 
-
-    @Override
-    public List<LevelAndRoomDTO> getLevelAndRoom(Integer companyId, Integer venueId, String roomType) {
-        List<LevelAndRoomDTO> roomLevels = roomDao.getLevelAndRoom(companyId, venueId, roomType);
-        return roomLevels;
-    }
-
-
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addRoomLevel(LevelAndRoomDTO levelAndRoomDTO) {
@@ -134,6 +126,11 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public void updateRoomLevel(LevelAndRoomDTO levelAndRoomDTO) {
         roomDao.updateRoomLevel(levelAndRoomDTO);
+    }
+
+    @Override
+    public List<LevelAndRoomDTO> findRoomLevel(Integer companyId,String roomType) {
+        return roomDao.findRoomLevel(companyId,roomType);
     }
 
 
