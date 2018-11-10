@@ -55,5 +55,6 @@ public interface MealDao {
 	DictionaryErp selecDicName(@Param("mealType") Integer mealType,@Param("companyId")Integer companyId);
 	
 	ServicePO selectServiceName(@Param("serviceId")Integer serviceId, @Param("companyId") Integer companyId);
+	List<DictionaryErp> selectPhoto(@Param("companyId")Integer companyId);
 	
 }

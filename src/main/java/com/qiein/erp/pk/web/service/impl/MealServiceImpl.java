@@ -75,16 +75,33 @@ public class MealServiceImpl implements MealService {
 	public void updateMealType(DictionaryErp dictionaryErp) {
 		mealDao.updateMealType(dictionaryErp);
 	}
+	/**
+     * 编辑分类名称
+     * @return
+     */
 	@Override
 	public DictionaryErp selecDicName(Integer mealType,Integer companyId) {
 		DictionaryErp dictionaryErp = mealDao.selecDicName(mealType,companyId);
 		return dictionaryErp;
 		
 	}
+	/**
+     * 编辑服务名称
+     * @return
+     */
 	@Override
 	public ServicePO selectServiceName(Integer serviceId, Integer companyId) {
 		ServicePO servicePO=mealDao.selectServiceName(serviceId,companyId);
 		return servicePO;
+	}
+	/**
+     * 编辑拍摄名称
+     * @return
+     */
+	@Override
+	public List<DictionaryErp> selectPhoto(int companyId) {
+		List<DictionaryErp> photoTypes=mealDao.selectPhoto(companyId);
+		return photoTypes;
 	}
 
 	
