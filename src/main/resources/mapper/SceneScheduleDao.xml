@@ -23,14 +23,14 @@
         <result column="end_time" property="endTime" jdbcType="INTEGER" />
         <result column="status_id" property="statusId" jdbcType="VARCHAR" />
         <association property="staffVO" javaType="com.qiein.erp.pk.web.entity.vo.StaffVO">
-            <id  column="staff_id" property="id" jdbcType="INTEGER"></id>
-            <result column="nickname" property="nickName"  jdbcType="VARCHAR"></result>
+            <result column="id" property="id"></result>
+            <result column="NICKNAME" property="nickName"></result>
         </association>
 
     </resultMap>
 
-    <select id="selectScheduleByDateTime" parameterType="map" resultMap="BaseResultMap">
-      select scene.id,scene.shoot_id,scene.scene_id,scene.start_time,scene.end_time,scene.status_id, staff.id staff_id ,staff.NICKNAME nickname
+    <select id="selectScheduleByDateTime" parameterType="map" resultMap="sceneSchedule">
+      select scene.id,scene.shoot_id,scene.scene_id,scene.start_time,scene.end_time,scene.status_id,scene.status_id, staff.id ,staff.NICKNAME
           from hm_erp_scene_schedule scene
           inner join hm_erp_process_scene_schedule scene_link on scene.id = scene_link.shoot_schedule_id
           and scene.company_id = scene_link.company_id
@@ -44,7 +44,7 @@
           inner join hm_pub_staff staff on staff.ID = staff_schedule.staff_id
 
       where scene.company_id = #{companyId}
-      <!--and  scene.venue_id = #{venueId}-->
+      and  scene.venue_id = #{venueId}
       and scene.start_time BETWEEN #{startTime} AND #{endTime}
     </select>
 </mapper>

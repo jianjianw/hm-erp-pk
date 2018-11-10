@@ -9,6 +9,7 @@ public class StaffVO implements Serializable {
     private static final long serialVersionUID = 478409900156363957L;
 
     private Integer id; //员工id
+
     private String nickName;//员工name
 
 

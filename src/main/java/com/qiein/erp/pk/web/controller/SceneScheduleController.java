@@ -32,8 +32,10 @@ public class SceneScheduleController {
 
     @Autowired
     private SceneService sceneService;
+
+    private Integer  companyId=  1;
     @GetMapping("/select_scene_schedule_by_date")
-    public ResultInfo selectShootSchedule(Integer companyId, Integer venueId,Integer dateTime){
+    public ResultInfo selectShootSchedule(Integer venueId,Integer dateTime){
 
         Map<String, Integer> startAndEndTime = getStartAndEndTime(dateTime);
         //查询场馆下面的拍摄景
@@ -64,8 +66,11 @@ public class SceneScheduleController {
                     VenueScheduleDTO venueScheduleDTO = new VenueScheduleDTO();
                     venueScheduleDTO.setSceneId(schedule.getSceneId()); //拍摄景
                     venueScheduleDTO.setShootRoomId(schedule.getShootId()); //拍摄间id
-                    venueScheduleDTO.setCameramanId(schedule.getStaffVO().getId()); //摄影师id  //关联人员表
-                    venueScheduleDTO.setCameramanName(schedule.getStaffVO().getNickName()); //摄影师name
+                    venueScheduleDTO.setStatus(schedule.getStatusId());
+                    if(schedule.getStaffVO() != null){
+                        venueScheduleDTO.setCameramanId(schedule.getStaffVO().getId()); //摄影师id  //关联人员表
+                        venueScheduleDTO.setCameramanName(schedule.getStaffVO().getNickName()); //摄影师name
+                    }
                     timeStamp.getVenueSchedule().add(venueScheduleDTO);
                 }
             }
