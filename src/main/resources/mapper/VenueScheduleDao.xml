@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qiein.erp.pk.web.dao.VenueScheduleDao" >
-
+        <select id="getVenueSchedule" resultType="com.qiein.erp.pk.web.entity.vo.OrderVenueScheduleVO">
+            SELECT
+                sd.venue_id venueId,
+                sd.venue_day venueDay,
+                sd.venue_day_limit venueDayLimit,
+                sd.service_id serviceId,
+                count(1) count
+            FROM
+                hm_erp_order_venue_schedule ord
+            LEFT JOIN hm_erp_venue_schedule sd ON sd.id = ord.venue_schedule_id
+            AND sd.company_id = ord.company_id
+            where sd.venue_day BETWEEN  #{start} and #{end}
+            group by ord.venue_schedule_id
+        </select>
 </mapper>

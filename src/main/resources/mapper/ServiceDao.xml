@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qiein.erp.pk.web.dao.ServiceDao" >
-
+<mapper namespace="com.qiein.erp.pk.web.dao.ServiceDao">
+    <resultMap id="venueServiceMap" type="com.qiein.erp.pk.web.entity.vo.VenueServiceVO">
+        <result property="venueId" column="venue_id"/>
+        <result property="venueName" column="venue_name"/>
+        <result property="venueStatus" column="venue_status"/>
+        <collection property="serviceScheduleVOS" ofType="com.qiein.erp.pk.web.entity.vo.ServiceScheduleVO">
+            <result property="serviceId" column="service_id"/>
+            <result property="serviceName" column="service_name"/>
+        </collection>
+    </resultMap>
     <!--新增服务 -->
-    <insert id="addService" parameterType="com.qiein.erp.pk.web.entity.po.ServicePO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="addService" parameterType="com.qiein.erp.pk.web.entity.po.ServicePO" useGeneratedKeys="true"
+            keyProperty="id">
 
         insert into hm_erp_service(service_name,service_type,shoot_num,makeup_num,video_num,service_status,company_id)
         values(#{serviceName},#{serviceType},#{shootNum},#{makeupNum},#{videoNum},#{serviceStatus},#{companyId})
     </insert>
     <!--新增服务场馆关联-->
-    <insert id="addServiceVenue" parameterType="com.qiein.erp.pk.web.entity.po.ServiceVenuePO" >
+    <insert id="addServiceVenue" parameterType="com.qiein.erp.pk.web.entity.po.ServiceVenuePO">
         insert into hm_erp_service_venue(service_id,venue_id,company_id) values
         <foreach collection="serviceVenuePOS" item="item" separator="," index="index">
             (#{item.serviceId},#{item.venueId},#{item.companyId})
@@ -142,26 +151,6 @@
             service.id
     </select>
 
-    <!--<select id="selectRoomIds" resultType="com.qiein.erp.pk.web.entity.vo.ServiceVO">-->
-        <!--SELECT-->
-            <!--service.id id,-->
-
-            <!--GROUP_CONCAT(-->
-                <!--service_venue_link.link_id SEPARATOR ','-->
-            <!--) linkIds-->
-        <!--FROM-->
-            <!--hm_erp_service service-->
-        <!--LEFT JOIN hm_erp_service_venue service_venue ON service_venue.company_id = service.company_id-->
-        <!--AND service_venue.service_id = service.id-->
-        <!--LEFT JOIN hm_erp_venue venue ON venue.company_id = service.company_id-->
-        <!--AND venue.id = service_venue.venue_id-->
-        <!--left join hm_erp_service_venue_link service_venue_link ON service_venue.id=service_venue_link.service_venue_id-->
-        <!--WHERE-->
-            <!--service.company_id =#{companyId}-->
-        <!--GROUP BY-->
-            <!--service.id-->
-    <!--</select>-->
-
     <select id="selectRoomGroupByServiceId" resultType="com.qiein.erp.pk.web.entity.vo.RoomGroupByServiceIdVO">
         SELECT
             service.id serviceId,
@@ -182,5 +171,21 @@
     </select>
     <select id="checkWasIn" resultType="String">
         select service_name from hm_erp_service  where service_name=#{serviceName} and company_id=#{companyId}
+    </select>
+    <select id="venueService" resultMap="venueServiceMap">
+        SELECT
+            service_venue.service_id,
+            service.service_name,
+            service_venue.venue_id,
+            venue.venue_name,
+            venue.venue_status
+        FROM
+            hm_erp_service_venue service_venue
+        LEFT JOIN hm_erp_service service ON service.id = service_venue.service_id
+        AND service.company_id = service_venue.company_id
+        LEFT JOIN hm_erp_venue venue ON service_venue.venue_id = venue.id
+        AND service_venue.company_id = venue.company_id
+        WHERE
+            service_venue.company_id = #{companyId}
     </select>
 </mapper>

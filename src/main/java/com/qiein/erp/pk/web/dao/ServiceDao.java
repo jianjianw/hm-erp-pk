@@ -4,6 +4,7 @@ import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.po.ServiceVenuePO;
 import com.qiein.erp.pk.web.entity.vo.RoomGroupByServiceIdVO;
 import com.qiein.erp.pk.web.entity.vo.ServiceVO;
+import com.qiein.erp.pk.web.entity.vo.VenueServiceVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -44,6 +45,10 @@ public interface ServiceDao {
      * 查重
      */
     String checkWasIn(@Param("serviceName")String serviceName,@Param("companyId")Integer companyId);
+    /**
+     * 场馆服务关联查询（场馆档期用）
+     */
+    List<VenueServiceVO> venueService(Integer companyId);
 
 
 }

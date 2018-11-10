@@ -7,6 +7,7 @@ import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.po.ServiceVenuePO;
 import com.qiein.erp.pk.web.entity.vo.RoomGroupByServiceIdVO;
 import com.qiein.erp.pk.web.entity.vo.ServiceVO;
+import com.qiein.erp.pk.web.entity.vo.VenueServiceVO;
 import com.qiein.erp.pk.web.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -152,5 +153,12 @@ public class ServiceServiceImpl implements ServiceService {
      */
     public String checkWasIn(String serviceName,Integer companyId){
         return serviceDao.checkWasIn(serviceName,companyId);
+    }
+    /**
+     * 场馆服务关联查询（场馆档期用）
+     */
+    public List<VenueServiceVO> venueService(Integer companyId){
+        List<VenueServiceVO> list=serviceDao.venueService(companyId);
+        return list;
     }
 }
