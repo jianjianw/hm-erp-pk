@@ -16,6 +16,7 @@
     <result column="meal_type_name" property="mealTypeName" jdbcType="VARCHAR" />
     <result column="service_id" property="serviceId" jdbcType="INTEGER" />
     <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
+    <result column="photo_name" property="photoName" jdbcType="VARCHAR" />
   </resultMap>
   
    <resultMap id="DictionayMap" type="com.qiein.erp.pk.web.entity.po.DictionaryErp" >
@@ -36,13 +37,24 @@
   
   <sql id="baseColumn">
   	id,meal_name, photo_type, meal_type,meal_status,meal_amount,memo,priority,clothes_num,company_id,
-  	meal_type_name,service_id,service_name
+  	meal_type_name,service_id,service_name,photo_name
   </sql>
+  
+  <!--查询拍摄类别 -->
+  <select id="selectPhoto" resultMap="DictionayMap">
+	SELECT
+		dic.ID,dic.DICTYPE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID
+	FROM
+		hm_crm_dictionary dic
+	WHERE
+		dic.COMPANYID = #{companyId}
+	AND dic.DICTYPE = 'common_type'  	
+  </select>
   
   <!--查询服务ID  -->
   <select id="selectServiceId" resultMap="ServiceMap">
   	SELECT
-		ser.id,ser.service_name
+		ser.id,ser.service_name,ser.service_status
 	FROM
 	 	hm_erp_service ser
 	WHERE
@@ -111,9 +123,9 @@
   <!--新增主套餐  -->
   <insert id="insertMeal" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
     insert into 
-    	hm_erp_meal (meal_name, photo_type, meal_type,meal_status,meal_amount,
+    	hm_erp_meal (meal_name, photo_type,photo_name, meal_type,meal_status,meal_amount,
     			memo,priority,clothes_num,company_id,meal_type_name,service_id,service_name)
-    	values (#{mealName}, #{photoType}, #{mealType}, #{mealStatus}, #{mealAmount},
+    	values (#{mealName}, #{photoType},#{photoName}, #{mealType}, #{mealStatus}, #{mealAmount},
     		 #{memo}, #{priority}, #{clothesNum}, #{companyId},#{mealTypeName},#{serviceId},#{serviceName}
       )
   </insert>
@@ -128,6 +140,9 @@
     	</if>
     	<if test="photoType != null and photoType != 0 ">
     		photo_type=#{photoType},
+    	</if>
+    	<if test="photoName != null and photoName != '' ">
+    		photo_name=#{photoName},
     	</if>
     	<if test="mealType != null and mealType != 0 ">
     		meal_type=#{mealType},

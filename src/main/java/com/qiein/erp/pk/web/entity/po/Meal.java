@@ -21,6 +21,10 @@ public class Meal implements Serializable{
 	 */
 	private Integer photoType;
 	/**
+	 * 婚纱照类型名称
+	 */
+	private String photoName;
+	/**
 	 * 套餐类别ID
 	 */
 	private Integer mealType;
@@ -61,6 +65,14 @@ public class Meal implements Serializable{
 	 */
 	private String serviceName;
 	
+	public String getPhotoName() {
+		return photoName;
+	}
+
+	public void setPhotoName(String photoName) {
+		this.photoName = photoName;
+	}
+
 	public String getMealTypeName() {
 		return mealTypeName;
 	}
