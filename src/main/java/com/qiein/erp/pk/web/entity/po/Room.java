@@ -1,7 +1,6 @@
 package com.qiein.erp.pk.web.entity.po;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.qiein.erp.pk.aop.validate.annotation.NotEmptyStr;
 
 import java.io.Serializable;
 /*
