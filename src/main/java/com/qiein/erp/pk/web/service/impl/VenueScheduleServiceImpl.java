@@ -148,7 +148,9 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
     }
     //校验星期几
     public boolean checkWeek(List<Integer> week,Integer time){
-        Date date = new Date(time*1000);
+        Long lo=new Long(time);
+        lo*=1000;
+        Date date = new Date(lo);
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         int i=c.get(Calendar.DAY_OF_WEEK);
