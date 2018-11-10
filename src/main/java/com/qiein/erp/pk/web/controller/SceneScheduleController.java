@@ -11,6 +11,7 @@ import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
 import com.qiein.erp.pk.web.service.SceneService;
 import com.qiein.erp.pk.web.service.SceneScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +32,7 @@ public class SceneScheduleController {
 
     @Autowired
     private SceneService sceneService;
-
+    @GetMapping("/select_scene_schedule_by_date")
     public ResultInfo selectShootSchedule(Integer companyId, Integer venueId,Integer dateTime){
 
         Map<String, Integer> startAndEndTime = getStartAndEndTime(dateTime);

@@ -131,7 +131,7 @@
     on  room.room_id = scene.shoot_id and room.company_id = scene.company_id
     where room.company_id = #{companyId}
     and room.venue_id = #{venueId}
-    and room.room_type = #{roomType}
+    and room.room_type = 2
   </select>
 
   <insert id="batInsertScene" parameterType="ArrayList">

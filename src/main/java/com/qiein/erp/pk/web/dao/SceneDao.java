@@ -53,7 +53,7 @@ public interface SceneDao {
      * @param venueId
      * @return
      */
-    List<Scene> findSceneByVenueId(Integer companyId, Integer venueId);
+    List<Scene> findSceneByVenueId(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId);
 
     /**
      * 批量新增
