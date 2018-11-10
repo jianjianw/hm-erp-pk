@@ -1,6 +1,6 @@
 package com.qiein.erp.pk.web.dao;
 
-import com.qiein.erp.pk.web.entity.po.ShootSchedule;
+import com.qiein.erp.pk.web.entity.po.ShootSchedulePO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,10 +12,10 @@ import java.util.List;
 public interface ShootScheduleDao {
 
 
-    List<ShootSchedule> selectScheduleByDateTime(@Param("companyId") Integer companyId,
-                                                 @Param("venueId")Integer venueId,
-                                                 @Param("startTime")Integer startTime,
-                                                 @Param("endTime")Integer endTime);
+    List<ShootSchedulePO> selectScheduleByDateTime(@Param("companyId") Integer companyId,
+                                                   @Param("venueId")Integer venueId,
+                                                   @Param("startTime")Integer startTime,
+                                                   @Param("endTime")Integer endTime);
 
 
 }

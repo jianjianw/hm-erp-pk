@@ -1,5 +1,7 @@
 package com.qiein.erp.pk.web.entity.po;
 
+import com.qiein.erp.pk.web.entity.vo.StaffVO;
+
 import java.io.Serializable;
 
 /*
@@ -7,7 +9,7 @@ import java.io.Serializable;
 * wang lei
 * 2018-11-9
 * */
-public class ShootSchedule implements Serializable {
+public class ShootSchedulePO implements Serializable {
 
     private Integer id;             //拍摄间档期id
 
@@ -22,6 +24,11 @@ public class ShootSchedule implements Serializable {
     private String orderId;  //订单id
 
     private Integer statusId;  //状态 (打卡)
+
+
+    //多对一  关联订单  订单关联员工档期id   员工档期id关联员工id   接着关联员工表  查询员工id和名称
+    private StaffVO staffVO;
+
 
 
     public Integer getId() {
@@ -78,5 +85,13 @@ public class ShootSchedule implements Serializable {
 
     public void setStatusId(Integer statusId) {
         this.statusId = statusId;
+    }
+
+    public StaffVO getStaffVO() {
+        return staffVO;
+    }
+
+    public void setStaffVO(StaffVO staffVO) {
+        this.staffVO = staffVO;
     }
 }
