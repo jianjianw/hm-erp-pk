@@ -11,17 +11,17 @@ public class ShootSchedule implements Serializable {
 
     private Integer id;             //拍摄间档期id
 
-    private Integer shootRoomId;    //拍摄间id
+    private Integer shootId;    //拍摄间id
 
     private Integer sceneId;        //场景id
 
-    private Integer beginTime;  //开始时间戳
+    private Integer startTime;  //开始时间戳
 
     private Integer endTime;    //结束时间戳
 
     private String orderId;  //订单id
 
-    private Integer status;  //状态 (打卡)
+    private Integer statusId;  //状态 (打卡)
 
 
     public Integer getId() {
@@ -32,12 +32,12 @@ public class ShootSchedule implements Serializable {
         this.id = id;
     }
 
-    public Integer getShootRoomId() {
-        return shootRoomId;
+    public Integer getShootId() {
+        return shootId;
     }
 
-    public void setShootRoomId(Integer shootRoomId) {
-        this.shootRoomId = shootRoomId;
+    public void setShootId(Integer shootId) {
+        this.shootId = shootId;
     }
 
     public Integer getSceneId() {
@@ -48,12 +48,12 @@ public class ShootSchedule implements Serializable {
         this.sceneId = sceneId;
     }
 
-    public Integer getBeginTime() {
-        return beginTime;
+    public Integer getStartTime() {
+        return startTime;
     }
 
-    public void setBeginTime(Integer beginTime) {
-        this.beginTime = beginTime;
+    public void setStartTime(Integer startTime) {
+        this.startTime = startTime;
     }
 
     public Integer getEndTime() {
@@ -72,11 +72,11 @@ public class ShootSchedule implements Serializable {
         this.orderId = orderId;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getStatusId() {
+        return statusId;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
     }
 }

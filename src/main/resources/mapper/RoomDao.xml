@@ -154,7 +154,7 @@
             (SELECT IFNULL(MAX(PRIORITY), 0) + 1
              FROM hm_crm_dictionary
              WHERE COMPANYID = #{companyId} AND DICTYPE = #{roomLevelType}),
-            #{COMPANYID}
+            #{companyId}
   </insert>
 
   <insert id="batAddRoom" parameterType="ArrayList">

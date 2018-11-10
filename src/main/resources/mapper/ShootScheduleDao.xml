@@ -4,5 +4,23 @@
 
 
 
+    <resultMap id="BaseResultMap" type="com.qiein.erp.pk.web.entity.po.ShootSchedule" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="shoot_id" property="shootId" jdbcType="INTEGER" />
+        <result column="scene_id" property="sceneId" jdbcType="INTEGER" />
+        <result column="start_time" property="startTime" jdbcType="INTEGER" />
+        <result column="end_time" property="endTime" jdbcType="INTEGER" />
+        <result column="end_time" property="endTime" jdbcType="INTEGER" />
+        <result column="status_id" property="statusId" jdbcType="VARCHAR" />
+    </resultMap>
 
+
+
+    <select id="selectScheduleByDateTime" parameterType="map" resultMap="BaseResultMap">
+
+
+
+
+
+    </select>
 </mapper>

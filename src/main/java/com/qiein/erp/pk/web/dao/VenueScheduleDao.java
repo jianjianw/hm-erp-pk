@@ -21,9 +21,4 @@ public interface VenueScheduleDao {
     List<OrderVenueScheduleVO> getVenueSchedule(@Param("companyId") Integer companyId,@Param("start")Integer start,@Param("end")Integer end);
 
 
-    List<ShootSchedule> selectScheduleByDateTime( @Param("companyId") Integer companyId,
-                                                  @Param("venueId")Integer venueId,
-                                                  @Param("beginTime")Integer beginTime,
-                                                  @Param("endTime")Integer endTime);
-
 }

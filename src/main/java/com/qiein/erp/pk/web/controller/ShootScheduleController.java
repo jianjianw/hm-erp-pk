@@ -57,11 +57,11 @@ public class ShootScheduleController {
         for(TimeStampScheduleDTO timeStamp : timeStampList){
             Integer timeStamp1 = timeStamp.getTimeStamp();
             for (ShootSchedule schedule : shootSchedules){
-                Integer beginTime1 = schedule.getBeginTime();
+                Integer beginTime1 = schedule.getStartTime();
                 if(timeStamp1.equals(beginTime1)){
                     VenueScheduleDTO venueScheduleDTO = new VenueScheduleDTO();
                     venueScheduleDTO.setSceneId(schedule.getSceneId()); //拍摄景
-                    venueScheduleDTO.setShootRoomId(schedule.getShootRoomId()); //拍摄间id
+                    venueScheduleDTO.setShootRoomId(schedule.getShootId()); //拍摄间id
                     //venueScheduleDTO.setCameramanId(); //摄影师id  //关联人员表
                     //venueScheduleDTO.setCameramanName(); //摄影师name
                     timeStamp.getVenueSchedule().add(venueScheduleDTO);
