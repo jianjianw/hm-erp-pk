@@ -46,8 +46,10 @@
           inner join hm_pub_staff staff on staff.ID = staff_schedule.staff_id
 
       where scene.company_id = #{companyId}
-      and  scene.venue_id = #{venueId}
       and scene.start_time BETWEEN #{startTime} AND #{endTime}
+        <if test="venueId != null">
+            and  scene.venue_id = #{venueId}
+        </if>
     </select>
 
 

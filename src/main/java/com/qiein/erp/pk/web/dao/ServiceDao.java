@@ -4,6 +4,7 @@ import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.po.ServiceVenuePO;
 import com.qiein.erp.pk.web.entity.vo.RoomGroupByServiceIdVO;
 import com.qiein.erp.pk.web.entity.vo.ServiceVO;
+import com.qiein.erp.pk.web.entity.vo.ServiceVenueRoomVO;
 import com.qiein.erp.pk.web.entity.vo.VenueServiceVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -49,6 +50,19 @@ public interface ServiceDao {
      * 场馆服务关联查询（场馆档期用）
      */
     List<VenueServiceVO> venueService(Integer companyId);
+    /**
+     * 查询场馆下面的服务
+     * @param companyId
+     * @param venueId
+     * @return
+     */
+    List<ServiceVenueRoomVO> findServiceByVenueId(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId);
 
+    /*
+    * 查询服务下面的房间   根据场馆id
+    * */
+    List<RoomGroupByServiceIdVO> selectRoomsByVenueId(@Param("companyId") Integer companyId,
+                                                      @Param("venueId")Integer venueId,
+                                                      @Param("roomType")Integer roomType);
 
 }

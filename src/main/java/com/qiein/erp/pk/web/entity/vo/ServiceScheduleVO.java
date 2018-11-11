@@ -8,6 +8,7 @@ import java.util.List;
 public class ServiceScheduleVO {
     private Integer serviceId;//服务id
     private String serviceName;//服务名称
+    private Integer serviceType;//服务类型
     private List<VenueScheduleVO> venueScheduleVOS;//档期类
 
     public Integer getServiceId() {
@@ -32,5 +33,13 @@ public class ServiceScheduleVO {
 
     public void setVenueScheduleVOS(List<VenueScheduleVO> venueScheduleVOS) {
         this.venueScheduleVOS = venueScheduleVOS;
+    }
+
+    public Integer getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(Integer serviceType) {
+        this.serviceType = serviceType;
     }
 }

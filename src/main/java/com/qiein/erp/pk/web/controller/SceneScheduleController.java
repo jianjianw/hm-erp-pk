@@ -30,9 +30,6 @@ public class SceneScheduleController {
     @Autowired
     private SceneScheduleService sceneScheduleService;
 
-    @Autowired
-    private SceneService sceneService;
-
     private Integer  companyId=  1;
     @GetMapping("/select_scene_schedule_by_date")
     public ResultInfo selectSceneScheduleByDate(Integer venueId,Integer dateTime){

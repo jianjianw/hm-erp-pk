@@ -7,6 +7,7 @@ import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.po.ServiceVenuePO;
 import com.qiein.erp.pk.web.entity.vo.RoomGroupByServiceIdVO;
 import com.qiein.erp.pk.web.entity.vo.ServiceVO;
+import com.qiein.erp.pk.web.entity.vo.ServiceVenueRoomVO;
 import com.qiein.erp.pk.web.entity.vo.VenueServiceVO;
 import com.qiein.erp.pk.web.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,5 +161,27 @@ public class ServiceServiceImpl implements ServiceService {
     public List<VenueServiceVO> venueService(Integer companyId){
         List<VenueServiceVO> list=serviceDao.venueService(companyId);
         return list;
+    }
+
+    @Override
+    public List<ServiceVenueRoomVO> findServiceAndMakeupRooms(Integer companyId, Integer venueId) {
+
+        //查询场馆下面的服务
+        List<ServiceVenueRoomVO> serviceByVenues = serviceDao.findServiceByVenueId(companyId, venueId);
+        Integer roomType = 1;
+
+        //场馆服务下面的化妆间
+        List<RoomGroupByServiceIdVO> rooms =serviceDao.selectRoomsByVenueId(companyId,venueId,roomType);
+
+        for(ServiceVenueRoomVO serviceVenueRoomVO: serviceByVenues){
+            Integer serviceId = serviceVenueRoomVO.getServiceId();
+            for (RoomGroupByServiceIdVO room : rooms ){
+                if(serviceId.equals(room.getServiceId())){
+                    serviceVenueRoomVO.getMakeupRooms().add(room);
+                }
+            }
+
+        }
+        return serviceByVenues;
     }
 }
