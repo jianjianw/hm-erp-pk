@@ -19,13 +19,13 @@ public interface SceneScheduleDao {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(SceneSchedulePO record);
+    int insert(SceneSchedulePO sceneSchedulePO);
 
     SceneSchedulePO selectByPrimaryKey(Integer id);
 
     List<SceneSchedulePO> selectAll();
 
-    int updateByPrimaryKey(SceneSchedulePO record);
+    int updateByPrimaryKey(SceneSchedulePO sceneSchedulePO);
 
 
 }
