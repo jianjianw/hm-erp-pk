@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiein.erp.pk.web.dao.StaffScheduleDao" >
+
+  <resultMap id="StaffScheduleMap" type="com.qiein.erp.pk.web.entity.vo.StaffScheduleVO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="venue_id" property="venueId" jdbcType="INTEGER" />
+    <result column="staff_day_limit" property="staffDayLimit" jdbcType="INTEGER" />
+    <result column="staff_status" property="staffStatus" jdbcType="INTEGER" />
+    <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
+    <result column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <result column="NICKNAME" property="nickName" jdbcType="VARCHAR" />
+    <result column="role_level" property="roleLevel" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="baseColumn">
+  	id,venue_id, staff_day_limit, staff_status,venue_name,staff_id,NICKNAME,
+  		role_level,role_id,role_name,time
+  </sql>
+  
+ <!--查询套餐  -->
+  <select id="selectAll" resultMap="StaffScheduleMap" >
+    SELECT
+		ss.id,ss.venue_id,ss.staff_day,ss.staff_day_limit,
+		ss.staff_status,ve.venue_name,ss.staff_id,st.NICKNAME,
+		reals.role_level,reals.role_id,r.role_name,
+		FROM_UNIXTIME(ss.staff_day, '%d') time
+	FROM
+		hm_erp_staff_schedule ss
+	LEFT JOIN hm_pub_staff st ON st.ID=ss.staff_id AND st.COMPANYID=ss.company_id
+	LEFT JOIN hm_erp_venue ve ON ve.id=ss.venue_id AND ve.company_id=ss.company_id
+	LEFT JOIN hm_erp_staff_role reals ON reals.staff_id =ss.staff_id AND reals.company_id=ss.company_id
+	LEFT JOIN hm_erp_role r ON r.id=reals.role_id AND r.company_id=reals.company_id
+	WHERE 
+		ss.company_id=#{companyId}
+		AND reals.role_id=#{roleId}
+		AND ss.staff_day BETWEEN #{firstTime} AND #{endTime}
+	GROUP BY 
+		time,ss.staff_id
+  </select>
+  
+  <!--查询服务ID  -->
+  <!-- <select id="selectServiceId" resultMap="ServiceMap">
+  	SELECT
+		ser.id,ser.service_name,ser.service_status
+	FROM
+	 	hm_erp_service ser
+	WHERE
+		ser.company_id=#{companyId}
+  </select> -->
+  
+  <!--新增主套餐  -->
+  <!-- <insert id="insertMeal" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
+    insert into 
+    	hm_erp_meal (meal_name, photo_type,photo_name, meal_type,meal_status,meal_amount,
+    			memo,priority,clothes_num,company_id,meal_type_name,service_id,service_name)
+    	values (#{mealName}, #{photoType},#{photoName}, #{mealType}, #{mealStatus}, #{mealAmount},
+    		 #{memo}, #{priority}, #{clothesNum}, #{companyId},#{mealTypeName},#{serviceId},#{serviceName}
+      )
+  </insert> -->
+  
+  <!--编辑套餐  -->
+  <!-- <update id="updateByMeal" parameterType="com.qiein.erp.pk.web.entity.po.Meal" >
+    UPDATE 
+    	hm_erp_meal
+    <set>
+    	<if test="mealName != null and mealName != '' ">
+    		meal_name=#{mealName},
+    	</if>
+    	<if test="photoType != null and photoType != 0 ">
+    		photo_type=#{photoType},
+    	</if>
+    	<if test="photoName != null and photoName != '' ">
+    		photo_name=#{photoName},
+    	</if>
+    	<if test="mealType != null and mealType != 0 ">
+    		meal_type=#{mealType},
+    	</if>
+    	<if test="mealAmount != null and mealAmount != 0 ">
+    		meal_amount=#{mealAmount},
+    	</if>
+    	<if test="memo != null and memo != '' ">
+    		memo=#{memo},
+    	</if>
+    	<if test="clothesNum != null and clothesNum != 0 ">
+    		clothes_num=#{clothesNum},
+    	</if>
+    	<if test="mealStatus != null">
+    		meal_status=#{mealStatus},
+    	</if>
+    	<if test="priority != null and priority != 0">
+    		priority=#{priority},
+    	</if>
+    	<if test="mealTypeName != null and mealTypeName != '' ">
+    		meal_type_name=#{mealTypeName},
+    	</if>
+    	<if test="serviceId != null and serviceId != 0 ">
+    		service_id=#{serviceId},
+    	</if>
+    	<if test="serviceName != null and serviceName != '' ">
+    		service_name=#{serviceName}
+    	</if>
+    </set> 
+    WHERE 
+    	id = #{id} and company_id=#{companyId}
+  </update> -->
+  
+</mapper>

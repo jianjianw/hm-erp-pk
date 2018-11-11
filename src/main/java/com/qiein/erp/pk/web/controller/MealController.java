@@ -80,6 +80,10 @@ public class MealController {
     public ResultInfo selectServiceId(){
     	 int companyId=1;
          List<ServicePO> servicePo= mealService.selectServiceId(companyId);
+         /*for (ServicePO servicePO : servicePos) {
+        	 servicePO.setServiceStatus(String.valueOf(servicePO.getServiceStatus())));
+        	 
+		}*/
         return ResultInfoUtil.success(servicePo);
     }
     /**
