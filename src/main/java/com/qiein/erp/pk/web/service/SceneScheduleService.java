@@ -18,5 +18,5 @@ public interface SceneScheduleService {
      * @param endTime
      * @return
      */
-    List<SceneSchedulePO> selectScheduleByDateTime(Integer companyId, Integer venueId, Integer startTime, Integer endTime);
+    List<SceneSchedulePO> selectSceneScheduleByDate(Integer companyId, Integer venueId, Integer startTime, Integer endTime);
 }

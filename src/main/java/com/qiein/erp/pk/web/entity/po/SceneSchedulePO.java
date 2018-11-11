@@ -25,6 +25,10 @@ public class SceneSchedulePO implements Serializable {
 
     private Integer statusId;  //状态 (打卡)
 
+    private Integer companyId; //公司id
+
+    private Integer venueId;    //场馆id
+
     private StaffVO staffVO;
 
 

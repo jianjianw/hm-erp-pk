@@ -20,7 +20,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
 
 
     @Override
-    public List<SceneSchedulePO> selectScheduleByDateTime(Integer companyId, Integer venueId, Integer startTime, Integer endTime) {
-        return sceneScheduleDao.selectScheduleByDateTime(companyId,venueId,startTime,endTime);
+    public List<SceneSchedulePO> selectSceneScheduleByDate(Integer companyId, Integer venueId, Integer startTime, Integer endTime) {
+        return sceneScheduleDao.selectSceneScheduleByDate(companyId,venueId,startTime,endTime);
     }
 }

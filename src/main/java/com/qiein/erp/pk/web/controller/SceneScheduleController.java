@@ -35,7 +35,7 @@ public class SceneScheduleController {
 
     private Integer  companyId=  1;
     @GetMapping("/select_scene_schedule_by_date")
-    public ResultInfo selectShootSchedule(Integer venueId,Integer dateTime){
+    public ResultInfo selectSceneScheduleByDate(Integer venueId,Integer dateTime){
 
         Map<String, Integer> startAndEndTime = getStartAndEndTime(dateTime);
         //查询场馆下面的拍摄景
@@ -46,7 +46,7 @@ public class SceneScheduleController {
         Integer startTime = startAndEndTime.get("start");
         Integer endTime = startAndEndTime.get("end");
         //查询所有的档期
-        List<SceneSchedulePO> sceneSchedulePOS = sceneScheduleService.selectScheduleByDateTime(companyId, venueId,startTime,endTime);
+        List<SceneSchedulePO> sceneSchedulePOS = sceneScheduleService.selectSceneScheduleByDate(companyId, venueId,startTime,endTime);
 
         //封装时间戳
         List<TimeStampScheduleDTO> timeStampList = new ArrayList<>();

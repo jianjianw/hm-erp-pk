@@ -12,10 +12,20 @@ import java.util.List;
 public interface SceneScheduleDao {
 
 
-    List<SceneSchedulePO> selectScheduleByDateTime(@Param("companyId") Integer companyId,
+    List<SceneSchedulePO> selectSceneScheduleByDate(@Param("companyId") Integer companyId,
                                                    @Param("venueId")Integer venueId,
                                                    @Param("startTime")Integer startTime,
                                                    @Param("endTime")Integer endTime);
+
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(SceneSchedulePO record);
+
+    SceneSchedulePO selectByPrimaryKey(Integer id);
+
+    List<SceneSchedulePO> selectAll();
+
+    int updateByPrimaryKey(SceneSchedulePO record);
 
 
 }
