@@ -1,6 +1,8 @@
 package com.qiein.erp.pk.web.dao;
 
 import com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /*
@@ -19,4 +21,10 @@ public interface MakeupRoomScheduleDao {
     List<MakeupRoomSchedulePO> selectAll();
 
     int updateByPrimaryKey(MakeupRoomSchedulePO record);
+
+    /*根据日期查询化妆间档期*/
+    void selectMakeupRoomScheduleByDate(@Param("companyId") Integer companyId,
+                                        @Param("venueId") Integer venueId,
+                                        @Param("startTime") Integer startTime,
+                                        @Param("endTime") Integer endTime);
 }

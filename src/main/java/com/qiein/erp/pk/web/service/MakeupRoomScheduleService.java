@@ -24,5 +24,5 @@ public interface MakeupRoomScheduleService {
     /**
      * 查询化妆间的档期
      */
-    public Object selectMakeupRoomSchedule(Integer companyId,Integer dateTime);
+    public Object selectMakeupRoomSchedule(Integer companyId,Integer venueId,Integer dateTime);
 }

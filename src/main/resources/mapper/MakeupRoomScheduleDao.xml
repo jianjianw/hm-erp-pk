@@ -10,10 +10,12 @@
     <result column="makeup_day_limit" property="makeupDayLimit" jdbcType="SMALLINT" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
   </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from hm_erp_makeup_room_schedule
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO" >
     insert into hm_erp_makeup_room_schedule (id, venue_id, service_id, 
       makeup_room_id, makeup_day, makeup_day_limit, 
@@ -22,6 +24,7 @@
       #{makeupRoomId,jdbcType=INTEGER}, #{makeupDay,jdbcType=INTEGER}, #{makeupDayLimit,jdbcType=SMALLINT}, 
       #{companyId,jdbcType=INTEGER})
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO" >
     update hm_erp_makeup_room_schedule
     set venue_id = #{venueId,jdbcType=INTEGER},
@@ -32,13 +35,27 @@
       company_id = #{companyId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, venue_id, service_id, makeup_room_id, makeup_day, makeup_day_limit, company_id
     from hm_erp_makeup_room_schedule
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, venue_id, service_id, makeup_room_id, makeup_day, makeup_day_limit, company_id
     from hm_erp_makeup_room_schedule
+  </select>
+
+
+
+  <select id="selectMakeupRoomScheduleByDate" parameterType="map" resultMap="BaseResultMap">
+      select id, venue_id, service_id, makeup_room_id, makeup_day, makeup_day_limit, company_id
+      from hm_erp_makeup_room_schedule
+      where company_id = #{companyId}
+      and makeup_day BETWEEN startTime AND endTime
+      <if test="venueId != null">
+        and venue_id = #{venueId}
+      </if>
   </select>
 </mapper>

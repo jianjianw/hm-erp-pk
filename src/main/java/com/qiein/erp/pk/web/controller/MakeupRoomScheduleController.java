@@ -22,9 +22,10 @@ public class MakeupRoomScheduleController {
     /**
      * 查询化妆间的档期
      */
-    public ResultInfo selectMakeupRoomSchedule(Integer dateTime){
+    @RequestMapping("/select_makeup_room_schedule_by_date")
+    public ResultInfo selectMakeupRoomSchedule(Integer venueId, Integer dateTime){
 
-        Object obj = makeupRoomScheduleService.selectMakeupRoomSchedule(companyId, dateTime);
+        Object obj = makeupRoomScheduleService.selectMakeupRoomSchedule(companyId, venueId,dateTime);
         return ResultInfoUtil.success(obj);
     }
 
