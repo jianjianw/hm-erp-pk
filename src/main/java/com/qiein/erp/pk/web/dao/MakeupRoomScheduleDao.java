@@ -23,7 +23,7 @@ public interface MakeupRoomScheduleDao {
     int updateByPrimaryKey(MakeupRoomSchedulePO record);
 
     /*根据日期查询化妆间档期*/
-    void selectMakeupRoomScheduleByDate(@Param("companyId") Integer companyId,
+    List<MakeupRoomSchedulePO> selectMakeupRoomScheduleByDate(@Param("companyId") Integer companyId,
                                         @Param("venueId") Integer venueId,
                                         @Param("startTime") Integer startTime,
                                         @Param("endTime") Integer endTime);

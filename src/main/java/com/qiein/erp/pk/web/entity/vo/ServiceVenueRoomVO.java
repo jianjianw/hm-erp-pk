@@ -8,7 +8,7 @@ import java.util.List;
 * */
 public class ServiceVenueRoomVO {
 
-    private Integer serviceId;//排序
+    private Integer serviceId;//服务id
     private String serviceName;//服务名称
     private Integer serviceType;//服务类型
     private String venueName;//场馆

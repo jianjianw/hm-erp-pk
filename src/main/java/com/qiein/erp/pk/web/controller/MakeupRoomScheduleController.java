@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.controller;
 
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.web.entity.vo.MakeupRoomShowVO;
 import com.qiein.erp.pk.web.service.MakeupRoomScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +26,8 @@ public class MakeupRoomScheduleController {
     @RequestMapping("/select_makeup_room_schedule_by_date")
     public ResultInfo selectMakeupRoomSchedule(Integer venueId, Integer dateTime){
 
-        Object obj = makeupRoomScheduleService.selectMakeupRoomSchedule(companyId, venueId,dateTime);
-        return ResultInfoUtil.success(obj);
+        MakeupRoomShowVO result = makeupRoomScheduleService.selectMakeupRoomSchedule(companyId, venueId,dateTime);
+        return ResultInfoUtil.success(result);
     }
 
 

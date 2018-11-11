@@ -8,17 +8,18 @@ import java.io.Serializable;
  */
 public class MakeupRoomSchedulePO implements Serializable {
     private static final long serialVersionUID = -3753471065583643944L;
-    private Integer id;
 
-    private Integer venueId;
+    private Integer id; //档期id
 
-    private Integer serviceId;
+    private Integer venueId;    //场馆id
 
-    private Integer makeupRoomId;
+    private Integer serviceId;  //服务id
 
-    private Integer makeupDay;
+    private Integer makeupRoomId; //化妆间id
 
-    private Short makeupDayLimit;
+    private Integer makeupDay;    //化妆日期 精确到天
+
+    private Integer makeupDayLimit; //每日限额
 
     private Integer companyId;
 
@@ -63,11 +64,11 @@ public class MakeupRoomSchedulePO implements Serializable {
         this.makeupDay = makeupDay;
     }
 
-    public Short getMakeupDayLimit() {
+    public Integer getMakeupDayLimit() {
         return makeupDayLimit;
     }
 
-    public void setMakeupDayLimit(Short makeupDayLimit) {
+    public void setMakeupDayLimit(Integer makeupDayLimit) {
         this.makeupDayLimit = makeupDayLimit;
     }
 

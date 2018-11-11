@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO;
+import com.qiein.erp.pk.web.entity.vo.MakeupRoomShowVO;
 
 import java.util.List;
 
@@ -24,5 +25,5 @@ public interface MakeupRoomScheduleService {
     /**
      * 查询化妆间的档期
      */
-    public Object selectMakeupRoomSchedule(Integer companyId,Integer venueId,Integer dateTime);
+    public MakeupRoomShowVO selectMakeupRoomSchedule(Integer companyId, Integer venueId, Integer dateTime);
 }
