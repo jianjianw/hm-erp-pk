@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.web.entity.po.DictionaryErp;
+import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 import com.qiein.erp.pk.web.service.StaffScheduleService;
 
@@ -25,7 +27,18 @@ public class StaffScheduleController {
 	
     @Autowired
     private StaffScheduleService staffScheduleService;
-
+    
+    /**
+     * 查询拍摄类别
+     * @return
+     */
+    @GetMapping("/venue_select")
+    public ResultInfo venueSelect(){
+    	 int companyId=1;
+         List<Venue> Venues= staffScheduleService.venueSelect(companyId);
+        return ResultInfoUtil.success(Venues);
+    }
+    
     /**
      * 查询人员档期
      */

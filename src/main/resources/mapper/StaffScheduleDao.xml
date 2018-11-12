@@ -16,18 +16,36 @@
     <result column="time" property="time" jdbcType="INTEGER" />
   </resultMap>
   
+  <resultMap id="VenueMap" type="com.qiein.erp.pk.web.entity.po.Venue" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
+    <result column="venue_status" property="venueStatus" jdbcType="INTEGER" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="venue_type" property="venueType" jdbcType="INTEGER" />
+  </resultMap>
+  
   <sql id="baseColumn">
   	id,venue_id, staff_day_limit, staff_status,venue_name,staff_id,NICKNAME,
   		role_level,role_id,role_name,time
   </sql>
   
+  <!--场馆查询  -->
+  <select id="venueSelect" resultMap="VenueMap">
+  	SELECT
+		v.id,v.venue_name,v.venue_status,v.priority,v.venue_type
+	FROM
+		hm_erp_venue v
+	WHERE 
+		v.company_id=#{companyId}
+  </select>
+  
  <!--查询套餐  -->
   <select id="selectAll" resultMap="StaffScheduleMap" >
     SELECT
-		ss.id,ss.venue_id,ss.staff_day,ss.staff_day_limit,
-		ss.staff_status,ve.venue_name,ss.staff_id,st.NICKNAME,
-		reals.role_level,reals.role_id,r.role_name,
-		FROM_UNIXTIME(ss.staff_day, '%d') time
+		ss.id, ss.venue_id, ss.staff_day_limit,
+		ss.staff_status, ve.venue_name, ss.staff_id,st.NICKNAME,
+		reals.role_level, reals.role_id, r.role_name,
+		ss.staff_day AS time
 	FROM
 		hm_erp_staff_schedule ss
 	LEFT JOIN hm_pub_staff st ON st.ID=ss.staff_id AND st.COMPANYID=ss.company_id

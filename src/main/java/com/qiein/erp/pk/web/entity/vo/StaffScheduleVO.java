@@ -16,7 +16,6 @@ public class StaffScheduleVO {
     private String roleName;
     private Integer time;
     
-    
 	public Integer getId() {
 		return id;
 	}
