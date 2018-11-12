@@ -22,6 +22,11 @@
     <result column="venue_status" property="venueStatus" jdbcType="INTEGER" />
     <result column="priority" property="priority" jdbcType="INTEGER" />
     <result column="venue_type" property="venueType" jdbcType="INTEGER" />
+    <collection property="list" ofType="com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO" javaType="List">
+    	<result column="staff_id" property="staffId"/>
+    	<result column="NICKNAME" property="staffName"/>
+    	<result column="venue_id" property="venueId"/>
+    </collection>
   </resultMap>
   
   <sql id="baseColumn">
@@ -32,11 +37,15 @@
   <!--场馆查询  -->
   <select id="venueSelect" resultMap="VenueMap">
   	SELECT
-		v.id,v.venue_name,v.venue_status,v.priority,v.venue_type
+		v.id,v.venue_name,v.venue_status,v.priority,v.venue_type,
+		sv.staff_id,st.NICKNAME,sv.venue_id
 	FROM
 		hm_erp_venue v
+	LEFT JOIN hm_erp_staff_venue sv ON sv.venue_id=v.id AND sv.company_id=v.company_id
+	LEFT JOIN hm_pub_staff st ON st.ID=sv.staff_id AND st.COMPANYID=sv.company_id
 	WHERE 
 		v.company_id=#{companyId}
+		AND st.NICKNAME IS NOT NULL
   </select>
   
  <!--查询套餐  -->
