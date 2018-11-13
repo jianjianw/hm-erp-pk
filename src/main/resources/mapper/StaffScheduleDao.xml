@@ -62,6 +62,8 @@
 	WHERE 
 		v.company_id=#{companyId}
 		AND st.NICKNAME IS NOT NULL
+	GROUP BY v.id,sr.staff_id,sr.role_level
+	ORDER BY sr.role_level
   </select>
   
  <!--查询套餐  -->
