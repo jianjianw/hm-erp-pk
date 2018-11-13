@@ -44,5 +44,14 @@ public class StaffScheduleImpl implements StaffScheduleService {
 		List<StaffRoleTypeVO> StaffRoleTypeVOs= staffScheduleDao.roleLevelSelect(companyId);
 		return StaffRoleTypeVOs;
 	}
+	/**
+     * 仅查询场馆
+     * @return
+     */
+	@Override
+	public List<Venue> venueSelectOnly(int companyId) {
+		List<Venue> Venues= staffScheduleDao.venueSelectOnly(companyId);
+		return Venues;
+	}
 	
 }

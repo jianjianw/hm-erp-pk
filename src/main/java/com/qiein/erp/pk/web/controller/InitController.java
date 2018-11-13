@@ -28,7 +28,7 @@ public class InitController {
      */
     @RequestMapping("/")
     public String initSys() {
-        return "jupiter is running success!";
+        return "erp-pk is running success!";
     }
 
     /**

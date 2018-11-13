@@ -30,5 +30,10 @@ public interface StaffScheduleDao {
      * @return
      */
 	List<StaffRoleTypeVO> roleLevelSelect(int companyId);
+	/**
+     * 仅查询场馆
+     * @return
+     */
+	List<Venue> venueSelectOnly(int companyId);
 	
 }
