@@ -43,7 +43,7 @@ public class VenueController {
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody Venue venue){
         if(!RegexUtil.checkMobile(venue.getVenuePhone())){
-            ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
+            return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
         }
         venueService.insert(venue);
         return ResultInfoUtil.success();
@@ -66,7 +66,7 @@ public class VenueController {
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Venue venue){
         if(!RegexUtil.checkMobile(venue.getVenuePhone())){
-            ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
+            return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
         }
         venueService.updateByPrimaryKey(venue);
         return ResultInfoUtil.success();
