@@ -12,12 +12,13 @@ public interface StaffScheduleService {
      * 查询人员档期
      * @return
      */
-	List<StaffScheduleVO> selectAll(Integer companyId, Integer firstTime, Integer endTime,Integer roleId);
+	List<StaffScheduleVO> selectAll(Integer companyId, Integer firstTime, Integer endTime,Integer roleId,
+			String[] venueId,String[] roleLevel);
 	/**
      * 查询场馆
      * @return
      */
-	List<Venue> venueSelect(int companyId);
+	List<Venue> venueSelect(int companyId,Integer roleId,String[] venueId,String[] roleLevel);
 	/**
      * 查询角色等级
      * @return

@@ -72,6 +72,20 @@
 	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=sv.staff_id AND sr.company_id=sv.company_id
 	WHERE 
 		v.company_id=#{companyId}
+		AND sr.role_id=#{roleId}
+		<if test="venueId != null and venueId.length > 0 "> 
+			AND v.id IN
+			<foreach collection="venueId" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>
+		 </if>
+		<if test="roleLevel !=null and roleLevel.length > 0"> 
+			AND sr.role_level IN
+			<foreach collection="roleLevel" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>
+		</if>
+		AND st.ISDEL=0
 		AND st.NICKNAME IS NOT NULL
 	GROUP BY v.id,sr.role_level
 	ORDER BY sr.role_level
@@ -92,8 +106,20 @@
 	LEFT JOIN hm_erp_role r ON r.id=reals.role_id AND r.company_id=reals.company_id
 	WHERE 
 		ss.company_id=#{companyId}
-		AND reals.role_id=#{roleId}
 		AND ss.staff_day BETWEEN #{firstTime} AND #{endTime}
+		AND reals.role_id=#{roleId}
+		 <if test="venueId != null and venueId.length > 0 "> 
+			AND ve.id IN
+			<foreach collection="venueId" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>
+		 </if> 
+		<if test="roleLevel !=null and roleLevel.length > 0"> 
+			AND reals.role_level IN
+			<foreach collection="roleLevel" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>
+		</if>
 	GROUP BY 
 		time,ss.staff_id
   </select>
