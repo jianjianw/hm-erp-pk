@@ -42,4 +42,10 @@ public interface BaseService {
      * @param bases
      */
     void batUpdate(List<Base> bases);
+
+    /**
+     * 基地排序
+     * @param bases
+     */
+    void baseSort(List<Base> bases);
 }

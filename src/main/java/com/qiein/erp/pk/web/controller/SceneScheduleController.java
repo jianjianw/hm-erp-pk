@@ -12,6 +12,7 @@ import com.qiein.erp.pk.web.service.SceneService;
 import com.qiein.erp.pk.web.service.SceneScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +36,13 @@ public class SceneScheduleController {
     public ResultInfo selectSceneScheduleByDate(Integer venueId,Integer dateTime){
         ShootScheduleDTO shootScheduleDTO = sceneScheduleService.selectSceneScheduleByDate(companyId, venueId, dateTime);
         return ResultInfoUtil.success(shootScheduleDTO);
+    }
+
+    //打卡
+    @PostMapping("/punch_in")
+    public ResultInfo punchIn(Integer venueId,Integer dateTime,Integer statusId){
+        //1：默认初始，预定中；2：开始，使用中；3：使用完毕；
+        return null;
     }
 
 

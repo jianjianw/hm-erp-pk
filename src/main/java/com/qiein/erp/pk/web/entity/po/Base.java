@@ -18,6 +18,8 @@ public class Base implements Serializable {
     //新加基地状态
     private Short baseStatus;
 
+    private Short priority;//排序
+
 
     public Integer getId() {
         return id;
@@ -49,5 +51,13 @@ public class Base implements Serializable {
 
     public void setBaseStatus(Short baseStatus) {
         this.baseStatus = baseStatus;
+    }
+
+    public Short getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Short priority) {
+        this.priority = priority;
     }
 }

@@ -33,6 +33,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
 
         //查询所有拍摄景
         List<Scene> scenes = sceneService.findSceneByVenueId(companyId, venueId);
+        //加上拍摄间
         ShootScheduleDTO result = new ShootScheduleDTO();
         //设置拍摄景
         result.setScenes(scenes);
@@ -60,6 +61,8 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
                 Integer beginTime1 = schedule.getStartTime();
                 if(timeStamp1.equals(beginTime1)){
                     VenueScheduleDTO venueScheduleDTO = new VenueScheduleDTO();
+                    venueScheduleDTO.setCompanyId(venueScheduleDTO.getCompanyId());//公司id
+                    venueScheduleDTO.setVenueId(venueScheduleDTO.getVenueId());//场馆id
                     venueScheduleDTO.setSceneId(schedule.getSceneId()); //拍摄景
                     venueScheduleDTO.setShootRoomId(schedule.getShootId()); //拍摄间id
                     venueScheduleDTO.setStatus(schedule.getStatusId());

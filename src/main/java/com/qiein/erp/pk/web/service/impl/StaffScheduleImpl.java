@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.qiein.erp.pk.web.dao.StaffScheduleDao;
 import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 import com.qiein.erp.pk.web.service.StaffScheduleService;
 
@@ -33,6 +34,15 @@ public class StaffScheduleImpl implements StaffScheduleService {
 	public List<Venue> venueSelect(int companyId) {
 		List<Venue> Venues=staffScheduleDao.venueSelect(companyId);
 		return Venues;
+	}
+	/**
+     * 查询角色等级
+     * @return
+     */
+	@Override
+	public List<StaffRoleTypeVO> roleLevelSelect(int companyId) {
+		List<StaffRoleTypeVO> StaffRoleTypeVOs= staffScheduleDao.roleLevelSelect(companyId);
+		return StaffRoleTypeVOs;
 	}
 	
 }
