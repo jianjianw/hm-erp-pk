@@ -39,6 +39,16 @@
   		role_level,role_id,role_name,time
   </sql>
   
+  <!--仅查询场馆 -->
+  <select id="venueSelectOnly" resultMap="VenueMap">
+  	SELECT
+		v.id,v.venue_name
+	FROM
+		hm_erp_venue v
+	WHERE
+		v.company_id=#{companyId}
+  </select>
+  
   <!--查询摄影师等级 -->
   <select id="roleLevelSelect" resultMap="StaffRoleTypeVOMap">
   	SELECT
@@ -49,7 +59,8 @@
 		sr.company_id=#{companyId}
 	GROUP BY sr.role_level
   </select>
-  <!--场馆查询  -->
+  
+  <!--场馆人员查询  -->
   <select id="venueSelect" resultMap="VenueMap">
   	SELECT
 		v.id,v.venue_name,v.venue_status,v.priority,v.venue_type,
@@ -62,7 +73,7 @@
 	WHERE 
 		v.company_id=#{companyId}
 		AND st.NICKNAME IS NOT NULL
-	GROUP BY v.id,sr.staff_id,sr.role_level
+	GROUP BY v.id,sr.role_level
 	ORDER BY sr.role_level
   </select>
   

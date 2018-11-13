@@ -38,7 +38,16 @@ public class StaffScheduleController {
          List<Venue> Venues= staffScheduleService.venueSelect(companyId);
         return ResultInfoUtil.success(Venues);
     }
-    
+    /**
+     * 仅查询场馆
+     * @return
+     */
+    @GetMapping("/venue_select_only")
+    public ResultInfo venueSelectOnly(){
+    	 int companyId=1;
+         List<Venue> Venues= staffScheduleService.venueSelectOnly(companyId);
+        return ResultInfoUtil.success(Venues);
+    }
     /**
      * 查询角色等级
      * @return
