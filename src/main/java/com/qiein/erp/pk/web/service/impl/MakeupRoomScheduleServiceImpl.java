@@ -54,9 +54,15 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
     public MakeupRoomShowVO selectMakeupRoomSchedule(Integer companyId, Integer venueId, Integer dateTime) {
 
         Calendar calendar =Calendar.getInstance();
+        calendar.setTimeInMillis(dateTime*1000L);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH)+1;
+        StringBuilder sb = new StringBuilder();
+        String dateStr = sb.append(year).append("-").append(month).toString();
+
         //获取场馆下面的服务和房间
         List<ServiceVenueRoomVO> serviceAndMakeupRooms = serviceService.findServiceAndMakeupRooms(companyId, venueId);
-        List<Integer> everyDayOfMonth = TimeUtil.getMonthEveryDay(TimeUtil.getMonthStartTimeStampByDate("2018-11"), TimeUtil.getMonthEndTimeStampByDate("2018-11"));
+        List<Integer> everyDayOfMonth = TimeUtil.getMonthEveryDay(TimeUtil.getMonthStartTimeStampByDate(dateStr), TimeUtil.getMonthEndTimeStampByDate(dateStr));
 
         Integer startTime = everyDayOfMonth.get(0);
         Integer endTime = everyDayOfMonth.get(everyDayOfMonth.size() - 1);
