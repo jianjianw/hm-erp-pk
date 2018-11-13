@@ -19,7 +19,6 @@ public class ShootScheduleDTO implements Serializable {
     private List<VenueRoomScenePO> venueRoomScenePOS;
     //拍摄档期
     private List<SceneScheduleDTO> sceneScheduleDTO;
-    //private List<SceneSchedulePO> sceneSchedulePOS = new ArrayList<>();
 
 
 
@@ -39,11 +38,4 @@ public class ShootScheduleDTO implements Serializable {
         this.sceneScheduleDTO = sceneScheduleDTO;
     }
 
-  /*  public List<SceneSchedulePO> getSceneSchedulePOS() {
-        return sceneSchedulePOS;
-    }
-
-    public void setSceneSchedulePOS(List<SceneSchedulePO> sceneSchedulePOS) {
-        this.sceneSchedulePOS = sceneSchedulePOS;
-    }*/
 }
