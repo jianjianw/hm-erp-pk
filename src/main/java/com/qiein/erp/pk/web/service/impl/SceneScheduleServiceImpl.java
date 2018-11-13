@@ -90,7 +90,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         long start = startTime.getTime()/1000;
         hashMap.put("start",Integer.valueOf(String.valueOf(start)));
 
-        calendar.set(Calendar.HOUR_OF_DAY,11);
+        calendar.set(Calendar.HOUR_OF_DAY,23);
         calendar.set(Calendar.MINUTE,59);
         calendar.set(Calendar.SECOND,59);
         Date endTime = calendar.getTime();
