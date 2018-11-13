@@ -65,7 +65,7 @@ public class StaffScheduleController {
      */
     @GetMapping("/select_all")
     public ResultInfo selectAll(@RequestParam("roleId") Integer roleId,@RequestParam("month") String month,
-    		@RequestParam("venueId") String[] venueId,@RequestParam("roleLevel") String[] roleLevel){
+    		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
         Integer companyId=1;
         //获取时间时间戳
         int firstDay = TimeUtil.getMonthStartTimeStampByDate(month);
