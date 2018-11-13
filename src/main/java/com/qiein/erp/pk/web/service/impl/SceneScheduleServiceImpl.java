@@ -4,6 +4,7 @@ import com.qiein.erp.pk.web.dao.SceneScheduleDao;
 import com.qiein.erp.pk.web.entity.dto.SceneScheduleDTO;
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
 import com.qiein.erp.pk.web.entity.dto.TimeStampScheduleDTO;
+import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.entity.po.VenueRoomScenePO;
 import com.qiein.erp.pk.web.entity.dto.VenueScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
@@ -50,19 +51,26 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         List<SceneScheduleDTO> data = new ArrayList<>();
         //封装数据
         for(VenueRoomScenePO venueRoomScenePO : venueRoomScenePOS){
-            Integer poVenueId = venueRoomScenePO.getVenueId();//每一个拍摄景都要封装一个list
+            Integer poVenueId = venueRoomScenePO.getVenueId();
             Integer poRoomId = venueRoomScenePO.getRoomId();
-            SceneScheduleDTO sceneScheduleDTO = new SceneScheduleDTO();//要返回的data
-            sceneScheduleDTO.setVenueId(poVenueId);
-            sceneScheduleDTO.setRoomId(poRoomId);
-            for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
-                Integer venueId1 = sceneSchedulePO.getVenueId();
-                Integer shootId = sceneSchedulePO.getShootId();
-                if(poVenueId.equals(venueId1) && poRoomId.equals(shootId)){
-                    sceneScheduleDTO.getSceneSchedulePOS().add(sceneSchedulePO);//将数据封装到集合中
+            List<Scene> scenes = venueRoomScenePO.getScenes();
+            for(Scene scene : scenes ){//每一个拍摄景都要封装一个list
+                Integer sceneId = scene.getId();
+                SceneScheduleDTO sceneScheduleDTO = new SceneScheduleDTO();
+                sceneScheduleDTO.setVenueId(poVenueId);
+                sceneScheduleDTO.setRoomId(poRoomId);
+                sceneScheduleDTO.setSceneId(sceneId);
+                for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
+                    Integer venueId1 = sceneSchedulePO.getVenueId();
+                    Integer shootId = sceneSchedulePO.getShootId();
+                    Integer sceneId1 = sceneSchedulePO.getSceneId();
+                    if(poVenueId.equals(venueId1) && poRoomId.equals(shootId) && sceneId.equals(sceneId1) ){
+                        sceneScheduleDTO.getSceneSchedulePOS().add(sceneSchedulePO);//将数据封装到集合中
+                    }
                 }
+                data.add(sceneScheduleDTO);
             }
-            data.add(sceneScheduleDTO);
+
         }
         result.setSceneScheduleDTO(data);
         return result;

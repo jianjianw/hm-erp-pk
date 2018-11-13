@@ -17,6 +17,7 @@ public class SceneScheduleDTO implements Serializable {
 
     private Integer venueId;
     private Integer roomId;
+    private Integer sceneId;
     private List<SceneSchedulePO> sceneSchedulePOS = new ArrayList<>();
 
 
@@ -34,6 +35,14 @@ public class SceneScheduleDTO implements Serializable {
 
     public void setRoomId(Integer roomId) {
         this.roomId = roomId;
+    }
+
+    public Integer getSceneId() {
+        return sceneId;
+    }
+
+    public void setSceneId(Integer sceneId) {
+        this.sceneId = sceneId;
     }
 
     public List<SceneSchedulePO> getSceneSchedulePOS() {
