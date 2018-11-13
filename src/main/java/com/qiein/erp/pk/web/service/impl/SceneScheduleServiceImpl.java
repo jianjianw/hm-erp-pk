@@ -65,40 +65,6 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
             data.add(sceneScheduleDTO);
         }
         result.setSceneScheduleDTO(data);
-
-
-      /*  //封装时间戳
-        List<TimeStampScheduleDTO> timeStampList = new ArrayList<>();
-        List<Long> timeList = getTimeList(dateTime);
-        for(Long time : timeList){
-            String str = String.valueOf(time);
-            TimeStampScheduleDTO timeStampScheduleDTO = new TimeStampScheduleDTO();
-            timeStampScheduleDTO.setTimeStamp(Integer.parseInt(str));
-            timeStampList.add(timeStampScheduleDTO);
-        }
-
-        for(TimeStampScheduleDTO timeStamp : timeStampList){
-            Integer timeStamp1 = timeStamp.getTimeStamp();
-            for (SceneSchedulePO schedule : sceneSchedulePOS){
-                Integer beginTime1 = schedule.getStartTime();
-                if(timeStamp1.equals(beginTime1)){
-                    VenueScheduleDTO venueScheduleDTO = new VenueScheduleDTO();
-                    venueScheduleDTO.setCompanyId(venueScheduleDTO.getCompanyId());//公司id
-                    venueScheduleDTO.setVenueId(venueScheduleDTO.getVenueId());//场馆id
-                    venueScheduleDTO.setSceneId(schedule.getSceneId()); //拍摄景
-                    venueScheduleDTO.setShootRoomId(schedule.getShootId()); //拍摄间id
-                    venueScheduleDTO.setStatus(schedule.getStatusId());
-                    if(schedule.getStaffVO() != null){
-                        venueScheduleDTO.setCameramanId(schedule.getStaffVO().getId()); //摄影师id  //关联人员表
-                        venueScheduleDTO.setCameramanName(schedule.getStaffVO().getNickName()); //摄影师name
-                    }
-                    timeStamp.getVenueSchedule().add(venueScheduleDTO);
-                }
-            }
-        }
-
-
-        result.setTimeStampScheduleDTOS(timeStampList);*/
         return result;
     }
 
