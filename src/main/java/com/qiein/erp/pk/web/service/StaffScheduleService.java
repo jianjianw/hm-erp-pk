@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.service;
 
 import java.util.List;
 import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 
 
@@ -17,6 +18,11 @@ public interface StaffScheduleService {
      * @return
      */
 	List<Venue> venueSelect(int companyId);
+	/**
+     * 查询角色等级
+     * @return
+     */
+	List<StaffRoleTypeVO> roleLevelSelect(int companyId);
 
 	
 
