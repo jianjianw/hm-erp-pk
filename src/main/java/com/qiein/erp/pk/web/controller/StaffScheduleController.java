@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
-import com.qiein.erp.pk.web.entity.po.DictionaryErp;
+import com.qiein.erp.pk.util.TimeUtil;
 import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 import com.qiein.erp.pk.web.service.StaffScheduleService;
@@ -43,9 +42,12 @@ public class StaffScheduleController {
      * 查询人员档期
      */
     @GetMapping("/select_all")
-    public ResultInfo selectAll(@RequestParam("roleId") Integer roleId,@RequestParam("firstTime") Integer firstTime,@RequestParam("endTime") Integer endTime){
+    public ResultInfo selectAll(@RequestParam("roleId") Integer roleId,@RequestParam("month")String month){
         Integer companyId=1;
-        List<StaffScheduleVO> staffScheduleVOs=staffScheduleService.selectAll(companyId,firstTime,endTime,roleId);
+        //获取时间时间戳
+        int firstDay = TimeUtil.getMonthStartTimeStampByDate(month);
+        int lastDay=TimeUtil.getMonthEndTimeStampByDate(month);
+        List<StaffScheduleVO> staffScheduleVOs=staffScheduleService.selectAll(companyId,firstDay,lastDay,roleId);
         // 最终用返回
         List<Map<String, Object>> newmaps = new ArrayList<>();
 

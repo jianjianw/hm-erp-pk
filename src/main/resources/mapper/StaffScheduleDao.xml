@@ -54,7 +54,7 @@
 		ss.id, ss.venue_id, ss.staff_day_limit,
 		ss.staff_status, ve.venue_name, ss.staff_id,st.NICKNAME,
 		reals.role_level, reals.role_id, r.role_name,
-		ss.staff_day AS time
+		FROM_UNIXTIME(ss.staff_day, '%d') time
 	FROM
 		hm_erp_staff_schedule ss
 	LEFT JOIN hm_pub_staff st ON st.ID=ss.staff_id AND st.COMPANYID=ss.company_id
