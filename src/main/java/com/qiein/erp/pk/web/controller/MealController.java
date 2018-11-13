@@ -55,6 +55,12 @@ public class MealController {
      */
     @PostMapping("/insert_meal_type")
     public ResultInfo insertMealType(@RequestBody DictionaryErp dictionaryErp ){
+    	if(dictionaryErp.getDicName() == null){
+    		return ResultInfoUtil.error(9999,"请输入分类名称");
+    	}
+    	if(!dictionaryErp.getDicType().equals("meal_type")){
+    		return ResultInfoUtil.error(9999,"类型id错误");
+    	}
     		dictionaryErp.setCompanyId(1);
     		mealService.insertMealType(dictionaryErp);
         return ResultInfoUtil.success();
@@ -92,6 +98,9 @@ public class MealController {
      */
     @PostMapping("/insert_meal")
     public ResultInfo insertMeal(@RequestBody Meal meal){
+    		if(meal.getMealType()==null){
+    			
+    		}
     		meal.setCompanyId(1);
     		//查询套餐类别名称
         	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());

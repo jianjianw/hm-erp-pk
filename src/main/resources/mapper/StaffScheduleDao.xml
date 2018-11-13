@@ -26,7 +26,12 @@
     	<result column="staff_id" property="staffId"/>
     	<result column="NICKNAME" property="staffName"/>
     	<result column="venue_id" property="venueId"/>
+    	<result column="role_level" property="roleLevel"/>
     </collection>
+  </resultMap>
+  
+  <resultMap id="StaffRoleTypeVOMap" type="com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO" >
+    <result column="role_level" property="roleLevel" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="baseColumn">
@@ -34,15 +39,26 @@
   		role_level,role_id,role_name,time
   </sql>
   
+  <!--查询摄影师等级 -->
+  <select id="roleLevelSelect" resultMap="StaffRoleTypeVOMap">
+  	SELECT
+		sr.role_level
+	FROM
+		hm_erp_staff_role sr
+	WHERE
+		sr.company_id=#{companyId}
+	GROUP BY sr.role_level
+  </select>
   <!--场馆查询  -->
   <select id="venueSelect" resultMap="VenueMap">
   	SELECT
 		v.id,v.venue_name,v.venue_status,v.priority,v.venue_type,
-		sv.staff_id,st.NICKNAME,sv.venue_id
+		sv.staff_id,st.NICKNAME,sv.venue_id,sr.role_level
 	FROM
 		hm_erp_venue v
 	LEFT JOIN hm_erp_staff_venue sv ON sv.venue_id=v.id AND sv.company_id=v.company_id
 	LEFT JOIN hm_pub_staff st ON st.ID=sv.staff_id AND st.COMPANYID=sv.company_id
+	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=sv.staff_id AND sr.company_id=sv.company_id
 	WHERE 
 		v.company_id=#{companyId}
 		AND st.NICKNAME IS NOT NULL

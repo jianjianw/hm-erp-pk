@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 /**
  * 摄影师排空
@@ -24,5 +25,10 @@ public interface StaffScheduleDao {
      * @return
      */
 	List<Venue> venueSelect(@Param("companyId") Integer companyId);
+	/**
+     * 查询角色等级
+     * @return
+     */
+	List<StaffRoleTypeVO> roleLevelSelect(int companyId);
 	
 }
