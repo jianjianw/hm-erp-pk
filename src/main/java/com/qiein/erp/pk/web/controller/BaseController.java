@@ -69,6 +69,13 @@ public class BaseController {
         return ResultInfoUtil.success();
     }
 
+    //批量编辑
+    @PostMapping("/base_sort")
+    public ResultInfo baseSort(@RequestBody List<Base> bases){
+        baseService.baseSort(bases);
+        return ResultInfoUtil.success();
+    }
+
 
     /**
      * 查询所有开启的基地

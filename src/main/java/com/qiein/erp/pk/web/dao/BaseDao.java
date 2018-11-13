@@ -44,4 +44,11 @@ public interface BaseDao {
      * @param bases
      */
     void batInsertOrUpdate(List<Base> bases);
+
+    /**
+     * 基地排序
+     * @param bases
+     */
+    void baseSort(List<Base> bases);
+
 }

@@ -76,4 +76,12 @@
 
   </insert>
 
+  <update id="baseSort" parameterType="ArrayList">
+    <foreach collection="list" item="item" index="index" separator=";" >
+      update hm_erp_base set  priority = #{item.priority}
+      where id = #{item.id}
+      and company_id=#{item.companyId}
+    </foreach>
+  </update>
+
 </mapper>
