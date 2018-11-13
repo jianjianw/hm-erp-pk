@@ -29,13 +29,14 @@ public class StaffScheduleController {
     private StaffScheduleService staffScheduleService;
     
     /**
-     * 查询拍摄类别
+     * 查询场馆
      * @return
      */
     @GetMapping("/venue_select")
-    public ResultInfo venueSelect(){
+    public ResultInfo venueSelect(@RequestParam("roleId") Integer roleId,
+    		@RequestParam("venueId") String[] venueId,@RequestParam("roleLevel") String[] roleLevel){
     	 int companyId=1;
-         List<Venue> Venues= staffScheduleService.venueSelect(companyId);
+         List<Venue> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
         return ResultInfoUtil.success(Venues);
     }
     /**
@@ -63,12 +64,13 @@ public class StaffScheduleController {
      * 查询人员档期
      */
     @GetMapping("/select_all")
-    public ResultInfo selectAll(@RequestParam("roleId") Integer roleId,@RequestParam("month")String month){
+    public ResultInfo selectAll(@RequestParam("roleId") Integer roleId,@RequestParam("month") String month,
+    		@RequestParam("venueId") String[] venueId,@RequestParam("roleLevel") String[] roleLevel){
         Integer companyId=1;
         //获取时间时间戳
         int firstDay = TimeUtil.getMonthStartTimeStampByDate(month);
         int lastDay=TimeUtil.getMonthEndTimeStampByDate(month);
-        List<StaffScheduleVO> staffScheduleVOs=staffScheduleService.selectAll(companyId,firstDay,lastDay,roleId);
+        List<StaffScheduleVO> staffScheduleVOs=staffScheduleService.selectAll(companyId,firstDay,lastDay,roleId,venueId,roleLevel);
         // 最终用返回
         List<Map<String, Object>> newmaps = new ArrayList<>();
 

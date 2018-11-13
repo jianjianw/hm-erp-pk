@@ -22,8 +22,9 @@ public class StaffScheduleImpl implements StaffScheduleService {
      * @return
      */
     @Override
-	public List<StaffScheduleVO> selectAll(Integer companyId, Integer firstTime, Integer endTime,Integer roleId) {
-		List<StaffScheduleVO> staffScheduleVO=staffScheduleDao.selectAll(companyId,firstTime,endTime,roleId);
+	public List<StaffScheduleVO> selectAll(Integer companyId, Integer firstTime, Integer endTime,
+			Integer roleId,String[] venueId,String[] roleLevel) {
+		List<StaffScheduleVO> staffScheduleVO=staffScheduleDao.selectAll(companyId,firstTime,endTime,roleId,venueId,roleLevel);
 		return staffScheduleVO;
 	}
     /**
@@ -31,8 +32,8 @@ public class StaffScheduleImpl implements StaffScheduleService {
      * @return
      */
 	@Override
-	public List<Venue> venueSelect(int companyId) {
-		List<Venue> Venues=staffScheduleDao.venueSelect(companyId);
+	public List<Venue> venueSelect(int companyId,Integer roleId,String[] venueId,String[] roleLevel) {
+		List<Venue> Venues=staffScheduleDao.venueSelect(companyId,roleId,venueId,roleLevel);
 		return Venues;
 	}
 	/**

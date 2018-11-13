@@ -19,12 +19,14 @@ public interface StaffScheduleDao {
      * @return
      */
 	List<StaffScheduleVO> selectAll(@Param("companyId") Integer companyId,
-			@Param("firstTime") Integer firstTime,@Param("endTime") Integer endTime,@Param("roleId") Integer roleId);
+			@Param("firstTime") Integer firstTime,@Param("endTime") Integer endTime,@Param("roleId") Integer roleId,
+			@Param("venueId") String[] venueId,@Param("roleLevel") String[] roleLevel);
 	/**
      * 查询场馆
      * @return
      */
-	List<Venue> venueSelect(@Param("companyId") Integer companyId);
+	List<Venue> venueSelect(@Param("companyId") Integer companyId,@Param("roleId") Integer roleId,
+			@Param("venueId") String[] venueId,@Param("roleLevel") String[] roleLevel);  
 	/**
      * 查询角色等级
      * @return
