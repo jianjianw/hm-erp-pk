@@ -75,4 +75,9 @@ public class BaseServiceImpl implements BaseService {
     public void batUpdate(List<Base> bases) {
         baseDao.batUpdate(bases);
     }
+
+    @Override
+    public void baseSort(List<Base> bases) {
+        baseDao.baseSort(bases);
+    }
 }

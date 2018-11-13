@@ -96,4 +96,20 @@ public class SceneSchedulePO implements Serializable {
     public void setStaffVO(StaffVO staffVO) {
         this.staffVO = staffVO;
     }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
+    public Integer getVenueId() {
+        return venueId;
+    }
+
+    public void setVenueId(Integer venueId) {
+        this.venueId = venueId;
+    }
 }

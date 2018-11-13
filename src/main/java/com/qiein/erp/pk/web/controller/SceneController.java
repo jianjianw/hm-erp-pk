@@ -37,7 +37,7 @@ public class SceneController {
     @ApiOperation(value = "新增拍摄景")
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody Scene scene){
-        int insert = sceneService.insert(scene);
+        sceneService.insert(scene);
         return ResultInfoUtil.success();
     }
 

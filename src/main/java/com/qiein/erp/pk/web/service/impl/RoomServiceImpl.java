@@ -80,7 +80,6 @@ public class RoomServiceImpl implements RoomService {
     @Transactional(rollbackFor = Exception.class)
     public void addRoomLevel(LevelAndRoomDTO levelAndRoomDTO) {
 
-        //添加之前先查询
         String roomType = levelAndRoomDTO.getRoomType();
         if(StringUtils.equals(roomType, RoomConstant.MAKEUP_ROOM)){//化妆间
             levelAndRoomDTO.setRoomLevelType(RoomConstant.MAKEUP_ROOM_LEVEL);

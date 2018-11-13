@@ -1,6 +1,8 @@
 package com.qiein.erp.pk.web.controller;
 
 
+import com.qiein.erp.pk.exception.ExceptionEnum;
+import com.qiein.erp.pk.util.RegexUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.VenueDTO;
@@ -40,7 +42,10 @@ public class VenueController {
 
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody Venue venue){
-        int insert = venueService.insert(venue);
+        if(!RegexUtil.checkMobile(venue.getVenuePhone())){
+            return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
+        }
+        venueService.insert(venue);
         return ResultInfoUtil.success();
     }
     @GetMapping("/select_by_primary_key")
@@ -60,7 +65,10 @@ public class VenueController {
 
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Venue venue){
-        int i = venueService.updateByPrimaryKey(venue);
+        if(!RegexUtil.checkMobile(venue.getVenuePhone())){
+            return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
+        }
+        venueService.updateByPrimaryKey(venue);
         return ResultInfoUtil.success();
     }
 

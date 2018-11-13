@@ -7,7 +7,6 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
 import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.service.RoomService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -184,6 +183,15 @@ public class RoomController {
     @ApiOperation(value = "批量修改房间等级")
     @PostMapping("/bat_update_room_type")
     public ResultInfo batUpdateRoomLevel(@RequestBody List<LevelAndRoomDTO> levelAndRoomDTOs){
+
+        for(LevelAndRoomDTO levelAndRoomDTO : levelAndRoomDTOs){
+            if(StringUtils.equals(levelAndRoomDTO.getRoomType(), RoomConstant.MAKEUP_ROOM)){//化妆间
+                levelAndRoomDTO.setRoomLevelType(RoomConstant.MAKEUP_ROOM_LEVEL);
+            }
+            if(StringUtils.equals(levelAndRoomDTO.getRoomType(),RoomConstant.SHOOT_ROOM)){//拍摄间
+                levelAndRoomDTO.setRoomLevelType(RoomConstant.SHOOT_ROOM_LEVEL);
+            }
+        }
         roomService.batUpdateRoomLevel(levelAndRoomDTOs);
         return ResultInfoUtil.success();
     }

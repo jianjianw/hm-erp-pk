@@ -166,5 +166,33 @@
     </foreach>
   </update>
 
+  <resultMap id="VenueRoomSceneMap" type="com.qiein.erp.pk.web.entity.po.VenueRoomScenePO" >
+    <result column="venue_id" property="venueId" jdbcType="INTEGER" />
+    <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
+    <result column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.Scene" resultMap="SceneResultMap"/>
+
+  </resultMap>
+
+
+
+  <select id="findVenueRoomScene" parameterType="map" resultMap="VenueRoomSceneMap" >
+      select room.venue_id,venue.venue_name,venue.company_id,
+              room.room_id,room.room_name,
+              scene.id,scene.scene_name
+        from hm_erp_venue venue
+        inner join hm_erp_venue_room room on venue.id = room.venue_id
+        and venue.company_id = room.company_id
+        inner join hm_erp_scene scene on scene.shoot_id = room.room_id
+        and scene.company_id = room.company_id
+        where venue.company_id = #{companyId}
+        <if test="venueId != null">
+          and venue.id = #{venueId}
+        </if>
+          and room.room_type = 2
+  </select>
+
 
 </mapper>

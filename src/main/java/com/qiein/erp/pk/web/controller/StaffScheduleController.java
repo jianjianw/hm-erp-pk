@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.util.TimeUtil;
+import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 import com.qiein.erp.pk.web.service.StaffScheduleService;
 
@@ -25,14 +27,50 @@ public class StaffScheduleController {
 	
     @Autowired
     private StaffScheduleService staffScheduleService;
-
+    
+    /**
+     * 查询场馆
+     * @return
+     */
+    @GetMapping("/venue_select")
+    public ResultInfo venueSelect(@RequestParam(value="roleId") Integer roleId,
+    		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
+    	 int companyId=1;
+         List<Venue> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
+        return ResultInfoUtil.success(Venues);
+    }
+    /**
+     * 仅查询场馆
+     * @return
+     */
+    @GetMapping("/venue_select_only")
+    public ResultInfo venueSelectOnly(){
+    	 int companyId=1;
+         List<Venue> Venues= staffScheduleService.venueSelectOnly(companyId);
+        return ResultInfoUtil.success(Venues);
+    }
+    /**
+     * 查询角色等级
+     * @return
+     */
+    @GetMapping("/role_level_select")
+    public ResultInfo roleLevelSelect(){
+    	 int companyId=1;
+         List<StaffRoleTypeVO> StaffRoleTypeVOs= staffScheduleService.roleLevelSelect(companyId);
+        return ResultInfoUtil.success(StaffRoleTypeVOs);
+    }
+    
     /**
      * 查询人员档期
      */
     @GetMapping("/select_all")
-    public ResultInfo selectAll(@RequestParam("roleId") Integer roleId,@RequestParam("firstTime") Integer firstTime,@RequestParam("endTime") Integer endTime){
+    public ResultInfo selectAll(@RequestParam("roleId") Integer roleId,@RequestParam("month") String month,
+    		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
         Integer companyId=1;
-        List<StaffScheduleVO> staffScheduleVOs=staffScheduleService.selectAll(companyId,firstTime,endTime,roleId);
+        //获取时间时间戳
+        int firstDay = TimeUtil.getMonthStartTimeStampByDate(month);
+        int lastDay=TimeUtil.getMonthEndTimeStampByDate(month);
+        List<StaffScheduleVO> staffScheduleVOs=staffScheduleService.selectAll(companyId,firstDay,lastDay,roleId,venueId,roleLevel);
         // 最终用返回
         List<Map<String, Object>> newmaps = new ArrayList<>();
 
@@ -47,7 +85,6 @@ public class StaffScheduleController {
   			row.put("roleName", staffScheduleVO.getRoleName());
   			row.put("roleLevel", staffScheduleVO.getRoleLevel());
   			row.put(String.valueOf(staffScheduleVO.getTime()), 1);
-  			
   			//row.put(staffScheduleVOs.get("time"), map6.get("count"));
   			//合计
   			int count=1;

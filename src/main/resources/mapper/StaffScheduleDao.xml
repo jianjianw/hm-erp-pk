@@ -16,17 +16,87 @@
     <result column="time" property="time" jdbcType="INTEGER" />
   </resultMap>
   
+  <resultMap id="VenueMap" type="com.qiein.erp.pk.web.entity.po.Venue" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
+    <result column="venue_status" property="venueStatus" jdbcType="INTEGER" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="venue_type" property="venueType" jdbcType="INTEGER" />
+    <collection property="list" ofType="com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO" javaType="List">
+    	<result column="staff_id" property="staffId"/>
+    	<result column="NICKNAME" property="staffName"/>
+    	<result column="venue_id" property="venueId"/>
+    	<result column="role_level" property="roleLevel"/>
+    </collection>
+  </resultMap>
+  
+  <resultMap id="StaffRoleTypeVOMap" type="com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO" >
+    <result column="role_level" property="roleLevel" jdbcType="VARCHAR" />
+  </resultMap>
+  
   <sql id="baseColumn">
   	id,venue_id, staff_day_limit, staff_status,venue_name,staff_id,NICKNAME,
   		role_level,role_id,role_name,time
   </sql>
   
+  <!--仅查询场馆 -->
+  <select id="venueSelectOnly" resultMap="VenueMap">
+  	SELECT
+		v.id,v.venue_name
+	FROM
+		hm_erp_venue v
+	WHERE
+		v.company_id=#{companyId}
+  </select>
+  
+  <!--查询摄影师等级 -->
+  <select id="roleLevelSelect" resultMap="StaffRoleTypeVOMap">
+  	SELECT
+		sr.role_level
+	FROM
+		hm_erp_staff_role sr
+	WHERE
+		sr.company_id=#{companyId}
+	GROUP BY sr.role_level
+  </select>
+  
+  <!--场馆人员查询  -->
+  <select id="venueSelect" resultMap="VenueMap">
+  	SELECT
+		v.id,v.venue_name,v.venue_status,v.priority,v.venue_type,
+		sv.staff_id,st.NICKNAME,sv.venue_id,sr.role_level
+	FROM
+		hm_erp_venue v
+	LEFT JOIN hm_erp_staff_venue sv ON sv.venue_id=v.id AND sv.company_id=v.company_id
+	LEFT JOIN hm_pub_staff st ON st.ID=sv.staff_id AND st.COMPANYID=sv.company_id
+	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=sv.staff_id AND sr.company_id=sv.company_id
+	WHERE 
+		v.company_id=#{companyId}
+		AND sr.role_id=#{roleId}
+		<if test="venueId != null and venueId.length > 0 "> 
+			AND v.id IN
+			<foreach collection="venueId" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>
+		 </if>
+		<if test="roleLevel !=null and roleLevel.length > 0"> 
+			AND sr.role_level IN
+			<foreach collection="roleLevel" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>
+		</if>
+		AND st.ISDEL=0
+		AND st.NICKNAME IS NOT NULL
+	GROUP BY v.id,sr.role_level
+	ORDER BY sr.role_level
+  </select>
+  
  <!--查询套餐  -->
   <select id="selectAll" resultMap="StaffScheduleMap" >
     SELECT
-		ss.id,ss.venue_id,ss.staff_day,ss.staff_day_limit,
-		ss.staff_status,ve.venue_name,ss.staff_id,st.NICKNAME,
-		reals.role_level,reals.role_id,r.role_name,
+		ss.id, ss.venue_id, ss.staff_day_limit,
+		ss.staff_status, ve.venue_name, ss.staff_id,st.NICKNAME,
+		reals.role_level, reals.role_id, r.role_name,
 		FROM_UNIXTIME(ss.staff_day, '%d') time
 	FROM
 		hm_erp_staff_schedule ss
@@ -36,8 +106,20 @@
 	LEFT JOIN hm_erp_role r ON r.id=reals.role_id AND r.company_id=reals.company_id
 	WHERE 
 		ss.company_id=#{companyId}
-		AND reals.role_id=#{roleId}
 		AND ss.staff_day BETWEEN #{firstTime} AND #{endTime}
+		AND reals.role_id=#{roleId}
+		 <if test="venueId != null and venueId.length > 0 "> 
+			AND ve.id IN
+			<foreach collection="venueId" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>
+		 </if> 
+		<if test="roleLevel !=null and roleLevel.length > 0"> 
+			AND reals.role_level IN
+			<foreach collection="roleLevel" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>
+		</if>
 	GROUP BY 
 		time,ss.staff_id
   </select>

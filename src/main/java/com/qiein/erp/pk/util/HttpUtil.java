@@ -1,5 +1,9 @@
 package com.qiein.erp.pk.util;
 
+import com.qiein.erp.pk.constant.CommonConstant;
+import com.qiein.erp.pk.exception.ExceptionEnum;
+import com.qiein.erp.pk.exception.RException;
+import com.qiein.erp.pk.web.entity.dto.VerifyParamDTO;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -88,5 +92,31 @@ public class HttpUtil {
         } else {
             return url + "/";
         }
+    }
+
+
+    /**
+     * 获取请求的 验证参数
+     */
+    public static VerifyParamDTO getRequestToken(HttpServletRequest request) {
+        String token = HttpUtil.getRequestParam(request, CommonConstant.TOKEN);
+        String uid = HttpUtil.getRequestParam(request, CommonConstant.UID);
+        String cid = HttpUtil.getRequestParam(request, CommonConstant.CID);
+        // 验证参数不全
+        if (StringUtil.isEmpty(token) || StringUtil.isEmpty(uid) || StringUtil.isEmpty(cid)) {
+            throw new RException(ExceptionEnum.VERIFY_PARAM_INCOMPLETE);
+        }
+        // 封装验证参数
+        VerifyParamDTO verifyParamDTO = new VerifyParamDTO();
+        verifyParamDTO.setToken(token);
+        // 参数转换失败时
+        try {
+            verifyParamDTO.setCid(Integer.valueOf(cid));
+            verifyParamDTO.setUid(Integer.valueOf(uid));
+        } catch (NumberFormatException ignored) {
+            ignored.printStackTrace();
+            throw new RException(ExceptionEnum.TOKEN_VERIFY_FAIL);
+        }
+        return verifyParamDTO;
     }
 }

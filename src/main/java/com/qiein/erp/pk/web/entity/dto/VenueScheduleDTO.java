@@ -18,6 +18,10 @@ public class VenueScheduleDTO implements Serializable {
 
     private Integer status;//状态
 
+    private Integer companyId; //公司id
+
+    private Integer venueId;    //场馆id
+
 
     public Integer getShootRoomId() {
         return shootRoomId;
@@ -57,5 +61,21 @@ public class VenueScheduleDTO implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
+    public Integer getVenueId() {
+        return venueId;
+    }
+
+    public void setVenueId(Integer venueId) {
+        this.venueId = venueId;
     }
 }

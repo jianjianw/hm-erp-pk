@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.service;
 
+import com.qiein.erp.pk.web.entity.po.StaffPO;
 import com.qiein.erp.pk.web.entity.vo.ProducerShowVO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
 import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
@@ -34,5 +35,13 @@ public interface StaffService {
      * @param companyId
      */
     void editRoleLevel(Integer roleId,Integer staffId,Integer roleLevel,Integer companyId);
+
+
+    /**
+     * 根据ID获取员工
+     *
+     * @return
+     */
+    StaffPO getById(int id, int companyId);
 
 }

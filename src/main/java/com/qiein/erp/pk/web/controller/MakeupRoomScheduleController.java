@@ -25,10 +25,13 @@ public class MakeupRoomScheduleController {
      */
     @RequestMapping("/select_makeup_room_schedule_by_date")
     public ResultInfo selectMakeupRoomSchedule(Integer venueId, Integer dateTime){
-
         MakeupRoomShowVO result = makeupRoomScheduleService.selectMakeupRoomSchedule(companyId, venueId,dateTime);
         return ResultInfoUtil.success(result);
     }
+
+    /**
+     * 有一个编辑接口
+     */
 
 
 }

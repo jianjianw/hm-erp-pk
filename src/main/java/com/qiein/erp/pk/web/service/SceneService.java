@@ -1,6 +1,7 @@
 package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
+import com.qiein.erp.pk.web.entity.po.VenueRoomScenePO;
 import com.qiein.erp.pk.web.entity.po.Scene;
 
 import java.util.List;
@@ -63,4 +64,12 @@ public interface SceneService {
      * @param scenes
      */
     void batUpdateScene(List<Scene> scenes);
+
+    /**
+     * 查询 场馆 拍摄间  拍摄景
+     * @param companyId
+     * @param venueId
+     * @return
+     */
+    List<VenueRoomScenePO> findVenueRoomScene(Integer companyId, Integer venueId);
 }
