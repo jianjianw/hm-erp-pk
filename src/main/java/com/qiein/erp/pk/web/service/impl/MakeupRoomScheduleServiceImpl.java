@@ -105,9 +105,9 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
            Integer poVenueId = makeupRoomSchedulePO.getVenueId();
            Integer poServiceId = makeupRoomSchedulePO.getServiceId();
            Integer poMakeupRoomId = makeupRoomSchedulePO.getMakeupRoomId();
-           Integer makeupDayLimit = makeupRoomSchedulePO.getMakeupDayLimit();
-
            Integer makeupDay = makeupRoomSchedulePO.getMakeupDay();//化妆间的档期
+
+           Integer makeupDayLimit = makeupRoomSchedulePO.getMakeupDayLimit();
 
            for(MakeupRoomScheduleVO makeupRoomScheduleVO :data){
                Integer voVenueId = makeupRoomScheduleVO.getVenueId();
