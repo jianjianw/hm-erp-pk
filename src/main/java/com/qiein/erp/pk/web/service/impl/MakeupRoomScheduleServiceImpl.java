@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.service.impl;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.TimeUtil;
 import com.qiein.erp.pk.web.dao.MakeupRoomScheduleDao;
+import com.qiein.erp.pk.web.entity.dto.MakeupRoomDTO;
 import com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO;
 import com.qiein.erp.pk.web.entity.vo.MakeupRoomScheduleVO;
 import com.qiein.erp.pk.web.entity.vo.MakeupRoomShowVO;
@@ -76,38 +77,51 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
             Integer serviceId = serviceVenueRoomVO.getServiceId();
             List<RoomGroupByServiceIdVO> makeupRooms = serviceVenueRoomVO.getMakeupRooms();
             for (RoomGroupByServiceIdVO roomGroupByServiceIdVO : makeupRooms){//每个房间
+                MakeupRoomScheduleVO  makeupRoomScheduleVO =  new MakeupRoomScheduleVO();
+                makeupRoomScheduleVO.setVenueId(voVenueId);//每个房间场馆id
+                makeupRoomScheduleVO.setServiceId(serviceId);//服务id
                 Integer roomId = null;
                 if(roomGroupByServiceIdVO.getRoomId() != null){
-                    roomId = Integer.valueOf(roomGroupByServiceIdVO.getRoomId());
+                    roomId = Integer.valueOf(roomGroupByServiceIdVO.getRoomId());//房间id
                 }
-                for(Integer datetime : everyDayOfMonth){
-                    MakeupRoomScheduleVO  makeupRoomScheduleVO = new MakeupRoomScheduleVO();
-                    makeupRoomScheduleVO.setDate(datetime);
-                    makeupRoomScheduleVO.setMakeupRoomId(roomId);//房间id
-                    makeupRoomScheduleVO.setVenueId(voVenueId);//场馆id
-                    makeupRoomScheduleVO.setServiceId(serviceId);//服务id
-                    makeupRoomScheduleVO.setMakeupDayLimit(0);
+                makeupRoomScheduleVO.setMakeupRoomId(roomId);
+                List<MakeupRoomDTO> makeupRoomsDTOs = makeupRoomScheduleVO.getMakeupRooms();
+                for(Integer datetime : everyDayOfMonth){//每个场馆下面的服务，服务下面的化妆间都需要一个list
+                    MakeupRoomDTO makeupRoomsDTO = new MakeupRoomDTO();
+                    makeupRoomsDTO.setDate(datetime);
+                    makeupRoomsDTO.setMakeupDayLimit(0);
                     calendar.setTimeInMillis(datetime*1000L);
                     if(Calendar.SUNDAY == calendar.get(Calendar.DAY_OF_WEEK)){
-                        makeupRoomScheduleVO.setIsSunday(true);
+                        makeupRoomsDTO.setIsSunday(true);
                     }
-                    data.add(makeupRoomScheduleVO);
+                    makeupRoomsDTOs.add(makeupRoomsDTO);
                 }
+                data.add(makeupRoomScheduleVO);//封装每个房间中的数据
             }
         }
 
-        //将数据封装到 data 中
+        //将数据封装到 data 中  应该再加一层
        for(MakeupRoomSchedulePO makeupRoomSchedulePO : makeupRoomSchedulePOS){
            Integer poVenueId = makeupRoomSchedulePO.getVenueId();
            Integer poServiceId = makeupRoomSchedulePO.getServiceId();
            Integer poMakeupRoomId = makeupRoomSchedulePO.getMakeupRoomId();
            Integer makeupDayLimit = makeupRoomSchedulePO.getMakeupDayLimit();
+
+           Integer makeupDay = makeupRoomSchedulePO.getMakeupDay();//化妆间的档期
+
            for(MakeupRoomScheduleVO makeupRoomScheduleVO :data){
                Integer voVenueId = makeupRoomScheduleVO.getVenueId();
                Integer voServiceId = makeupRoomScheduleVO.getServiceId();
                Integer voMakeupRoomId = makeupRoomScheduleVO.getMakeupRoomId();
                if((poVenueId.equals(voVenueId)) && (poServiceId.equals(voServiceId)) && poMakeupRoomId.equals(voMakeupRoomId)){
-                   makeupRoomScheduleVO.setMakeupDayLimit(makeupDayLimit);//每天限额。
+                   List<MakeupRoomDTO> makeupRooms = makeupRoomScheduleVO.getMakeupRooms();
+                   for(MakeupRoomDTO makeupRoomDTO : makeupRooms){
+                       //档期中的时间  如果 和list中的日期相等
+                       if(makeupDay.equals(makeupRoomDTO.getDate())){
+                           makeupRoomDTO.setMakeupDayLimit(makeupDayLimit);//每天限额。
+                           break;
+                       }
+                   }
                }
                break;
            }
