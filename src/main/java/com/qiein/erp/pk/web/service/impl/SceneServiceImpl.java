@@ -1,16 +1,14 @@
 package com.qiein.erp.pk.web.service.impl;
 
-import com.qiein.erp.pk.constant.RoomConstant;
 import com.qiein.erp.pk.web.dao.SceneDao;
 import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
-import com.qiein.erp.pk.web.entity.po.Room;
+import com.qiein.erp.pk.web.entity.po.VenueRoomScenePO;
 import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.service.RoomService;
 import com.qiein.erp.pk.web.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 /**
  * 场景
@@ -93,6 +91,11 @@ public class SceneServiceImpl implements SceneService {
     @Override
     public void batUpdateScene(List<Scene> scenes) {
         sceneDao.batUpdateScene(scenes);
+    }
+
+    @Override
+    public List<VenueRoomScenePO> findVenueRoomScene(Integer companyId, Integer venueId) {
+        return sceneDao.findVenueRoomScene(companyId,venueId);
     }
 
 }

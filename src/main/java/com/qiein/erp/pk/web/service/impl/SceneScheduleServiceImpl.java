@@ -1,10 +1,11 @@
 package com.qiein.erp.pk.web.service.impl;
 
 import com.qiein.erp.pk.web.dao.SceneScheduleDao;
+import com.qiein.erp.pk.web.entity.dto.SceneScheduleDTO;
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
 import com.qiein.erp.pk.web.entity.dto.TimeStampScheduleDTO;
+import com.qiein.erp.pk.web.entity.po.VenueRoomScenePO;
 import com.qiein.erp.pk.web.entity.dto.VenueScheduleDTO;
-import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
 import com.qiein.erp.pk.web.service.SceneScheduleService;
 import com.qiein.erp.pk.web.service.SceneService;
@@ -31,21 +32,42 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
     @Override
     public ShootScheduleDTO selectSceneScheduleByDate(Integer companyId, Integer venueId, Integer dateTime) {
 
-        //查询所有拍摄景
-        List<Scene> scenes = sceneService.findSceneByVenueId(companyId, venueId);
-        //加上拍摄间
+
+        //查询场馆 和 拍摄间 和 拍摄景  venueId = null 查所有
+        List<VenueRoomScenePO> venueRoomScenePOS = sceneService.findVenueRoomScene(companyId,venueId);
         ShootScheduleDTO result = new ShootScheduleDTO();
-        //设置拍摄景
-        result.setScenes(scenes);
+        //设置拍摄间/房间 拍摄景
+        result.setVenueRoomScenePOS(venueRoomScenePOS);
 
         Map<String, Integer> startAndEndTime = getStartAndEndTime(dateTime);
         //查询场馆下面的拍摄景
         Integer startTime = startAndEndTime.get("start");
         Integer endTime = startAndEndTime.get("end");
-
+        //1.先查询拍摄景的档期     2018年11月11日
+        //便利其中的数据
         List<SceneSchedulePO> sceneSchedulePOS = sceneScheduleDao.selectSceneScheduleByDate(companyId, venueId, startTime, endTime);
 
-        //封装时间戳
+        List<SceneScheduleDTO> data = new ArrayList<>();
+        //封装数据
+        for(VenueRoomScenePO venueRoomScenePO : venueRoomScenePOS){
+            Integer poVenueId = venueRoomScenePO.getVenueId();//每一个拍摄景都要封装一个list
+            Integer poRoomId = venueRoomScenePO.getRoomId();
+            SceneScheduleDTO sceneScheduleDTO = new SceneScheduleDTO();//要返回的data
+            sceneScheduleDTO.setVenueId(poVenueId);
+            sceneScheduleDTO.setRoomId(poRoomId);
+            for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
+                Integer venueId1 = sceneSchedulePO.getVenueId();
+                Integer shootId = sceneSchedulePO.getShootId();
+                if(poVenueId.equals(venueId1) && poRoomId.equals(shootId)){
+                    sceneScheduleDTO.getSceneSchedulePOS().add(sceneSchedulePO);//将数据封装到集合中
+                }
+            }
+            data.add(sceneScheduleDTO);
+        }
+        result.setSceneScheduleDTO(data);
+
+
+      /*  //封装时间戳
         List<TimeStampScheduleDTO> timeStampList = new ArrayList<>();
         List<Long> timeList = getTimeList(dateTime);
         for(Long time : timeList){
@@ -76,7 +98,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         }
 
 
-        result.setTimeStampScheduleDTOS(timeStampList);
+        result.setTimeStampScheduleDTOS(timeStampList);*/
         return result;
     }
 

@@ -1,6 +1,7 @@
 package com.qiein.erp.pk.web.dao;
 
 import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
+import com.qiein.erp.pk.web.entity.po.VenueRoomScenePO;
 import com.qiein.erp.pk.web.entity.po.Scene;
 import org.apache.ibatis.annotations.Param;
 
@@ -66,4 +67,13 @@ public interface SceneDao {
      * @param scenes
      */
     void batUpdateScene(List<Scene> scenes);
+
+    /**
+     * 查询场馆 房间 拍摄景
+     * @param companyId
+     * @param venueId
+     * @return
+     */
+    List<VenueRoomScenePO> findVenueRoomScene(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId);
+
 }
