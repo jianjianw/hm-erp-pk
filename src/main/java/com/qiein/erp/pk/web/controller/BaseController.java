@@ -69,7 +69,7 @@ public class BaseController {
         return ResultInfoUtil.success();
     }
 
-    //批量编辑
+    //排序
     @PostMapping("/base_sort")
     public ResultInfo baseSort(@RequestBody List<Base> bases){
         baseService.baseSort(bases);

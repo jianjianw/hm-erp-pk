@@ -6,6 +6,7 @@
     <result column="base_name" property="baseName" jdbcType="VARCHAR" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
     <result column="base_status" property="baseStatus" jdbcType="SMALLINT" />
+    <result column="priority" property="priority" jdbcType="SMALLINT" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="map" >
     delete from hm_erp_base
@@ -19,9 +20,14 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
     update hm_erp_base
-    set base_name = #{baseName},
-      company_id = #{companyId},
-      base_status = #{baseStatus}
+    <set>
+        <if test="baseName != null and baseName != ''">
+            base_name = #{baseName},
+        </if>
+        <if test="baseStatus != null ">
+            base_status = #{baseStatus}
+        </if>
+    </set>
     where id = #{id}
     and company_id = #{companyId}
   </update>
@@ -31,14 +37,14 @@
     where id = #{id} and company_id = #{companyId}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" parameterType="map">
-    select id, base_name, company_id,base_status
+    select id, base_name, company_id,base_status,priority
     from hm_erp_base
     where company_id = #{companyId}
   </select>
 
 
   <select id="selectOpenAll" resultMap="BaseResultMap" parameterType="integer">
-     select id, base_name, company_id,base_status
+     select id, base_name, company_id,base_status,priority
     from hm_erp_base
     where company_id = #{companyId} and base_status != 0
   </select>
@@ -64,6 +70,7 @@
     </foreach>
   </update>
 
+    <!--这个方法没有在用-->
   <insert id="batInsertOrUpdate" parameterType="ArrayList">
 
     INSERT INTO hm_erp_venue_room
