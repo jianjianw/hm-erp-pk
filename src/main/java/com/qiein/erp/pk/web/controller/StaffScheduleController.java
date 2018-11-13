@@ -33,8 +33,8 @@ public class StaffScheduleController {
      * @return
      */
     @GetMapping("/venue_select")
-    public ResultInfo venueSelect(@RequestParam("roleId") Integer roleId,
-    		@RequestParam("venueId") String[] venueId,@RequestParam("roleLevel") String[] roleLevel){
+    public ResultInfo venueSelect(@RequestParam(value="roleId") Integer roleId,
+    		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
     	 int companyId=1;
          List<Venue> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
         return ResultInfoUtil.success(Venues);
