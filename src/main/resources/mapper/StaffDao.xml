@@ -1,90 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qiein.erp.pk.web.dao.StaffDao" >
+<mapper namespace="com.qiein.erp.pk.web.dao.StaffDao">
+    <resultMap id="baseMap" type="com.qiein.erp.pk.web.entity.po.StaffPO">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="NICKNAME" property="nickName" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="USERNAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+        <result column="COMPANYID" property="companyId" jdbcType="INTEGER"/>
+        <result column="CORPID" property="corpId" jdbcType="VARCHAR"/>
+        <result column="DINGUSERID" property="dingUserId" jdbcType="VARCHAR"/>
+        <result column="HEADIMG" property="headImg" jdbcType="VARCHAR"/>
+        <result column="TOKEN" property="token" jdbcType="VARCHAR"/>
+        <result column="STATUSFLAG" property="statusFlag" jdbcType="BOOLEAN"/>
+        <result column="ISLOCK" property="lockFlag" jdbcType="BOOLEAN"/>
+        <result column="ISDEL" property="delFlag" jdbcType="BOOLEAN"/>
+        <result column="TODAYNUM" property="todayNum" jdbcType="INTEGER"/>
+        <result column="WEIGHT" property="weight" jdbcType="INTEGER"/>
+        <result column="LIMITDAY" property="limitDay" jdbcType="INTEGER"/>
+        <result column="LASTPUSHTIME" property="lastPushTime" jdbcType="INTEGER"/>
+        <result column="LIMITCHANNELIDS" property="limitChannelIds" jdbcType="VARCHAR"/>
+        <result column="LIMITSHOPIDS" property="limitShopIds" jdbcType="VARCHAR"/>
+        <result column="HEARTTIME" property="heartTime" jdbcType="INTEGER"/>
+        <result column="WHITEFLAG" property="whiteFlag" jdbcType="BOOLEAN"/>
 
-    <select id="selectStaffByGroupId" resultType="com.qiein.erp.pk.web.entity.vo.StaffSelectVO">
-        SELECT
-            staff.ID id,
-            staff.NICKNAME nickName,
-            staff.USERNAME staffName,
-            staff.PHONE phone,
-            staff.HEADIMG headImg,
-            ifnull(
-                GROUP_CONCAT(role.role_id SEPARATOR ","),
-                ''
-            ) roleIds
-        FROM
-            hm_pub_group_staff group_staff
-        LEFT JOIN hm_pub_staff staff ON staff.id = group_staff.STAFFID
-        AND staff.COMPANYID = group_staff.COMPANYID
-        LEFT JOIN hm_erp_staff_role role ON group_staff.STAFFID = role.staff_id
-        AND group_staff.COMPANYID = role.company_id
-        WHERE
-            group_staff.COMPANYID = #{companyId}
-        AND group_staff.groupid =#{groupId}
-        AND staff.ISDEL = 0
-        GROUP BY
-            group_staff.STAFFID
-    </select>
-    <select id="findVenueByGroupId"  resultType="com.qiein.erp.pk.web.entity.vo.StaffSelectVO">
-        SELECT
-        staff.ID id,
-        ifnull(
-        GROUP_CONCAT(
-        staff_venue.venue_id SEPARATOR ","
-        ),
-        ''
-        ) venueIds,
-        ifnull(
-        GROUP_CONCAT(
-        venue.venue_name SEPARATOR ","
-        ),
-        ''
-        ) venueNames
-        FROM
-        hm_pub_group_staff group_staff
-        LEFT JOIN hm_pub_staff staff ON staff.id = group_staff.STAFFID
-        AND staff.COMPANYID = group_staff.COMPANYID
-        LEFT JOIN hm_erp_staff_venue staff_venue ON staff_venue.staff_id = group_staff.STAFFID
-        AND staff_venue.company_id = group_staff.COMPANYID
-        LEFT JOIN hm_erp_venue venue ON venue.id = staff_venue.venue_id
-        AND venue.company_id = staff_venue.company_id
-        WHERE
-        group_staff.COMPANYID = #{companyId}
-        AND group_staff.groupid = #{groupId}
-        AND staff.ISDEL = 0
-        GROUP BY
-        group_staff.STAFFID
-    </select>
-    <select id="checkHave" resultType="Integer">
-        select staff_id from hm_erp_staff staff where staff.staff_id in(#{staffIds})
-    </select>
-    <insert id="insertToStaff">
-        replace into hm_erp_staff(staff_id,staff_status,company_id,create_time,update_time) VALUES
-        <foreach collection="list" item="item" separator=",">
-            (#{item.staffId},#{item.status},#{item.companyId} ,UNIX_TIMESTAMP(now()),UNIX_TIMESTAMP(now()))
-        </foreach>
-    </insert>
-    <delete id="deleteVenue">
-        delete from hm_erp_staff_venue where staff_id in (${staffIds})
-    </delete>
-    <delete id="deleteRole">
-        delete from hm_erp_staff_role where staff_id in (${staffIds})
-    </delete>
-    <insert id="insertVenue">
-        insert into hm_erp_staff_venue(staff_id,venue_id,company_id)
-        VALUES
-        <foreach collection="list" item="item" separator=",">
-            (#{item.staffId},#{item.venueId},#{item.companyId})
-        </foreach>
-    </insert>
-    <insert id="insertRole">
-        insert into hm_erp_staff_role(staff_id,role_id,company_id)
-        VALUES
-        <foreach collection="list" item="item" separator=",">
-            (#{item.staffId},#{item.roleId},#{item.companyId})
-        </foreach>
-    </insert>
+    </resultMap>
+
     <resultMap id="producerMap" type="com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO">
         <result property="staffId" column="staff_id"/>
         <result property="venueId" column="venue_id"/>
@@ -95,6 +36,119 @@
         <result property="companyId" column="company_id"/>
 
     </resultMap>
+
+    <sql id="baseColumn">
+        ID, NICKNAME, PHONE, USERNAME, PASSWORD, COMPANYID, CORPID, DINGUSERID, HEADIMG,
+        TOKEN, STATUSFLAG, ISLOCK, ISDEL, TODAYNUM, WEIGHT, LIMITDAY, LASTPUSHTIME, LIMITCHANNELIDS,
+        LIMITSHOPIDS, HEARTTIME, WHITEFLAG
+    </sql>
+
+    <!--根据ID 和 公司ID 获取员工-->
+    <select id="getByIdAndCid" resultMap="baseMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM
+        hm_pub_staff
+        WHERE ID = #{id}
+        AND COMPANYID = #{companyId}
+
+    </select>
+
+    <select id="selectStaffByGroupId" resultType="com.qiein.erp.pk.web.entity.vo.StaffSelectVO">
+        SELECT
+            staff.ID       id,
+            staff.NICKNAME nickName,
+            staff.USERNAME staffName,
+            staff.PHONE    phone,
+            staff.HEADIMG  headImg,
+            ifnull(
+                    GROUP_CONCAT(role.role_id SEPARATOR ","),
+                    ''
+            )              roleIds
+        FROM
+            hm_pub_group_staff group_staff
+            LEFT JOIN hm_pub_staff staff ON staff.id = group_staff.STAFFID
+                                            AND staff.COMPANYID = group_staff.COMPANYID
+            LEFT JOIN hm_erp_staff_role role ON group_staff.STAFFID = role.staff_id
+                                                AND group_staff.COMPANYID = role.company_id
+        WHERE
+            group_staff.COMPANYID = #{companyId}
+            AND group_staff.groupid = #{groupId}
+            AND staff.ISDEL = 0
+        GROUP BY
+            group_staff.STAFFID
+    </select>
+
+    <select id="findVenueByGroupId" resultType="com.qiein.erp.pk.web.entity.vo.StaffSelectVO">
+        SELECT
+            staff.ID id,
+            ifnull(
+                    GROUP_CONCAT(
+                            staff_venue.venue_id SEPARATOR ","
+                    ),
+                    ''
+            )        venueIds,
+            ifnull(
+                    GROUP_CONCAT(
+                            venue.venue_name SEPARATOR ","
+                    ),
+                    ''
+            )        venueNames
+        FROM
+            hm_pub_group_staff group_staff
+            LEFT JOIN hm_pub_staff staff ON staff.id = group_staff.STAFFID
+                                            AND staff.COMPANYID = group_staff.COMPANYID
+            LEFT JOIN hm_erp_staff_venue staff_venue ON staff_venue.staff_id = group_staff.STAFFID
+                                                        AND staff_venue.company_id = group_staff.COMPANYID
+            LEFT JOIN hm_erp_venue venue ON venue.id = staff_venue.venue_id
+                                            AND venue.company_id = staff_venue.company_id
+        WHERE
+            group_staff.COMPANYID = #{companyId}
+            AND group_staff.groupid = #{groupId}
+            AND staff.ISDEL = 0
+        GROUP BY
+            group_staff.STAFFID
+    </select>
+
+    <select id="checkHave" resultType="Integer">
+        select staff_id
+        from hm_erp_staff staff
+        where staff.staff_id in (#{staffIds})
+    </select>
+
+    <insert id="insertToStaff">
+        replace into hm_erp_staff(staff_id,staff_status,company_id,create_time,update_time) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.staffId},#{item.status},#{item.companyId} ,UNIX_TIMESTAMP(now()),UNIX_TIMESTAMP(now()))
+        </foreach>
+    </insert>
+
+    <delete id="deleteVenue">
+        delete from hm_erp_staff_venue
+        where staff_id in (${staffIds})
+    </delete>
+
+    <delete id="deleteRole">
+        delete from hm_erp_staff_role
+        where staff_id in (${staffIds})
+    </delete>
+
+    <insert id="insertVenue">
+        insert into hm_erp_staff_venue(staff_id,venue_id,company_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.staffId},#{item.venueId},#{item.companyId})
+        </foreach>
+    </insert>
+
+    <insert id="insertRole">
+        insert into hm_erp_staff_role(staff_id,role_id,company_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.staffId},#{item.roleId},#{item.companyId})
+        </foreach>
+    </insert>
+
     <select id="selectProducer" resultMap="producerMap">
         SELECT
             venue.staff_id,
@@ -106,15 +160,18 @@
             venue.company_id
         FROM
             hm_erp_staff_venue venue
-        LEFT JOIN hm_pub_staff staff ON venue.staff_id = staff.ID
-        AND venue.company_id = staff.COMPANYID
-        LEFT JOIN hm_erp_staff_role role ON role.staff_id = venue.staff_id
-        AND role.company_id = venue.company_id
+            LEFT JOIN hm_pub_staff staff ON venue.staff_id = staff.ID
+                                            AND venue.company_id = staff.COMPANYID
+            LEFT JOIN hm_erp_staff_role role ON role.staff_id = venue.staff_id
+                                                AND role.company_id = venue.company_id
         WHERE
             venue.company_id = #{companyId}
-        AND role.role_id = #{roleId}
+            AND role.role_id = #{roleId}
     </select>
+
     <update id="editRoleLevel">
-        update hm_erp_staff_role set role_level=#{roleLevel} where company_id=#{companyId} and staff_id=#{staffId} and role_id=#{roleId}
+        update hm_erp_staff_role
+        set role_level = #{roleLevel}
+        where company_id = #{companyId} and staff_id = #{staffId} and role_id = #{roleId}
     </update>
 </mapper>

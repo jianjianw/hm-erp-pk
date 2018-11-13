@@ -3,10 +3,7 @@ package com.qiein.erp.pk.web.service.impl;
 import com.qiein.erp.pk.constant.CommonConstant;
 import com.qiein.erp.pk.web.dao.StaffDao;
 import com.qiein.erp.pk.web.dao.VenueDao;
-import com.qiein.erp.pk.web.entity.po.StaffInsertPO;
-import com.qiein.erp.pk.web.entity.po.StaffRoleInsertPO;
-import com.qiein.erp.pk.web.entity.po.StaffVenueInsertPO;
-import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.po.*;
 import com.qiein.erp.pk.web.entity.vo.ProducerShowVO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
@@ -153,6 +150,19 @@ public class StaffServiceImpl implements StaffService {
      */
     public void editRoleLevel(Integer roleId, Integer staffId, Integer roleLevel, Integer companyId) {
         staffDao.editRoleLevel(roleId, staffId, roleLevel, companyId);
+    }
+
+
+    /**
+     * 根据ID 获取员工
+     *
+     * @param id
+     * @param companyId
+     * @return
+     */
+    @Override
+    public StaffPO getById(int id, int companyId) {
+        return staffDao.getByIdAndCid(id, companyId);
     }
 
 }

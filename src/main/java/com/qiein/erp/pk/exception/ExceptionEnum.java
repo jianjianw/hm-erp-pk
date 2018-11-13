@@ -26,9 +26,14 @@ public enum ExceptionEnum {
     HTTP_METHOD_NOT_SUPPORT(200, "不支持的请求方法类型"),
     HTTP_BODY_NOT_READABLE(201, "HTTP请求体无法读取"),
     HTTP_PARAMETER_ERROR(202, "HTTP请求参数无法对应"),
-    PHONE_ERROR(346, "手机号格式错误"),
     //服务
-    SERVICE_WAS_IN(301, "服务已存在");
+    SERVICE_WAS_IN(301, "服务已存在"),
+    //人员
+    USER_NOT_FOUND(400, "用户不存在"),
+    USER_IS_DEL(401, "用户已被删除"),
+    USER_IS_LOCK(402, "用户已锁定"),
+    USERNAME_OR_PASSWORD_ERROR(403, "用户名或密码错误"),
+    PHONE_ERROR(346, "手机号格式错误");
 
     private Integer code;
     private String msg;
