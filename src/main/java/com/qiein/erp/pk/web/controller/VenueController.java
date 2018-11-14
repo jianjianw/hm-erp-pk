@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.controller;
 
 
 import com.qiein.erp.pk.exception.ExceptionEnum;
+import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.RegexUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
@@ -45,6 +46,10 @@ public class VenueController {
         if(!RegexUtil.checkMobile(venue.getVenuePhone())){
             return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
         }
+
+        //去掉对象中的空格
+        ObjectUtil.objectStrParamTrim(venue);
+
         venueService.insert(venue);
         return ResultInfoUtil.success();
     }
@@ -68,6 +73,8 @@ public class VenueController {
         if(!RegexUtil.checkMobile(venue.getVenuePhone())){
             return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
         }
+        //去掉对象中的空格
+        ObjectUtil.objectStrParamTrim(venue);
         venueService.updateByPrimaryKey(venue);
         return ResultInfoUtil.success();
     }

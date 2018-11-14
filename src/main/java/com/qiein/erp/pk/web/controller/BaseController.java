@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.controller;
 
+import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.Base;
@@ -29,6 +30,8 @@ public class BaseController {
     }
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody Base base){
+        //去掉对象中的空格
+        ObjectUtil.objectStrParamTrim(base);
         int insert = baseService.insert(base);
         return ResultInfoUtil.success();
     }
@@ -46,7 +49,9 @@ public class BaseController {
 
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Base base){
-        int i = baseService.updateByPrimaryKey(base);
+        //去掉对象中的空格
+        ObjectUtil.objectStrParamTrim(base);
+        baseService.updateByPrimaryKey(base);
         return ResultInfoUtil.success();
     }
 

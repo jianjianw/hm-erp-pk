@@ -1,6 +1,7 @@
 package com.qiein.erp.pk.web.controller;
 
 
+import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
@@ -30,13 +31,16 @@ public class SceneController {
     @PostMapping("/delete_by_primary_key")
     @ApiImplicitParam(name = "id", value = "场景id" ,dataType = "Integer")
     public ResultInfo deleteByPrimaryKey(Integer id){
-        int i = sceneService.deleteByPrimaryKey(id,companyId);
+        sceneService.deleteByPrimaryKey(id,companyId);
         return ResultInfoUtil.success();
     }
 
     @ApiOperation(value = "新增拍摄景")
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody Scene scene){
+        //去掉对象中的空格
+        ObjectUtil.objectStrParamTrim(scene);
+
         sceneService.insert(scene);
         return ResultInfoUtil.success();
     }
@@ -59,7 +63,10 @@ public class SceneController {
     @ApiOperation(value = "根据id更新")
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Scene scene){
-        int i = sceneService.updateByPrimaryKey(scene);
+        //去掉对象中的空格
+        ObjectUtil.objectStrParamTrim(scene);
+
+        sceneService.updateByPrimaryKey(scene);
         return ResultInfoUtil.success();
     }
 
