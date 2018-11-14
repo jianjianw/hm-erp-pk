@@ -37,5 +37,15 @@ public interface StaffScheduleDao {
      * @return
      */
 	List<Venue> venueSelectOnly(int companyId);
+	/**
+     * 查询人员休息
+     * @return
+     */
+	StaffScheduleVO selectRest(StaffScheduleVO staffScheduleVO);
+	/**
+     * 新增人员休息
+     * @return
+     */
+	void insertRest(StaffScheduleVO staffScheduleVO);
 	
 }

@@ -15,7 +15,14 @@ public class StaffScheduleVO {
     private Integer roleId;
     private String roleName;
     private Integer time;
+    private Integer companyId;
     
+	public Integer getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
 	public Integer getId() {
 		return id;
 	}
