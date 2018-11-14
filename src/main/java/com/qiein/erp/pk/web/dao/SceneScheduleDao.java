@@ -37,4 +37,13 @@ public interface SceneScheduleDao {
     void punchIn(@Param("companyId") Integer companyId,
                  @Param("id") Integer id,
                  @Param("statusId") Integer statusId);
+
+    /**
+     * 根据拍摄间档期id查询订单
+     * @param companyId
+     * @param id
+     * @return
+     */
+    List<Object> findOrderBySceneScheduleId(@Param("companyId") Integer companyId,
+                                            @Param("id") Integer id);
 }

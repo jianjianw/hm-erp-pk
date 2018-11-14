@@ -5,10 +5,7 @@ import com.qiein.erp.pk.web.dao.ServiceDao;
 import com.qiein.erp.pk.web.entity.dto.ServiceDTO;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.po.ServiceVenuePO;
-import com.qiein.erp.pk.web.entity.vo.RoomGroupByServiceIdVO;
-import com.qiein.erp.pk.web.entity.vo.ServiceVO;
-import com.qiein.erp.pk.web.entity.vo.ServiceVenueRoomVO;
-import com.qiein.erp.pk.web.entity.vo.VenueServiceVO;
+import com.qiein.erp.pk.web.entity.vo.*;
 import com.qiein.erp.pk.web.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -171,12 +168,15 @@ public class ServiceServiceImpl implements ServiceService {
         Integer roomType = 1;
 
         //场馆服务下面的化妆间
-        List<RoomGroupByServiceIdVO> rooms =serviceDao.selectRoomsByVenueId(companyId,venueId,roomType);
+        List<VenueAndRoomVO> rooms =serviceDao.selectRoomsByVenueId(companyId,venueId,roomType);
 
         for(ServiceVenueRoomVO serviceVenueRoomVO: serviceByVenues){
+            String voVenueId = serviceVenueRoomVO.getVenueId();
             Integer serviceId = serviceVenueRoomVO.getServiceId();
-            for (RoomGroupByServiceIdVO room : rooms ){
-                if(serviceId.equals(room.getServiceId())){
+            for (VenueAndRoomVO room : rooms ){
+                Integer venueId1 = room.getVenueId();
+                Integer serviceId1 = room.getServiceId();
+                if(voVenueId.equals(venueId1) && serviceId.equals(serviceId1)){
                     serviceVenueRoomVO.getMakeupRooms().add(room);
                 }
             }

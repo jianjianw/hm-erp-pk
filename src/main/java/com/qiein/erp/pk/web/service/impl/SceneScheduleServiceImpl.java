@@ -82,6 +82,11 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
 
     }
 
+    @Override
+    public List<Object> findOrderBySceneScheduleId(Integer companyId, Integer id) {
+        return sceneScheduleDao.findOrderBySceneScheduleId(companyId,id);
+    }
+
     //获取开始时间和结束时间
     public Map<String,Integer> getStartAndEndTime(Integer dateTime){
 

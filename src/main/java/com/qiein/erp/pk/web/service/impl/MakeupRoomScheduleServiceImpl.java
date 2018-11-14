@@ -5,10 +5,7 @@ import com.qiein.erp.pk.util.TimeUtil;
 import com.qiein.erp.pk.web.dao.MakeupRoomScheduleDao;
 import com.qiein.erp.pk.web.entity.dto.MakeupRoomDTO;
 import com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO;
-import com.qiein.erp.pk.web.entity.vo.MakeupRoomScheduleVO;
-import com.qiein.erp.pk.web.entity.vo.MakeupRoomShowVO;
-import com.qiein.erp.pk.web.entity.vo.RoomGroupByServiceIdVO;
-import com.qiein.erp.pk.web.entity.vo.ServiceVenueRoomVO;
+import com.qiein.erp.pk.web.entity.vo.*;
 import com.qiein.erp.pk.web.service.MakeupRoomScheduleService;
 import com.qiein.erp.pk.web.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,14 +72,33 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
         for (ServiceVenueRoomVO serviceVenueRoomVO : serviceAndMakeupRooms){
             Integer voVenueId = Integer.valueOf(serviceVenueRoomVO.getVenueId());
             Integer serviceId = serviceVenueRoomVO.getServiceId();
-            List<RoomGroupByServiceIdVO> makeupRooms = serviceVenueRoomVO.getMakeupRooms();
-            for (RoomGroupByServiceIdVO roomGroupByServiceIdVO : makeupRooms){//每个房间
+            List<VenueAndRoomVO> makeupRooms = serviceVenueRoomVO.getMakeupRooms();
+            // 如果服务下面没有房间  也要返回数据  对应的房间id没有值
+            if(makeupRooms.size() == 0){
+                MakeupRoomScheduleVO  makeupRoomScheduleVO =  new MakeupRoomScheduleVO();
+                makeupRoomScheduleVO.setVenueId(voVenueId);
+                makeupRoomScheduleVO.setServiceId(serviceId);
+                List<MakeupRoomDTO> makeupRooms1 = makeupRoomScheduleVO.getMakeupRooms();
+                for(Integer datetime : everyDayOfMonth){//服务下面封装一个list
+                    MakeupRoomDTO makeupRoomsDTO = new MakeupRoomDTO();
+                    makeupRoomsDTO.setDate(datetime);
+                    makeupRoomsDTO.setMakeupDayLimit(0);
+                    calendar.setTimeInMillis(datetime*1000L);
+                    if(Calendar.SUNDAY == calendar.get(Calendar.DAY_OF_WEEK)){
+                        makeupRoomsDTO.setIsSunday(true);
+                    }
+                    makeupRooms1.add(makeupRoomsDTO);
+                }
+                data.add(makeupRoomScheduleVO);//封装服务下面没有放假的数据
+            }
+
+            for (VenueAndRoomVO venueAndRoomVO : makeupRooms){//每个房间封装数据
                 MakeupRoomScheduleVO  makeupRoomScheduleVO =  new MakeupRoomScheduleVO();
                 makeupRoomScheduleVO.setVenueId(voVenueId);//每个房间场馆id
                 makeupRoomScheduleVO.setServiceId(serviceId);//服务id
                 Integer roomId = null;
-                if(roomGroupByServiceIdVO.getRoomId() != null){
-                    roomId = Integer.valueOf(roomGroupByServiceIdVO.getRoomId());//房间id
+                if(venueAndRoomVO.getRoomId() != null){
+                    roomId = Integer.valueOf(venueAndRoomVO.getRoomId());//房间id
                 }
                 makeupRoomScheduleVO.setMakeupRoomId(roomId);
                 List<MakeupRoomDTO> makeupRoomsDTOs = makeupRoomScheduleVO.getMakeupRooms();

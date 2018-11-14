@@ -15,7 +15,7 @@ public class ServiceVenueRoomVO {
     private String venueId;//场馆id
     private Integer venueStatus;//场馆状态
 
-    private List<RoomGroupByServiceIdVO> makeupRooms  = new ArrayList<>();//服务下面的化妆间
+    private List<VenueAndRoomVO> makeupRooms  = new ArrayList<>();//服务下面的化妆间
 
 
     public Integer getServiceId() {
@@ -58,11 +58,11 @@ public class ServiceVenueRoomVO {
         this.venueId = venueId;
     }
 
-    public List<RoomGroupByServiceIdVO> getMakeupRooms() {
+    public List<VenueAndRoomVO> getMakeupRooms() {
         return makeupRooms;
     }
 
-    public void setMakeupRooms(List<RoomGroupByServiceIdVO> makeupRooms) {
+    public void setMakeupRooms(List<VenueAndRoomVO> makeupRooms) {
         this.makeupRooms = makeupRooms;
     }
 

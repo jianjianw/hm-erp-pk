@@ -91,6 +91,7 @@
     from hm_erp_scene_schedule
   </select>
 
+
     <update id="punchIn" parameterType = "map">
       update hm_erp_scene_schedule set
        status_id = #{statusId}
@@ -98,4 +99,12 @@
        company_id = #{companyId}
        and id = #{id}
     </update>
+
+    <select id="findOrderBySceneScheduleId" parameterType="map" resultMap="BaseResultMap">
+
+        select *
+        from
+
+
+    </select>
 </mapper>

@@ -27,4 +27,11 @@ public interface SceneScheduleService {
      */
     void punchIn(Integer companyId, Integer id,Integer statusId);
 
+    /**
+     * 根据拍摄间档期id查询订单
+     * @param companyId
+     * @param id
+     * @return
+     */
+    List<Object> findOrderBySceneScheduleId(Integer companyId, Integer id);
 }
