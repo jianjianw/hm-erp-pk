@@ -14,13 +14,13 @@ public interface MakeupRoomScheduleService {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(MakeupRoomSchedulePO record);
+    int insert(MakeupRoomSchedulePO makeupRoomSchedulePO);
 
     MakeupRoomSchedulePO selectByPrimaryKey(Integer id);
 
     List<MakeupRoomSchedulePO> selectAll();
 
-    int updateByPrimaryKey(MakeupRoomSchedulePO record);
+    int updateByPrimaryKey(MakeupRoomSchedulePO makeupRoomSchedulePO);
 
     /**
      * 查询化妆间的档期

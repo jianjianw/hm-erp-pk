@@ -27,4 +27,9 @@ public interface SceneScheduleService {
      */
     void punchIn(Integer companyId, Integer id,Integer statusId);
 
+
+    int insert(SceneSchedulePO sceneSchedulePO);
+
+    int updateByPrimaryKey(SceneSchedulePO sceneSchedulePO);
+
 }

@@ -82,6 +82,16 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
 
     }
 
+    @Override
+    public int insert(SceneSchedulePO sceneSchedulePO) {
+        return sceneScheduleDao.insert(sceneSchedulePO);
+    }
+
+    @Override
+    public int updateByPrimaryKey(SceneSchedulePO sceneSchedulePO) {
+        return sceneScheduleDao.updateByPrimaryKey(sceneSchedulePO);
+    }
+
     //获取开始时间和结束时间
     public Map<String,Integer> getStartAndEndTime(Integer dateTime){
 

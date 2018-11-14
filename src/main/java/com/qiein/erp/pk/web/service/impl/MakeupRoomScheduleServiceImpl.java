@@ -28,8 +28,8 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
     }
 
     @Override
-    public int insert(MakeupRoomSchedulePO record) {
-        return makeupRoomScheduleDao.insert(record);
+    public int insert(MakeupRoomSchedulePO makeupRoomSchedulePO) {
+        return makeupRoomScheduleDao.insert(makeupRoomSchedulePO);
     }
 
     @Override
