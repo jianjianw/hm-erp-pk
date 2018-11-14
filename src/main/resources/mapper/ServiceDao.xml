@@ -215,10 +215,11 @@
 
     </select>
 
-    <select id="selectRoomsByVenueId" parameterType="map" resultType="com.qiein.erp.pk.web.entity.vo.RoomGroupByServiceIdVO">
+    <select id="selectRoomsByVenueId" parameterType="map" resultType="com.qiein.erp.pk.web.entity.vo.VenueAndRoomVO">
          SELECT
+            service_venue.venue_id venueId,
             service.id serviceId,
-            room.room_id,
+            room.room_id roomId,
             room.room_name roomName,
             room.room_type roomType
         FROM

@@ -76,6 +76,22 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         return result;
     }
 
+    @Override
+    public void punchIn(Integer companyId, Integer id,Integer statusId) {
+        sceneScheduleDao.punchIn(companyId,id,statusId);
+
+    }
+
+    @Override
+    public int insert(SceneSchedulePO sceneSchedulePO) {
+        return sceneScheduleDao.insert(sceneSchedulePO);
+    }
+
+    @Override
+    public int updateByPrimaryKey(SceneSchedulePO sceneSchedulePO) {
+        return sceneScheduleDao.updateByPrimaryKey(sceneSchedulePO);
+    }
+
     //获取开始时间和结束时间
     public Map<String,Integer> getStartAndEndTime(Integer dateTime){
 
@@ -90,7 +106,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         long start = startTime.getTime()/1000;
         hashMap.put("start",Integer.valueOf(String.valueOf(start)));
 
-        calendar.set(Calendar.HOUR_OF_DAY,11);
+        calendar.set(Calendar.HOUR_OF_DAY,23);
         calendar.set(Calendar.MINUTE,59);
         calendar.set(Calendar.SECOND,59);
         Date endTime = calendar.getTime();

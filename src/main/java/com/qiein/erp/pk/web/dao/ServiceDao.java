@@ -2,10 +2,7 @@ package com.qiein.erp.pk.web.dao;
 
 import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.po.ServiceVenuePO;
-import com.qiein.erp.pk.web.entity.vo.RoomGroupByServiceIdVO;
-import com.qiein.erp.pk.web.entity.vo.ServiceVO;
-import com.qiein.erp.pk.web.entity.vo.ServiceVenueRoomVO;
-import com.qiein.erp.pk.web.entity.vo.VenueServiceVO;
+import com.qiein.erp.pk.web.entity.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -61,8 +58,8 @@ public interface ServiceDao {
     /*
     * 查询服务下面的房间   根据场馆id
     * */
-    List<RoomGroupByServiceIdVO> selectRoomsByVenueId(@Param("companyId") Integer companyId,
-                                                      @Param("venueId")Integer venueId,
-                                                      @Param("roomType")Integer roomType);
+    List<VenueAndRoomVO> selectRoomsByVenueId(@Param("companyId") Integer companyId,
+                                              @Param("venueId")Integer venueId,
+                                              @Param("roomType")Integer roomType);
 
 }

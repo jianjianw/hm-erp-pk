@@ -2,9 +2,12 @@ package com.qiein.erp.pk.web.controller;
 
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO;
 import com.qiein.erp.pk.web.entity.vo.MakeupRoomShowVO;
 import com.qiein.erp.pk.web.service.MakeupRoomScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,8 +33,27 @@ public class MakeupRoomScheduleController {
     }
 
     /**
-     * 有一个编辑接口
+     * 编辑每日限额
      */
+    @PostMapping("/update_limit_by_primary_key")
+    public ResultInfo updateLimitByPrimaryKey(@RequestBody MakeupRoomSchedulePO makeupRoomSchedulePO){
+        makeupRoomSchedulePO.setCompanyId(companyId);
+        makeupRoomScheduleService.updateLimitByPrimaryKey(makeupRoomSchedulePO);
+        return ResultInfoUtil.success();
+    }
+
+    @PostMapping("/insert")
+    public ResultInfo insert(@RequestBody MakeupRoomSchedulePO makeupRoomSchedulePO){
+        makeupRoomScheduleService.insert(makeupRoomSchedulePO);
+        return ResultInfoUtil.success();
+    }
+    @PostMapping("/update_by_primary_key")
+    public ResultInfo updateByPrimaryKey(@RequestBody MakeupRoomSchedulePO makeupRoomSchedulePO){
+        makeupRoomScheduleService.updateByPrimaryKey(makeupRoomSchedulePO);
+        return ResultInfoUtil.success();
+    }
+
+
 
 
 }

@@ -11,10 +11,7 @@ import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
 import com.qiein.erp.pk.web.service.SceneService;
 import com.qiein.erp.pk.web.service.SceneScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -37,13 +34,27 @@ public class SceneScheduleController {
         ShootScheduleDTO shootScheduleDTO = sceneScheduleService.selectSceneScheduleByDate(companyId, venueId, dateTime);
         return ResultInfoUtil.success(shootScheduleDTO);
     }
-
     //打卡
     @PostMapping("/punch_in")
-    public ResultInfo punchIn(Integer venueId,Integer dateTime,Integer statusId){
+    public ResultInfo punchIn(Integer id,Integer statusId){//拍摄间档期id   statusId拍摄间档期状态
+        //status_id
+        sceneScheduleService.punchIn(companyId,id,statusId);
         //1：默认初始，预定中；2：开始，使用中；3：使用完毕；
-        return null;
+        return ResultInfoUtil.success();
     }
+
+    @PostMapping("/insert")
+    public ResultInfo insert(@RequestBody SceneSchedulePO sceneSchedulePO){
+        sceneScheduleService.insert(sceneSchedulePO);
+        return ResultInfoUtil.success();
+    }
+    @PostMapping("/update_by_primary_key")
+    public ResultInfo updateByPrimaryKey(@RequestBody SceneSchedulePO sceneSchedulePO){
+        sceneScheduleService.updateByPrimaryKey(sceneSchedulePO);
+        return ResultInfoUtil.success();
+    }
+
+
 
 
 

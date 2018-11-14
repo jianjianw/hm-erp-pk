@@ -39,14 +39,39 @@
   		role_level,role_id,role_name,time
   </sql>
   
+  <!--新增休息  -->
+  <insert id="insertRest">
+  	INSERT 
+  		hm_erp_staff_schedule(venue_id,staff_id,staff_day,staff_status,staff_day_limit,company_id)
+	VALUES
+		(#{venueId},#{staffId},#{time},#{staffStatus},#{staffDayLimit},#{companyId})
+  </insert>
+  
+  <!--查询人员休息  -->
+  <select id="selectRest" resultMap="StaffScheduleMap">
+  	SELECT
+		ss.staff_id,ss.staff_day time,ss.staff_status,sr.role_id,ss.venue_id
+	FROM
+		hm_erp_staff_schedule ss
+	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ss.staff_id AND sr.company_id=ss.company_id
+	WHERE
+		ss.company_id=#{companyId}
+		AND ss.venue_id=#{venueId}
+		AND sr.role_id=#{roleId}
+		AND sr.staff_id=#{staffId}
+		AND ss.staff_day=#{time}
+  </select>
+  
   <!--仅查询场馆 -->
   <select id="venueSelectOnly" resultMap="VenueMap">
   	SELECT
 		v.id,v.venue_name
 	FROM
 		hm_erp_venue v
+	LEFT JOIN hm_erp_staff_venue sv ON v.id=sv.venue_id AND v.company_id=sv.company_id
 	WHERE
 		v.company_id=#{companyId}
+		AND sv.staff_id IS NOT NULL
   </select>
   
   <!--查询摄影师等级 -->
@@ -91,7 +116,7 @@
 	ORDER BY sr.role_level
   </select>
   
- <!--查询套餐  -->
+ <!--查询主页面  -->
   <select id="selectAll" resultMap="StaffScheduleMap" >
     SELECT
 		ss.id, ss.venue_id, ss.staff_day_limit,

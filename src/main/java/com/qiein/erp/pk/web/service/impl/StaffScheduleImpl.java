@@ -54,5 +54,23 @@ public class StaffScheduleImpl implements StaffScheduleService {
 		List<Venue> Venues= staffScheduleDao.venueSelectOnly(companyId);
 		return Venues;
 	}
+	/**
+     * 查询人员休息
+     * @return
+     */
+	@Override
+	public StaffScheduleVO selectRest(StaffScheduleVO staffRoleTypeVO) {
+		
+		return staffScheduleDao.selectRest(staffRoleTypeVO);
+	}
+	/**
+     * 新增人员休息
+     * @return
+     */
+	@Override
+	public void insertRest(StaffScheduleVO staffScheduleVO) {
+		staffScheduleDao.insertRest(staffScheduleVO);
+		
+	}
 	
 }
