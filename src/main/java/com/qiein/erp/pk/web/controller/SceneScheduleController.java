@@ -47,12 +47,6 @@ public class SceneScheduleController {
         return ResultInfoUtil.success();
     }
 
-    //根据拍摄间档期id查询订单
-    @GetMapping("find_order_by_scene_schedule_id")
-    public ResultInfo findOrderBySceneScheduleId(Integer id){
-        List<Object> orders = sceneScheduleService.findOrderBySceneScheduleId(companyId,id);
-        return ResultInfoUtil.success(orders);
-    }
 
 
 
