@@ -76,6 +76,12 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         return result;
     }
 
+    @Override
+    public void punchIn(Integer companyId, Integer id,Integer statusId) {
+        sceneScheduleDao.punchIn(companyId,id,statusId);
+
+    }
+
     //获取开始时间和结束时间
     public Map<String,Integer> getStartAndEndTime(Integer dateTime){
 

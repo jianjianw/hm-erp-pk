@@ -40,9 +40,11 @@ public class SceneScheduleController {
 
     //打卡
     @PostMapping("/punch_in")
-    public ResultInfo punchIn(Integer venueId,Integer dateTime,Integer statusId){
+    public ResultInfo punchIn(Integer id,Integer statusId){//拍摄间档期id   statusId拍摄间档期状态
+        //status_id
+        sceneScheduleService.punchIn(companyId,id,statusId);
         //1：默认初始，预定中；2：开始，使用中；3：使用完毕；
-        return null;
+        return ResultInfoUtil.success();
     }
 
 

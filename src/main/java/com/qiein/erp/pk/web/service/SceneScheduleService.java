@@ -19,4 +19,12 @@ public interface SceneScheduleService {
      * @return
      */
     ShootScheduleDTO selectSceneScheduleByDate(Integer companyId, Integer venueId, Integer dateTime);
+
+    /**
+     * 拍摄间档期打卡
+     * @param companyId
+     * @param id
+     */
+    void punchIn(Integer companyId, Integer id,Integer statusId);
+
 }

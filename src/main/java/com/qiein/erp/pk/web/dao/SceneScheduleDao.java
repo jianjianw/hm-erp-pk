@@ -28,4 +28,13 @@ public interface SceneScheduleDao {
     int updateByPrimaryKey(SceneSchedulePO sceneSchedulePO);
 
 
+    /**
+     * 根据拍摄间档期id打卡
+     * @param companyId
+     * @param id
+     * @param statusId
+     */
+    void punchIn(@Param("companyId") Integer companyId,
+                 @Param("id") Integer id,
+                 @Param("statusId") Integer statusId);
 }
