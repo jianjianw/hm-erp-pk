@@ -12,11 +12,11 @@ public class OrderVenueScheduleVO {
     private Integer serviceId;//服务id
     private int count;//当日已定档期数
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -52,11 +52,11 @@ public class OrderVenueScheduleVO {
         this.serviceId = serviceId;
     }
 
-    public Integer getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }
