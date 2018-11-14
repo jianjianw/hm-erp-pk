@@ -140,7 +140,6 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                        }
                    }
                }
-               break;
            }
        }
 
