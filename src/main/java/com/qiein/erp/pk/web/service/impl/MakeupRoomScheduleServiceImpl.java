@@ -70,7 +70,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
         List<MakeupRoomScheduleVO> data = new ArrayList<>();
 
         for (ServiceVenueRoomVO serviceVenueRoomVO : serviceAndMakeupRooms){
-            Integer voVenueId = Integer.valueOf(serviceVenueRoomVO.getVenueId());
+            Integer voVenueId = serviceVenueRoomVO.getVenueId();
             Integer serviceId = serviceVenueRoomVO.getServiceId();
             List<VenueAndRoomVO> makeupRooms = serviceVenueRoomVO.getMakeupRooms();
             // 如果服务下面没有房间  也要返回数据  对应的房间id没有值
