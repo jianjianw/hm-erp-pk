@@ -149,5 +149,10 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
         return result;
     }
 
+    @Override
+    public void updateLimitByPrimaryKey(MakeupRoomSchedulePO makeupRoomSchedulePO) {
+        makeupRoomScheduleDao.updateLimitByPrimaryKey(makeupRoomSchedulePO);
+    }
+
 
 }

@@ -26,4 +26,11 @@ public interface MakeupRoomScheduleService {
      * 查询化妆间的档期
      */
     public MakeupRoomShowVO selectMakeupRoomSchedule(Integer companyId, Integer venueId, Integer dateTime);
+
+    /**
+     * 修改每天限额
+     * @param makeupRoomSchedulePO
+     */
+    void updateLimitByPrimaryKey(MakeupRoomSchedulePO makeupRoomSchedulePO);
+
 }

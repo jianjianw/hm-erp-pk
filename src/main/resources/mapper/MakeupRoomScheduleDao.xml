@@ -58,4 +58,30 @@
         and venue_id = #{venueId}
       </if>
   </select>
+
+  <update id="updateLimitByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO">
+     update hm_erp_makeup_room_schedule
+     <set>
+       <if test="venueId != null">
+         venue_id = #{venueId},
+       </if>
+       <if test="serviceId != null">
+         service_id = #{serviceId},
+       </if>
+       <if test="makeupRoomId != null">
+         makeup_room_id = #{makeupRoomId},
+       </if>
+       <if test="makeupDay != null">
+         makeup_day = #{makeupDay},
+       </if>
+       <if test="makeupDayLimit != null">
+         makeup_day_limit = #{makeupDayLimit},
+       </if>
+       <if test="companyId != null">
+         company_id = #{companyId}
+       </if>
+     </set>
+    where id = #{id}
+    and company_id = #{companyId}
+  </update>
 </mapper>
