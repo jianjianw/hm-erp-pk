@@ -135,6 +135,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                        //档期中的时间  如果 和list中的日期相等
                        if(makeupDay.equals(makeupRoomDTO.getDate())){
                            makeupRoomDTO.setMakeupDayLimit(makeupDayLimit);//每天限额。
+                           makeupRoomDTO.setScheduleId(makeupRoomSchedulePO.getId());
                            break;
                        }
                    }

@@ -171,7 +171,7 @@ public class ServiceServiceImpl implements ServiceService {
         List<VenueAndRoomVO> rooms =serviceDao.selectRoomsByVenueId(companyId,venueId,roomType);
 
         for(ServiceVenueRoomVO serviceVenueRoomVO: serviceByVenues){
-            String voVenueId = serviceVenueRoomVO.getVenueId();
+            Integer voVenueId = serviceVenueRoomVO.getVenueId();
             Integer serviceId = serviceVenueRoomVO.getServiceId();
             for (VenueAndRoomVO room : rooms ){
                 Integer venueId1 = room.getVenueId();

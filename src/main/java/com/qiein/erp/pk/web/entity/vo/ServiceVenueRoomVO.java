@@ -12,7 +12,7 @@ public class ServiceVenueRoomVO {
     private String serviceName;//服务名称
     private Integer serviceType;//服务类型
     private String venueName;//场馆
-    private String venueId;//场馆id
+    private Integer venueId;//场馆id
     private Integer venueStatus;//场馆状态
 
     private List<VenueAndRoomVO> makeupRooms  = new ArrayList<>();//服务下面的化妆间
@@ -50,11 +50,11 @@ public class ServiceVenueRoomVO {
         this.venueName = venueName;
     }
 
-    public String getVenueId() {
+    public Integer getVenueId() {
         return venueId;
     }
 
-    public void setVenueId(String venueId) {
+    public void setVenueId(Integer venueId) {
         this.venueId = venueId;
     }
 
