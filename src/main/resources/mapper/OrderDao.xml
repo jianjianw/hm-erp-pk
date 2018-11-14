@@ -1,37 +1,86 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qiein.erp.pk.web.dao.OrderDao" >
-  <resultMap id="baseMap" type="com.qiein.erp.pk.web.entity.vo.OrderVO">
-    <id property="id" column="id"/>
-    <result property="orderTime" column="order_time"/>
-    <result property="shootTime" column="venue_day"/>
-    <result property="planTime" column="staff_day"/>
-    <result property="kzPhone" column="KZPHONE"/>
-    <result property="kzName" column="KZNAME"/>
-    <result property="mateName" column="MATENAME"/>
-    <result property="matePhone" column="MATEPHONE"/>
-    <result property="address" column="ADDRESS"/>
-    <result property="venueId" column="venue_id"/>
-    <result property="mealId" column="meal_id"/>
-    <result property="mealName" column="meal_name"/>
-    <result property="orderType" column="order_type"/>
-    <result property="shootId" column="shoot_id"/>
-    <result property="shootName" column="shoot_name"/>
-    <result property="makeupId" column="makeup_id"/>
-    <result property="makeupName" column="makeup_name"/>
-    <result property="shootRoomId" column="shootRoomId"/>
-  </resultMap>
-  <select id="selectOrder" resultMap="baseMap">
+<mapper namespace="com.qiein.erp.pk.web.dao.OrderDao">
+    <resultMap id="baseMap" type="com.qiein.erp.pk.web.entity.vo.OrderVO">
+        <id property="id" column="id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="orderTime" column="order_time"/>
+        <result property="shootTime" column="venue_day"/>
+        <result property="planTime" column="staff_day"/>
+        <result property="kzPhone" column="kz_phone"/>
+        <result property="kzName" column="kz_name"/>
+        <result property="mateName" column="mate_name"/>
+        <result property="matePhone" column="mate_phone"/>
+        <result property="srcType" column="srctype"/>
+        <result property="address" column="address"/>
+        <result property="venueId" column="venue_id"/>
+        <result property="mealId" column="meal_id"/>
+        <result property="mealName" column="meal_name"/>
+        <result property="orderType" column="order_type"/>
+        <result property="shootId" column="shoot_id"/>
+        <result property="shootName" column="shoot_name"/>
+        <result property="makeupId" column="makeup_id"/>
+        <result property="makeupName" column="makeup_name"/>
+        <result property="shootRoomId" column="shootRoomId"/>
+        <result property="childName" column="child_name"/>
+        <result property="type" column="type"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birth_day"/>
+        <result property="marryTime" column="marry_time"/>
+        <result property="collectorName" column="collector_name"/>
+        <result property="saleId" column="sale_id"/>
+    </resultMap>
+    <resultMap id="orderMap" type="com.qiein.erp.pk.web.entity.vo.OrderProVO">
+        <id column="order_id" property="orderId"/>
+        <result column="order_num" property="orderNum"/>
+        <result column="meal_id" property="mealId"/>
+        <result column="sale_id" property="staffId"/>
+        <result column="srctype" property="srcType"/>
+        <result column="kz_phone" property="kzPhone"/>
+        <result column="kz_name" property="kzName"/>
+        <result column="mate_name" property="mateName"/>
+        <result column="mate_phone" property="matePhone"/>
+        <result column="child_name" property="childName"/>
+        <result column="age" property="age"/>
+        <result column="sex" property="sex"/>
+        <result column="birth_day" property="birthDay"/>
+        <result column="marry_time" property="marryTime"/>
+        <result column="address" property="address"/>
+        <collection property="processVOS" ofType="com.qiein.erp.pk.web.entity.vo.ProcessVO">
+            <id column="pro_id" property="proId"/>
+            <result column="order_type" property="orderType"/>
+            <result column="venue_day" property="shootTime"/>
+            <result column="clothes_num" property="clothes"/>
+            <result column="venue_schedule_id" property="venueSchId"/>
+            <result column="makeup_room_schedule_id" property="makeupRoomSchId"/>
+            <result column="shoot_room_sch_id" property="shootRoomSchId"/>
+            <result column="shoot_schedule_id" property="shootSchId"/>
+            <result column="makeup_schedule_id" property="makeupSchId"/>
+            <result column="plan_schedule_id" property="planSchId"/>
+        </collection>
+    </resultMap>
+    <select id="selectOrder" resultMap="baseMap">
     SELECT
         pro.id ,
+        pro.order_id,
         ord.order_time ,
         venue_sch.venue_day ,
         plan_sch.staff_day ,
-        info.KZPHONE ,
-        info.KZNAME ,
-        detail.MATENAME ,
-        detail.MATEPHONE ,
-        detail.ADDRESS ,
+        ord.kz_name,
+        ord.kz_phone,
+        ord.mate_name,
+        ord.mate_phone,
+        ord.srctype,
+        ord.address,
+        ord.child_name,
+        ord.type,
+        ord.age,
+        ord.sex,
+        ord.sale_id,
+        ord.marry_time,
+        ord.birth_day,
+        ord.collector_name,
         venue_sch.venue_id ,
         meal.id meal_id ,
         meal.meal_name ,
@@ -43,10 +92,6 @@
         GROUP_CONCAT(sence_sch.id SEPARATOR ',') shootRoomId
     FROM
         hm_erp_order ord
-    LEFT JOIN hm_crm_client_info info ON info.KZID = ord.kzid
-    AND info.COMPANYID = ord.company_id
-    LEFT JOIN hm_crm_client_detail detail ON info.kzid = detail.kzid
-    AND info.COMPANYID = detail.COMPANYID
     LEFT JOIN hm_erp_meal meal ON ord.meal_id = meal.id
     AND ord.company_id = meal.company_id
     LEFT JOIN hm_erp_order_process pro ON ord.id = pro.id
@@ -78,5 +123,135 @@
 	sence_pro.shoot_schedule_id
 
   </select>
+    <select id="selectBySchId" resultMap="baseMap">
+        SELECT
+        pro.id,
+        pro.order_id,
+        meal.meal_name,
+        ord.kz_name,
+        ord.kz_phone,
+        ord.mate_name,
+        ord.mate_phone,
+        ord.srctype,
+        ord.address,
+        ord.child_name,
+        ord.type,
+        ord.age,
+        ord.sex,
+        ord.collector_name,
+        ord.sale_id,
+        ord.marry_time,
+        ord.birth_day,
+        pro.order_type,
+        staff_sch1.id shoot_id,
+        staff1.NICKNAME shoot_name,
+        staff_sch2.id makeup_id,
+        staff2.NICKNAME makeup_name
+        FROM
+        hm_erp_order ord
+        LEFT JOIN hm_erp_meal meal ON ord.meal_id = meal.id
+        AND ord.company_id = meal.company_id
+        LEFT JOIN hm_erp_order_process pro ON ord.id = pro.id
+        AND ord.company_id = pro.company_id
+        LEFT JOIN hm_erp_process_shoot_schedule shoot_pro ON shoot_pro.process_id = pro.id
+        AND shoot_pro.company_id = pro.company_id
+        LEFT JOIN hm_erp_process_scene_schedule sence_pro ON sence_pro.process_id = pro.id
+        AND sence_pro.company_id = pro.company_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
+        AND staff_sch1.company_id = shoot_pro.company_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.shoot_schedule_id
+        AND staff_sch2.company_id = shoot_pro.company_id
+        LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
+        AND staff1.COMPANYID = staff_sch1.company_id
+        LEFT JOIN hm_pub_staff staff2 ON staff2.ID = staff_sch2.staff_id
+        AND staff2.COMPANYID = staff_sch2.company_id
+        WHERE
+        ord.company_id = #{companyId}
+        <if test="venueSchId!=null and venueSchId !=''">
+            AND shoot_pro.venue_schedule_id = #{venueSchId}
+        </if>
+        <if test="makeupRoomSchId!=null and makeupRoomSchId !=''">
+            AND shoot_pro.makeup_room_schedule_id = #{makeupRoomSchId}
+        </if>
+        <if test="makeupSchId!=null and makeupSchId !=''">
+            AND shoot_pro.makeup_schedule_id = #{makeupSchId}
+        </if>
+        <if test="shootSchId!=null and shootSchId !=''">
+            AND shoot_pro.shoot_schedule_id = #{shootSchId}
+        </if>
+        <if test="planSchId!=null and planSchId !=''">
+            AND shoot_pro.plan_schedule_id =#{planSchId}
+        </if>
+        <if test="shootRoomSchId!=null and shootRoomSchId !=''">
+            AND sence_pro.shoot_schedule_id =#{shootRoomSchId}
+        </if>
+        GROUP BY
+        pro.id,
+        sence_pro.shoot_schedule_id
+    </select>
+    <select id="selectByOrdId" resultMap="orderMap">
+        SELECT
+            ord.order_num,
+            ord.meal_id,
+            ord.company_id,
+            ord.sale_id,
+            ord.order_time,
+            ord.kz_name,
+            ord.kz_phone,
+            ord.mate_name,
+            ord.mate_phone,
+            ord.address,
+             FROM_UNIXTIME(ord.marry_time,"%Y:%m%:%d") marry_time,
+            ord.child_name,
+             FROM_UNIXTIME(ord.birth_day,"%Y:%m%:%d") birth_day,
+            ord.age,
+            ord.sex,
+            pro.order_type,
+            ord.srctype,
+            GROUP_CONCAT(
+                scene_pro.shoot_schedule_id SEPARATOR ","
+            ) shoot_room_sch_id,
+            shoot_pro.makeup_room_schedule_id,
+            shoot_pro.makeup_schedule_id,
+            shoot_pro.plan_schedule_id,
+            shoot_pro.shoot_schedule_id,
+            shoot_pro.venue_schedule_id,
+            meal.clothes_num,
+              FROM_UNIXTIME(venue_sch.venue_day,"%Y:%m%:%d") venue_day
+        FROM
+            hm_erp_order ord
+        LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
+        AND pro.company_id = ord.company_id
+        LEFT JOIN hm_erp_process_scene_schedule scene_pro ON scene_pro.process_id = pro.id
+        AND scene_pro.company_id = pro.company_id
+        LEFT JOIN hm_erp_process_shoot_schedule shoot_pro ON shoot_pro.process_id = pro.id
+        AND shoot_pro.company_id = pro.company_id
+        LEFT JOIN hm_erp_venue_schedule venue_sch ON venue_sch.id = shoot_pro.venue_schedule_id
+        AND venue_sch.company_id = shoot_pro.company_id
+        LEFT JOIN hm_erp_meal meal ON meal.id = ord.meal_id
+        AND meal.company_id = ord.company_id
+        where ord.id=#{orderId} and ord.company_id=#{companyId}
+    </select>
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
+        insert into hm_erp_order(kzid,meal_id,company_id,sale_id,order_time,srctype,collector_id,collector_name,old_kz_name,kz_name,kz_phone,mate_name,mate_phone,address,marry_time,letter_id,child_name,birth_day,age,sex,type)
+        values(#{kzId},#{mealId},#{companyId},#{saleId},#{orderTime},#{srcType},#{collectorId},#{collectorName},#{oldKzName},#{kzName},#{kzPhone},#{mateName},#{matePhone},#{address},#{marryTime},#{letterId},#{childName},#{birthDay},#{age},#{sex},#{type})
+    </insert>
+    <update id="insertOrderNum">
+        update hm_erp_order set order_num=#{orderNum} where id=#{id}
+    </update>
+    <insert id="insertPro" useGeneratedKeys="true" keyProperty="proId">
+        insert into hm_erp_order_process(order_id,company_id,order_type) values(#{orderId},#{companyId},#{orderType})
+    </insert>
+    <insert id="insertShootSch">
+        insert into hm_erp_process_shoot_schedule(process_id,shoot_schedule_id,makeup_schedule_id,makeup_room_schedule_id,venue_schedule_id,plan_schedule_id,company_id)
+        values(#{proId},#{shootSchId},#{makeupSchId},#{makeupRoomSchId},#{venueSchId},#{planSchId},#{companyId})
+    </insert>
+    <insert id="insertSceneSch">
+        insert into hm_erp_process_scene_schedule(process_id,shoot_schedule_id,company_id) VALUES (
+        <foreach collection="list" item="item" separator=",">
+            #{proId},#{item},#{companyId}
+        </foreach>
+        )
+    </insert>
 
 </mapper>

@@ -9,7 +9,25 @@ public class ServiceScheduleVO {
     private Integer serviceId;//服务id
     private String serviceName;//服务名称
     private Integer serviceType;//服务类型
+    private Integer venueId;//场馆id
+    private String venueName;//场馆名称
     private List<VenueScheduleVO> venueScheduleVOS;//档期类
+
+    public Integer getVenueId() {
+        return venueId;
+    }
+
+    public void setVenueId(Integer venueId) {
+        this.venueId = venueId;
+    }
+
+    public String getVenueName() {
+        return venueName;
+    }
+
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
+    }
 
     public Integer getServiceId() {
         return serviceId;

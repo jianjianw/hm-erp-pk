@@ -63,11 +63,21 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
         }
         //获取实际数据
         List<OrderVenueScheduleVO> orderVenueScheduleVOS = venueScheduleDao.getVenueSchedule(companyId,TimeUtil.getMonthStartTimeStampByDate(monthStr),TimeUtil.getMonthEndTimeStampByDate(monthStr));
+        List<OrderVenueScheduleVO> getCount=venueScheduleDao.getCount();
+        for(OrderVenueScheduleVO orderVenueScheduleVO:orderVenueScheduleVOS){
+            for(OrderVenueScheduleVO orderVenueScheduleVO1:getCount){
+                if(orderVenueScheduleVO.getId().equals(orderVenueScheduleVO1.getId())){
+                    orderVenueScheduleVO.setCount(orderVenueScheduleVO1.getCount());
+                }
+            }
+        }
         //把实际值全部赋值 以及去除场馆关闭并且数据为空的list
         for (VenueServiceVO venueServiceVO : venueServiceVOS) {
             int serviceCount = 0;
             for (ServiceScheduleVO serviceScheduleVO : venueServiceVO.getServiceScheduleVOS()) {
                 int i = 0;
+                serviceScheduleVO.setVenueId(venueServiceVO.getVenueId());
+                serviceScheduleVO.setVenueName(venueServiceVO.getVenueName());
                 for (VenueScheduleVO venueScheduleVO : serviceScheduleVO.getVenueScheduleVOS()) {
                     //赋值 垃圾关林涛
                     for (OrderVenueScheduleVO orderVenueScheduleVO : orderVenueScheduleVOS) {
