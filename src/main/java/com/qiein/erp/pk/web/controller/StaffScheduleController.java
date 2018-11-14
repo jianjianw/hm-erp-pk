@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.util.TimeUtil;
@@ -65,8 +69,9 @@ public class StaffScheduleController {
      * 人员休息
      * @return
      */
-    @GetMapping("/set_rest")
+    @PostMapping("/set_rest")
     public ResultInfo setRest(@RequestBody StaffScheduleVO staffScheduleVO){
+    	System.out.println(JSONObject.toJSONString(staffScheduleVO));
     	 int companyId=1;
     	 staffScheduleVO.setCompanyId(companyId);
     	 staffScheduleVO.setStaffDayLimit(1);
