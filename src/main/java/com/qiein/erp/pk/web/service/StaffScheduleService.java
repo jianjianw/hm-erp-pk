@@ -29,6 +29,16 @@ public interface StaffScheduleService {
      * @return
      */
 	List<Venue> venueSelectOnly(int companyId);
+	/**
+     * 查询休息
+     * @return
+     */
+	StaffScheduleVO selectRest(StaffScheduleVO staffRoleTypeVO);
+	/**
+     * 新增人员休息
+     * @return
+     */
+	void insertRest(StaffScheduleVO staffScheduleVO);
 
 	
 

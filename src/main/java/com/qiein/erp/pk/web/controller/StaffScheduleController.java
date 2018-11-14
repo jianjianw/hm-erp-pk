@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
@@ -59,7 +61,29 @@ public class StaffScheduleController {
          List<StaffRoleTypeVO> StaffRoleTypeVOs= staffScheduleService.roleLevelSelect(companyId);
         return ResultInfoUtil.success(StaffRoleTypeVOs);
     }
-    
+    /**
+     * 人员休息
+     * @return
+     */
+    @GetMapping("/set_rest")
+    public ResultInfo setRest(@RequestBody StaffScheduleVO staffScheduleVO){
+    	 int companyId=1;
+    	 staffScheduleVO.setCompanyId(companyId);
+    	 staffScheduleVO.setStaffDayLimit(1);
+    	 staffScheduleVO.setStaffStatus(2);
+    	 StaffScheduleVO staffScheduleVOs= staffScheduleService.selectRest(staffScheduleVO);
+    	 if(staffScheduleVOs==null){
+    		 staffScheduleService.insertRest(staffScheduleVO);
+    		 return ResultInfoUtil.success("设置成功");
+    	 }
+    	 if(staffScheduleVOs.getStaffStatus()==1){
+    		 return ResultInfoUtil.success("不可修改");
+    	 }
+    	 if(staffScheduleVOs.getStaffStatus()==2){
+    		 return ResultInfoUtil.success("当日已休息");
+    	 }
+        return ResultInfoUtil.success(null);
+    }
     /**
      * 查询人员档期
      */
@@ -76,6 +100,7 @@ public class StaffScheduleController {
 
   		for (StaffScheduleVO staffScheduleVO : staffScheduleVOs) {
   			Map<String, Object> row = new HashMap<>();
+  			row.put("id", staffScheduleVO.getId());
   			row.put("venueId", staffScheduleVO.getVenueId());
   			row.put("venueName", staffScheduleVO.getVenueName());
   			row.put("staffId", staffScheduleVO.getStaffId());

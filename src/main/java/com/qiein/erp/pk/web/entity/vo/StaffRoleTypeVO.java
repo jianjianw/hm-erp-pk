@@ -12,8 +12,18 @@ public class StaffRoleTypeVO {
     private Integer venueId;//场馆id
     private Integer roleId;
     private Integer companyId;
+    //人员档期时间戳
+    private Integer time;
+    
+    public Integer getTime() {
+		return time;
+	}
 
-    public Integer getRoleId() {
+	public void setTime(Integer time) {
+		this.time = time;
+	}
+
+	public Integer getRoleId() {
         return roleId;
     }
 
