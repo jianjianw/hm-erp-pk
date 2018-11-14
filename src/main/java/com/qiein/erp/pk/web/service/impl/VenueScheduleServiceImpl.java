@@ -68,6 +68,8 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
             int serviceCount = 0;
             for (ServiceScheduleVO serviceScheduleVO : venueServiceVO.getServiceScheduleVOS()) {
                 int i = 0;
+                serviceScheduleVO.setVenueId(venueServiceVO.getVenueId());
+                serviceScheduleVO.setVenueName(venueServiceVO.getVenueName());
                 for (VenueScheduleVO venueScheduleVO : serviceScheduleVO.getVenueScheduleVOS()) {
                     //赋值 垃圾关林涛
                     for (OrderVenueScheduleVO orderVenueScheduleVO : orderVenueScheduleVOS) {
