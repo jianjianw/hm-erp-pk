@@ -10,13 +10,13 @@ public class OrderVenueScheduleVO {
     private Integer venueDay;//哪一天
     private Integer venueDayLimit;//当日档期限量
     private Integer serviceId;//服务id
-    private Integer count;//当日已定档期数
+    private int count;//当日已定档期数
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
