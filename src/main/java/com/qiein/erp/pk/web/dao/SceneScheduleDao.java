@@ -38,4 +38,6 @@ public interface SceneScheduleDao {
                  @Param("id") Integer id,
                  @Param("statusId") Integer statusId);
 
+    void batSaveOrUpdate(List<SceneSchedulePO> sceneSchedulePOS);
+
 }
