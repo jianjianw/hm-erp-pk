@@ -74,6 +74,7 @@ public class MakeupRoomScheduleController extends  InitController{
      */
     @GetMapping("find_makeup_room_schedule_by_service_id")
     public ResultInfo findMakeupRoomScheduleByServiceId(Integer venueId,Integer serviceId,Integer date){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<VenueAndRoomVO> result = makeupRoomScheduleService.findMakeupRoomScheduleByServiceId(companyId, venueId, serviceId, date);
         return ResultInfoUtil.success(result);
     }
