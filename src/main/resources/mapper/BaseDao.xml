@@ -42,7 +42,7 @@
   <select id="selectAll" resultMap="BaseResultMap" parameterType="map">
     select id, base_name, company_id,base_status,priority
     from hm_erp_base
-    where company_id = #{companyId} order by priority desc,base_status desc
+    where company_id = #{companyId} order by priority asc,base_status desc
   </select>
 
 
