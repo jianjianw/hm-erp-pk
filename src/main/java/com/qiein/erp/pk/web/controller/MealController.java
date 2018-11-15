@@ -35,7 +35,7 @@ public class MealController extends InitController{
      */
     @GetMapping("/select_photo")
     public ResultInfo selectPhoto(){
-    	 int companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
          List<DictionaryErp> photoTypes= mealService.selectPhoto(companyId);
         return ResultInfoUtil.success(photoTypes);
     }
@@ -46,7 +46,7 @@ public class MealController extends InitController{
      */
     @GetMapping("/select_meal_type")
     public ResultInfo selectMealType(){
-    	 int companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
          List<DictionaryErp> mealTypes= mealService.selectMealType(companyId);
         return ResultInfoUtil.success(mealTypes);
     }
@@ -56,13 +56,14 @@ public class MealController extends InitController{
      */
     @PostMapping("/insert_meal_type")
     public ResultInfo insertMealType(@RequestBody DictionaryErp dictionaryErp ){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
     	if(dictionaryErp.getDicName() == null){
     		return ResultInfoUtil.error(9999,"请输入分类名称");
     	}
     	if(!dictionaryErp.getDicType().equals("meal_type")){
     		return ResultInfoUtil.error(9999,"类型id错误");
     	}
-    		dictionaryErp.setCompanyId(1);
+    		dictionaryErp.setCompanyId(companyId);
     		mealService.insertMealType(dictionaryErp);
         return ResultInfoUtil.success();
     }
@@ -72,8 +73,9 @@ public class MealController extends InitController{
      */
     @PostMapping("/update_meal_type")
     public ResultInfo updateMealType(@RequestBody List<DictionaryErp> dictionaryErps){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
     	for (DictionaryErp dictionaryErp : dictionaryErps) {
-    		dictionaryErp.setCompanyId(1);
+    		dictionaryErp.setCompanyId(companyId);
        	 mealService.updateMealType(dictionaryErp);
 		}
         return ResultInfoUtil.success();
@@ -85,7 +87,7 @@ public class MealController extends InitController{
      */
     @GetMapping("/select_service_id")
     public ResultInfo selectServiceId(){
-    	 int companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
          List<ServicePO> servicePo= mealService.selectServiceId(companyId);
          /*for (ServicePO servicePO : servicePos) {
         	 servicePO.setServiceStatus(String.valueOf(servicePO.getServiceStatus())));
@@ -99,10 +101,11 @@ public class MealController extends InitController{
      */
     @PostMapping("/insert_meal")
     public ResultInfo insertMeal(@RequestBody Meal meal){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
     		if(meal.getMealType()==null){
     			
     		}
-    		meal.setCompanyId(1);
+    		meal.setCompanyId(companyId);
     		//查询套餐类别名称
         	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
         	meal.setMealTypeName(dictionaryErp.getDicName());
@@ -133,8 +136,9 @@ public class MealController extends InitController{
      */
     @PostMapping("/update_by_meal")
     public ResultInfo updateByPrimaryKey(@RequestBody Meal meal){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
     	System.out.println(JSONObject.toJSONString(meal));
-    	meal.setCompanyId(1);
+    	meal.setCompanyId(companyId);
     	//查询套餐类别名称
     	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
     	meal.setMealTypeName(dictionaryErp.getDicName());
