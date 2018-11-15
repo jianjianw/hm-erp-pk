@@ -90,8 +90,8 @@
     insert into hm_erp_makeup_room_schedule (id,venue_id,service_id,
     makeup_room_id,makeup_day,makeup_day_limit,company_id) values
     <foreach collection="list" index="index" item="item" separator=",">
-      (#{item.id},#{item.venue_id},#{item.service_id},#{item.makeup_room_id},
-      #{item.makeup_day},#{item.makeup_day_limit},#{item.company_id})
+      (#{item.id},#{item.venueId},#{item.serviceId},#{item.makeupRoomId},
+      #{item.makeupDay},#{item.makeupDayLimit},#{item.companyId})
     </foreach>
     ON DUPLICATE KEY UPDATE
                       venue_id = values(venue_id),
