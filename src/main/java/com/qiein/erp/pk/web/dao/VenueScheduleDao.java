@@ -19,10 +19,12 @@ public interface VenueScheduleDao {
      * @return
      */
     List<OrderVenueScheduleVO> getVenueSchedule(@Param("companyId") Integer companyId,@Param("start")Integer start,@Param("end")Integer end);
+    List<OrderVenueScheduleVO> getCount();
     /**
      * 场馆档期设置页面
      */
     List<VenueScheduleSetVO> getVenueScheduleSet(@Param("companyId") Integer companyId);
+
 
     /**
      * 获取已存在场馆档期

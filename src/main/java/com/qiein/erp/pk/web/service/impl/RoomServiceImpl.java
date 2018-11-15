@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 /**
  * 房间   1 化妆间  2 拍摄间
@@ -40,7 +41,10 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public List<Room> selectAll(Integer companyId,Integer roomType) {
-        return roomDao.selectAll(companyId,roomType);
+        List<Room> rooms = roomDao.selectAll(companyId, roomType);
+        Comparator<Room> comparing = Comparator.comparing(Room::getPriority);
+        rooms.sort(comparing);
+        return rooms;
     }
 
     @Override

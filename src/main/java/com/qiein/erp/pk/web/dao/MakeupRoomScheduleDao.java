@@ -27,4 +27,17 @@ public interface MakeupRoomScheduleDao {
                                         @Param("venueId") Integer venueId,
                                         @Param("startTime") Integer startTime,
                                         @Param("endTime") Integer endTime);
+
+    /**
+     * 修改每天限额
+     * @param makeupRoomSchedulePO
+     */
+    void updateLimitByPrimaryKey(MakeupRoomSchedulePO makeupRoomSchedulePO);
+
+    /**
+     * 批量保存或者编辑
+     * @param makeupRoomSchedulePOS
+     */
+    void batSaveOrUpdate(List<MakeupRoomSchedulePO> makeupRoomSchedulePOS);
+
 }

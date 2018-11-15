@@ -688,7 +688,7 @@ public class StringUtil {
                 data = (data - r) / scale;
             }
         }
-        return String.format("%6s", s.toString()).replace(" ", "6");
+        return String.format("%6s", s.toString()).replace(" ", "0");
     }
 
 

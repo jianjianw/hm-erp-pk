@@ -1,6 +1,9 @@
 package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.web.entity.dto.OrderDTO;
+import com.qiein.erp.pk.web.entity.dto.OrderSelectDTO;
+import com.qiein.erp.pk.web.entity.po.OrderPO;
+import com.qiein.erp.pk.web.entity.vo.OrderProVO;
 import com.qiein.erp.pk.web.entity.vo.OrderVO;
 
 import java.util.List;
@@ -16,4 +19,22 @@ public interface OrderService {
      * @return
      */
     List<OrderVO> getOrder(OrderDTO orderDTO);
+    /**
+     * 根据档期id获取订单页面
+     * @param orderDTO
+     * @return
+     */
+    List<OrderVO> selectBySchId(OrderSelectDTO orderDTO);
+    /**
+     * 新增订单(正常订单)
+     * @param orderPO
+     */
+     void insertOrder(OrderPO orderPO);
+    /**
+     * 根据订单id 获取流程
+     * @param orderId
+     * @param companyId
+     * @return
+     */
+    OrderProVO selectByOrdId(Integer orderId, Integer companyId);
 }

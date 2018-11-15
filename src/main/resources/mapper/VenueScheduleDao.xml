@@ -24,8 +24,7 @@
                 sd.venue_id venueId,
                 sd.venue_day venueDay,
                 sd.venue_day_limit venueDayLimit,
-                sd.service_id serviceId,
-                count(1) count
+                sd.service_id serviceId
             FROM
                 hm_erp_venue_schedule sd
             LEFT JOIN (
@@ -42,6 +41,17 @@
             sd.venue_day BETWEEN  #{start} and #{end} and sd.company_id =#{companyId}
             group by sd.id
         </select>
+    <select id="getCount" resultType="com.qiein.erp.pk.web.entity.vo.OrderVenueScheduleVO">
+        SELECT
+        venue_schedule_id id,
+        count(1) count
+        FROM
+        hm_erp_process_shoot_schedule
+        WHERE
+        venue_schedule_id IS NOT NULL
+        GROUP BY
+        venue_schedule_id
+    </select>
     <select id="getVenueScheduleSet" resultMap="venueScheduleSetMap">
             SELECT
                 service_venue.id,

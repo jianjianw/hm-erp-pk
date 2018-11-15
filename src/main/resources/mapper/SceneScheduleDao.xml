@@ -24,6 +24,7 @@
         <result column="status_id" property="statusId" jdbcType="VARCHAR" />
         <result column="company_id" property="companyId" jdbcType="INTEGER" />
         <result column="venue_id" property="venueId" jdbcType="INTEGER" />
+        <result column="order_id" property="orderId" jdbcType="INTEGER"/>
         <association property="staffVO" javaType="com.qiein.erp.pk.web.entity.vo.StaffVO">
             <result column="id" property="id"></result>
             <result column="NICKNAME" property="nickName"></result>
@@ -32,7 +33,8 @@
     </resultMap>
 
     <select id="selectSceneScheduleByDate" parameterType="map" resultMap="sceneSchedule">
-      select scene.id,scene.shoot_id,scene.scene_id,scene.start_time,scene.end_time,scene.status_id,scene.company_id,scene.venue_id, staff.id ,staff.NICKNAME
+      select scene.id,scene.shoot_id,scene.scene_id,scene.start_time,scene.end_time,scene.status_id,scene.company_id,scene.venue_id,
+                                                                                        staff.id ,staff.NICKNAME,order_process.order_id
           from hm_erp_scene_schedule scene
           inner join hm_erp_process_scene_schedule scene_link on scene.id = scene_link.shoot_schedule_id
           and scene.company_id = scene_link.company_id
@@ -44,6 +46,10 @@
           and staff_schedule.company_id = shoot_link.company_id
 
           inner join hm_pub_staff staff on staff.ID = staff_schedule.staff_id
+          and staff.COMPANYID = staff_schedule.company_id
+
+          left join hm_erp_order_process order_process on order_process.order_id = scene_link.process_id
+          and order_process.company_id = scene_link.company_id
 
       where scene.company_id = #{companyId}
       and scene.start_time BETWEEN #{startTime} AND #{endTime}
@@ -58,6 +64,7 @@
     delete from hm_erp_scene_schedule
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
     <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.SceneSchedulePO" >
     insert into hm_erp_scene_schedule (id, shoot_id, scene_id,
       start_time, end_time, status_id,
@@ -66,6 +73,7 @@
       #{startTime,jdbcType=INTEGER}, #{endTime,jdbcType=INTEGER}, #{statusId,jdbcType=SMALLINT},
       #{companyId,jdbcType=INTEGER}, #{venueId,jdbcType=INTEGER})
   </insert>
+
     <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.SceneSchedulePO" >
     update hm_erp_scene_schedule
     set shoot_id = #{shootId,jdbcType=INTEGER},
@@ -77,13 +85,42 @@
       venue_id = #{venueId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, shoot_id, scene_id, start_time, end_time, status_id, company_id, venue_id
     from hm_erp_scene_schedule
     where id = #{id,jdbcType=INTEGER}
   </select>
+
     <select id="selectAll" resultMap="BaseResultMap" >
     select id, shoot_id, scene_id, start_time, end_time, status_id, company_id, venue_id
     from hm_erp_scene_schedule
   </select>
+
+
+    <update id="punchIn" parameterType = "map">
+      update hm_erp_scene_schedule set
+       status_id = #{statusId}
+      where
+       company_id = #{companyId}
+       and id = #{id}
+    </update>
+
+    <insert id="batSaveOrUpdate" parameterType="ArrayList">
+
+      insert into hm_erp_scene_schedule (id, shoot_id, scene_id,
+      start_time, end_time, status_id,
+      company_id, venue_id) values
+      <foreach collection="list" index="index" item="item" separator=",">
+          (#{item.id},#{item.shootId},#{item.sceneId},
+          #{item.startTime},#{item.endTime},#{item.statusId},#{item.companyId},#{item.venueId})
+      </foreach>
+      ON DUPLICATE KEY UPDATE
+                        shoot_id = values(shoot_id),
+                        scene_id = values(scene_id),
+                        start_time = values(start_time),
+                        end_time = values(end_time),
+                        company_id = values(company_id),
+                        venue_id = values(venue_id);
+    </insert>
 </mapper>

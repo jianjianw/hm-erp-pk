@@ -6,7 +6,7 @@ import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 
 
-public interface StaffScheduleService {
+public interface PlanScheduleService {
 	
 	/**
      * 查询人员档期

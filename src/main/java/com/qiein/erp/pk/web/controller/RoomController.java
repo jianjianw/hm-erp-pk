@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.controller;
 
 
 import com.qiein.erp.pk.constant.RoomConstant;
+import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
@@ -43,6 +44,9 @@ public class RoomController {
     @ApiOperation(value = "添加房间")
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody Room room){
+        //去掉对象中的空格
+        ObjectUtil.objectStrParamTrim(room);
+
         roomService.insert(room);
         return ResultInfoUtil.success();
     }
@@ -63,7 +67,9 @@ public class RoomController {
     @ApiOperation(value = "根据主键编辑房间")
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Room room){
-        int i = roomService.updateByPrimaryKey(room);
+        //去掉对象中的空格
+        ObjectUtil.objectStrParamTrim(room);
+        roomService.updateByPrimaryKey(room);
         return ResultInfoUtil.success();
     }
     @GetMapping("/select_room_for_service")

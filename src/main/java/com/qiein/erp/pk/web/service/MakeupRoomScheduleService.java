@@ -14,16 +14,39 @@ public interface MakeupRoomScheduleService {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(MakeupRoomSchedulePO record);
+    int insert(MakeupRoomSchedulePO makeupRoomSchedulePO);
 
     MakeupRoomSchedulePO selectByPrimaryKey(Integer id);
 
     List<MakeupRoomSchedulePO> selectAll();
 
-    int updateByPrimaryKey(MakeupRoomSchedulePO record);
+    int updateByPrimaryKey(MakeupRoomSchedulePO makeupRoomSchedulePO);
 
     /**
      * 查询化妆间的档期
      */
     public MakeupRoomShowVO selectMakeupRoomSchedule(Integer companyId, Integer venueId, Integer dateTime);
+
+    /**
+     * 修改每天限额
+     * @param makeupRoomSchedulePO
+     */
+    void updateLimitByPrimaryKey(MakeupRoomSchedulePO makeupRoomSchedulePO);
+
+    /**
+     * 批量保存或编辑
+     * @param makeupRoomSchedulePOS
+     */
+    void batSaveOrUpdate(List<MakeupRoomSchedulePO> makeupRoomSchedulePOS);
+
+
+    /**
+     * 根据服务id 查询化妆间档期
+     * @param venueId
+     * @param serviceId
+     * @param date
+     * @return
+     */
+    List<Object> findMakeupRoomScheduleByServiceId(Integer venueId, Integer serviceId, Integer date);
+
 }

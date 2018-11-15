@@ -25,11 +25,12 @@
   </delete>
   <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Room" >
     insert into hm_erp_venue_room (room_id, venue_id, room_name, 
-      room_level, room_type, priority, 
-      room_status, company_id)
-    values (#{roomId}, #{venueId}, #{roomName}, 
-      #{roomLevel}, #{roomType}, #{priority}, 
-      #{roomStatus}, #{companyId})
+      room_level, room_type,room_status, company_id,priority)
+    select #{roomId}, #{venueId}, #{roomName},
+            #{roomLevel}, #{roomType}, #{roomStatus}, #{companyId},
+            (SELECT IFNULL(MAX(priority), 0) + 1
+                     FROM hm_erp_venue_room
+                     WHERE company_id = #{companyId})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Room" >
     update hm_erp_venue_room
@@ -77,12 +78,13 @@
     from hm_erp_venue_room
     where room_id = #{roomId} and company_id =#{companyId}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select room_id, venue_id, room_name, room_level, room_type, priority, room_status, 
+
+    <select id="selectAll" resultMap="BaseResultMap">
+         select room_id, venue_id, room_name, room_level, room_type, priority, room_status,
     company_id
-    from hm_erp_venue_room
-    where company_id ={companyId} and room_type = #{roomType}
-  </select>
+    from hm_erp_venue_room room
+    where room.room_type = #{roomType} and room.company_id = #{companyId}
+    </select>
 
 
   <select id="roomSelect" resultMap="roomSelectMap">

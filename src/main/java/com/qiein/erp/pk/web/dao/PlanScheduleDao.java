@@ -12,7 +12,7 @@ import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
  * @author Han
  *
  */
-public interface StaffScheduleDao {
+public interface PlanScheduleDao {
 
     /**
      * 查询所有套餐

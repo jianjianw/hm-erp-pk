@@ -10,7 +10,7 @@ public class OrderVenueScheduleVO {
     private Integer venueDay;//哪一天
     private Integer venueDayLimit;//当日档期限量
     private Integer serviceId;//服务id
-    private Integer count;//当日已定档期数
+    private int count;//当日已定档期数
 
     public Integer getId() {
         return id;
@@ -52,11 +52,11 @@ public class OrderVenueScheduleVO {
         this.serviceId = serviceId;
     }
 
-    public Integer getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }

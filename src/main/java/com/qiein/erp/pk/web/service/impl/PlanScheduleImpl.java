@@ -5,18 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qiein.erp.pk.web.dao.StaffScheduleDao;
+import com.qiein.erp.pk.web.dao.PlanScheduleDao;
 import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
-import com.qiein.erp.pk.web.service.StaffScheduleService;
+import com.qiein.erp.pk.web.service.PlanScheduleService;
 
 @Service
-public class StaffScheduleImpl implements StaffScheduleService {
+public class PlanScheduleImpl implements PlanScheduleService {
 
     @Autowired
-    private StaffScheduleDao staffScheduleDao;
-
+    private PlanScheduleDao planScheduleDao;
+    
     /**
      * 查询人员档期
      * @return
@@ -24,7 +24,7 @@ public class StaffScheduleImpl implements StaffScheduleService {
     @Override
 	public List<StaffScheduleVO> selectAll(Integer companyId, Integer firstTime, Integer endTime,
 			Integer roleId,String[] venueId,String[] roleLevel) {
-		List<StaffScheduleVO> staffScheduleVO=staffScheduleDao.selectAll(companyId,firstTime,endTime,roleId,venueId,roleLevel);
+		List<StaffScheduleVO> staffScheduleVO=planScheduleDao.selectAll(companyId,firstTime,endTime,roleId,venueId,roleLevel);
 		return staffScheduleVO;
 	}
     /**
@@ -33,7 +33,7 @@ public class StaffScheduleImpl implements StaffScheduleService {
      */
 	@Override
 	public List<Venue> venueSelect(int companyId,Integer roleId,String[] venueId,String[] roleLevel) {
-		List<Venue> Venues=staffScheduleDao.venueSelect(companyId,roleId,venueId,roleLevel);
+		List<Venue> Venues=planScheduleDao.venueSelect(companyId,roleId,venueId,roleLevel);
 		return Venues;
 	}
 	/**
@@ -42,7 +42,7 @@ public class StaffScheduleImpl implements StaffScheduleService {
      */
 	@Override
 	public List<StaffRoleTypeVO> roleLevelSelect(int companyId) {
-		List<StaffRoleTypeVO> StaffRoleTypeVOs= staffScheduleDao.roleLevelSelect(companyId);
+		List<StaffRoleTypeVO> StaffRoleTypeVOs= planScheduleDao.roleLevelSelect(companyId);
 		return StaffRoleTypeVOs;
 	}
 	/**
@@ -51,7 +51,7 @@ public class StaffScheduleImpl implements StaffScheduleService {
      */
 	@Override
 	public List<Venue> venueSelectOnly(int companyId) {
-		List<Venue> Venues= staffScheduleDao.venueSelectOnly(companyId);
+		List<Venue> Venues= planScheduleDao.venueSelectOnly(companyId);
 		return Venues;
 	}
 	/**
@@ -61,7 +61,7 @@ public class StaffScheduleImpl implements StaffScheduleService {
 	@Override
 	public StaffScheduleVO selectRest(StaffScheduleVO staffRoleTypeVO) {
 		
-		return staffScheduleDao.selectRest(staffRoleTypeVO);
+		return planScheduleDao.selectRest(staffRoleTypeVO);
 	}
 	/**
      * 新增人员休息
@@ -69,7 +69,7 @@ public class StaffScheduleImpl implements StaffScheduleService {
      */
 	@Override
 	public void insertRest(StaffScheduleVO staffScheduleVO) {
-		staffScheduleDao.insertRest(staffScheduleVO);
+		planScheduleDao.insertRest(staffScheduleVO);
 		
 	}
 	/**
@@ -78,7 +78,7 @@ public class StaffScheduleImpl implements StaffScheduleService {
      */
 	@Override
 	public List<StaffScheduleVO> staffAll(int companyId, Integer roleId, String venueId, Integer time) {
-		List<StaffScheduleVO> StaffScheduleVO=staffScheduleDao.staffAll(companyId,roleId,venueId,time);
+		List<StaffScheduleVO> StaffScheduleVO=planScheduleDao.staffAll(companyId,roleId,venueId,time);
 		return StaffScheduleVO;
 	}
 	/**
@@ -87,7 +87,7 @@ public class StaffScheduleImpl implements StaffScheduleService {
      */
 	@Override
 	public List<StaffScheduleVO> staffPK(int companyId, Integer roleId, String venueId, Integer time) {
-		List<StaffScheduleVO> StaffSchedulePK=staffScheduleDao.staffPK(companyId,roleId,venueId,time);
+		List<StaffScheduleVO> StaffSchedulePK=planScheduleDao.staffPK(companyId,roleId,venueId,time);
 		return StaffSchedulePK;
 	}
 	/**
@@ -96,7 +96,7 @@ public class StaffScheduleImpl implements StaffScheduleService {
      */
 	@Override
 	public List<StaffScheduleVO> staffRest(int companyId, Integer roleId, String venueId, Integer time) {
-		List<StaffScheduleVO> StaffScheduleRests=staffScheduleDao.staffRest(companyId,roleId,venueId,time);
+		List<StaffScheduleVO> StaffScheduleRests=planScheduleDao.staffRest(companyId,roleId,venueId,time);
 		return StaffScheduleRests;
 	}
 	

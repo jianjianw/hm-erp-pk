@@ -15,7 +15,28 @@ public class StaffScheduleVO {
     private Integer roleId;
     private String roleName;
     private Integer time;
+    private Integer companyId;
+    private int status;
+    private int count;//接单合计
     
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public Integer getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
 	public Integer getId() {
 		return id;
 	}

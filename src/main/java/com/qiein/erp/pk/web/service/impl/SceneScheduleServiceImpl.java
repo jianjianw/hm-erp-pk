@@ -76,6 +76,27 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         return result;
     }
 
+    @Override
+    public void punchIn(Integer companyId, Integer id,Integer statusId) {
+        sceneScheduleDao.punchIn(companyId,id,statusId);
+
+    }
+
+    @Override
+    public int insert(SceneSchedulePO sceneSchedulePO) {
+        return sceneScheduleDao.insert(sceneSchedulePO);
+    }
+
+    @Override
+    public int updateByPrimaryKey(SceneSchedulePO sceneSchedulePO) {
+        return sceneScheduleDao.updateByPrimaryKey(sceneSchedulePO);
+    }
+
+    @Override
+    public void batSaveOrUpdate(List<SceneSchedulePO> sceneSchedulePOS) {
+        sceneScheduleDao.batSaveOrUpdate(sceneSchedulePOS);
+    }
+
     //获取开始时间和结束时间
     public Map<String,Integer> getStartAndEndTime(Integer dateTime){
 
