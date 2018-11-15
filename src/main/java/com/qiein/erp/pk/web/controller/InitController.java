@@ -97,4 +97,6 @@ public class InitController {
     RequestInfoDTO getRequestInfo() {
         return (RequestInfoDTO) request.getAttribute(CommonConstant.REQUEST_INFO);
     }
+
+
 }
