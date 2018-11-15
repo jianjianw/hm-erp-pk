@@ -21,12 +21,14 @@
   </delete>
 
   <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Scene" >
-    insert into hm_erp_scene (id, shoot_id, scene_name, 
-      scene_status, priority, company_id
+    insert into hm_erp_scene (id, shoot_id, scene_name,
+      scene_status,company_id,priority
       )
-    values (#{id}, #{shootId}, #{sceneName}, 
-      #{sceneStatus}, #{priority}, #{companyId}
-      )
+    select #{id}, #{shootId}, #{sceneName},
+      #{sceneStatus}, #{companyId},
+       (SELECT IFNULL(MAX(priority), 0) + 1
+                     FROM hm_erp_scene
+                     WHERE company_id = #{companyId})
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Scene" >
@@ -65,7 +67,7 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, shoot_id, scene_name, scene_status, priority, company_id
     from hm_erp_scene
-    where company_id = #{companyId}
+    where company_id = #{companyId} order by priority asc
   </select>
 
   <select id="findSceneByRoomId" resultMap="BaseResultMap" parameterType = "map">

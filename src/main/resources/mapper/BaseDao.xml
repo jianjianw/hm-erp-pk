@@ -15,8 +15,11 @@
   <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
     insert into hm_erp_base (id, base_name, company_id,base_status,priority
       )
-    values (#{id}, #{baseName}, #{companyId},#{baseStatus},((select last_insert_id()+1))
-      )
+    select #{id}, #{baseName}, #{companyId},#{baseStatus},
+              (SELECT IFNULL(MAX(priority), 0) + 1
+               FROM hm_erp_base
+               WHERE company_id = #{companyId})
+
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
     update hm_erp_base
@@ -39,7 +42,7 @@
   <select id="selectAll" resultMap="BaseResultMap" parameterType="map">
     select id, base_name, company_id,base_status,priority
     from hm_erp_base
-    where company_id = #{companyId} order by priority desc,base_status desc
+    where company_id = #{companyId} order by priority asc,base_status desc
   </select>
 
 
