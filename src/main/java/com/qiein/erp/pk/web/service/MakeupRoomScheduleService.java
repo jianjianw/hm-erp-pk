@@ -33,4 +33,9 @@ public interface MakeupRoomScheduleService {
      */
     void updateLimitByPrimaryKey(MakeupRoomSchedulePO makeupRoomSchedulePO);
 
+    /**
+     * 批量保存或编辑
+     * @param makeupRoomSchedulePOS
+     */
+    void batSaveOrUpdate(List<MakeupRoomSchedulePO> makeupRoomSchedulePOS);
 }

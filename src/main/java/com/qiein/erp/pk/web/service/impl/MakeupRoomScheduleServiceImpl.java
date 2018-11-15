@@ -154,5 +154,10 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
         makeupRoomScheduleDao.updateLimitByPrimaryKey(makeupRoomSchedulePO);
     }
 
+    @Override
+    public void batSaveOrUpdate(List<MakeupRoomSchedulePO> makeupRoomSchedulePOS) {
+        makeupRoomScheduleDao.batSaveOrUpdate(makeupRoomSchedulePOS);
+    }
+
 
 }
