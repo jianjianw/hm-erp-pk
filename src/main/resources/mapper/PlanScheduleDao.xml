@@ -86,24 +86,24 @@
   <!--新增休息  -->
   <insert id="insertRest">
   	INSERT 
-  		hm_erp_staff_schedule(venue_id,staff_id,staff_day,staff_status,staff_day_limit,company_id)
+  		hm_erp_plan_schedule(venue_id,staff_id,staff_day,staff_status,staff_day_limit,company_id)
 	VALUES
 		(#{venueId},#{staffId},#{time},#{staffStatus},#{staffDayLimit},#{companyId})
   </insert>
   
   <!--查询摄影师人员休息  -->
   <select id="selectRest" resultMap="StaffScheduleMap">
-  	SELECT
-		ss.staff_id,ss.staff_day time,ss.staff_status,sr.role_id,ss.venue_id
+		SELECT
+		ps.staff_id,ps.staff_day time,ps.staff_status,sr.role_id,ps.venue_id
 	FROM
-		hm_erp_staff_schedule ss
-	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ss.staff_id AND sr.company_id=ss.company_id
+		hm_erp_plan_schedule ps
+	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ps.staff_id AND sr.company_id=ps.company_id
 	WHERE
-		ss.company_id=#{companyId}
-		AND ss.venue_id=#{venueId}
+		ps.company_id=#{companyId}
+		AND ps.venue_id=#{venueId}
 		AND sr.role_id=#{roleId}
 		AND sr.staff_id=#{staffId}
-		AND ss.staff_day=#{time}
+		AND ps.staff_day=#{time}
   </select>
   
   <!--仅查询场馆 -->
