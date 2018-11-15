@@ -30,9 +30,11 @@ public class BaseController extends InitController{
     }
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody Base base){
+        int companyId = getCurrentLoginStaff().getCompanyId();
+        base.setCompanyId(companyId);
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(base);
-        int insert = baseService.insert(base);
+        baseService.insert(base);
         return ResultInfoUtil.success();
     }
     @GetMapping("/select_by_primary_key")
@@ -51,6 +53,8 @@ public class BaseController extends InitController{
 
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Base base){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        base.setCompanyId(companyId);
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(base);
         baseService.updateByPrimaryKey(base);
