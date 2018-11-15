@@ -221,7 +221,6 @@
             ord.meal_id,
             ord.company_id,
             ord.sale_id,
-            ord.order_time,
             ord.kz_name,
             ord.kz_phone,
             ord.mate_name,
