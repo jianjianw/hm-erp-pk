@@ -99,5 +99,15 @@ public class PlanScheduleImpl implements PlanScheduleService {
 		List<StaffScheduleVO> StaffScheduleRests=planScheduleDao.staffRest(companyId,roleId,venueId,time);
 		return StaffScheduleRests;
 	}
+	/**
+     * 查询当月主界面休息摄影师
+     * @return
+     */
+	@Override
+	public List<StaffScheduleVO> selectMonthRest(Integer companyId, int firstDay, int lastDay, Integer roleId,
+			String[] venueId) {
+		List<StaffScheduleVO> StaffScheduleRests=planScheduleDao.selectMonthRest(companyId,firstDay,lastDay,roleId, venueId);
+		return StaffScheduleRests;
+	}
 	
 }

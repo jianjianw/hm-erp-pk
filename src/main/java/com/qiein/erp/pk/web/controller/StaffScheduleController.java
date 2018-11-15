@@ -50,18 +50,20 @@ public class StaffScheduleController extends InitController{
          List<StaffScheduleVO> StaffScheduleVOAlls= staffScheduleService.staffAll(companyId,roleId,venueId,time);
          //获取已排班摄影师
          List<StaffScheduleVO> StaffScheduleVOPKs= staffScheduleService.staffPK(companyId,roleId,venueId,time);
-         for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
-        	 for (StaffScheduleVO StaffScheduleVOPK : StaffScheduleVOPKs) {
-     			if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVOPK.getVenueId()) && 
-     					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
-     				StaffScheduleVOAll.setStatus(1);
-     			}
-     		}
-		}
+         if(StaffScheduleVOAlls !=null && StaffScheduleVOPKs!=null){
+        	 for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
+            	 for (StaffScheduleVO StaffScheduleVOPK : StaffScheduleVOPKs) {
+         			if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVOPK.getVenueId()) && 
+         					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
+         				StaffScheduleVOAll.setStatus(1);
+         			}
+         		}
+    		}
+         }
+         
         //获取休息摄影师
         List<StaffScheduleVO> StaffScheduleVORests= staffScheduleService.staffRest(companyId,roleId,venueId,time);
-        if(StaffScheduleVORests!=null && StaffScheduleVORests.size()>0){
-        	
+        if(StaffScheduleVORests!=null && StaffScheduleVOAlls !=null){
         	for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
         		for (StaffScheduleVO StaffScheduleVORest : StaffScheduleVORests) {
 					if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVORest.getVenueId())&&

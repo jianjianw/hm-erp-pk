@@ -1,6 +1,7 @@
 package com.qiein.erp.pk.web.controller;
 
 import com.qiein.erp.pk.constant.CommonConstant;
+import com.qiein.erp.pk.enums.TipMsgEnum;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.VenueScheduleSetDTO;
@@ -60,5 +61,14 @@ public class VenueScheduleController extends InitController{
     public ResultInfo venueSchSelect(@RequestParam Integer venueTime) {
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(venueScheduleService.venueSchSelect(venueTime, companyId));
+    }
+
+    /**
+     * 编辑单个档期
+     */
+    @GetMapping("/edit_venue_sch")
+    public ResultInfo editVenueSch(@RequestParam Integer schId,@RequestParam Integer target){
+        venueScheduleService.editVenueSch(schId,target);
+        return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
     }
 }

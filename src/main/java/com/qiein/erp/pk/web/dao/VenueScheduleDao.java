@@ -41,5 +41,12 @@ public interface VenueScheduleDao {
      */
     List<VenueSchSelectVO> venueSchSelect(@Param("venueTime")Integer venueTime,@Param("companyId")Integer companyId);
 
+    /**
+     * 编辑单个档期
+     * @param schId
+     * @param target
+     */
+    void editVenueSch(@Param("schId")Integer schId,@Param("target")Integer target);
+
 
 }
