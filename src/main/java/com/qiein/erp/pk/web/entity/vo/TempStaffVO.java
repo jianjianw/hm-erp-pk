@@ -5,6 +5,14 @@ package com.qiein.erp.pk.web.entity.vo;
 public class TempStaffVO {
 	private int count;//接单合计
     private String mealName;
+    private Integer staffStatus;
+    
+	public Integer getStaffStatus() {
+		return staffStatus;
+	}
+	public void setStaffStatus(Integer staffStatus) {
+		this.staffStatus = staffStatus;
+	}
 	public int getCount() {
 		return count;
 	}

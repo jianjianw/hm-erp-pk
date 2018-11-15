@@ -15,6 +15,7 @@
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
     <result column="time" property="time" jdbcType="INTEGER" />
     <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="VenueMap" type="com.qiein.erp.pk.web.entity.po.Venue" >
@@ -163,7 +164,7 @@
  <!--查询主页面  -->
   <select id="selectAll" resultMap="StaffScheduleMap" >
     SELECT
-		shoot.plan_schedule_id,ps.id,ps.venue_id,ps.staff_day,ps.staff_day_limit,
+		meal.meal_name,ps.id,ps.venue_id,ps.staff_day,ps.staff_day_limit,
 		ps.staff_status,ve.venue_name,ps.staff_id,st.NICKNAME,
 		reals.role_level,reals.role_id,r.role_name,
 		FROM_UNIXTIME(ps.staff_day, '%d') time,COUNT(1) count
@@ -174,6 +175,9 @@
 	LEFT JOIN hm_erp_venue ve ON ve.id=ps.venue_id AND ve.company_id=ps.company_id
 	LEFT JOIN hm_erp_staff_role reals ON reals.staff_id =ps.staff_id AND reals.company_id=ps.company_id
 	LEFT JOIN hm_erp_role r ON r.id=reals.role_id AND r.company_id=reals.company_id
+	LEFT JOIN hm_erp_order_process op ON shoot.process_id=op.id AND shoot.company_id=op.company_id
+	LEFT JOIN hm_erp_order eo ON eo.id=op.order_id AND eo.company_id=op.company_id
+	LEFT JOIN hm_erp_meal meal ON eo.meal_id=meal.id AND eo.company_id=meal.company_id
 	WHERE 
 		ps.company_id=#{companyId}
 		AND ps.staff_day BETWEEN #{firstTime} AND #{endTime}
