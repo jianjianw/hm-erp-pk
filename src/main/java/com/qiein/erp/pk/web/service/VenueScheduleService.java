@@ -31,4 +31,12 @@ public interface VenueScheduleService {
      * 场馆档期下拉框
      */
     List<VenueSchSelectVO> venueSchSelect(Integer venueTime,Integer companyId);
+
+    /**
+     * 编辑单个档期
+     * @param schId
+     * @param target
+     */
+    void editVenueSch(Integer schId,Integer target);
+
 }

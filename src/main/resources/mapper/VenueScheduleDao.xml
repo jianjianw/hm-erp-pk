@@ -157,4 +157,7 @@
             venue_sch.venue_day = #{venueTime}
         AND venue_sch.company_id =#{companyId}
     </select>
+    <update id="editVenueSch">
+        update hm_erp_venue_schedule set venue_day_limit=#{target} where id=#{schId}
+    </update>
 </mapper>

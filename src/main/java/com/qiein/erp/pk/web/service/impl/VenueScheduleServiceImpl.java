@@ -169,4 +169,12 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
     public List<VenueSchSelectVO> venueSchSelect(Integer venueTime,Integer companyId){
         return venueScheduleDao.venueSchSelect(venueTime,companyId);
     }
+    /**
+     * 编辑单个档期
+     * @param schId
+     * @param target
+     */
+    public void editVenueSch(Integer schId,Integer target){
+        venueScheduleDao.editVenueSch(schId,target);
+    }
 }
