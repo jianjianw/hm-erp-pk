@@ -40,4 +40,15 @@ public interface MakeupRoomScheduleDao {
      */
     void batSaveOrUpdate(List<MakeupRoomSchedulePO> makeupRoomSchedulePOS);
 
+    List<MakeupRoomSchedulePO> findMakeupRoomScheduleByDateAndRoomIds(@Param("companyId") Integer companyId,
+                                                                      @Param("venueId") Integer venueId,
+                                                                      @Param("serviceId") Integer serviceId,
+                                                                      @Param("date") Integer date,
+                                                                      @Param("roomIds") List<Integer> roomIds);
+
+    /**
+     * 批量保存
+     * @param makeupRoomSchedulePOS
+     */
+    void batSave(List<MakeupRoomSchedulePO> makeupRoomSchedulePOS);
 }

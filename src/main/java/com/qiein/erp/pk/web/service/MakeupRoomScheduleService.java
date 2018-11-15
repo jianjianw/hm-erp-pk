@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.service;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO;
 import com.qiein.erp.pk.web.entity.vo.MakeupRoomShowVO;
+import com.qiein.erp.pk.web.entity.vo.VenueAndRoomVO;
 
 import java.util.List;
 
@@ -47,6 +48,6 @@ public interface MakeupRoomScheduleService {
      * @param date
      * @return
      */
-    List<Object> findMakeupRoomScheduleByServiceId(Integer venueId, Integer serviceId, Integer date);
+    List<VenueAndRoomVO> findMakeupRoomScheduleByServiceId(Integer companyId, Integer venueId, Integer serviceId, Integer date);
 
 }

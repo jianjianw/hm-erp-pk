@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.service;
 import com.qiein.erp.pk.web.entity.dto.ServiceDTO;
 import com.qiein.erp.pk.web.entity.vo.ServiceVO;
 import com.qiein.erp.pk.web.entity.vo.ServiceVenueRoomVO;
+import com.qiein.erp.pk.web.entity.vo.VenueAndRoomVO;
 import com.qiein.erp.pk.web.entity.vo.VenueServiceVO;
 
 import java.util.List;
@@ -44,4 +45,12 @@ public interface ServiceService {
      * 查询服务 和 服务下面的化妆间
      */
     public List<ServiceVenueRoomVO> findServiceAndMakeupRooms(Integer companyId, Integer venueId);
+
+    /**
+     * 根据服务id查询化妆间
+     * @param venueId
+     * @param serviceId
+     */
+    public List<VenueAndRoomVO> findMakeupRoomsByServiceId(Integer companyId, Integer venueId, Integer serviceId);
+
 }

@@ -101,4 +101,36 @@
               makeup_day_limit = values(makeup_day_limit),
                     company_id = values(company_id)
   </insert>
+
+
+  <select id="findMakeupRoomScheduleByDateAndRoomIds" parameterType="map" resultMap="BaseResultMap">
+    select id, venue_id, service_id, makeup_room_id, makeup_day, makeup_day_limit, company_id
+    from hm_erp_makeup_room_schedule
+    where venue_id = #{companyId}
+          and service_id = #{serviceId}
+          and makeup_day = #{date}
+          <if test="roomIds != null">
+            and  makeup_room_id in
+            <foreach collection="roomIds" separator="," item="roomId" open="(" close=")">
+              ${roomId}
+            </foreach>
+          </if>
+          and company_id = #{companyId}
+  </select>
+
+  <insert id="batSave" parameterType="ArrayList">
+     insert into hm_erp_makeup_room_schedule (id, venue_id, service_id,
+      makeup_room_id, makeup_day, makeup_day_limit,
+      company_id)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+        (#{item.id}, #{item.venueId}, #{item.serviceId},
+          #{item.makeupRoomId}, #{item.makeupDay}, #{item.makeupDayLimit},
+          #{item.companyId})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+                  company_id = values(company_id);
+
+  </insert>
+
 </mapper>
