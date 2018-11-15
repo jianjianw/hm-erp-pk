@@ -18,7 +18,14 @@ public class StaffScheduleVO {
     private Integer companyId;
     private int status;
     private int count;//接单合计
+    private String mealName;
     
+	public String getMealName() {
+		return mealName;
+	}
+	public void setMealName(String mealName) {
+		this.mealName = mealName;
+	}
 	public int getCount() {
 		return count;
 	}

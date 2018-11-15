@@ -20,6 +20,7 @@ import com.qiein.erp.pk.util.TimeUtil;
 import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
+import com.qiein.erp.pk.web.entity.vo.TempStaffVO;
 import com.qiein.erp.pk.web.service.StaffScheduleService;
 
 /**
@@ -140,8 +141,11 @@ public class StaffScheduleController {
         List<StaffScheduleVO> staffScheduleVOs=staffScheduleService.selectAll(companyId,firstDay,lastDay,roleId,venueId,roleLevel);
         // 最终用返回
         List<Map<String, Object>> newmaps = new ArrayList<>();
-
+        TempStaffVO tempStaff=null;
   		for (StaffScheduleVO staffScheduleVO : staffScheduleVOs) {
+  			tempStaff=new TempStaffVO();
+  			tempStaff.setCount(staffScheduleVO.getCount());
+  			tempStaff.setMealName(staffScheduleVO.getMealName());
   			Map<String, Object> row = new HashMap<>();
   			row.put("id", staffScheduleVO.getId());
   			row.put("venueId", staffScheduleVO.getVenueId());
@@ -152,14 +156,14 @@ public class StaffScheduleController {
   			row.put("roleId", staffScheduleVO.getRoleId());
   			row.put("roleName", staffScheduleVO.getRoleName());
   			row.put("roleLevel", staffScheduleVO.getRoleLevel());
-  			row.put(String.valueOf(staffScheduleVO.getTime()), staffScheduleVO.getCount());
+  			row.put(String.valueOf(staffScheduleVO.getTime()), tempStaff);
   			//row.put(staffScheduleVOs.get("time"), map6.get("count"));
   			//合计
   			int count=staffScheduleVO.getCount();
   			boolean flag = false;
   			for (Map<String, Object> newmap : newmaps) {
   				if (newmap.get("venueId").equals(row.get("venueId")) &&newmap.get("staffId").equals(row.get("staffId"))) {
-  					newmap.put(String.valueOf(staffScheduleVO.getTime()), staffScheduleVO.getCount());
+  					newmap.put(String.valueOf(staffScheduleVO.getTime()), tempStaff);
   					Integer total = (Integer)newmap.get("total");
   					newmap.put("total", total + count);
   					flag = true;
