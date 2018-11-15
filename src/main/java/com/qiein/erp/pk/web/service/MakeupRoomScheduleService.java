@@ -33,4 +33,20 @@ public interface MakeupRoomScheduleService {
      */
     void updateLimitByPrimaryKey(MakeupRoomSchedulePO makeupRoomSchedulePO);
 
+    /**
+     * 批量保存或编辑
+     * @param makeupRoomSchedulePOS
+     */
+    void batSaveOrUpdate(List<MakeupRoomSchedulePO> makeupRoomSchedulePOS);
+
+
+    /**
+     * 根据服务id 查询化妆间档期
+     * @param venueId
+     * @param serviceId
+     * @param date
+     * @return
+     */
+    List<Object> findMakeupRoomScheduleByServiceId(Integer venueId, Integer serviceId, Integer date);
+
 }

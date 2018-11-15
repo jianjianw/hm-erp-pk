@@ -112,8 +112,8 @@
       start_time, end_time, status_id,
       company_id, venue_id) values
       <foreach collection="list" index="index" item="item" separator=",">
-          (#{item.id},#{item.shoot_id},#{item.scene_id},
-          #{item.start_time},#{item.end_time},#{item.status_id},#{item.company_id},#{item.venue_id})
+          (#{item.id},#{item.shootId},#{item.sceneId},
+          #{item.startTime},#{item.endTime},#{item.statusId},#{item.companyId},#{item.venueId})
       </foreach>
       ON DUPLICATE KEY UPDATE
                         shoot_id = values(shoot_id),

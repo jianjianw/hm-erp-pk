@@ -92,6 +92,11 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         return sceneScheduleDao.updateByPrimaryKey(sceneSchedulePO);
     }
 
+    @Override
+    public void batSaveOrUpdate(List<SceneSchedulePO> sceneSchedulePOS) {
+        sceneScheduleDao.batSaveOrUpdate(sceneSchedulePOS);
+    }
+
     //获取开始时间和结束时间
     public Map<String,Integer> getStartAndEndTime(Integer dateTime){
 

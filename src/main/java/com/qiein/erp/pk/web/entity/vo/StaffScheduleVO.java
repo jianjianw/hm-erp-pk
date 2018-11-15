@@ -16,7 +16,14 @@ public class StaffScheduleVO {
     private String roleName;
     private Integer time;
     private Integer companyId;
+    private int status;
     
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	public Integer getCompanyId() {
 		return companyId;
 	}

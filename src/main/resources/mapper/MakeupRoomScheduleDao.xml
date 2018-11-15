@@ -84,4 +84,21 @@
     where id = #{id}
     and company_id = #{companyId}
   </update>
+
+  <insert id="batSaveOrUpdate" parameterType="ArrayList">
+
+    insert into hm_erp_makeup_room_schedule (id,venue_id,service_id,
+    makeup_room_id,makeup_day,makeup_day_limit,company_id) values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.id},#{item.venueId},#{item.serviceId},#{item.makeupRoomId},
+      #{item.makeupDay},#{item.makeupDayLimit},#{item.companyId})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+                      venue_id = values(venue_id),
+                    service_id = values(service_id),
+                makeup_room_id = values(makeup_room_id),
+                    makeup_day = values(makeup_day),
+              makeup_day_limit = values(makeup_day_limit),
+                    company_id = values(company_id)
+  </insert>
 </mapper>

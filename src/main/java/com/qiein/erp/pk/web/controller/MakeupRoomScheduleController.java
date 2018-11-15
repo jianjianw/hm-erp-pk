@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * 化妆间档期
  */
@@ -50,6 +52,28 @@ public class MakeupRoomScheduleController {
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody MakeupRoomSchedulePO makeupRoomSchedulePO){
         makeupRoomScheduleService.updateByPrimaryKey(makeupRoomSchedulePO);
+        return ResultInfoUtil.success();
+    }
+
+    /**
+     * 批量保存或者编辑
+     * @param makeupRoomSchedulePOS
+     * @return
+     */
+    @PostMapping("bat_save_or_update")
+    public ResultInfo batSaveOrUpdate(@RequestBody List<MakeupRoomSchedulePO> makeupRoomSchedulePOS){
+        makeupRoomScheduleService.batSaveOrUpdate(makeupRoomSchedulePOS);
+        return ResultInfoUtil.success();
+    }
+
+    /**
+     * 根据服务id 查询化妆间档期
+     */
+    public ResultInfo findMakeupRoomScheduleByServiceId(Integer venueId,Integer serviceId,Integer date){
+
+
+        List<Object> obj = makeupRoomScheduleService.findMakeupRoomScheduleByServiceId(venueId,serviceId,date);
+
         return ResultInfoUtil.success();
     }
 

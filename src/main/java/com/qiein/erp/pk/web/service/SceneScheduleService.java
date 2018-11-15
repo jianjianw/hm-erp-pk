@@ -32,4 +32,10 @@ public interface SceneScheduleService {
 
     int updateByPrimaryKey(SceneSchedulePO sceneSchedulePO);
 
+    /**
+     * 批批量新增或编辑
+     * @param sceneSchedulePOS
+     */
+    void batSaveOrUpdate(List<SceneSchedulePO> sceneSchedulePOS);
+
 }

@@ -38,6 +38,10 @@ public interface SceneScheduleDao {
                  @Param("id") Integer id,
                  @Param("statusId") Integer statusId);
 
+    /**
+     * 批量新增或编辑
+     * @param sceneSchedulePOS
+     */
     void batSaveOrUpdate(List<SceneSchedulePO> sceneSchedulePOS);
 
 }

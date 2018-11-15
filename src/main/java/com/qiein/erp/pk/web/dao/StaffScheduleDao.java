@@ -47,5 +47,25 @@ public interface StaffScheduleDao {
      * @return
      */
 	void insertRest(StaffScheduleVO staffScheduleVO);
+	/**
+     * 查询全部摄影师
+     * @return
+     */
+	List<StaffScheduleVO> staffAll(@Param("companyId")Integer companyId, @Param("roleId")Integer roleId, 
+			@Param("venueId")String venueId,@Param("time")Integer time);
+	/**
+     * 查询已排班摄影师
+     * @return
+     */
+	List<StaffScheduleVO> staffPK(@Param("companyId")Integer companyId, @Param("roleId")Integer roleId, 
+			@Param("venueId")String venueId,@Param("time")Integer time);
+	/**
+     * 查询休息摄影师
+     * @return
+     */
+	List<StaffScheduleVO> staffRest(@Param("companyId")Integer companyId, @Param("roleId")Integer roleId, 
+			@Param("venueId")String venueId,@Param("time")Integer time);
+	
+	
 	
 }
