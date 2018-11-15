@@ -43,9 +43,9 @@ public class VenueController extends InitController{
 
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody Venue venue){
-        if(!RegexUtil.checkMobile(venue.getVenuePhone())){
+        /*if(!RegexUtil.checkMobile(venue.getVenuePhone())){
             return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
-        }
+        }*/
 
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(venue);
@@ -72,9 +72,9 @@ public class VenueController extends InitController{
 
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Venue venue){
-        if(!RegexUtil.checkMobile(venue.getVenuePhone())){
+        /*if(!RegexUtil.checkMobile(venue.getVenuePhone())){
             return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
-        }
+        }*/
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(venue);
         venueService.updateByPrimaryKey(venue);
