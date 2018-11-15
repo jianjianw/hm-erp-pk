@@ -99,5 +99,15 @@ public class StaffScheduleImpl implements StaffScheduleService {
 		List<StaffScheduleVO> StaffScheduleRests=staffScheduleDao.staffRest(companyId,roleId,venueId,time);
 		return StaffScheduleRests;
 	}
+	/**
+     * 查询当月休息摄影师
+     * @return
+     */
+	@Override
+	public List<StaffScheduleVO> selectMonthRest(Integer companyId, int firstDay, int lastDay, Integer roleId,  
+			String[] venueId) {
+		List<StaffScheduleVO> StaffScheduleRests=staffScheduleDao.selectMonthRest(companyId,firstDay,lastDay,roleId, venueId);
+		return StaffScheduleRests;
+	}
 	
 }

@@ -65,6 +65,13 @@ public interface StaffScheduleDao {
      */
 	List<StaffScheduleVO> staffRest(@Param("companyId")Integer companyId, @Param("roleId")Integer roleId, 
 			@Param("venueId")String venueId,@Param("time")Integer time);
+	/**
+     * 查询当月摄影师休息
+     * @return
+     */
+	List<StaffScheduleVO> selectMonthRest(@Param("companyId") Integer companyId,
+			@Param("firstTime") Integer firstTime,@Param("endTime") Integer endTime,@Param("roleId") Integer roleId,
+			@Param("venueId") String[] venueId); 
 	
 	
 	

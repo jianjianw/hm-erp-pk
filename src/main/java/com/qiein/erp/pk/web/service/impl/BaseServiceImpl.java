@@ -56,6 +56,7 @@ public class BaseServiceImpl implements BaseService {
             }
 
         }
+        //baseDao.batUpdate(bases);
         //这个方法不行
         //baseDao.batInsertOrUpdate(bases);
 
