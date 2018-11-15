@@ -184,4 +184,9 @@ public class ServiceServiceImpl implements ServiceService {
         }
         return serviceByVenues;
     }
+
+    @Override
+    public List<VenueAndRoomVO> findMakeupRoomsByServiceId(Integer companyId,Integer venueId, Integer serviceId) {
+        return serviceDao.findMakeupRoomsByServiceId(companyId,venueId,serviceId);
+    }
 }

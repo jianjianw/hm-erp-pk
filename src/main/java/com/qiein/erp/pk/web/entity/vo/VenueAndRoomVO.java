@@ -10,9 +10,15 @@ public class VenueAndRoomVO implements Serializable {
     private static final long serialVersionUID = -3291459222773465997L;
     private Integer venueId;//场馆id
     private Integer serviceId;//服务id
-    private String roomId;//房间id
+    private Integer roomId;//房间id
     private String roomName;//房间名
     private Integer roomType;//房间类型
+
+    //订单页面用到的数据
+    //add
+    private Integer roomStatus;//房间状态   1 开启  0  关闭
+    //add
+    private Integer makeupRoomScheduleId; //化妆间档期id
 
 
     public Integer getVenueId() {
@@ -27,11 +33,11 @@ public class VenueAndRoomVO implements Serializable {
         this.serviceId = serviceId;
     }
 
-    public String getRoomId() {
+    public Integer getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(String roomId) {
+    public void setRoomId(Integer roomId) {
         this.roomId = roomId;
     }
 
@@ -53,5 +59,21 @@ public class VenueAndRoomVO implements Serializable {
 
     public void setVenueId(Integer venueId) {
         this.venueId = venueId;
+    }
+
+    public Integer getRoomStatus() {
+        return roomStatus;
+    }
+
+    public void setRoomStatus(Integer roomStatus) {
+        this.roomStatus = roomStatus;
+    }
+
+    public Integer getMakeupRoomScheduleId() {
+        return makeupRoomScheduleId;
+    }
+
+    public void setMakeupRoomScheduleId(Integer makeupRoomScheduleId) {
+        this.makeupRoomScheduleId = makeupRoomScheduleId;
     }
 }

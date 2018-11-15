@@ -4,12 +4,10 @@ import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO;
 import com.qiein.erp.pk.web.entity.vo.MakeupRoomShowVO;
+import com.qiein.erp.pk.web.entity.vo.VenueAndRoomVO;
 import com.qiein.erp.pk.web.service.MakeupRoomScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -68,13 +66,15 @@ public class MakeupRoomScheduleController {
 
     /**
      * 根据服务id 查询化妆间档期
+     * @param venueId
+     * @param serviceId
+     * @param date
+     * @return
      */
+    @GetMapping("find_makeup_room_schedule_by_service_id")
     public ResultInfo findMakeupRoomScheduleByServiceId(Integer venueId,Integer serviceId,Integer date){
-
-
-        List<Object> obj = makeupRoomScheduleService.findMakeupRoomScheduleByServiceId(venueId,serviceId,date);
-
-        return ResultInfoUtil.success();
+        List<VenueAndRoomVO> result = makeupRoomScheduleService.findMakeupRoomScheduleByServiceId(companyId, venueId, serviceId, date);
+        return ResultInfoUtil.success(result);
     }
 
 

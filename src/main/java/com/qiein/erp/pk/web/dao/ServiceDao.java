@@ -55,11 +55,25 @@ public interface ServiceDao {
      */
     List<ServiceVenueRoomVO> findServiceByVenueId(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId);
 
-    /*
-    * 查询服务下面的房间   根据场馆id
-    * */
+    /**
+     * 查询服务下面的房间   根据场馆id
+     * @param companyId
+     * @param venueId
+     * @param roomType
+     * @return
+     */
     List<VenueAndRoomVO> selectRoomsByVenueId(@Param("companyId") Integer companyId,
                                               @Param("venueId")Integer venueId,
                                               @Param("roomType")Integer roomType);
 
+    /**
+     * 查询服务下面的化妆间
+     * @param companyId
+     * @param venueId
+     * @param serviceId
+     * @return
+     */
+    List<VenueAndRoomVO> findMakeupRoomsByServiceId(@Param("companyId")Integer companyId,
+                                             @Param("venueId")Integer venueId,
+                                             @Param("serviceId")Integer serviceId);
 }

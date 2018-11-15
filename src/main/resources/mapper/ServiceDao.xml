@@ -238,4 +238,27 @@
             </if>
     </select>
 
+    <select id="findMakeupRoomsByServiceId" parameterType="map" resultType="com.qiein.erp.pk.web.entity.vo.VenueAndRoomVO">
+
+        select   room.venue_id venueId,
+                  service.id serviceId,
+                  room.room_id roomId,
+                  room.room_name roomName,
+                  room.room_type roomType,
+                  room.room_status roomStatus
+        from hm_erp_service service
+        inner join hm_erp_service_venue service_venue on service_venue.service_id = service.id
+        and service_venue.company_id = service.company_id
+        inner join hm_erp_service_venue_link service_vence_link on service_vence_link.service_venue_id = service_venue.id
+        and service_vence_link.company_id = service_venue.company_id
+        inner join hm_erp_venue_room room on room.room_id = service_vence_link.link_id
+        and room.company_id = service_vence_link.company_id
+        where
+              service.id = #{serviceId}
+              and service_venue.venue_id = #{venueId}
+              and service.company_id = #{companyId}
+              and room.room_type = 1
+
+    </select>
+
 </mapper>
