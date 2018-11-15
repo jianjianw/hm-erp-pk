@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/service")
-public class ServiceController extends BaseController{
+public class ServiceController extends InitController{
     @Autowired
     private ServiceService serviceService;
 
@@ -28,7 +28,8 @@ public class ServiceController extends BaseController{
      */
     @PostMapping("/add_service")
     public ResultInfo addService(@RequestBody ServiceDTO serviceDTO){
-        serviceDTO.setCompanyId(1);
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        serviceDTO.setCompanyId(companyId);
         if(StringUtil.isNotEmpty(serviceService.checkWasIn(serviceDTO.getServiceName(),serviceDTO.getCompanyId()))){
             throw new RException(ExceptionEnum.SERVICE_WAS_IN);
         }
@@ -40,7 +41,8 @@ public class ServiceController extends BaseController{
      */
     @PostMapping("/edit_service")
     public ResultInfo editService(@RequestBody ServiceDTO serviceDTO){
-        serviceDTO.setCompanyId(1);
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        serviceDTO.setCompanyId(companyId);
         if(StringUtil.isNotEmpty(serviceService.checkWasIn(serviceDTO.getServiceName(),serviceDTO.getCompanyId()))){
             throw new RException(ExceptionEnum.SERVICE_WAS_IN);
         }
@@ -53,7 +55,8 @@ public class ServiceController extends BaseController{
      */
     @GetMapping("/select")
     public ResultInfo select(){
-        return ResultInfoUtil.success(serviceService.select(1));
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        return ResultInfoUtil.success(serviceService.select(companyId));
     }
 
 }

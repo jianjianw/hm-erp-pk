@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/staff")
-public class StaffController {
+public class StaffController extends InitController{
     @Autowired
     private StaffService staffService;
 
@@ -27,7 +27,7 @@ public class StaffController {
      */
     @GetMapping("/select_staff_by_group_id")
     public ResultInfo selectStaffByGroupId(@RequestParam("groupId")String groupId){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(staffService.selectStaffByGroupId(groupId,companyId));
     }
 
@@ -40,7 +40,7 @@ public class StaffController {
      */
     @GetMapping("/insert_staff")
     public ResultInfo insertStaff(@RequestParam("staffIds")String staffIds,@RequestParam("venueIds")String venueIds,@RequestParam("roleIds")String roleIds){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         staffService.insertStaff(staffIds,venueIds,roleIds,companyId);
         return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
     }
@@ -50,7 +50,7 @@ public class StaffController {
      */
     @GetMapping("/get_staff_by_role_id")
     public ResultInfo getStaffByRoleId(@RequestParam("roleId")Integer roleId){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(staffService.getStaffByRoleId(roleId,companyId));
     }
     /**
@@ -58,7 +58,7 @@ public class StaffController {
      */
     @GetMapping("/edit_role_level")
     public ResultInfo editRoleLevel(@RequestParam("roleId")Integer roleId,@RequestParam("staffId")Integer staffId,@RequestParam("roleLevel")Integer roleLevel){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         staffService.editRoleLevel(roleId,staffId,roleLevel,companyId);
         return ResultInfoUtil.success();
     }
@@ -70,7 +70,7 @@ public class StaffController {
      */
     @GetMapping("/staff_select")
     public ResultInfo staffSelect(@RequestParam("roleId")String roleId){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(staffService.staffSelect(companyId,roleId));
     }
 }

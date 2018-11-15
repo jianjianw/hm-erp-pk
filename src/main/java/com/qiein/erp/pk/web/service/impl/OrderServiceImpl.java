@@ -47,10 +47,12 @@ public class OrderServiceImpl implements OrderService {
      * @param orderPO
      */
     public void insertOrder(OrderPO orderPO){
-        //新增订单
-        orderDao.insertOrder(orderPO);
-        //编辑订单编号
-        orderDao.insertOrderNum(StringUtil.to26Jinzhi(orderPO.getOrderId()),orderPO.getOrderId());
+        if(orderPO.getOrderId()==null){
+            //新增订单
+            orderDao.insertOrder(orderPO);
+            //编辑订单编号
+            orderDao.insertOrderNum(StringUtil.to26Jinzhi(orderPO.getOrderId()),orderPO.getOrderId());
+        }
         //给流程添加档期（除了拍摄间）
         orderDao.insertShootSch(orderPO);
         //给流程添加拍摄间档期

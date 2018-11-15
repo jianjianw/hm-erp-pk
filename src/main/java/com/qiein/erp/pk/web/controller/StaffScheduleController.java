@@ -29,7 +29,7 @@ import com.qiein.erp.pk.web.service.StaffScheduleService;
  */
 @RestController
 @RequestMapping("/StaffSchedule")
-public class StaffScheduleController {
+public class StaffScheduleController extends InitController{
 	
     @Autowired
     private StaffScheduleService staffScheduleService;
@@ -45,7 +45,7 @@ public class StaffScheduleController {
     	if(StringUtil.isEmpty(venueId)){
     		return ResultInfoUtil.error(9999,"缺少场馆id");
     	}
-    	 int companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
     	 //获取全部摄影师
          List<StaffScheduleVO> StaffScheduleVOAlls= staffScheduleService.staffAll(companyId,roleId,venueId,time);
          //获取已排班摄影师
@@ -80,7 +80,7 @@ public class StaffScheduleController {
     @GetMapping("/venue_select")
     public ResultInfo venueSelect(@RequestParam(value="roleId") Integer roleId,
     		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
-    	 int companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
          List<Venue> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
         return ResultInfoUtil.success(Venues);
     }
@@ -90,7 +90,7 @@ public class StaffScheduleController {
      */
     @GetMapping("/venue_select_only")
     public ResultInfo venueSelectOnly(){
-    	 int companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
          List<Venue> Venues= staffScheduleService.venueSelectOnly(companyId);
         return ResultInfoUtil.success(Venues);
     }
@@ -100,7 +100,7 @@ public class StaffScheduleController {
      */
     @GetMapping("/role_level_select")
     public ResultInfo roleLevelSelect(){
-    	 int companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
          List<StaffRoleTypeVO> StaffRoleTypeVOs= staffScheduleService.roleLevelSelect(companyId);
         return ResultInfoUtil.success(StaffRoleTypeVOs);
     }
@@ -111,7 +111,7 @@ public class StaffScheduleController {
     @PostMapping("/set_rest")
     public ResultInfo setRest(@RequestBody StaffScheduleVO staffScheduleVO){
     	System.out.println(JSONObject.toJSONString(staffScheduleVO));
-    	 int companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
     	 staffScheduleVO.setCompanyId(companyId);
     	 staffScheduleVO.setStaffDayLimit(1);
     	 staffScheduleVO.setStaffStatus(2);
@@ -134,7 +134,7 @@ public class StaffScheduleController {
     @GetMapping("/select_all")
     public ResultInfo selectAll(@RequestParam("roleId") Integer roleId,@RequestParam("month") String month,
     		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
-        Integer companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
         //获取时间时间戳
         int firstDay = TimeUtil.getMonthStartTimeStampByDate(month);
         int lastDay=TimeUtil.getMonthEndTimeStampByDate(month);

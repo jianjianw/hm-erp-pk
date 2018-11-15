@@ -26,10 +26,9 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/venue")
-public class VenueController {
+public class VenueController extends InitController{
 
     private static Logger logger = LoggerFactory.getLogger(VenueController.class);
-    Integer companyId = 1;
 
     @Autowired
     private VenueService venueService;
@@ -37,6 +36,7 @@ public class VenueController {
 
     @PostMapping("/delete_by_primary_key")
     public ResultInfo deleteByPrimaryKey(Integer id){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         int i = venueService.deleteByPrimaryKey(id,companyId);
         return ResultInfoUtil.success();
     }
@@ -55,6 +55,7 @@ public class VenueController {
     }
     @GetMapping("/select_by_primary_key")
     public ResultInfo selectByPrimaryKey(Integer id){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         Venue venue = venueService.selectByPrimaryKey(id,companyId);
         return ResultInfoUtil.success(venue);
     }
@@ -63,6 +64,7 @@ public class VenueController {
     //显示所有门店 或者 内景馆
     @GetMapping("/select_all")
     public ResultInfo selectAll(Integer venueType){//venueType 1 内景馆   2 门店
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<VenueDTO> result = venueService.selectAll(companyId,venueType);
         return ResultInfoUtil.success(result);
     }
@@ -92,6 +94,7 @@ public class VenueController {
      */
     @GetMapping("/show_index")
     public ResultInfo showIndex(){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<VenueDTO> venueDTOS = venueService.showIndex(companyId);
         return ResultInfoUtil.success(venueDTOS);
     }
@@ -99,6 +102,8 @@ public class VenueController {
 
    @GetMapping("/get_venues")
     public ResultInfo getVenues(){
+
+       Integer companyId=getCurrentLoginStaff().getCompanyId();
        return ResultInfoUtil.success(venueService.getVenues(companyId));
    }
 }

@@ -29,7 +29,7 @@ import com.qiein.erp.pk.web.service.StaffScheduleService;
  */
 @RestController
 @RequestMapping("/PlanSchedule")
-public class PlancheduleController {
+public class PlancheduleController extends InitController{
 	
     @Autowired
     private PlanScheduleService planScheduleService;
@@ -80,7 +80,7 @@ public class PlancheduleController {
     @GetMapping("/venue_select")
     public ResultInfo venueSelect(@RequestParam(value="roleId") Integer roleId,
     		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
-    	 int companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
          List<Venue> Venues= planScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
         return ResultInfoUtil.success(Venues);
     }
@@ -90,7 +90,7 @@ public class PlancheduleController {
      */
     @GetMapping("/venue_select_only")
     public ResultInfo venueSelectOnly(){
-    	 int companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
          List<Venue> Venues= planScheduleService.venueSelectOnly(companyId);
         return ResultInfoUtil.success(Venues);
     }
@@ -100,7 +100,7 @@ public class PlancheduleController {
      */
     @GetMapping("/role_level_select")
     public ResultInfo roleLevelSelect(){
-    	 int companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
          List<StaffRoleTypeVO> StaffRoleTypeVOs= planScheduleService.roleLevelSelect(companyId);
         return ResultInfoUtil.success(StaffRoleTypeVOs);
     }
@@ -111,7 +111,7 @@ public class PlancheduleController {
     @PostMapping("/set_rest")
     public ResultInfo setRest(@RequestBody StaffScheduleVO staffScheduleVO){
     	System.out.println(JSONObject.toJSONString(staffScheduleVO));
-    	 int companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
     	 staffScheduleVO.setCompanyId(companyId);
     	 staffScheduleVO.setStaffDayLimit(1);
     	 staffScheduleVO.setStaffStatus(2);
@@ -134,7 +134,7 @@ public class PlancheduleController {
     @GetMapping("/select_all")
     public ResultInfo selectAll(@RequestParam("roleId") Integer roleId,@RequestParam("month") String month,
     		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
-        Integer companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
         //获取时间时间戳
         int firstDay = TimeUtil.getMonthStartTimeStampByDate(month);
         int lastDay=TimeUtil.getMonthEndTimeStampByDate(month);

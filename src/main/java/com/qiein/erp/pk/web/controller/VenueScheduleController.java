@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/venue_schedule")
-public class VenueScheduleController {
+public class VenueScheduleController extends InitController{
     @Autowired
     private VenueScheduleService venueScheduleService;
 
@@ -26,7 +26,7 @@ public class VenueScheduleController {
      */
     @GetMapping("/get_schedule_show")
     public ResultInfo getScheduleShow(@RequestParam("monthStr") String monthStr) {
-        Integer companyId = 1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(venueScheduleService.getScheduleShow(monthStr, companyId));
     }
 
@@ -35,7 +35,7 @@ public class VenueScheduleController {
      */
     @GetMapping("/get_venue_schedule_set")
     public ResultInfo getVenueScheduleSet() {
-        Integer companyId = 1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(venueScheduleService.getVenueScheduleSet(companyId));
     }
 
@@ -44,7 +44,7 @@ public class VenueScheduleController {
      */
     @PostMapping("/venue_schedule_set")
     public ResultInfo VenueScheduleSet(@RequestBody VenueScheduleSetDTO venueScheduleSetDTO) {
-        Integer companyId = 1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         venueScheduleSetDTO.setCompanyId(companyId);
         if (venueScheduleSetDTO.getEnd() == null) {
             venueScheduleSetDTO.setEnd(venueScheduleSetDTO.getStart() + CommonConstant.THERE_YEAR_TIME);
@@ -58,7 +58,7 @@ public class VenueScheduleController {
      */
     @GetMapping("venue_sch_select")
     public ResultInfo venueSchSelect(@RequestParam Integer venueTime) {
-        Integer companyId = 1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(venueScheduleService.venueSchSelect(venueTime, companyId));
     }
 }

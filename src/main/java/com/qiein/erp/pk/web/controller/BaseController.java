@@ -18,13 +18,13 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/base")
-public class BaseController {
+public class BaseController extends InitController{
 
-    Integer companyId = 1;
     @Autowired
     private BaseService baseService;
     @PostMapping("/delete_by_primary_key")
     public ResultInfo deleteByPrimaryKey(Integer id){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         int i = baseService.deleteByPrimaryKey(id,companyId);
         return  ResultInfoUtil.success();
     }
@@ -37,12 +37,14 @@ public class BaseController {
     }
     @GetMapping("/select_by_primary_key")
     public ResultInfo selectByPrimaryKey(Integer id){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         Base base = baseService.selectByPrimaryKey(id,companyId);
         return ResultInfoUtil.success(base);
     }
 
     @GetMapping("/select_all")
     public ResultInfo selectAll(){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<Base> bases = baseService.selectAll(companyId);
         return ResultInfoUtil.success(bases);
     }
@@ -88,6 +90,7 @@ public class BaseController {
      */
     @GetMapping("/select_open_all")
     public ResultInfo selectOpenAll(){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<Base> bases = baseService.selectOpenAll(companyId);
         return ResultInfoUtil.success(bases);
     }
