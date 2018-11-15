@@ -108,7 +108,7 @@ public class PlancheduleController {
      * 人员休息
      * @return
      */
-    /*@PostMapping("/set_rest")
+    @PostMapping("/set_rest")
     public ResultInfo setRest(@RequestBody StaffScheduleVO staffScheduleVO){
     	System.out.println(JSONObject.toJSONString(staffScheduleVO));
     	 int companyId=1;
@@ -127,7 +127,7 @@ public class PlancheduleController {
     		 return ResultInfoUtil.success("当日已休息");
     	 }
         return ResultInfoUtil.success(null);
-    }*/
+    }
     /**
      * 查询人员档期主页面
      */
