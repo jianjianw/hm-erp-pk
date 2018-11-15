@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/order")
-public class OrderController {
+public class OrderController extends InitController{
     @Autowired
     private OrderService orderService;
     /**
@@ -28,7 +28,7 @@ public class OrderController {
      */
     @PostMapping("/get_order")
     public ResultInfo getOrder(@RequestBody OrderDTO orderDTO){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         orderDTO.setCompanyId(companyId);
         return ResultInfoUtil.success(orderService.getOrder(orderDTO));
     }
@@ -39,7 +39,7 @@ public class OrderController {
      */
     @PostMapping("/select_by_sch_id")
     public ResultInfo selectBySchId(@RequestBody OrderSelectDTO orderDTO){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         orderDTO.setCompanyId(companyId);
         return ResultInfoUtil.success(orderService.selectBySchId(orderDTO));
     }
@@ -48,7 +48,7 @@ public class OrderController {
      */
     @PostMapping("/insert_order")
     public ResultInfo insertOrder(@RequestBody OrderPO orderPO){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         orderPO.setCompanyId(companyId);
         orderService.insertOrder(orderPO);
         return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
@@ -58,7 +58,7 @@ public class OrderController {
      */
     @GetMapping("/select_by_ord_id")
     public  ResultInfo selectByOrdId(Integer orderId){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(orderService.selectByOrdId(orderId,companyId));
     }
 
@@ -69,7 +69,7 @@ public class OrderController {
      */
     @PostMapping("/edit_process")
     public ResultInfo editProcess(@RequestBody ProcessPO processPO){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         processPO.setCompanyId(companyId);
         orderService.editProcess(processPO);
         return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
@@ -79,7 +79,7 @@ public class OrderController {
      */
     @PostMapping("/edit_order")
     public ResultInfo editOrder(@RequestBody OrderEditPO orderEditPO){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         orderEditPO.setCompanyId(companyId);
         orderService.updateOrder(orderEditPO);
         return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
