@@ -55,5 +55,11 @@ public interface PlanScheduleService {
      * @return
      */
 	List<StaffScheduleVO> staffRest(int companyId, Integer roleId, String venueId, Integer time);
+	/**
+     * 查询当月主界面休息摄影师
+     * @return
+     */
+	List<StaffScheduleVO> selectMonthRest(Integer companyId, int firstDay, int lastDay, Integer roleId,
+			String[] venueId);
 
 }

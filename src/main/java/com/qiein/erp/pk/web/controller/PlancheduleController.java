@@ -176,7 +176,22 @@ public class PlancheduleController extends InitController{
   				row.put("total",count);
   				newmaps.add(row);
   			}
-  		}		
+  		}	
+  	//把休息的摄影师放入
+  		List<StaffScheduleVO> staffMonthRest=planScheduleService.selectMonthRest(companyId,firstDay,lastDay,roleId,venueId);
+  		TempStaffVO tempStaffs=null;
+  		if(staffMonthRest!=null && staffMonthRest.size()>0){
+  			for (Map<String, Object> map : newmaps) {
+  	  			for (StaffScheduleVO staffScheduleVO : staffMonthRest) {
+  	  				if(map.get("venueId").equals(staffScheduleVO.getVenueId())&&
+  	  						map.get("staffId").equals(staffScheduleVO.getStaffId())){
+  	  					tempStaffs=new TempStaffVO();
+  	  					tempStaffs.setStaffStatus(staffScheduleVO.getStaffStatus());
+  	  					map.put(String.valueOf(staffScheduleVO.getTime()), tempStaffs);
+  	  				}
+  	  			}
+  			} 
+  		}
         return ResultInfoUtil.success(newmaps);
     }
 

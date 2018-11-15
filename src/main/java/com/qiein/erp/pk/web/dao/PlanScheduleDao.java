@@ -66,6 +66,10 @@ public interface PlanScheduleDao {
 	List<StaffScheduleVO> staffRest(@Param("companyId")Integer companyId, @Param("roleId")Integer roleId, 
 			@Param("venueId")String venueId,@Param("time")Integer time);
 	
+	List<StaffScheduleVO> selectMonthRest(@Param("companyId") Integer companyId,
+			@Param("firstTime") Integer firstTime,@Param("endTime") Integer endTime,@Param("roleId") Integer roleId,
+			@Param("venueId") String[] venueId);
+	
 	
 	
 }
