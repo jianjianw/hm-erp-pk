@@ -164,5 +164,12 @@ public class StaffServiceImpl implements StaffService {
     public StaffPO getById(int id, int companyId) {
         return staffDao.getByIdAndCid(id, companyId);
     }
+    /**
+     * 角色下拉框
+     */
+    public List<StaffSelectVO> staffSelect(Integer companyId,Integer roleId){
+        return staffDao.staffSelect(companyId,roleId);
+    }
+
 
 }

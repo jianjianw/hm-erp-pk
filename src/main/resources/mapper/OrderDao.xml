@@ -64,9 +64,9 @@
     SELECT
         pro.id ,
         pro.order_id,
-        ord.order_time ,
-        venue_sch.venue_day ,
-        plan_sch.staff_day ,
+        FROM_UNIXTIME(ord.order_time,"%Y:%m%:%d") order_time,
+        FROM_UNIXTIME( venue_sch.venue_day,"%Y:%m%:%d") venue_day,
+        FROM_UNIXTIME(plan_sch.staff_day,"%Y:%m%:%d") staff_day,
         ord.kz_name,
         ord.kz_phone,
         ord.mate_name,
@@ -118,6 +118,29 @@
     AND staff2.COMPANYID = staff_sch2.company_id
     WHERE
         ord.company_id =#{companyId}
+        <if test="timeType = 'lr'">
+            and ord.order_time BETWEEN #{start} and #{end}
+        </if>
+        <if test="timeType= 'dd'">
+            and ord.order_time BETWEEN #{start} and #{end}
+        </if>
+        <if test="timeType= 'qh'">
+            and plan_sch.staff_day BETWEEN #{start} and #{end}
+        </if>
+        <if test="shootId !=null and shootId!=''">
+            and staff_sch1.id in (${shootId})
+            staff_sch2.id
+        </if>
+        <if test="makeupId !=null and makeupId!=''">
+            and staff_sch2.id  in (${makeupId})
+        </if>
+        <if test="orderType !=null and orderType!=''">
+            and pro.order_type  in (${orderType})
+        </if>
+        <if test="mealIds !=null and mealIds!=''">
+            and meal.id in (${mealIds})
+        </if>
+
     GROUP BY
 	pro.id,
 	sence_pro.shoot_schedule_id
@@ -231,6 +254,7 @@
         LEFT JOIN hm_erp_meal meal ON meal.id = ord.meal_id
         AND meal.company_id = ord.company_id
         where ord.id=#{orderId} and ord.company_id=#{companyId}
+        group by scene_pro.shoot_schedule_id
     </select>
     <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
         insert into hm_erp_order(kzid,meal_id,company_id,sale_id,order_time,srctype,collector_id,collector_name,old_kz_name,kz_name,kz_phone,mate_name,mate_phone,address,marry_time,letter_id,child_name,birth_day,age,sex,type)

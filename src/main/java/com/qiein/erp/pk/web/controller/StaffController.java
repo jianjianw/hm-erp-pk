@@ -62,4 +62,15 @@ public class StaffController {
         staffService.editRoleLevel(roleId,staffId,roleLevel,companyId);
         return ResultInfoUtil.success();
     }
+
+    /**
+     * 角色下拉框
+     * @param roleId
+     * @return
+     */
+    @GetMapping("/staff_select")
+    public ResultInfo staffSelect(@RequestParam("roleId")Integer roleId){
+        Integer companyId=1;
+        return ResultInfoUtil.success(staffService.staffSelect(companyId,roleId));
+    }
 }
