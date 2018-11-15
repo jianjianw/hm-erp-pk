@@ -2,6 +2,8 @@ package com.qiein.erp.pk.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.sun.org.apache.xml.internal.security.Init;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +25,7 @@ import com.qiein.erp.pk.web.service.MealService;
  * */
 @RestController
 @RequestMapping("/meal")
-public class MealController {
+public class MealController extends InitController{
 
     @Autowired
     private MealService mealService;
@@ -155,7 +157,7 @@ public class MealController {
      */
     @GetMapping("/meal_select")
     public ResultInfo mealSelect(){
-        Integer companyId=1;
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(mealService.mealSelect(companyId));
     }
   

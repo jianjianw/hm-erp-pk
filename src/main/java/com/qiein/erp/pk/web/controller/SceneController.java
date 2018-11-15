@@ -21,9 +21,8 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/scene")
-public class SceneController {
+public class SceneController extends InitController{
 
-    Integer companyId = 1;
 
     @Autowired
     private SceneService sceneService;
@@ -31,6 +30,7 @@ public class SceneController {
     @PostMapping("/delete_by_primary_key")
     @ApiImplicitParam(name = "id", value = "场景id" ,dataType = "Integer")
     public ResultInfo deleteByPrimaryKey(Integer id){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         sceneService.deleteByPrimaryKey(id,companyId);
         return ResultInfoUtil.success();
     }
@@ -49,6 +49,7 @@ public class SceneController {
     @GetMapping("/select_by_primary_key")
     @ApiImplicitParam(name = "id", value = "场景id" ,dataType = "Integer")
     public ResultInfo selectByPrimaryKey(Integer id){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         Scene scene = sceneService.selectByPrimaryKey(id,companyId);
         return ResultInfoUtil.success(scene);
     }
@@ -56,6 +57,7 @@ public class SceneController {
     @ApiOperation(value = "查询所有的拍摄景")
     @GetMapping("/select_all")
     public ResultInfo selectAll(){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<Scene> scenes = sceneService.selectAll(companyId);
         return ResultInfoUtil.success(scenes);
     }
@@ -76,6 +78,7 @@ public class SceneController {
     //查询拍摄间下面的拍摄景
     @GetMapping("/find_scene_by_room_id")
     public ResultInfo findSceneByRoomId(Integer roomId){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<Scene> list  = sceneService.findSceneByRoomId(companyId,roomId);
         return ResultInfoUtil.success(list);
 
@@ -94,6 +97,7 @@ public class SceneController {
     //查询场馆下面的所有拍摄景
     @GetMapping("/find_scene_by_venue_id")
     public ResultInfo findSceneByVenueId(Integer venueId){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<RoomAndSceneDTO> roomAndScene = sceneService.findRoomAndSceneByVenueId(companyId, venueId);
         return ResultInfoUtil.success(roomAndScene);
     }

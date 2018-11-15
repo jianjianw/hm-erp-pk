@@ -23,14 +23,14 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/scene_room_schedule")
-public class SceneScheduleController {
+public class SceneScheduleController extends InitController{
 
     @Autowired
     private SceneScheduleService sceneScheduleService;
 
-    private Integer  companyId=  1;
     @GetMapping("/select_scene_schedule_by_date")
     public ResultInfo selectSceneScheduleByDate(Integer venueId,Integer dateTime){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         ShootScheduleDTO shootScheduleDTO = sceneScheduleService.selectSceneScheduleByDate(companyId, venueId, dateTime);
         return ResultInfoUtil.success(shootScheduleDTO);
     }
@@ -38,6 +38,7 @@ public class SceneScheduleController {
     @PostMapping("/punch_in")
     public ResultInfo punchIn(Integer id,Integer statusId){//拍摄间档期id   statusId拍摄间档期状态
         //status_id
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         sceneScheduleService.punchIn(companyId,id,statusId);
         //1：默认初始，预定中；2：开始，使用中；3：使用完毕；
         return ResultInfoUtil.success();

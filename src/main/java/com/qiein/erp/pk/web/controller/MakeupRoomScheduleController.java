@@ -16,10 +16,9 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/makeup_room_schedule")
-public class MakeupRoomScheduleController {
+public class MakeupRoomScheduleController extends  InitController{
 
 
-    private Integer companyId = 1;
 
     @Autowired
     private MakeupRoomScheduleService makeupRoomScheduleService;
@@ -28,6 +27,7 @@ public class MakeupRoomScheduleController {
      */
     @RequestMapping("/select_makeup_room_schedule_by_date")
     public ResultInfo selectMakeupRoomSchedule(Integer venueId, Integer dateTime){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         MakeupRoomShowVO result = makeupRoomScheduleService.selectMakeupRoomSchedule(companyId, venueId,dateTime);
         return ResultInfoUtil.success(result);
     }
@@ -37,6 +37,7 @@ public class MakeupRoomScheduleController {
      */
     @PostMapping("/update_limit_by_primary_key")
     public ResultInfo updateLimitByPrimaryKey(@RequestBody MakeupRoomSchedulePO makeupRoomSchedulePO){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         makeupRoomSchedulePO.setCompanyId(companyId);
         makeupRoomScheduleService.updateLimitByPrimaryKey(makeupRoomSchedulePO);
         return ResultInfoUtil.success();

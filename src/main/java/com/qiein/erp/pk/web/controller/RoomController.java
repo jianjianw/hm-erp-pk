@@ -23,15 +23,15 @@ import java.util.List;
  * */
 @RestController
 @RequestMapping("/room")
-public class RoomController {
+public class RoomController extends InitController{
 
-    Integer companyId = 1 ;
 
     @Autowired
     private RoomService roomService;
 
     @PostMapping("/delete_by_primary_key")
     public ResultInfo deleteByPrimaryKey(Integer roomId){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         int i = roomService.deleteByPrimaryKey(roomId,companyId);
         return ResultInfoUtil.success();
     }
@@ -53,6 +53,7 @@ public class RoomController {
     @ApiOperation(value = "根据主键查询房间")
     @GetMapping("/select_by_primary_key")
     public ResultInfo selectByPrimaryKey(Integer roomId){//id已经确定了是化妆间还是拍摄间。
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         Room room = roomService.selectByPrimaryKey(roomId,companyId);
         return ResultInfoUtil.success(room);
     }
@@ -60,6 +61,7 @@ public class RoomController {
     @ApiImplicitParam(name = "roomType",value = "房间类型  化妆间:1 拍摄间:2 ", dataType = "Integer")
     @GetMapping("/select_all")
     public ResultInfo selectAll(Integer roomType){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<Room> rooms = roomService.selectAll(companyId,roomType);
         return ResultInfoUtil.success(rooms);
     }
@@ -74,6 +76,7 @@ public class RoomController {
     }
     @GetMapping("/select_room_for_service")
     public ResultInfo selectRoomForService(@RequestParam String venueIds){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(roomService.selectRoomByServiceId(venueIds,companyId));
     }
 
@@ -85,6 +88,7 @@ public class RoomController {
     //查询场馆下面的化妆间 1 或者 拍摄间 2
     @GetMapping("/find_room_by_venue_id")
     public ResultInfo findRoomByVenueId(Integer venueId, Integer roomType){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<Room> rooms = roomService.findRoomByVenueId(companyId, venueId, roomType);
         return ResultInfoUtil.success(rooms);
     }
@@ -112,7 +116,7 @@ public class RoomController {
     })
     @GetMapping("get_all_room_and_type")
     public ResultInfo getLevelAndRoom(Integer venueId,String roomType){
-
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
         //查询所有房间
         List<Room> rooms = roomService.findRoomByVenueId(companyId, venueId, Integer.valueOf(roomType));
 

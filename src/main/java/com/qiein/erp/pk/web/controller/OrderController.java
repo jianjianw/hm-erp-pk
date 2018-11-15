@@ -6,6 +6,7 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.OrderDTO;
 import com.qiein.erp.pk.web.entity.dto.OrderSelectDTO;
 import com.qiein.erp.pk.web.entity.po.OrderEditPO;
+import com.qiein.erp.pk.web.entity.po.OrderPO;
 import com.qiein.erp.pk.web.entity.po.ProcessPO;
 import com.qiein.erp.pk.web.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,13 @@ public class OrderController {
     /**
      * 新增订单
      */
-//    @PostMapping("/insert_order")
-//    public ResultInfo insertOrder(@RequestBody O)
+    @PostMapping("/insert_order")
+    public ResultInfo insertOrder(@RequestBody OrderPO orderPO){
+        Integer companyId=1;
+        orderPO.setCompanyId(companyId);
+        orderService.insertOrder(orderPO);
+        return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
+    }
     /**
      * 根据订单id获取流程
      */
