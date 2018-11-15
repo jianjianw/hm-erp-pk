@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.dao;
 
 import java.util.List;
 
+import com.qiein.erp.pk.web.entity.vo.MealSelectVO;
 import org.apache.ibatis.annotations.Param;
 
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
@@ -56,5 +57,11 @@ public interface MealDao {
 	
 	ServicePO selectServiceName(@Param("serviceId")Integer serviceId, @Param("companyId") Integer companyId);
 	List<DictionaryErp> selectPhoto(@Param("companyId")Integer companyId);
-	
+
+	/**
+	 * 套餐下拉框
+	 * @param companyId
+	 * @return
+	 */
+	List<MealSelectVO> mealSelect(@Param("companyId")Integer companyId);
 }

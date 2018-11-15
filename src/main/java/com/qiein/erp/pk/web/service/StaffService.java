@@ -43,5 +43,9 @@ public interface StaffService {
      * @return
      */
     StaffPO getById(int id, int companyId);
+    /**
+     * 角色下拉框
+     */
+    List<StaffSelectVO> staffSelect(Integer companyId,Integer roleId);
 
 }

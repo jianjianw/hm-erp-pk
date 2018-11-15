@@ -28,8 +28,18 @@
     <result column="SPARE" property="spare" jdbcType="VARCHAR" />
     <result column="COMPANYID" property="companyId" jdbcType="INTEGER" />
     <result column="ISSHOW" property="showFlag" jdbcType="BOOLEAN" />
-  </resultMap> 
-  
+  </resultMap>
+	<resultMap id="mealSelectMap" type="com.qiein.erp.pk.web.entity.vo.MealSelectVO">
+		<result column="meal_type" property="typeId"/>
+		<result column="meal_type_name" property="typeName"/>
+		<collection property="meals" ofType="com.qiein.erp.pk.web.entity.po.Meal">
+			<result column="id" property="id"/>
+			<result column="meal_name" property="mealName"/>
+		</collection>
+	</resultMap>
+  <select id="mealSelect" resultMap="mealSelectMap">
+	  select meal_type,meal_type_name,id,meal_name from hm_erp_meal where company_id=#{companyId}
+  </select>
   <resultMap id="ServiceMap" type="com.qiein.erp.pk.web.entity.po.ServicePO" >
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="service_name" property="serviceName" jdbcType="VARCHAR" />

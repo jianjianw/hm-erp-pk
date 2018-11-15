@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.service.impl;
 
 import java.util.List;
 
+import com.qiein.erp.pk.web.entity.vo.MealSelectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -103,6 +104,13 @@ public class MealServiceImpl implements MealService {
 		List<DictionaryErp> photoTypes=mealDao.selectPhoto(companyId);
 		return photoTypes;
 	}
-
+	/**
+	 * 套餐下拉框
+	 * @param companyId
+	 * @return
+	 */
+	public List<MealSelectVO> mealSelect(Integer companyId){
+		return mealDao.mealSelect(companyId);
+	}
 	
 }

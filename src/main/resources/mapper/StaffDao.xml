@@ -174,4 +174,18 @@
         set role_level = #{roleLevel}
         where company_id = #{companyId} and staff_id = #{staffId} and role_id = #{roleId}
     </update>
+    <select id="staffSelect" resultType="com.qiein.erp.pk.web.entity.vo.StaffSelectVO">
+        SELECT
+            staff.staff_id id,
+            role.role_id roleIds,
+        sta.NICKNAME nickName
+
+        FROM
+            hm_erp_staff staff
+        LEFT JOIN hm_erp_staff_role role ON role.staff_id = staff.staff_id
+        left join hm_pub_staff sta on sta.id=staff.staff_id and sta.COMPANYID=staff.company_id
+        AND staff.company_id = role.company_id
+        where sta.id is not null and sta.isdel=0
+        and staff.company_id=#{companyId} and role.role_id=#{roleId}
+    </select>
 </mapper>

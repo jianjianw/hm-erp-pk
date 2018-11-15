@@ -149,5 +149,14 @@ public class MealController {
         return ResultInfoUtil.success();
     }
 
+    /**
+     * 套餐下拉框
+     * @return
+     */
+    @GetMapping("/meal_select")
+    public ResultInfo mealSelect(){
+        Integer companyId=1;
+        return ResultInfoUtil.success(mealService.mealSelect(companyId));
+    }
   
 }
