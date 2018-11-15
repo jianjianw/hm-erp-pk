@@ -98,14 +98,14 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
     }
 
     @Override
-    public void findSceneScheduleByVenueId(Integer companyId, Integer venueId) {
-
-
-    }
-
-    @Override
     public List<SceneSchedulePO> batSave(List<SceneSchedulePO> sceneSchedulePOS) {
-        return sceneScheduleDao.batSave(sceneSchedulePOS);
+
+       /* for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
+            SceneSchedulePO sceneSchedulePO1 = sceneScheduleDao.saveReturnId(sceneSchedulePO);
+        }*/
+        List<SceneSchedulePO> list =  sceneScheduleDao.batSave(sceneSchedulePOS);
+
+        return list;
     }
 
     //获取开始时间和结束时间

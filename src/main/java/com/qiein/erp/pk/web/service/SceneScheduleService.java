@@ -39,17 +39,9 @@ public interface SceneScheduleService {
     void batSaveOrUpdate(List<SceneSchedulePO> sceneSchedulePOS);
 
     /**
-     * 订单关联的拍摄景下拉框
-     * @param companyId
-     * @param venueId
-     */
-    void findSceneScheduleByVenueId(Integer companyId, Integer venueId);
-
-    /**
-     * 批量保存拍摄景档期
+     * 批量保存
      * @param sceneSchedulePOS
      * @return
      */
     List<SceneSchedulePO> batSave(List<SceneSchedulePO> sceneSchedulePOS);
-
 }

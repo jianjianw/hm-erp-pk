@@ -45,7 +45,14 @@ public interface SceneScheduleDao {
     void batSaveOrUpdate(List<SceneSchedulePO> sceneSchedulePOS);
 
     /**
-     * 批量保存拍摄景档期
+     * 保存返回id
+     * @param sceneSchedulePO
+     * @return
+     */
+    SceneSchedulePO saveReturnId(SceneSchedulePO sceneSchedulePO);
+
+    /**
+     * 批量保存
      * @param sceneSchedulePOS
      * @return
      */

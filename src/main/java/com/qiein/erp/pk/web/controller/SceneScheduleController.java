@@ -71,19 +71,11 @@ public class SceneScheduleController extends InitController{
      */
     @PostMapping("/bat_save")
     public ResultInfo batSave(@RequestBody List<SceneSchedulePO> sceneSchedulePOS){
+        //如果要防止添加重复记录 就要一条一条插入   。  也是可以的
         List<SceneSchedulePO> reslut = sceneScheduleService.batSave(sceneSchedulePOS);
         return ResultInfoUtil.success(reslut);
     }
 
-    /**
-     * 拍摄景的下拉框
-     */
-    @GetMapping("/find_scene_schedule_by_venue_id")
-    public ResultInfo findSceneScheduleByVenueId(Integer venueId){
-        Integer companyId=getCurrentLoginStaff().getCompanyId();
-        sceneScheduleService.findSceneScheduleByVenueId(companyId,venueId);
-        return null;
-    }
 
 
 
