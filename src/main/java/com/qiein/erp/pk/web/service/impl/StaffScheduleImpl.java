@@ -72,5 +72,32 @@ public class StaffScheduleImpl implements StaffScheduleService {
 		staffScheduleDao.insertRest(staffScheduleVO);
 		
 	}
+	/**
+     * 查询全部摄影师
+     * @return
+     */
+	@Override
+	public List<StaffScheduleVO> staffAll(int companyId, Integer roleId, String venueId, Integer time) {
+		List<StaffScheduleVO> StaffScheduleVO=staffScheduleDao.staffAll(companyId,roleId,venueId,time);
+		return StaffScheduleVO;
+	}
+	/**
+     * 查询已排班摄影师
+     * @return
+     */
+	@Override
+	public List<StaffScheduleVO> staffPK(int companyId, Integer roleId, String venueId, Integer time) {
+		List<StaffScheduleVO> StaffSchedulePK=staffScheduleDao.staffPK(companyId,roleId,venueId,time);
+		return StaffSchedulePK;
+	}
+	/**
+     * 查询休息摄影师
+     * @return
+     */
+	@Override
+	public List<StaffScheduleVO> staffRest(int companyId, Integer roleId, String venueId, Integer time) {
+		List<StaffScheduleVO> StaffScheduleRests=staffScheduleDao.staffRest(companyId,roleId,venueId,time);
+		return StaffScheduleRests;
+	}
 	
 }

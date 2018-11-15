@@ -39,8 +39,21 @@ public interface StaffScheduleService {
      * @return
      */
 	void insertRest(StaffScheduleVO staffScheduleVO);
+	/**
+     * 查询全部摄影师
+     * @return
+     */
+	List<StaffScheduleVO> staffAll(int companyId, Integer roleId, String venueId,
+			Integer time);
+	/**
+     * 查询已排班摄影师
+     * @return
+     */
+	List<StaffScheduleVO> staffPK(int companyId, Integer roleId, String venueId, Integer time);
+	/**
+     * 查询休息摄影师
+     * @return
+     */
+	List<StaffScheduleVO> staffRest(int companyId, Integer roleId, String venueId, Integer time);
 
-	
-
-    
 }

@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.util.TimeUtil;
 import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
@@ -34,6 +33,45 @@ public class StaffScheduleController {
     @Autowired
     private StaffScheduleService staffScheduleService;
     
+    /**
+     * 查询摄影师档期--订单界面下拉框
+     * @return
+     */
+    @GetMapping("/select_box")
+    public ResultInfo selectBox(@RequestParam(value="roleId") Integer roleId,@RequestParam("venueId")String venueId,
+    		@RequestParam("time")Integer time){
+    	//校验参数
+    	if(StringUtil.isEmpty(venueId)){
+    		return ResultInfoUtil.error(9999,"缺少场馆id");
+    	}
+    	 int companyId=1;
+    	 //获取全部摄影师
+         List<StaffScheduleVO> StaffScheduleVOAlls= staffScheduleService.staffAll(companyId,roleId,venueId,time);
+         //获取已排班摄影师
+         List<StaffScheduleVO> StaffScheduleVOPKs= staffScheduleService.staffPK(companyId,roleId,venueId,time);
+         for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
+        	 for (StaffScheduleVO StaffScheduleVOPK : StaffScheduleVOPKs) {
+     			if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVOPK.getVenueId()) && 
+     					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
+     				StaffScheduleVOAll.setStatus(1);
+     			}
+     		}
+		}
+        //获取休息摄影师
+        List<StaffScheduleVO> StaffScheduleVORests= staffScheduleService.staffRest(companyId,roleId,venueId,time);
+        if(StaffScheduleVORests!=null && StaffScheduleVORests.size()>0){
+        	
+        	for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
+        		for (StaffScheduleVO StaffScheduleVORest : StaffScheduleVORests) {
+					if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVORest.getVenueId())&&
+							StaffScheduleVOAll.getStaffId().equals(StaffScheduleVORest.getStaffId())){
+						StaffScheduleVOAll.setStatus(2);
+					}
+				}
+        	}
+        }
+        return ResultInfoUtil.success(StaffScheduleVOAlls);
+    }
     /**
      * 查询场馆
      * @return
