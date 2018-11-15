@@ -49,4 +49,12 @@ public class VenueScheduleController {
         venueScheduleService.VenueScheduleSet(venueScheduleSetDTO);
         return ResultInfoUtil.success();
     }
+    /**
+     * 场馆关于订单编辑的下拉框
+     */
+    @GetMapping("venue_sch_select")
+    public ResultInfo venueSchSelect(@RequestParam Integer venueTime){
+        Integer companyId=1;
+        return ResultInfoUtil.success();
+    }
 }

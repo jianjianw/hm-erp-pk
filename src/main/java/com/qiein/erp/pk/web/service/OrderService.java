@@ -2,7 +2,9 @@ package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.web.entity.dto.OrderDTO;
 import com.qiein.erp.pk.web.entity.dto.OrderSelectDTO;
+import com.qiein.erp.pk.web.entity.po.OrderEditPO;
 import com.qiein.erp.pk.web.entity.po.OrderPO;
+import com.qiein.erp.pk.web.entity.po.ProcessPO;
 import com.qiein.erp.pk.web.entity.vo.OrderProVO;
 import com.qiein.erp.pk.web.entity.vo.OrderVO;
 
@@ -37,4 +39,12 @@ public interface OrderService {
      * @return
      */
     OrderProVO selectByOrdId(Integer orderId, Integer companyId);
+    /**
+     * 编辑流程
+     */
+    void editProcess(ProcessPO processPO);
+    /**
+     * 修改订单
+     */
+    void updateOrder(OrderEditPO orderEditPO);
 }

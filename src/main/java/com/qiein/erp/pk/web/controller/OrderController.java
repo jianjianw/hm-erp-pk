@@ -1,9 +1,12 @@
 package com.qiein.erp.pk.web.controller;
 
+import com.qiein.erp.pk.enums.TipMsgEnum;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.OrderDTO;
 import com.qiein.erp.pk.web.entity.dto.OrderSelectDTO;
+import com.qiein.erp.pk.web.entity.po.OrderEditPO;
+import com.qiein.erp.pk.web.entity.po.ProcessPO;
 import com.qiein.erp.pk.web.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +54,28 @@ public class OrderController {
     public  ResultInfo selectByOrdId(Integer orderId){
         Integer companyId=1;
         return ResultInfoUtil.success(orderService.selectByOrdId(orderId,companyId));
+    }
+
+    /**
+     * 编辑流程
+     * @param processPO
+     * @return
+     */
+    @PostMapping("/edit_process")
+    public ResultInfo editProcess(@RequestBody ProcessPO processPO){
+        Integer companyId=1;
+        processPO.setCompanyId(companyId);
+        orderService.editProcess(processPO);
+        return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
+    }
+    /**
+     * 编辑主信息
+     */
+    @PostMapping("/edit_order")
+    public ResultInfo editOrder(@RequestBody OrderEditPO orderEditPO){
+        Integer companyId=1;
+        orderEditPO.setCompanyId(companyId);
+        orderService.updateOrder(orderEditPO);
+        return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
     }
 }

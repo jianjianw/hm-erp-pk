@@ -5,7 +5,9 @@ import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.web.dao.OrderDao;
 import com.qiein.erp.pk.web.entity.dto.OrderDTO;
 import com.qiein.erp.pk.web.entity.dto.OrderSelectDTO;
+import com.qiein.erp.pk.web.entity.po.OrderEditPO;
 import com.qiein.erp.pk.web.entity.po.OrderPO;
+import com.qiein.erp.pk.web.entity.po.ProcessPO;
 import com.qiein.erp.pk.web.entity.vo.OrderProVO;
 import com.qiein.erp.pk.web.entity.vo.OrderVO;
 import com.qiein.erp.pk.web.service.OrderService;
@@ -66,5 +68,26 @@ public class OrderServiceImpl implements OrderService {
      */
     public OrderProVO selectByOrdId(Integer orderId, Integer companyId){
         return orderDao.selectByOrdId(orderId,companyId);
+    }
+    /**
+     * 编辑流程
+     */
+    public void editProcess(ProcessPO processPO){
+        //编辑流程档期档期（除了拍摄间）
+        orderDao.updateProcessShootSch(processPO);
+        //删除流程关于拍摄间的档期 用于编辑
+        orderDao.deleteSceneSch(processPO.getProId(),processPO.getCompanyId());
+        //给流程添加拍摄间档期
+        List<String> list=new ArrayList<>();
+        for(String shootRoomId:processPO.getShootRoomSchId().split(CommonConstant.STR_SEPARATOR)){
+            list.add(shootRoomId);
+        }
+        orderDao.insertSceneSch(processPO.getProId(),list,processPO.getCompanyId());
+    }
+    /**
+     * 修改订单
+     */
+    public void updateOrder(OrderEditPO orderEditPO){
+        orderDao.updateOrder(orderEditPO);
     }
 }

@@ -24,7 +24,16 @@ public class OrderProVO {
     private String marryTime;//婚期
     private String address;//地址
     private Integer companyId;
+    private String orderTime;//订单时间
     private List<ProcessVO> processVOS;//订单下的流程们
+
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
+    }
 
     public String getOrderNum() {
         return orderNum;

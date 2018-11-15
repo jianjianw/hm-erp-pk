@@ -47,8 +47,11 @@
         <result column="birth_day" property="birthDay"/>
         <result column="marry_time" property="marryTime"/>
         <result column="address" property="address"/>
+        <result column="order_time" property="orderTime"/>
         <collection property="processVOS" ofType="com.qiein.erp.pk.web.entity.vo.ProcessVO">
             <id column="pro_id" property="proId"/>
+            <result column="venue_id" property="venueId"/>
+            <result column="service_id" property="serviceId"/>
             <result column="order_type" property="orderType"/>
             <result column="venue_day" property="shootTime"/>
             <result column="clothes_num" property="clothes"/>
@@ -224,6 +227,7 @@
             ord.mate_name,
             ord.mate_phone,
             ord.address,
+            FROM_UNIXTIME(ord.order_time,"%Y:%m%:%d") order_time,
              FROM_UNIXTIME(ord.marry_time,"%Y:%m%:%d") marry_time,
             ord.child_name,
              FROM_UNIXTIME(ord.birth_day,"%Y:%m%:%d") birth_day,
@@ -240,7 +244,9 @@
             shoot_pro.shoot_schedule_id,
             shoot_pro.venue_schedule_id,
             meal.clothes_num,
-              FROM_UNIXTIME(venue_sch.venue_day,"%Y:%m%:%d") venue_day
+              FROM_UNIXTIME(venue_sch.venue_day,"%Y:%m%:%d") venue_day,
+              venue_sch.venue_id,
+              venue_sch.service_id,
         FROM
             hm_erp_order ord
         LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
@@ -277,5 +283,36 @@
         </foreach>
         )
     </insert>
+    <update id="updateProcessShootSch">
+        UPDATE hm_erp_process_shoot_schedule
+        SET
+            venue_schedule_id =#{venueSchId},
+            makeup_room_schedule_id =#{makeupRoomSchId},
+            makeup_schedule_id =#{makeupSchId},
+            shoot_schedule_id =#{shootSchId},
+            plan_schedule_id =#{planSchId}
+        where process_id= #{proId}and company_id=#{companyId}
+    </update>
+    <delete id="deleteSceneSch">
+        delete from hm_erp_scene_schedule where process_id=#{proId} and company_id=#{companyId}
+    </delete>
+    <update id="updateOrder">
+        UPDATE hm_erp_order
+            SET sale_id = #{saleId},
+             order_time =  #{orderTime},
+             srctype =  #{srcType},
+             kz_name =  #{kzName},
+             kz_phone =  #{kzPhone},
+             mate_name =  #{mateName},
+             mate_phone =  #{matePhone},
+             address =  #{address},
+             marry_time =  #{marryTime},
+             child_name =  #{childName},
+             birth_day =  #{birthday},
+             age =  #{age},
+             sex =  #{sex}
+             where company_id=#{companyId} and id=#{orderId}
+             private Integer orderId;
+    </update>
 
 </mapper>
