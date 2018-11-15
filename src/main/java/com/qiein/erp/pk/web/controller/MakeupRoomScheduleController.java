@@ -66,7 +66,7 @@ public class MakeupRoomScheduleController extends  InitController{
     }
 
     /**
-     * 根据服务id 查询化妆间档期
+     * 根据服务id 查询化妆间档期   拍摄间下拉框
      * @param venueId
      * @param serviceId
      * @param date

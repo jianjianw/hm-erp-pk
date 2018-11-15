@@ -97,6 +97,17 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         sceneScheduleDao.batSaveOrUpdate(sceneSchedulePOS);
     }
 
+    @Override
+    public void findSceneScheduleByVenueId(Integer companyId, Integer venueId) {
+
+
+    }
+
+    @Override
+    public List<SceneSchedulePO> batSave(List<SceneSchedulePO> sceneSchedulePOS) {
+        return sceneScheduleDao.batSave(sceneSchedulePOS);
+    }
+
     //获取开始时间和结束时间
     public Map<String,Integer> getStartAndEndTime(Integer dateTime){
 
@@ -119,28 +130,5 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         hashMap.put("end",Integer.valueOf(String.valueOf(end)));
 
         return hashMap;
-    }
-
-    //获取开始时间集合
-    public List<Long> getTimeList(Integer second){
-        Long seconds = second * 1000L;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(seconds);//传递进来的参数
-        Date time1 = calendar.getTime();
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        String format1 = sdf1.format(time1);
-        String[] split = format1.split("-");
-        calendar.set(Integer.valueOf(split[0]),Integer.valueOf(split[1])-1,Integer.valueOf(split[2]),9,0);
-        //Integer begin=9;
-        Integer end = 18;
-        List<Long> times = new ArrayList<>();
-        for(int i = 0;i < end; i++){
-            Date time2 = calendar.getTime();
-            long time3 = time2.getTime()/1000;
-            //long time3 = time2.getTime();
-            times.add(time3);
-            calendar.add(Calendar.MINUTE,30);
-        }
-        return times;
     }
 }
