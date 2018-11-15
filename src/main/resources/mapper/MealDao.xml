@@ -90,7 +90,8 @@
 		hm_crm_dictionary dic
 	WHERE
 		dic.COMPANYID = #{companyId}
-	AND dic.DICTYPE = 'meal_type'  	
+	AND dic.DICTYPE = 'meal_type' 
+	ORDER BY dic.ISSHOW 	
   </select>
   
    <!--查询套餐类别名称 -->

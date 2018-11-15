@@ -20,24 +20,25 @@ import com.qiein.erp.pk.util.TimeUtil;
 import com.qiein.erp.pk.web.entity.po.Venue;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
+import com.qiein.erp.pk.web.service.PlanScheduleService;
 import com.qiein.erp.pk.web.service.StaffScheduleService;
 
 /**
  * 摄影师人员排空
- * author：HJF 2018/11/10
+ * author：HJF 2018/11/15
  */
 @RestController
-@RequestMapping("/StaffSchedule")
-public class StaffScheduleController {
+@RequestMapping("/PlanSchedule")
+public class PlancheduleController {
 	
     @Autowired
-    private StaffScheduleService staffScheduleService;
+    private PlanScheduleService planScheduleService;
     
     /**
      * 查询摄影师档期--订单界面下拉框
      * @return
      */
-    @GetMapping("/select_box")
+    /*@GetMapping("/select_box")
     public ResultInfo selectBox(@RequestParam(value="roleId") Integer roleId,@RequestParam("venueId")String venueId,
     		@RequestParam("time")Integer time){
     	//校验参数
@@ -71,7 +72,7 @@ public class StaffScheduleController {
         	}
         }
         return ResultInfoUtil.success(StaffScheduleVOAlls);
-    }
+    }*/
     /**
      * 查询场馆
      * @return
@@ -80,7 +81,7 @@ public class StaffScheduleController {
     public ResultInfo venueSelect(@RequestParam(value="roleId") Integer roleId,
     		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
     	 int companyId=1;
-         List<Venue> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
+         List<Venue> Venues= planScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
         return ResultInfoUtil.success(Venues);
     }
     /**
@@ -90,7 +91,7 @@ public class StaffScheduleController {
     @GetMapping("/venue_select_only")
     public ResultInfo venueSelectOnly(){
     	 int companyId=1;
-         List<Venue> Venues= staffScheduleService.venueSelectOnly(companyId);
+         List<Venue> Venues= planScheduleService.venueSelectOnly(companyId);
         return ResultInfoUtil.success(Venues);
     }
     /**
@@ -100,23 +101,23 @@ public class StaffScheduleController {
     @GetMapping("/role_level_select")
     public ResultInfo roleLevelSelect(){
     	 int companyId=1;
-         List<StaffRoleTypeVO> StaffRoleTypeVOs= staffScheduleService.roleLevelSelect(companyId);
+         List<StaffRoleTypeVO> StaffRoleTypeVOs= planScheduleService.roleLevelSelect(companyId);
         return ResultInfoUtil.success(StaffRoleTypeVOs);
     }
     /**
      * 人员休息
      * @return
      */
-    @PostMapping("/set_rest")
+    /*@PostMapping("/set_rest")
     public ResultInfo setRest(@RequestBody StaffScheduleVO staffScheduleVO){
     	System.out.println(JSONObject.toJSONString(staffScheduleVO));
     	 int companyId=1;
     	 staffScheduleVO.setCompanyId(companyId);
     	 staffScheduleVO.setStaffDayLimit(1);
     	 staffScheduleVO.setStaffStatus(2);
-    	 StaffScheduleVO staffScheduleVOs= staffScheduleService.selectRest(staffScheduleVO);
+    	 StaffScheduleVO staffScheduleVOs= planScheduleService.selectRest(staffScheduleVO);
     	 if(staffScheduleVOs==null){
-    		 staffScheduleService.insertRest(staffScheduleVO);
+    		 planScheduleService.insertRest(staffScheduleVO);
     		 return ResultInfoUtil.success("设置成功");
     	 }
     	 if(staffScheduleVOs.getStaffStatus()==1){
@@ -126,9 +127,9 @@ public class StaffScheduleController {
     		 return ResultInfoUtil.success("当日已休息");
     	 }
         return ResultInfoUtil.success(null);
-    }
+    }*/
     /**
-     * 查询人员档期
+     * 查询人员档期主页面
      */
     @GetMapping("/select_all")
     public ResultInfo selectAll(@RequestParam("roleId") Integer roleId,@RequestParam("month") String month,
@@ -137,7 +138,7 @@ public class StaffScheduleController {
         //获取时间时间戳
         int firstDay = TimeUtil.getMonthStartTimeStampByDate(month);
         int lastDay=TimeUtil.getMonthEndTimeStampByDate(month);
-        List<StaffScheduleVO> staffScheduleVOs=staffScheduleService.selectAll(companyId,firstDay,lastDay,roleId,venueId,roleLevel);
+        List<StaffScheduleVO> staffScheduleVOs=planScheduleService.selectAll(companyId,firstDay,lastDay,roleId,venueId,roleLevel);
         // 最终用返回
         List<Map<String, Object>> newmaps = new ArrayList<>();
 
