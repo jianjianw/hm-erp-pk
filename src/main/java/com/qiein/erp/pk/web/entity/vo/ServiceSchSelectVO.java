@@ -5,7 +5,7 @@ package com.qiein.erp.pk.web.entity.vo;
  * author xiangliang
  */
 public class ServiceSchSelectVO {
-    private Integer VenueSchId;//场馆档期id
+    private Integer venueSchId;//场馆档期id
     private Integer serviceId;//服务id
     private String serviceName;//服务名称
     private int count;//数量
@@ -13,11 +13,11 @@ public class ServiceSchSelectVO {
     private boolean status;//状态
 
     public Integer getVenueSchId() {
-        return VenueSchId;
+        return venueSchId;
     }
 
     public void setVenueSchId(Integer venueSchId) {
-        VenueSchId = venueSchId;
+        this.venueSchId = venueSchId;
     }
 
     public Integer getServiceId() {

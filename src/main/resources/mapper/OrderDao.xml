@@ -36,6 +36,7 @@
         <result column="order_num" property="orderNum"/>
         <result column="meal_id" property="mealId"/>
         <result column="sale_id" property="staffId"/>
+        <result column="NICKNAME" property="staffName"/>
         <result column="srctype" property="srcType"/>
         <result column="kz_phone" property="kzPhone"/>
         <result column="kz_name" property="kzName"/>
@@ -221,15 +222,16 @@
             ord.meal_id,
             ord.company_id,
             ord.sale_id,
+            staff.NICKNAME,
             ord.kz_name,
             ord.kz_phone,
             ord.mate_name,
             ord.mate_phone,
             ord.address,
-            FROM_UNIXTIME(ord.order_time,"%Y/%m/%d") order_time,
-             FROM_UNIXTIME(ord.marry_time,"%Y/%m/%d") marry_time,
+            FROM_UNIXTIME(ord.order_time, "%Y/%m/%d") order_time,
+            FROM_UNIXTIME(ord.marry_time, "%Y/%m/%d") marry_time,
             ord.child_name,
-             FROM_UNIXTIME(ord.birth_day,"%Y/%m/%d") birth_day,
+            FROM_UNIXTIME(ord.birth_day, "%Y/%m/%d") birth_day,
             ord.age,
             ord.sex,
             pro.order_type,
@@ -243,9 +245,12 @@
             shoot_pro.shoot_schedule_id,
             shoot_pro.venue_schedule_id,
             meal.clothes_num,
-              FROM_UNIXTIME(venue_sch.venue_day,"%Y/%m/%d") venue_day,
-              venue_sch.venue_id,
-              venue_sch.service_id
+            FROM_UNIXTIME(
+                venue_sch.venue_day,
+                "%Y/%m/%d"
+            ) venue_day,
+            venue_sch.venue_id,
+            venue_sch.service_id
         FROM
             hm_erp_order ord
         LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
@@ -258,6 +263,8 @@
         AND venue_sch.company_id = shoot_pro.company_id
         LEFT JOIN hm_erp_meal meal ON meal.id = ord.meal_id
         AND meal.company_id = ord.company_id
+        LEFT JOIN hm_pub_staff staff ON staff.id = ord.sale_id
+        AND staff.COMPANYID = ord.company_id
         where ord.id=#{orderId} and ord.company_id=#{companyId}
         group by scene_pro.shoot_schedule_id
     </select>

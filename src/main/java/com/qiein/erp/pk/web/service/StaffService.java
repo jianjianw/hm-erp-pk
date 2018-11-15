@@ -46,6 +46,6 @@ public interface StaffService {
     /**
      * 角色下拉框
      */
-    List<StaffSelectVO> staffSelect(Integer companyId,Integer roleId);
+    List<StaffSelectVO> staffSelect(Integer companyId,String roleId);
 
 }

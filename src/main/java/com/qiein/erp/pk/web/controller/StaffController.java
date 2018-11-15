@@ -69,7 +69,7 @@ public class StaffController {
      * @return
      */
     @GetMapping("/staff_select")
-    public ResultInfo staffSelect(@RequestParam("roleId")Integer roleId){
+    public ResultInfo staffSelect(@RequestParam("roleId")String roleId){
         Integer companyId=1;
         return ResultInfoUtil.success(staffService.staffSelect(companyId,roleId));
     }
