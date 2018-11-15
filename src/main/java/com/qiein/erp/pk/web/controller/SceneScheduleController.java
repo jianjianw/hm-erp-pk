@@ -54,6 +54,15 @@ public class SceneScheduleController {
         return ResultInfoUtil.success();
     }
 
+    /**
+     * 批量新增或编辑
+     */
+    @PostMapping("/bat_save_or_update")
+    public ResultInfo batSaveOrUpdate(@RequestBody List<SceneSchedulePO> sceneSchedulePOS){
+        sceneScheduleService.batSaveOrUpdate(sceneSchedulePOS);
+        return ResultInfoUtil.success();
+    }
+
 
 
 
