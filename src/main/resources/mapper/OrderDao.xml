@@ -246,7 +246,7 @@
             meal.clothes_num,
               FROM_UNIXTIME(venue_sch.venue_day,"%Y:%m%:%d") venue_day,
               venue_sch.venue_id,
-              venue_sch.service_id,
+              venue_sch.service_id
         FROM
             hm_erp_order ord
         LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
