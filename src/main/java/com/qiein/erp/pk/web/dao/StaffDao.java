@@ -82,6 +82,6 @@ public interface StaffDao {
     /**
      * 角色下拉框
      */
-    List<StaffSelectVO> staffSelect(@Param("companyId") Integer companyId, @Param("roleId") Integer roleId);
+    List<StaffSelectVO> staffSelect(@Param("companyId") Integer companyId, @Param("roleId") String roleId);
 
 }

@@ -186,6 +186,6 @@
         left join hm_pub_staff sta on sta.id=staff.staff_id and sta.COMPANYID=staff.company_id
         AND staff.company_id = role.company_id
         where sta.id is not null and sta.isdel=0
-        and staff.company_id=#{companyId} and role.role_id=#{roleId}
+        and staff.company_id=#{companyId} and role.role_id in (${roleId})
     </select>
 </mapper>
