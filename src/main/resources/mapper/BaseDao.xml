@@ -13,9 +13,9 @@
     where id = #{id} and company_id = #{companyId}
   </delete>
   <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
-    insert into hm_erp_base (id, base_name, company_id,base_status
+    insert into hm_erp_base (id, base_name, company_id,base_status,priority
       )
-    values (#{id}, #{baseName}, #{companyId},#{baseStatus}
+    values (#{id}, #{baseName}, #{companyId},#{baseStatus},((select last_insert_id()+1))
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
@@ -39,7 +39,7 @@
   <select id="selectAll" resultMap="BaseResultMap" parameterType="map">
     select id, base_name, company_id,base_status,priority
     from hm_erp_base
-    where company_id = #{companyId} order by base_status desc
+    where company_id = #{companyId} order by base_status desc,priority desc
   </select>
 
 
