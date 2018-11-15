@@ -66,6 +66,17 @@ public class MakeupRoomScheduleController {
         return ResultInfoUtil.success();
     }
 
+    /**
+     * 根据服务id 查询化妆间档期
+     */
+    public ResultInfo findMakeupRoomScheduleByServiceId(Integer venueId,Integer serviceId,Integer date){
+
+
+        List<Object> obj = makeupRoomScheduleService.findMakeupRoomScheduleByServiceId(venueId,serviceId,date);
+
+        return ResultInfoUtil.success();
+    }
+
 
 
 

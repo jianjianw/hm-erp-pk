@@ -159,5 +159,25 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
         makeupRoomScheduleDao.batSaveOrUpdate(makeupRoomSchedulePOS);
     }
 
+    @Override
+    public List<Object> findMakeupRoomScheduleByServiceId(Integer venueId, Integer serviceId, Integer date) {
+
+        //查询服务下面的化妆间  和 状态
+        /**
+         * 化妆间id
+         * 化妆间 name
+         * 化妆间状态
+         * 化妆间档期id
+         * 化妆间档期状态
+         */
+        //serviceService.findMakeupRooomsByServiceId(venueId,venueId);
+        //makeupRoomScheduleDao.
+
+
+        //查询当前时间化妆间的档期 如果有档期就查出来  如果没有就插入一个档期
+
+        return null;
+    }
+
 
 }
