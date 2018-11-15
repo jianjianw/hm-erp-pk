@@ -11,4 +11,52 @@ public class ServiceSchSelectVO {
     private int count;//数量
     private int target;//目标
     private boolean status;//状态
+
+    public Integer getVenueSchId() {
+        return VenueSchId;
+    }
+
+    public void setVenueSchId(Integer venueSchId) {
+        VenueSchId = venueSchId;
+    }
+
+    public Integer getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getTarget() {
+        return target;
+    }
+
+    public void setTarget(int target) {
+        this.target = target;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 }

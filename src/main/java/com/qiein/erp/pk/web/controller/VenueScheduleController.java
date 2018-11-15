@@ -20,41 +20,45 @@ public class VenueScheduleController {
 
     /**
      * 获取场馆档期页面
+     *
      * @param monthStr
      * @return
      */
     @GetMapping("/get_schedule_show")
-    public ResultInfo getScheduleShow(@RequestParam("monthStr")String monthStr){
-        Integer companyId=1;
-        return ResultInfoUtil.success(venueScheduleService.getScheduleShow(monthStr,companyId));
+    public ResultInfo getScheduleShow(@RequestParam("monthStr") String monthStr) {
+        Integer companyId = 1;
+        return ResultInfoUtil.success(venueScheduleService.getScheduleShow(monthStr, companyId));
     }
+
     /**
      * 场馆档期设置页面
      */
     @GetMapping("/get_venue_schedule_set")
-    public ResultInfo getVenueScheduleSet(){
-        Integer companyId=1;
+    public ResultInfo getVenueScheduleSet() {
+        Integer companyId = 1;
         return ResultInfoUtil.success(venueScheduleService.getVenueScheduleSet(companyId));
     }
+
     /**
      * 场馆设置
      */
     @PostMapping("/venue_schedule_set")
-    public ResultInfo VenueScheduleSet(@RequestBody VenueScheduleSetDTO venueScheduleSetDTO){
-        Integer companyId=1;
+    public ResultInfo VenueScheduleSet(@RequestBody VenueScheduleSetDTO venueScheduleSetDTO) {
+        Integer companyId = 1;
         venueScheduleSetDTO.setCompanyId(companyId);
-        if(venueScheduleSetDTO.getEnd()==null){
-            venueScheduleSetDTO.setEnd(venueScheduleSetDTO.getStart()+ CommonConstant.THERE_YEAR_TIME);
+        if (venueScheduleSetDTO.getEnd() == null) {
+            venueScheduleSetDTO.setEnd(venueScheduleSetDTO.getStart() + CommonConstant.THERE_YEAR_TIME);
         }
         venueScheduleService.VenueScheduleSet(venueScheduleSetDTO);
         return ResultInfoUtil.success();
     }
+
     /**
      * 场馆关于订单编辑的下拉框
      */
     @GetMapping("venue_sch_select")
-    public ResultInfo venueSchSelect(@RequestParam Integer venueTime){
-        Integer companyId=1;
-        return ResultInfoUtil.success();
+    public ResultInfo venueSchSelect(@RequestParam Integer venueTime) {
+        Integer companyId = 1;
+        return ResultInfoUtil.success(venueScheduleService.venueSchSelect(venueTime, companyId));
     }
 }

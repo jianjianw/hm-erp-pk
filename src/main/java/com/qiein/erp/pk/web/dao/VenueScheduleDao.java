@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.dao;
 import com.qiein.erp.pk.web.entity.dto.VenueScheduleSetDTO;
 import com.qiein.erp.pk.web.entity.po.VenueScheduleInsertPO;
 import com.qiein.erp.pk.web.entity.vo.OrderVenueScheduleVO;
+import com.qiein.erp.pk.web.entity.vo.VenueSchSelectVO;
 import com.qiein.erp.pk.web.entity.vo.VenueScheduleSetVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,7 +20,7 @@ public interface VenueScheduleDao {
      * @return
      */
     List<OrderVenueScheduleVO> getVenueSchedule(@Param("companyId") Integer companyId,@Param("start")Integer start,@Param("end")Integer end);
-    List<OrderVenueScheduleVO> getCount();
+//    List<OrderVenueScheduleVO> getCount();
     /**
      * 场馆档期设置页面
      */
@@ -34,6 +35,11 @@ public interface VenueScheduleDao {
      * 插入存在档期
      */
     void insertSet(@Param("list")List<VenueScheduleInsertPO> list);
+
+    /**
+     * 场馆档期下拉框
+     */
+    List<VenueSchSelectVO> venueSchSelect(@Param("venueTime")Integer venueTime,@Param("companyId")Integer companyId);
 
 
 }
