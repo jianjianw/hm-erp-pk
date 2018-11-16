@@ -92,8 +92,8 @@ public class StaffScheduleController extends InitController{
 		//新增这条记录
 		StaffScheduleVO staffScheduleVOt=new StaffScheduleVO(venueId,1,1,staffId,time,companyId);
         int scheduleId= staffScheduleService.insertStaffSchedule(staffScheduleVOt);
-        staffScheduleVOt.setId(scheduleId);
-        return ResultInfoUtil.success(staffScheduleVOt);
+        //staffScheduleVOt.setId(scheduleId);
+        return ResultInfoUtil.success(scheduleId);
     }
     
     /**

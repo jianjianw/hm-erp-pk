@@ -56,6 +56,7 @@ public class PlancheduleController extends InitController{
          					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
          				StaffScheduleVOAll.setId(StaffScheduleVOPK.getId());
          				StaffScheduleVOAll.setStatus(1);
+         				StaffScheduleVOAll.setTime(StaffScheduleVOPK.getTime());
          			}
          		}
     		}
