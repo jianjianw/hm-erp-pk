@@ -64,9 +64,8 @@
   <update id="batUpdate" parameterType="ArrayList">
 
     <foreach collection="list" index="index" item="item" separator=";">
-      update hm_erp_base
-      set base_name = #{item.baseName},
-      company_id = #{item.companyId},
+      update hm_erp_base set
+      base_name = #{item.baseName},
       base_status = #{item.baseStatus}
       where id = #{item.id}
       and company_id = #{item.companyId}
