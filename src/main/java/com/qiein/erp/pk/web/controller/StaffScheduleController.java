@@ -70,7 +70,7 @@ public class StaffScheduleController extends InitController{
 					if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVORest.getVenueId())&&
 							StaffScheduleVOAll.getStaffId().equals(StaffScheduleVORest.getStaffId())){
 						StaffScheduleVOAll.setId(StaffScheduleVORest.getId());
-						StaffScheduleVOAll.setStatus(StaffScheduleVOAll.getStaffStatus());
+						StaffScheduleVOAll.setStatus(StaffScheduleVORest.getStaffStatus());
 					}
 				}
         	}
