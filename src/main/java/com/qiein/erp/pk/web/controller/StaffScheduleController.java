@@ -83,7 +83,7 @@ public class StaffScheduleController extends InitController{
     public ResultInfo insertStaffSchedule(@RequestParam(value="roleId") Integer roleId,
     		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
-         List<Venue> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
+         List<VenuePO> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
         return ResultInfoUtil.success(Venues);
     }
     
