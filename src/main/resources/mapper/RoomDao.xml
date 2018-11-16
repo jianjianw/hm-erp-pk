@@ -43,34 +43,6 @@
       company_id = #{companyId}
     where room_id = #{roomId}
     and company_id = #{companyId}
-
-   <!-- update hm_erp_venue_room
-   <set>
-     <if test="venueId != null">
-       venue_id = #{venueId},
-     </if>
-     <if test="roomName != null and roomName != '' ">
-       room_name = #{roomName},
-     </if>
-     <if test = "roomLevel != null">
-       room_level = #{roomLevel},
-     </if>
-     <if test = "roomType != null">
-       room_type = #{roomType},
-     </if>
-     <if test = "priority != null">
-       priority = #{priority},
-     </if>
-     <if test = " roomStatus != null">
-       room_status = #{roomStatus},
-     </if>
-     <if test = "companyId != null">
-       company_id = #{companyId}
-     </if>
-   </set>
-    where room_id = #{roomId}
-    and company_id = #{companyId}-->
-
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select room_id, venue_id, room_name, room_level, room_type, priority, room_status, 
