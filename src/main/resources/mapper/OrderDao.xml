@@ -318,7 +318,6 @@
              age =  #{age},
              sex =  #{sex}
              where company_id=#{companyId} and id=#{orderId}
-             private Integer orderId;
     </update>
 
 </mapper>
