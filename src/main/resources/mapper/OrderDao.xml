@@ -250,6 +250,7 @@
             ord.age,
             ord.sex,
             pro.order_type,
+            pro.id pro_id,
             ord.srctype,
             GROUP_CONCAT(
                 scene_pro.shoot_schedule_id SEPARATOR ","
