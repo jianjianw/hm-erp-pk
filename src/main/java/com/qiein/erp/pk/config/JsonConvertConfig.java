@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.config;
 
+import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
@@ -34,6 +35,7 @@ public class JsonConvertConfig extends WebMvcConfigurerAdapter {
                 //避免循环引用
                 SerializerFeature.DisableCircularReferenceDetect
         );
+        fastJsonConfig.setFeatures(Feature.DisableSpecialKeyDetect);
         converter.setFastJsonConfig(fastJsonConfig);
         converters.add(converter);
     }
