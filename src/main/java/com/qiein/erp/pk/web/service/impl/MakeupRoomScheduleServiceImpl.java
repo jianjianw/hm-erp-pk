@@ -196,8 +196,10 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
             save.setId(venueAndRoomVO.getMakeupRoomScheduleId());
             batSave.add(save);
         }
-        //档期表里面不存在的 insert  存在的只更新companyId,查询和更新的companyId是一致的，所以就只是insert不存在的
-        makeupRoomScheduleDao.batSave(batSave);
+        if(batSave != null && batSave.size()>0){
+            //档期表里面不存在的 insert  存在的只更新companyId,查询和更新的companyId是一致的，所以就只是insert不存在的
+            makeupRoomScheduleDao.batSave(batSave);
+        }
 
 
         //查询所有的化妆间档期
