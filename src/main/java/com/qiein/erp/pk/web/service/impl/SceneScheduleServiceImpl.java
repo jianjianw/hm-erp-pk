@@ -1,6 +1,7 @@
 package com.qiein.erp.pk.web.service.impl;
 
 import com.qiein.erp.pk.web.dao.SceneScheduleDao;
+import com.qiein.erp.pk.web.entity.dto.SceneDTO;
 import com.qiein.erp.pk.web.entity.dto.SceneScheduleDTO;
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.ScenePO;
@@ -118,6 +119,14 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
             sceneScheduleVOS.add(sceneScheduleVO);
         }
         return sceneScheduleVOS;
+    }
+
+    @Override
+    public List<SceneSchedulePO> selectSceneScheduleByVenueIdAndDate(SceneDTO sceneDTO){
+
+
+
+        return  null;
     }
 
     //获取开始时间和结束时间

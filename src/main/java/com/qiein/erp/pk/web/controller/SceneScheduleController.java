@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.controller;
 
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.web.entity.dto.SceneDTO;
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
 import com.qiein.erp.pk.web.entity.vo.SceneScheduleVO;
@@ -70,6 +71,19 @@ public class SceneScheduleController extends InitController{
         //如果要防止添加重复记录 就要一条一条插入   。  也是可以的
         List<SceneScheduleVO> reslut = sceneScheduleService.batSave(sceneSchedulePOS);
         return ResultInfoUtil.success(reslut);
+    }
+
+    /**
+     * 根据场景和时间 查询场景档期
+     * @param sceneDTO
+     * @return
+     */
+    public ResultInfo selectSceneScheduleByVenueIdAndDate(@RequestBody SceneDTO sceneDTO){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+
+        List<SceneSchedulePO> result = sceneScheduleService.selectSceneScheduleByVenueIdAndDate(sceneDTO);
+
+        return ResultInfoUtil.success(result);
     }
 
 

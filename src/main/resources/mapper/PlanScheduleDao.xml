@@ -124,7 +124,7 @@
   <!--查询主界面当月休息摄影师  -->
   <select id="selectMonthRest" resultMap="StaffScheduleMap">
   	SELECT
-		ss.staff_id,sr.role_id,ss.venue_id,FROM_UNIXTIME(ss.staff_day, '%d') time,ss.staff_status
+		ss.id,ss.staff_id,sr.role_id,ss.venue_id,FROM_UNIXTIME(ss.staff_day, '%d') time,ss.staff_status
 	FROM
 		hm_erp_plan_schedule ss
 	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ss.staff_id AND sr.company_id=ss.company_id
