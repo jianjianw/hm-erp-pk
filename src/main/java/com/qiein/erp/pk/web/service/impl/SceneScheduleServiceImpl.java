@@ -104,9 +104,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
             System.out.println();
         }*/
         sceneScheduleDao.batSave(sceneSchedulePOS);
-
-        System.out.println();
-        return null;
+        return sceneSchedulePOS;
     }
 
     //获取开始时间和结束时间
