@@ -46,7 +46,8 @@ public class RoomController extends InitController{
     public ResultInfo insert(@RequestBody Room room){
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(room);
-
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        room.setCompanyId(companyId);
         roomService.insert(room);
         return ResultInfoUtil.success();
     }
@@ -69,6 +70,9 @@ public class RoomController extends InitController{
     @ApiOperation(value = "根据主键编辑房间")
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Room room){
+
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        room.setCompanyId(companyId);
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(room);
         roomService.updateByPrimaryKey(room);
@@ -146,6 +150,8 @@ public class RoomController extends InitController{
     @ApiOperation(value = "添加房间等级和房间")
     @PostMapping("/add_room_type")
     public ResultInfo addRoomLevel(@RequestBody LevelAndRoomDTO levelAndRoomDTO){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        levelAndRoomDTO.setCompanyId(companyId);
         roomService.addRoomLevel(levelAndRoomDTO);
         return ResultInfoUtil.success();
     }
