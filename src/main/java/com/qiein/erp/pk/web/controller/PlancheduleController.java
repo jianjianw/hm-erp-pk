@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.util.TimeUtil;
 import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
@@ -36,41 +37,45 @@ public class PlancheduleController extends InitController{
      * 查询摄影师档期--订单界面下拉框
      * @return
      */
-    /*@GetMapping("/select_box")
+    @GetMapping("/select_box")
     public ResultInfo selectBox(@RequestParam(value="roleId") Integer roleId,@RequestParam("venueId")String venueId,
     		@RequestParam("time")Integer time){
     	//校验参数
     	if(StringUtil.isEmpty(venueId)){
     		return ResultInfoUtil.error(9999,"缺少场馆id");
     	}
-    	 int companyId=1;
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
     	 //获取全部摄影师
-         List<StaffScheduleVO> StaffScheduleVOAlls= staffScheduleService.staffAll(companyId,roleId,venueId,time);
+         List<StaffScheduleVO> StaffScheduleVOAlls= planScheduleService.staffAll(companyId,roleId,venueId,time);
          //获取已排班摄影师
-         List<StaffScheduleVO> StaffScheduleVOPKs= staffScheduleService.staffPK(companyId,roleId,venueId,time);
-         for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
-        	 for (StaffScheduleVO StaffScheduleVOPK : StaffScheduleVOPKs) {
-     			if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVOPK.getVenueId()) && 
-     					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
-     				StaffScheduleVOAll.setStatus(1);
-     			}
-     		}
-		}
+         List<StaffScheduleVO> StaffScheduleVOPKs= planScheduleService.staffPK(companyId,roleId,venueId,time);
+         if(StaffScheduleVOAlls !=null && StaffScheduleVOPKs!=null){
+        	 for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
+            	 for (StaffScheduleVO StaffScheduleVOPK : StaffScheduleVOPKs) {
+         			if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVOPK.getVenueId()) && 
+         					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
+         				StaffScheduleVOAll.setId(StaffScheduleVOPK.getId());
+         				StaffScheduleVOAll.setStatus(1);
+         			}
+         		}
+    		}
+         }
+         
         //获取休息摄影师
-        List<StaffScheduleVO> StaffScheduleVORests= staffScheduleService.staffRest(companyId,roleId,venueId,time);
-        if(StaffScheduleVORests!=null && StaffScheduleVORests.size()>0){
-        	
+        List<StaffScheduleVO> StaffScheduleVORests= planScheduleService.staffRest(companyId,roleId,venueId,time);
+        if(StaffScheduleVORests!=null && StaffScheduleVOAlls !=null){
         	for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
         		for (StaffScheduleVO StaffScheduleVORest : StaffScheduleVORests) {
 					if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVORest.getVenueId())&&
 							StaffScheduleVOAll.getStaffId().equals(StaffScheduleVORest.getStaffId())){
+						StaffScheduleVOAll.setId(StaffScheduleVORest.getId());
 						StaffScheduleVOAll.setStatus(2);
 					}
 				}
         	}
         }
         return ResultInfoUtil.success(StaffScheduleVOAlls);
-    }*/
+    }
     /**
      * 查询场馆
      * @return

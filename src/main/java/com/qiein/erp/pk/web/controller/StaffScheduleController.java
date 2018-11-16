@@ -54,6 +54,7 @@ public class StaffScheduleController extends InitController{
             	 for (StaffScheduleVO StaffScheduleVOPK : StaffScheduleVOPKs) {
          			if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVOPK.getVenueId()) && 
          					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
+         				StaffScheduleVOAll.setId(StaffScheduleVOPK.getId());
          				StaffScheduleVOAll.setStatus(1);
          			}
          		}
@@ -67,6 +68,7 @@ public class StaffScheduleController extends InitController{
         		for (StaffScheduleVO StaffScheduleVORest : StaffScheduleVORests) {
 					if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVORest.getVenueId())&&
 							StaffScheduleVOAll.getStaffId().equals(StaffScheduleVORest.getStaffId())){
+						StaffScheduleVOAll.setId(StaffScheduleVORest.getId());
 						StaffScheduleVOAll.setStatus(2);
 					}
 				}
