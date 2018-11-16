@@ -82,11 +82,18 @@ public class StaffScheduleController extends InitController{
      * @return
      */
     @GetMapping("/insert_staff_schedule")
-    public ResultInfo insertStaffSchedule(@RequestParam(value="roleId") Integer roleId,
-    		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
+    public ResultInfo insertStaffSchedule(@RequestParam(value="staffId") Integer staffId,
+    		@RequestParam(value="venueId") Integer venueId,@RequestParam(value="time") Integer time){
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
-         List<VenuePO> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
-        return ResultInfoUtil.success(Venues);
+		StaffScheduleVO staffScheduleVO=staffScheduleService.selectByVenueIdAndStaffId(staffId,venueId,time,companyId);
+		if(staffScheduleVO!=null){
+			return ResultInfoUtil.success(staffScheduleVO);
+		}
+		//新增这条记录
+		StaffScheduleVO staffScheduleVOt=new StaffScheduleVO(venueId,1,1,staffId,time,companyId);
+        int scheduleId= staffScheduleService.insertStaffSchedule(staffScheduleVOt);
+        staffScheduleVOt.setId(scheduleId);
+        return ResultInfoUtil.success(staffScheduleVOt);
     }
     
     /**
@@ -193,7 +200,7 @@ public class StaffScheduleController extends InitController{
   				newmaps.add(row);
   			}
   		}
-  		//把休息的摄影师放入
+  		//把有档期休息的摄影师放入
   		List<StaffScheduleVO> staffMonthRest=staffScheduleService.selectMonthRest(companyId,firstDay,lastDay,roleId,venueId);
   		TempStaffVO tempStaffs=null;
   		if(staffMonthRest!=null && staffMonthRest.size()>0){
@@ -209,7 +216,8 @@ public class StaffScheduleController extends InitController{
   	  			}
   			} 
   		}
-  		 
+  		//没档期休息的摄影师放入
+  		
         return ResultInfoUtil.success(newmaps);
     }
 
