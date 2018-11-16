@@ -23,7 +23,7 @@ public class BaseController extends InitController{
     @PostMapping("/delete_by_primary_key")
     public ResultInfo deleteByPrimaryKey(Integer id){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        int i = baseService.deleteByPrimaryKey(id,companyId);
+        baseService.deleteByPrimaryKey(id,companyId);
         return  ResultInfoUtil.success();
     }
     @PostMapping("/insert")

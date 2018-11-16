@@ -20,6 +20,20 @@ public class StaffScheduleVO {
     private int count;//接单合计
     private String mealName;
     
+	public StaffScheduleVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public StaffScheduleVO(Integer venueId, Integer staffDayLimit, Integer staffStatus, Integer staffId, Integer time,
+			Integer companyId) {
+		super();
+		this.venueId = venueId;
+		this.staffDayLimit = staffDayLimit;
+		this.staffStatus = staffStatus;
+		this.staffId = staffId;
+		this.time = time;
+		this.companyId = companyId;
+	}
 	public String getMealName() {
 		return mealName;
 	}

@@ -41,9 +41,10 @@ public class VenueController extends InitController{
             return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
         }*/
 
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        venue.setCompanyId(companyId);
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(venue);
-
         venueService.insert(venue);
         return ResultInfoUtil.success();
     }
@@ -69,6 +70,8 @@ public class VenueController extends InitController{
         /*if(!RegexUtil.checkMobile(venue.getVenuePhone())){
             return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
         }*/
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        venue.setCompanyId(companyId);
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(venue);
         venueService.updateByPrimaryKey(venue);

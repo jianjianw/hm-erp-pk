@@ -98,17 +98,16 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
     }
 
     @Override
-    public List<SceneScheduleVO> batSave(List<SceneSchedulePO> sceneSchedulePOS) {
+    public Integer saveReturnId(SceneSchedulePO sceneSchedulePO) {
+        return sceneScheduleDao.saveReturnId(sceneSchedulePO);
+    }
 
-       /* for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
-            //SceneSchedulePO sceneSchedulePO1 = sceneScheduleDao.saveReturnId(sceneSchedulePO);
-            sceneScheduleDao.saveReturnId(sceneSchedulePO);
-            Integer id = sceneSchedulePO.getId();
-            System.out.println();
-        }*/
+    @Override
+    public List<SceneScheduleVO> batSave(List<SceneSchedulePO> sceneSchedulePOS) {
 
         sceneScheduleDao.batSave(sceneSchedulePOS);
         List<SceneScheduleVO> sceneScheduleVOS = new ArrayList<>();
+        //封装id 和 时间返回
         for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
             SceneScheduleVO sceneScheduleVO = new SceneScheduleVO();
             sceneScheduleVO.setId(sceneSchedulePO.getId());
@@ -150,6 +149,12 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
             result.add(sceneSchedule);//封装拍摄景档期的所有档期
         }
 
+        return  result;
+    }
+
+    @Override
+    public List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDateTime(SceneDTO sceneDTO) {
+        List<SceneSchedulePO> result = sceneScheduleDao.selectSceneScheduleBySceneIdAndDate(sceneDTO);
         return  result;
     }
 
