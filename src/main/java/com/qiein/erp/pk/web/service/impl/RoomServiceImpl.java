@@ -116,9 +116,6 @@ public class RoomServiceImpl implements RoomService {
                 roomDao.updateByPrimaryKey(room);
             }
         }
-
-       //这个方法不行
-        // roomDao.batInsertOrUpdate(rooms);
     }
 
     @Override
