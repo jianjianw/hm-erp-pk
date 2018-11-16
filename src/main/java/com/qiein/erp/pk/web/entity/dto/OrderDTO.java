@@ -16,6 +16,15 @@ public class OrderDTO {
     private String mealIds;//套餐id
     private Integer orderType;//订单状态
     private Integer companyId;
+    private Integer type;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public String getTimeType() {
         return timeType;

@@ -71,7 +71,7 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                 serviceScheduleVO.setVenueId(venueServiceVO.getVenueId());
                 serviceScheduleVO.setVenueName(venueServiceVO.getVenueName());
                 for (VenueScheduleVO venueScheduleVO : serviceScheduleVO.getVenueScheduleVOS()) {
-                    //赋值 垃圾关林涛
+                    //赋值
                     for (OrderVenueScheduleVO orderVenueScheduleVO : orderVenueScheduleVOS) {
                         if (venueServiceVO.getVenueId().equals(orderVenueScheduleVO.getVenueId()) && serviceScheduleVO.getServiceId().equals(orderVenueScheduleVO.getServiceId()) && venueScheduleVO.getTime().equals(orderVenueScheduleVO.getVenueDay())) {
                             venueScheduleVO.setTargetCount(orderVenueScheduleVO.getVenueDayLimit());
@@ -100,7 +100,7 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                 i++;
             }
         }
-        //辣鸡关林涛要的数据
+        //前端要的数据
         List<ServiceScheduleVO> serviceScheduleVOS = new ArrayList<>();
         for (VenueServiceVO venueServiceVO : venueServiceVOS) {
             for(ServiceScheduleVO serviceScheduleVO:venueServiceVO.getServiceScheduleVOS()){

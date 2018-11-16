@@ -34,6 +34,24 @@ public class PlancheduleController extends InitController{
     private PlanScheduleService planScheduleService;
     
     /**
+     * 新增人员档期，返回id和员工
+     * @return
+     */
+    @GetMapping("/insert_staff_schedule")
+    public ResultInfo insertStaffSchedule(@RequestParam(value="staffId") Integer staffId,
+    		@RequestParam(value="venueId") Integer venueId,@RequestParam(value="time") Integer time){
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
+		StaffScheduleVO staffScheduleVO=planScheduleService.selectByVenueIdAndStaffId(staffId,venueId,time,companyId);
+		if(staffScheduleVO!=null){
+			return ResultInfoUtil.success(staffScheduleVO);
+		}
+		//新增这条记录
+		StaffScheduleVO staffScheduleVOt=new StaffScheduleVO(venueId,1,1,staffId,time,companyId);
+		planScheduleService.insertStaffSchedule(staffScheduleVOt);
+         //int scheduleId=staffScheduleVOt.getId();
+        return ResultInfoUtil.success(staffScheduleVOt);
+    }
+    /**
      * 查询摄影师档期--订单界面下拉框
      * @return
      */
