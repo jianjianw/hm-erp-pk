@@ -1,6 +1,7 @@
 package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.web.entity.po.BasePO;
+import io.swagger.models.auth.In;
 
 import java.util.List;
 /**
@@ -48,4 +49,16 @@ public interface BaseService {
      * @param bases
      */
     void baseSort(List<BasePO> bases);
+
+
+    /**
+     * 名字查重
+     * @param companyId
+     * @param id
+     * @param name
+     * @return
+     */
+    String checkName(Integer companyId, Integer id,String name);
+
+
 }

@@ -93,4 +93,14 @@
     </foreach>
   </update>
 
+  <select id="checkName" resultType="string" parameterType="map">
+    select base_name
+    from hm_erp_base
+    where company_id = #{companyId}
+    and base_name = #{name}
+    <if test="id != null">
+      and id != #{id}
+    </if>
+  </select>
+
 </mapper>

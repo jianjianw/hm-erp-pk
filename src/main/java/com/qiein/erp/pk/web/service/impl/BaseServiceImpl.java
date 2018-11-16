@@ -77,4 +77,10 @@ public class BaseServiceImpl implements BaseService {
     public void baseSort(List<BasePO> bases) {
         baseDao.baseSort(bases);
     }
+
+    @Override
+    public String checkName(Integer companyId, Integer id, String name) {
+        String baseName = baseDao.checkName(companyId, id, name);
+        return baseName;
+    }
 }

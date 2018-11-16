@@ -68,7 +68,6 @@ public class SceneServiceImpl implements SceneService {
     public void batInsertOrUpdateScene(List<ScenePO> scenes) {
 
         for(ScenePO scene : scenes ){
-            Integer id = scene.getId();
             ScenePO scene1 = sceneDao.selectByPrimaryKey(scene.getId(), scene.getCompanyId());
             if(scene1 == null){
                 sceneDao.insert(scene);
