@@ -59,7 +59,8 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
 
         //获取场馆下面的服务和房间
         List<ServiceVenueRoomVO> serviceAndMakeupRooms = serviceService.findServiceAndMakeupRooms(companyId, venueId);
-        List<Integer> everyDayOfMonth = TimeUtil.getMonthEveryDay(TimeUtil.getMonthStartTimeStampByDate(dateStr), TimeUtil.getMonthEndTimeStampByDate(dateStr));
+        List<Integer> everyDayOfMonth = TimeUtil.getMonthEveryDay(TimeUtil.getMonthStartTimeStampByDate(dateStr),
+                TimeUtil.getMonthEndTimeStampByDate(dateStr));
 
         Integer startTime = everyDayOfMonth.get(0);
         Integer endTime = everyDayOfMonth.get(everyDayOfMonth.size() - 1);
@@ -112,8 +113,8 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                 data.add(makeupRoomScheduleVO);//封装每个房间中的数据
             }
         }
-
-        //将数据封装到 data 中  应该再加一层
+        //上面是封装数据时间数据
+        //将数据封装到 data 中
        for(MakeupRoomSchedulePO makeupRoomSchedulePO : makeupRoomSchedulePOS){
            Integer poVenueId = makeupRoomSchedulePO.getVenueId();
            Integer poServiceId = makeupRoomSchedulePO.getServiceId();
