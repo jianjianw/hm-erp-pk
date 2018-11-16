@@ -122,8 +122,8 @@
     AND staff2.COMPANYID = staff_sch2.company_id
     WHERE
         ord.company_id =#{companyId}
-        <if test="timeType = 'lr'">
-            and ord.order_time BETWEEN #{start} and #{end}
+        <if test="timeType = 'ps'">
+            and venue_sch.venue_day BETWEEN #{start} and #{end}
         </if>
         <if test="timeType= 'dd'">
             and ord.order_time BETWEEN #{start} and #{end}
