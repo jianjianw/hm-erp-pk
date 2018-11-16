@@ -21,6 +21,7 @@
       <result column="venue_name" property="venueName"/>
     </collection>
   </resultMap>
+
   <select id="getVenues" resultMap="BaseVenueMap">
     SELECT
         venue.base_id,
@@ -96,6 +97,31 @@
       and venue_type = #{item.venueType}
     </foreach>
   </update>
+
+  <select id="checkName" parameterType= "com.qiein.erp.pk.web.entity.po.VenuePO" resultType="string">
+      select venue_name
+    from hm_erp_venue
+    where company_id = #{companyId}
+    and venue_name = #{venueName}
+    and venue_type = #{venueType}
+    and base_id = #{baseId}
+    <if test="id != null">
+      and id != #{id}
+    </if>
+  </select>
+
+  <select id="checkPhone" parameterType="com.qiein.erp.pk.web.entity.po.VenuePO" resultType="string">
+    select venue_phone
+    from hm_erp_venue
+    where company_id = #{companyId}
+    and venue_phone = #{venuePhone}
+    and venue_type = #{venueType}
+    and base_id = #{baseId}
+    <if test="id != null">
+      and id != #{id}
+    </if>
+
+  </select>
 
 
 

@@ -98,6 +98,7 @@ public class VenueServiceImpl implements VenueService {
         return venueDao.getVenues(companyId);
     }
 
+
     @Override
     public List<VenueDTO> showIndex(Integer companyId) {
 
@@ -130,4 +131,16 @@ public class VenueServiceImpl implements VenueService {
 
         return venueDTOS;
     }
+
+    @Override
+    public String checkName(VenuePO venuePO) {
+        return venueDao.checkName(venuePO);
+    }
+
+    @Override
+    public String checkPhone(VenuePO venuePO) {
+        return venueDao.checkPhone(venuePO);
+    }
+
+
 }

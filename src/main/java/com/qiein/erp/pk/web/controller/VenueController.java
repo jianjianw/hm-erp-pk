@@ -1,12 +1,14 @@
 package com.qiein.erp.pk.web.controller;
 
 
+import com.qiein.erp.pk.exception.ExceptionEnum;
 import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.VenueDTO;
 import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.service.VenueService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,16 @@ public class VenueController extends InitController{
 
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         venue.setCompanyId(companyId);
+        //手机查重
+        String phone = venueService.checkPhone(venue);
+        if(StringUtils.isNotBlank(phone)){
+            ResultInfoUtil.error(ExceptionEnum.PHONE_EXIST);
+        }
+        //名字查重
+        String name = venueService.checkName(venue);
+        if(StringUtils.isNotBlank(name)){
+            ResultInfoUtil.error(ExceptionEnum.NAME_EXIST);
+        }
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(venue);
         venueService.insert(venue);
@@ -72,6 +84,17 @@ public class VenueController extends InitController{
         }*/
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         venue.setCompanyId(companyId);
+
+        //手机查重
+        String phone = venueService.checkPhone(venue);
+        if(StringUtils.isNotBlank(phone)){
+            ResultInfoUtil.error(ExceptionEnum.PHONE_EXIST);
+        }
+        //名字查重
+        String name = venueService.checkName(venue);
+        if(StringUtils.isNotBlank(name)){
+            ResultInfoUtil.error(ExceptionEnum.NAME_EXIST);
+        }
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(venue);
         venueService.updateByPrimaryKey(venue);
@@ -102,5 +125,19 @@ public class VenueController extends InitController{
 
        Integer companyId=getCurrentLoginStaff().getCompanyId();
        return ResultInfoUtil.success(venueService.getVenues(companyId));
+   }
+
+    /**
+     * testController
+     * @param venuePO
+     * @return
+     */
+   @GetMapping("/test")
+   public ResultInfo test(@RequestBody VenuePO venuePO){
+       //String name = venueService.checkName(venuePO);
+       String phone = venueService.checkPhone(venuePO);
+
+       System.out.println();
+       return null;
    }
 }
