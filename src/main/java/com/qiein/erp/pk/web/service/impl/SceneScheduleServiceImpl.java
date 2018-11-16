@@ -129,13 +129,14 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         Map<String, Integer> startAndEndTime = getStartAndEndTime(sceneDTO.getDate());
         sceneDTO.setStartTime(startAndEndTime.get("start"));
         sceneDTO.setEndTime(startAndEndTime.get("end"));
-
+        //获得拍摄景档期
         List<SceneSchedulePO> sceneSchedulePOS = sceneScheduleDao.selectSceneScheduleBySceneIdAndDate(sceneDTO);
 
         List<SceneSchedulePO> result = new ArrayList<>();
         //获取开始时间 和 结束时间 集合
         Map<Integer, Integer> timeMap = getTimeMap(sceneDTO.getDate());
         Set<Map.Entry<Integer, Integer>> entries = timeMap.entrySet();
+        //每个时间段都返回一条数据，如果该档期有 就将Select 设为false
         for(Map.Entry<Integer, Integer> entry : entries){
             Integer start = entry.getKey();
             Integer end = entry.getValue();
@@ -143,6 +144,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
             sceneSchedule.setStartTime(start);
             sceneSchedule.setEndTime(end);
             sceneSchedule.setStartTime(Integer.valueOf(String.valueOf(start)));
+            //遍历查询到的档期
             for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
                 if(start.equals(sceneSchedulePO.getStartTime())){
                     sceneSchedule.setSelect(false);//已存在，不可选
@@ -150,7 +152,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
             }
             result.add(sceneSchedule);//封装拍摄景档期的所有档期
         }
-
+        //返回封装好得数据
         return  result;
     }
 
