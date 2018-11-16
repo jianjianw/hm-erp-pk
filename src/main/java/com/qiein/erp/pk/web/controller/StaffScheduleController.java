@@ -74,6 +74,19 @@ public class StaffScheduleController extends InitController{
         }
         return ResultInfoUtil.success(StaffScheduleVOAlls);
     }
+    
+    /**
+     * 新增人员档期，返回id和员工
+     * @return
+     */
+    @GetMapping("/insert_staff_schedule")
+    public ResultInfo insertStaffSchedule(@RequestParam(value="roleId") Integer roleId,
+    		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
+         List<Venue> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
+        return ResultInfoUtil.success(Venues);
+    }
+    
     /**
      * 查询场馆
      * @return
@@ -148,6 +161,7 @@ public class StaffScheduleController extends InitController{
   			tempStaff.setCount(staffScheduleVO.getCount());
   			tempStaff.setMealName(staffScheduleVO.getMealName());
   			tempStaff.setStaffStatus(staffScheduleVO.getStaffStatus());
+  			tempStaff.setId(staffScheduleVO.getId());
   			Map<String, Object> row = new HashMap<>();
   			row.put("id", staffScheduleVO.getId());
   			row.put("venueId", staffScheduleVO.getVenueId());
@@ -186,6 +200,7 @@ public class StaffScheduleController extends InitController{
   	  				if(map.get("venueId").equals(staffScheduleVO.getVenueId())&&
   	  						map.get("staffId").equals(staffScheduleVO.getStaffId())){
   	  					tempStaffs=new TempStaffVO();
+  	  					tempStaff.setId(staffScheduleVO.getId());
   	  					tempStaffs.setStaffStatus(staffScheduleVO.getStaffStatus());
   	  					map.put(String.valueOf(staffScheduleVO.getTime()), tempStaffs);
   	  				}

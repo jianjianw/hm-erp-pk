@@ -145,6 +145,7 @@ public class PlancheduleController extends InitController{
   			tempStaff.setCount(staffScheduleVO.getCount());
   			tempStaff.setMealName(staffScheduleVO.getMealName());
   			tempStaff.setStaffStatus(staffScheduleVO.getStaffStatus());
+  			tempStaff.setId(staffScheduleVO.getId());
   			Map<String, Object> row = new HashMap<>();
   			row.put("id", staffScheduleVO.getId());
   			row.put("venueId", staffScheduleVO.getVenueId());
@@ -183,6 +184,7 @@ public class PlancheduleController extends InitController{
   	  				if(map.get("venueId").equals(staffScheduleVO.getVenueId())&&
   	  						map.get("staffId").equals(staffScheduleVO.getStaffId())){
   	  					tempStaffs=new TempStaffVO();
+  	  					tempStaff.setId(staffScheduleVO.getId());
   	  					tempStaffs.setStaffStatus(staffScheduleVO.getStaffStatus());
   	  					map.put(String.valueOf(staffScheduleVO.getTime()), tempStaffs);
   	  				}
