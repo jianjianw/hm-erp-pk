@@ -37,9 +37,11 @@ public class SceneController extends InitController{
     @ApiOperation(value = "新增拍摄景")
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody ScenePO scene){
+
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        scene.setCompanyId(companyId);
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(scene);
-
         sceneService.insert(scene);
         return ResultInfoUtil.success();
     }
@@ -64,9 +66,10 @@ public class SceneController extends InitController{
     @ApiOperation(value = "根据id更新")
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody ScenePO scene){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        scene.setCompanyId(companyId);
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(scene);
-
         sceneService.updateByPrimaryKey(scene);
         return ResultInfoUtil.success();
     }
