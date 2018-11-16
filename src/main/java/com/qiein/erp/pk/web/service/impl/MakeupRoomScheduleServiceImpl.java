@@ -193,7 +193,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
             save.setMakeupDay(date);
             save.setMakeupDayLimit(1);
             save.setMakeupRoomId(venueAndRoomVO.getRoomId());
-            save.setId(venueAndRoomVO.getMakeupRoomScheduleId());
+            save.setId(venueAndRoomVO.getMakeupRoomScheduleId());//已经存在的档期
             batSave.add(save);
         }
         if(batSave != null && batSave.size()>0){
@@ -202,7 +202,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
         }
 
 
-        //查询所有的化妆间档期
+        //重新查询所有的化妆间档期  已经将没有档期的插入数据库
         List<MakeupRoomSchedulePO> makeupRoomSchedules = makeupRoomScheduleDao.findMakeupRoomScheduleByDateAndRoomIds(companyId, venueId, serviceId, date, roomIds);
         for(VenueAndRoomVO venueAndRoomVO : makeupRooms){
             Integer venueId1 = venueAndRoomVO.getVenueId();
