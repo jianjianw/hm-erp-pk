@@ -38,6 +38,18 @@ public interface VenueService {
      */
     List<VenueSelectVO> getVenues(Integer companyId);
 
+    /**
+     * 场馆名字查重
+     */
+    public String checkName(VenuePO venuePO);
+
+    /**
+     * 场馆手机查重
+     */
+    public String checkPhone(VenuePO venuePO);
+
+
+
 
 
 }

@@ -51,4 +51,14 @@ public interface BaseDao {
      */
     void baseSort(List<BasePO> bases);
 
+    /**
+     * 名字查重
+     * @param companyId
+     * @param id
+     * @param name
+     * @return
+     */
+    String checkName(@Param("companyId") Integer companyId,
+                     @Param("id") Integer id,
+                     @Param("name") String name);
 }

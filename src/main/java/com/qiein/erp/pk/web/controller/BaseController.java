@@ -1,10 +1,12 @@
 package com.qiein.erp.pk.web.controller;
 
+import com.qiein.erp.pk.exception.ExceptionEnum;
 import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.BasePO;
 import com.qiein.erp.pk.web.service.BaseService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +34,11 @@ public class BaseController extends InitController{
         base.setCompanyId(companyId);
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(base);
+        //名字查重
+        String baseName = baseService.checkName(companyId, null, base.getBaseName());
+        if(StringUtils.isNotBlank(baseName)){
+            return ResultInfoUtil.error(ExceptionEnum.NAME_EXIST);
+        }
         baseService.insert(base);
         return ResultInfoUtil.success();
     }
@@ -53,6 +60,11 @@ public class BaseController extends InitController{
     public ResultInfo updateByPrimaryKey(@RequestBody BasePO base){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         base.setCompanyId(companyId);
+        //名字查重
+        String baseName = baseService.checkName(companyId, base.getId(), base.getBaseName());
+        if(StringUtils.isNotBlank(baseName)){
+            return ResultInfoUtil.error(ExceptionEnum.NAME_EXIST);
+        }
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(base);
         baseService.updateByPrimaryKey(base);
@@ -96,8 +108,6 @@ public class BaseController extends InitController{
         List<BasePO> bases = baseService.selectOpenAll(companyId);
         return ResultInfoUtil.success(bases);
     }
-
-
 
 
 }

@@ -83,6 +83,12 @@ public class SceneScheduleController extends InitController{
         return ResultInfoUtil.success(reslut);
 
     }
+
+    /**
+     * 批量保存，先查询再保存
+     * @param sceneSchedulePOS
+     * @return
+     */
     @PostMapping("/bat_save_select")
     public ResultInfo batSaveSelect(@RequestBody List<SceneSchedulePO> sceneSchedulePOS){
 

@@ -36,7 +36,9 @@ public enum ExceptionEnum {
     PHONE_ERROR(346, "手机号格式错误"),
 
     //档期
-    SCENE_SCHEDULE_EXIST(409,"档期已存在");
+    SCENE_SCHEDULE_EXIST(409,"档期已存在"),
+    NAME_EXIST(410, "名字已存在"),
+    PHONE_EXIST(411, "手机号已存在");
 
     private Integer code;
     private String msg;

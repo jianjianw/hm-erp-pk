@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -215,8 +216,63 @@ public class PlancheduleController extends InitController{
   	  			}
   			} 
   		}
+  	//没档期休息的摄影师放入
+  		List<Map<String, Object>> staffDataOperation = dataOperation(staffMonthRest);
+  		if(staffDataOperation!=null && staffDataOperation.size()>0){
+  			for (Map<String, Object> map : newmaps) {
+  				Iterator<Map<String, Object>> iterator = staffDataOperation.iterator();
+  				while(iterator.hasNext()){
+  					Map<String, Object> staffData = iterator.next();
+  					if(map.get("staffId").equals(staffData.get("staffId"))){
+  						iterator.remove();
+  					}
+  				}
+  	  		}
+  			newmaps.addAll(staffDataOperation);
+  		}
         return ResultInfoUtil.success(newmaps);
     }
 
-    
+    public List<Map<String, Object>> dataOperation(List<StaffScheduleVO> staffScheduleVOs){
+    	
+    	// 最终用返回
+        List<Map<String, Object>> newmaps = new ArrayList<>();
+        TempStaffVO tempStaff=null;
+  		for (StaffScheduleVO staffScheduleVO : staffScheduleVOs) {
+  			tempStaff=new TempStaffVO();
+  			tempStaff.setCount(staffScheduleVO.getCount());
+  			tempStaff.setMealName(staffScheduleVO.getMealName());
+  			tempStaff.setStaffStatus(staffScheduleVO.getStaffStatus());
+  			tempStaff.setId(staffScheduleVO.getId());
+  			Map<String, Object> row = new HashMap<>();
+  			row.put("id", staffScheduleVO.getId());
+  			row.put("venueId", staffScheduleVO.getVenueId());
+  			row.put("venueName", staffScheduleVO.getVenueName());
+  			row.put("staffId", staffScheduleVO.getStaffId());
+  			row.put("nickName", staffScheduleVO.getNickName());
+  			row.put("staffStatus", staffScheduleVO.getStaffStatus());
+  			row.put("roleId", staffScheduleVO.getRoleId());
+  			row.put("roleName", staffScheduleVO.getRoleName());
+  			row.put("roleLevel", staffScheduleVO.getRoleLevel());
+  			row.put(String.valueOf(staffScheduleVO.getTime()), tempStaff);
+  			//row.put(staffScheduleVOs.get("time"), map6.get("count"));
+  			//合计
+  			int count=staffScheduleVO.getCount();
+  			boolean flag = false;
+  			for (Map<String, Object> newmap : newmaps) {
+  				if (newmap.get("venueId").equals(row.get("venueId")) &&newmap.get("staffId").equals(row.get("staffId"))) {
+  					newmap.put(String.valueOf(staffScheduleVO.getTime()), tempStaff);
+  					Integer total = (Integer)newmap.get("total");
+  					newmap.put("total", total + count);
+  					flag = true;
+  					break;
+  				}
+  			}
+  			if (!flag) {
+  				row.put("total",count);
+  				newmaps.add(row);
+  			}
+  		}
+		return newmaps;
+    }
 }

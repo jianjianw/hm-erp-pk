@@ -28,4 +28,17 @@ public interface VenueDao {
      * @return
      */
     List<VenueSelectVO> getVenues(Integer companyId);
+
+    /**
+     * 场馆名字查重
+     * @return
+     */
+    String checkName(VenuePO venuePO);
+
+    /**
+     * 场馆手机查重
+     * @return
+     */
+    String checkPhone(VenuePO venuePO);
+
 }
