@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qiein.erp.pk.web.dao.SceneDao" >
 
-  <resultMap id="BaseResultMap" type="com.qiein.erp.pk.web.entity.po.Scene" >
+  <resultMap id="BaseResultMap" type="com.qiein.erp.pk.web.entity.po.ScenePO" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="shoot_id" property="shootId" jdbcType="INTEGER" />
     <result column="scene_name" property="sceneName" jdbcType="VARCHAR" />
@@ -20,7 +20,7 @@
     where id = #{id} and company_id = #{companyId}
   </delete>
 
-  <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Scene" >
+  <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.ScenePO" >
     insert into hm_erp_scene (id, shoot_id, scene_name,
       scene_status,company_id,priority
       )
@@ -31,7 +31,7 @@
                      WHERE company_id = #{companyId})
   </insert>
 
-  <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Scene" >
+  <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.ScenePO" >
 
     update hm_erp_scene
     <set>
@@ -99,10 +99,10 @@
     <result column="room_status" property="roomStatus" jdbcType="SMALLINT" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
 
-    <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.Scene" resultMap="SceneResultMap"/>
+    <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.ScenePO" resultMap="SceneResultMap"/>
   </resultMap>
 
-  <resultMap id="SceneResultMap" type="com.qiein.erp.pk.web.entity.po.Scene" >
+  <resultMap id="SceneResultMap" type="com.qiein.erp.pk.web.entity.po.ScenePO" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="shoot_id" property="shootId" jdbcType="INTEGER" />
     <result column="scene_name" property="sceneName" jdbcType="VARCHAR" />
@@ -174,7 +174,7 @@
     <result column="room_id" property="roomId" jdbcType="INTEGER" />
     <result column="room_name" property="roomName" jdbcType="VARCHAR" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
-    <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.Scene" resultMap="SceneResultMap"/>
+    <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.ScenePO" resultMap="SceneResultMap"/>
 
   </resultMap>
 

@@ -1,7 +1,5 @@
 package com.qiein.erp.pk.web.entity.po;
 
-import com.qiein.erp.pk.web.entity.po.Scene;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public class VenueRoomScenePO implements Serializable {
     private Integer companyId;
 
     //拍摄景
-    private List<Scene> scenes;
+    private List<ScenePO> scenes;
 
     public Integer getVenueId() {
         return venueId;
@@ -63,11 +61,11 @@ public class VenueRoomScenePO implements Serializable {
         this.companyId = companyId;
     }
 
-    public List<Scene> getScenes() {
+    public List<ScenePO> getScenes() {
         return scenes;
     }
 
-    public void setScenes(List<Scene> scenes) {
+    public void setScenes(List<ScenePO> scenes) {
         this.scenes = scenes;
     }
 }

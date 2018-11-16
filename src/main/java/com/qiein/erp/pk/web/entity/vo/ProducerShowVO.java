@@ -1,7 +1,5 @@
 package com.qiein.erp.pk.web.entity.vo;
 
-import com.qiein.erp.pk.web.entity.po.Venue;
-
 import java.util.List;
 /**
  * 生产者页面

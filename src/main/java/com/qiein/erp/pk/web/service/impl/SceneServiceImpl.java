@@ -3,7 +3,7 @@ package com.qiein.erp.pk.web.service.impl;
 import com.qiein.erp.pk.web.dao.SceneDao;
 import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
 import com.qiein.erp.pk.web.entity.po.VenueRoomScenePO;
-import com.qiein.erp.pk.web.entity.po.Scene;
+import com.qiein.erp.pk.web.entity.po.ScenePO;
 import com.qiein.erp.pk.web.service.RoomService;
 import com.qiein.erp.pk.web.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,32 +29,32 @@ public class SceneServiceImpl implements SceneService {
     }
 
     @Override
-    public int insert(Scene scene) {
+    public int insert(ScenePO scene) {
         return sceneDao.insert(scene);
     }
 
     @Override
-    public Scene selectByPrimaryKey(Integer id,Integer companyId) {
+    public ScenePO selectByPrimaryKey(Integer id, Integer companyId) {
         return sceneDao.selectByPrimaryKey(id,companyId);
     }
 
     @Override
-    public List<Scene> selectAll(Integer companyId) {
+    public List<ScenePO> selectAll(Integer companyId) {
         return sceneDao.selectAll(companyId);
     }
 
     @Override
-    public int updateByPrimaryKey(Scene scene) {
+    public int updateByPrimaryKey(ScenePO scene) {
         return sceneDao.updateByPrimaryKey(scene);
     }
 
     @Override
-    public List<Scene> findSceneByRoomId(Integer companyId, Integer roomId) {
+    public List<ScenePO> findSceneByRoomId(Integer companyId, Integer roomId) {
         return sceneDao.findSceneByRoomId(companyId,roomId);
     }
 
     @Override
-    public void sceneSort(List<Scene> scenes) {
+    public void sceneSort(List<ScenePO> scenes) {
         sceneDao.sceneSort(scenes);
     }
 
@@ -65,11 +65,11 @@ public class SceneServiceImpl implements SceneService {
     }
 
     @Override
-    public void batInsertOrUpdateScene(List<Scene> scenes) {
+    public void batInsertOrUpdateScene(List<ScenePO> scenes) {
 
-        for(Scene scene : scenes ){
+        for(ScenePO scene : scenes ){
             Integer id = scene.getId();
-            Scene scene1 = sceneDao.selectByPrimaryKey(scene.getId(), scene.getCompanyId());
+            ScenePO scene1 = sceneDao.selectByPrimaryKey(scene.getId(), scene.getCompanyId());
             if(scene1 == null){
                 sceneDao.insert(scene);
             }else{
@@ -79,17 +79,17 @@ public class SceneServiceImpl implements SceneService {
     }
 
     @Override
-    public List<Scene> findSceneByVenueId(Integer companyId, Integer venueId) {
+    public List<ScenePO> findSceneByVenueId(Integer companyId, Integer venueId) {
         return sceneDao.findSceneByVenueId(companyId,venueId);
     }
 
     @Override
-    public void batInsertScene(List<Scene> scenes) {
+    public void batInsertScene(List<ScenePO> scenes) {
         sceneDao.batInsertScene(scenes);
     }
 
     @Override
-    public void batUpdateScene(List<Scene> scenes) {
+    public void batUpdateScene(List<ScenePO> scenes) {
         sceneDao.batUpdateScene(scenes);
     }
 

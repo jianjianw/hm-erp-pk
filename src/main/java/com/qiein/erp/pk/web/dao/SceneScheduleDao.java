@@ -49,12 +49,12 @@ public interface SceneScheduleDao {
      * @param sceneSchedulePO
      * @return
      */
-    SceneSchedulePO saveReturnId(SceneSchedulePO sceneSchedulePO);
+    Integer saveReturnId(SceneSchedulePO sceneSchedulePO);
 
     /**
      * 批量保存
      * @param sceneSchedulePOS
      * @return
      */
-    List<SceneSchedulePO> batSave(List<SceneSchedulePO> sceneSchedulePOS);
+    Integer batSave(List<SceneSchedulePO> sceneSchedulePOS);
 }

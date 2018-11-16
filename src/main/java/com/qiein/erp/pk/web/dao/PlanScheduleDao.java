@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 /**
@@ -25,8 +25,8 @@ public interface PlanScheduleDao {
      * 查询场馆
      * @return
      */
-	List<Venue> venueSelect(@Param("companyId") Integer companyId,@Param("roleId") Integer roleId,
-			@Param("venueId") String[] venueId,@Param("roleLevel") String[] roleLevel);  
+	List<VenuePO> venueSelect(@Param("companyId") Integer companyId, @Param("roleId") Integer roleId,
+                              @Param("venueId") String[] venueId, @Param("roleLevel") String[] roleLevel);
 	/**
      * 查询角色等级
      * @return
@@ -36,7 +36,7 @@ public interface PlanScheduleDao {
      * 仅查询场馆
      * @return
      */
-	List<Venue> venueSelectOnly(int companyId);
+	List<VenuePO> venueSelectOnly(int companyId);
 	/**
      * 查询人员休息
      * @return

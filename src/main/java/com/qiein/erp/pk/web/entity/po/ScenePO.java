@@ -7,7 +7,7 @@ import java.io.Serializable;
  * author:wang lei
  * date : 2018-11-04
  */
-public class Scene implements Serializable {
+public class ScenePO implements Serializable {
     private static final long serialVersionUID = 8656946036214356631L;
 
     private Integer id;     //场景id

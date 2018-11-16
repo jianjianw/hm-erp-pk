@@ -18,7 +18,7 @@
     <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
   </resultMap>
   
-  <resultMap id="VenueMap" type="com.qiein.erp.pk.web.entity.po.Venue" >
+  <resultMap id="VenueMap" type="com.qiein.erp.pk.web.entity.po.VenuePO" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
     <result column="venue_status" property="venueStatus" jdbcType="INTEGER" />

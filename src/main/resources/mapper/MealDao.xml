@@ -132,7 +132,7 @@
 		id = #{id} AND COMPANYID = #{companyId}
   </update>
   <!--新增主套餐  -->
-  <insert id="insertMeal" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
+  <insert id="insertMeal" parameterType="com.qiein.erp.pk.web.entity.po.BasePO" >
     insert into 
     	hm_erp_meal (meal_name, photo_type,photo_name, meal_type,meal_status,meal_amount,
     			memo,priority,clothes_num,company_id,meal_type_name,service_id,service_name)

@@ -1,7 +1,7 @@
 package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.web.entity.dto.VenueDTO;
-import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
 
 import java.util.List;
@@ -14,15 +14,15 @@ public interface VenueService {
 
     int deleteByPrimaryKey(Integer id,Integer companyId);
 
-    int insert(Venue venue);
+    int insert(VenuePO venue);
 
-    Venue selectByPrimaryKey(Integer id,Integer companyId);
+    VenuePO selectByPrimaryKey(Integer id, Integer companyId);
 
     List<VenueDTO> selectAll(Integer companyId,Integer venueType);
 
-    int updateByPrimaryKey(Venue venue);
+    int updateByPrimaryKey(VenuePO venue);
 
-    void venueSort(List<Venue> venues);
+    void venueSort(List<VenuePO> venues);
 
     /**
      * 内景馆的首页展示

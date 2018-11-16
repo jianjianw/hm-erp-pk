@@ -3,17 +3,14 @@ package com.qiein.erp.pk.web.service.impl;
 import com.qiein.erp.pk.web.dao.SceneScheduleDao;
 import com.qiein.erp.pk.web.entity.dto.SceneScheduleDTO;
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
-import com.qiein.erp.pk.web.entity.dto.TimeStampScheduleDTO;
-import com.qiein.erp.pk.web.entity.po.Scene;
+import com.qiein.erp.pk.web.entity.po.ScenePO;
 import com.qiein.erp.pk.web.entity.po.VenueRoomScenePO;
-import com.qiein.erp.pk.web.entity.dto.VenueScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
 import com.qiein.erp.pk.web.service.SceneScheduleService;
 import com.qiein.erp.pk.web.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -53,8 +50,8 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         for(VenueRoomScenePO venueRoomScenePO : venueRoomScenePOS){
             Integer poVenueId = venueRoomScenePO.getVenueId();
             Integer poRoomId = venueRoomScenePO.getRoomId();
-            List<Scene> scenes = venueRoomScenePO.getScenes();
-            for(Scene scene : scenes ){//每一个拍摄景都要封装一个list
+            List<ScenePO> scenes = venueRoomScenePO.getScenes();
+            for(ScenePO scene : scenes ){//每一个拍摄景都要封装一个list
                 Integer sceneId = scene.getId();
                 SceneScheduleDTO sceneScheduleDTO = new SceneScheduleDTO();
                 sceneScheduleDTO.setVenueId(poVenueId);
@@ -101,11 +98,15 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
     public List<SceneSchedulePO> batSave(List<SceneSchedulePO> sceneSchedulePOS) {
 
        /* for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
-            SceneSchedulePO sceneSchedulePO1 = sceneScheduleDao.saveReturnId(sceneSchedulePO);
+            //SceneSchedulePO sceneSchedulePO1 = sceneScheduleDao.saveReturnId(sceneSchedulePO);
+            sceneScheduleDao.saveReturnId(sceneSchedulePO);
+            Integer id = sceneSchedulePO.getId();
+            System.out.println();
         }*/
-        List<SceneSchedulePO> list =  sceneScheduleDao.batSave(sceneSchedulePOS);
+        sceneScheduleDao.batSave(sceneSchedulePOS);
 
-        return list;
+        System.out.println();
+        return null;
     }
 
     //获取开始时间和结束时间

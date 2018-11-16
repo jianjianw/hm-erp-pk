@@ -4,16 +4,11 @@ package com.qiein.erp.pk.web.controller;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
-import com.qiein.erp.pk.web.entity.dto.TimeStampScheduleDTO;
-import com.qiein.erp.pk.web.entity.dto.VenueScheduleDTO;
-import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
-import com.qiein.erp.pk.web.service.SceneService;
 import com.qiein.erp.pk.web.service.SceneScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**

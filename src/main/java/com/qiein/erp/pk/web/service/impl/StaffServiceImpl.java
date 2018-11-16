@@ -4,12 +4,10 @@ import com.qiein.erp.pk.constant.CommonConstant;
 import com.qiein.erp.pk.web.dao.StaffDao;
 import com.qiein.erp.pk.web.dao.VenueDao;
 import com.qiein.erp.pk.web.entity.po.*;
-import com.qiein.erp.pk.web.entity.vo.ProducerShowVO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
 import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
 import com.qiein.erp.pk.web.service.StaffService;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -132,7 +130,7 @@ public class StaffServiceImpl implements StaffService {
         List<VenueSelectVO> list = venueDao.getVenues(companyId);
         List<StaffRoleTypeVO> staffRoleTypeVOS = staffDao.selectProducer(companyId, roleId);
         for (VenueSelectVO venueSelectVO : list) {
-            for (Venue venue : venueSelectVO.getVenues()) {
+            for (VenuePO venue : venueSelectVO.getVenues()) {
                 List<StaffRoleTypeVO> staffRoleTypeVOS1 = new ArrayList<>();
                 for (StaffRoleTypeVO staffRoleTypeVO : staffRoleTypeVOS) {
 

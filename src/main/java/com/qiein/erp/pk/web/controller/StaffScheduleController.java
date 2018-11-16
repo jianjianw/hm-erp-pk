@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
-import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.util.TimeUtil;
-import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 import com.qiein.erp.pk.web.entity.vo.TempStaffVO;
@@ -83,7 +82,7 @@ public class StaffScheduleController extends InitController{
     public ResultInfo venueSelect(@RequestParam(value="roleId") Integer roleId,
     		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
-         List<Venue> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
+         List<VenuePO> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
         return ResultInfoUtil.success(Venues);
     }
     /**
@@ -93,7 +92,7 @@ public class StaffScheduleController extends InitController{
     @GetMapping("/venue_select_only")
     public ResultInfo venueSelectOnly(){
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
-         List<Venue> Venues= staffScheduleService.venueSelectOnly(companyId);
+         List<VenuePO> Venues= staffScheduleService.venueSelectOnly(companyId);
         return ResultInfoUtil.success(Venues);
     }
     /**

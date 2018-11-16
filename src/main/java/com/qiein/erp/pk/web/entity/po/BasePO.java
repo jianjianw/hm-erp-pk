@@ -6,7 +6,7 @@ import java.io.Serializable;
  * author:wang lei
  * date : 2018-11-04
  * */
-public class Base implements Serializable {
+public class BasePO implements Serializable {
     private static final long serialVersionUID = 21266182125583448L;
 
     private Integer id;     //场馆id
