@@ -125,6 +125,9 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
     @Override
     public List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDate(SceneDTO sceneDTO){
 
+        Map<String, Integer> startAndEndTime = getStartAndEndTime(sceneDTO.getDate());
+        sceneDTO.setStartTime(startAndEndTime.get("start"));
+        sceneDTO.setEndTime(startAndEndTime.get("end"));
 
         List<SceneSchedulePO> sceneSchedulePOS = sceneScheduleDao.selectSceneScheduleBySceneIdAndDate(sceneDTO);
 

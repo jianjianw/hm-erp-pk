@@ -17,6 +17,10 @@ public class SceneDTO implements Serializable {
     private Integer date;       //具体到日时间戳
 
 
+    private Integer startTime;//开始时间
+    private Integer endTime;//结束时间
+
+
     public Integer getSceneId() {
         return sceneId;
     }
@@ -55,5 +59,21 @@ public class SceneDTO implements Serializable {
 
     public void setDate(Integer date) {
         this.date = date;
+    }
+
+    public Integer getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Integer startTime) {
+        this.startTime = startTime;
+    }
+
+    public Integer getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Integer endTime) {
+        this.endTime = endTime;
     }
 }

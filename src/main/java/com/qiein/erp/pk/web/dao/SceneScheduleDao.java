@@ -60,7 +60,7 @@ public interface SceneScheduleDao {
     Integer batSave(List<SceneSchedulePO> sceneSchedulePOS);
 
     /**
-     * 根据
+     * 根据场景和时间 查询场景档期
      * @param sceneDTO
      * @return
      */
