@@ -32,6 +32,10 @@ public class SceneSchedulePO implements Serializable {
     private StaffVO staffVO;
 
 
+    //add
+    private String sceneName; //场景name   订单新增时 要传入的数据
+
+
 
     public Integer getId() {
         return id;
@@ -111,5 +115,13 @@ public class SceneSchedulePO implements Serializable {
 
     public void setVenueId(Integer venueId) {
         this.venueId = venueId;
+    }
+
+    public String getSceneName() {
+        return sceneName;
+    }
+
+    public void setSceneName(String sceneName) {
+        this.sceneName = sceneName;
     }
 }

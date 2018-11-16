@@ -6,6 +6,7 @@ import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.ScenePO;
 import com.qiein.erp.pk.web.entity.po.VenueRoomScenePO;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
+import com.qiein.erp.pk.web.entity.vo.SceneScheduleVO;
 import com.qiein.erp.pk.web.service.SceneScheduleService;
 import com.qiein.erp.pk.web.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +96,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
     }
 
     @Override
-    public List<SceneSchedulePO> batSave(List<SceneSchedulePO> sceneSchedulePOS) {
+    public List<SceneScheduleVO> batSave(List<SceneSchedulePO> sceneSchedulePOS) {
 
        /* for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
             //SceneSchedulePO sceneSchedulePO1 = sceneScheduleDao.saveReturnId(sceneSchedulePO);
@@ -103,8 +104,20 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
             Integer id = sceneSchedulePO.getId();
             System.out.println();
         }*/
+
         sceneScheduleDao.batSave(sceneSchedulePOS);
-        return sceneSchedulePOS;
+        List<SceneScheduleVO> sceneScheduleVOS = new ArrayList<>();
+        for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
+            SceneScheduleVO sceneScheduleVO = new SceneScheduleVO();
+            sceneScheduleVO.setId(sceneSchedulePO.getId());
+            sceneScheduleVO.setShootId(sceneSchedulePO.getShootId());
+            sceneScheduleVO.setSceneId(sceneSchedulePO.getSceneId());
+            sceneScheduleVO.setSceneName(sceneSchedulePO.getSceneName());
+            sceneScheduleVO.setStartTime(sceneSchedulePO.getStartTime());
+            sceneScheduleVO.setEndTime(sceneSchedulePO.getEndTime());
+            sceneScheduleVOS.add(sceneScheduleVO);
+        }
+        return sceneScheduleVOS;
     }
 
     //获取开始时间和结束时间

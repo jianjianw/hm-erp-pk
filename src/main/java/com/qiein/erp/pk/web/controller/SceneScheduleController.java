@@ -5,6 +5,7 @@ import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
+import com.qiein.erp.pk.web.entity.vo.SceneScheduleVO;
 import com.qiein.erp.pk.web.service.SceneScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -67,7 +68,7 @@ public class SceneScheduleController extends InitController{
     @PostMapping("/bat_save")
     public ResultInfo batSave(@RequestBody List<SceneSchedulePO> sceneSchedulePOS){
         //如果要防止添加重复记录 就要一条一条插入   。  也是可以的
-        List<SceneSchedulePO> reslut = sceneScheduleService.batSave(sceneSchedulePOS);
+        List<SceneScheduleVO> reslut = sceneScheduleService.batSave(sceneSchedulePOS);
         return ResultInfoUtil.success(reslut);
     }
 

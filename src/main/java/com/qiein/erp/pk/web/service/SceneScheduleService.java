@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
+import com.qiein.erp.pk.web.entity.vo.SceneScheduleVO;
 
 import java.util.List;
 /**
@@ -43,5 +44,5 @@ public interface SceneScheduleService {
      * @param sceneSchedulePOS
      * @return
      */
-    List<SceneSchedulePO> batSave(List<SceneSchedulePO> sceneSchedulePOS);
+    List<SceneScheduleVO> batSave(List<SceneSchedulePO> sceneSchedulePOS);
 }
