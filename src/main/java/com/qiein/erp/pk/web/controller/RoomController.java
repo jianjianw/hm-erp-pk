@@ -32,7 +32,7 @@ public class RoomController extends InitController{
     @PostMapping("/delete_by_primary_key")
     public ResultInfo deleteByPrimaryKey(Integer roomId){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        int i = roomService.deleteByPrimaryKey(roomId,companyId);
+        roomService.deleteByPrimaryKey(roomId,companyId);
         return ResultInfoUtil.success();
     }
 
