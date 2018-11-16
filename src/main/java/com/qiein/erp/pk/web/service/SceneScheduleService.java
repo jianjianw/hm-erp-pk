@@ -52,5 +52,5 @@ public interface SceneScheduleService {
      * @param sceneDTO
      * @return
      */
-    List<SceneSchedulePO> selectSceneScheduleByVenueIdAndDate(SceneDTO sceneDTO);
+    List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDate(SceneDTO sceneDTO);
 }

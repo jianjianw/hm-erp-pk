@@ -78,11 +78,11 @@ public class SceneScheduleController extends InitController{
      * @param sceneDTO
      * @return
      */
-    public ResultInfo selectSceneScheduleByVenueIdAndDate(@RequestBody SceneDTO sceneDTO){
+    @GetMapping("find_scene_schedule_by_scene_id_and_date")
+    public ResultInfo selectSceneScheduleBySceneIdAndDate(@RequestBody SceneDTO sceneDTO){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-
-        List<SceneSchedulePO> result = sceneScheduleService.selectSceneScheduleByVenueIdAndDate(sceneDTO);
-
+        sceneDTO.setCompanyId(companyId);
+        List<SceneSchedulePO> result = sceneScheduleService.selectSceneScheduleBySceneIdAndDate(sceneDTO);
         return ResultInfoUtil.success(result);
     }
 

@@ -8,7 +8,6 @@
         <result column="scene_id" property="sceneId" jdbcType="INTEGER" />
         <result column="start_time" property="startTime" jdbcType="INTEGER" />
         <result column="end_time" property="endTime" jdbcType="INTEGER" />
-        <result column="end_time" property="endTime" jdbcType="INTEGER" />
         <result column="status_id" property="statusId" jdbcType="VARCHAR" />
         <result column="company_id" property="companyId" jdbcType="INTEGER" />
         <result column="venue_id" property="venueId" jdbcType="INTEGER" />
@@ -19,7 +18,6 @@
         <result column="shoot_id" property="shootId" jdbcType="INTEGER" />
         <result column="scene_id" property="sceneId" jdbcType="INTEGER" />
         <result column="start_time" property="startTime" jdbcType="INTEGER" />
-        <result column="end_time" property="endTime" jdbcType="INTEGER" />
         <result column="end_time" property="endTime" jdbcType="INTEGER" />
         <result column="status_id" property="statusId" jdbcType="VARCHAR" />
         <result column="company_id" property="companyId" jdbcType="INTEGER" />
@@ -142,5 +140,21 @@
           #{item.startTime},#{item.endTime},#{item.statusId},#{item.companyId},#{item.venueId})
         </foreach>
     </insert>
+
+
+
+    <select id="selectSceneScheduleBySceneIdAndDate" parameterType="com.qiein.erp.pk.web.entity.dto.SceneDTO" resultMap="BaseResultMap">
+        select scene.id,scene.shoot_id,scene.scene_id,scene.start_time,scene.end_time,scene.status_id,scene.company_id,scene.venue_id
+        from hm_erp_scene_schedule scene
+        inner join hm_erp_process_scene_schedule scene_link on scene.id = scene_link.shoot_schedule_id
+        and scene.company_id = scene_link.company_id
+
+        where scene.company_id = #{companyId}
+        and scene.start_time BETWEEN #{startTime} AND #{endTime}
+        and scene.venue_id = #{venueId}
+        and scene.shoot_id = #{shootId}
+        and scene.scene_id = #{sceneId}
+
+    </select>
 
 </mapper>

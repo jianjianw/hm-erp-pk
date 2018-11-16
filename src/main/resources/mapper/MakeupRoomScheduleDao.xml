@@ -109,7 +109,7 @@
     where venue_id = #{companyId}
           and service_id = #{serviceId}
           and makeup_day = #{date}
-          <if test="roomIds != null">
+          <if test="roomIds != null and roomIds.size() > 0">
             and  makeup_room_id in
             <foreach collection="roomIds" separator="," item="roomId" open="(" close=")">
               ${roomId}

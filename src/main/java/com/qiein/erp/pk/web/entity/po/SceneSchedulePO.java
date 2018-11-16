@@ -33,7 +33,11 @@ public class SceneSchedulePO implements Serializable {
 
 
     //add
-    private String sceneName; //场景name   订单新增时 要传入的数据
+    private String sceneName; //场景name   订单新增时 要传入的数据  batSave()是要穿
+
+    //add  下拉框 是否可选  ture 可选
+    private boolean select;
+
 
 
 
@@ -123,5 +127,13 @@ public class SceneSchedulePO implements Serializable {
 
     public void setSceneName(String sceneName) {
         this.sceneName = sceneName;
+    }
+
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
     }
 }

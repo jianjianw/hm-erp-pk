@@ -13,6 +13,7 @@ import com.qiein.erp.pk.web.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -122,11 +123,31 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
     }
 
     @Override
-    public List<SceneSchedulePO> selectSceneScheduleByVenueIdAndDate(SceneDTO sceneDTO){
+    public List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDate(SceneDTO sceneDTO){
 
 
+        List<SceneSchedulePO> sceneSchedulePOS = sceneScheduleDao.selectSceneScheduleBySceneIdAndDate(sceneDTO);
 
-        return  null;
+        List<SceneSchedulePO> result = new ArrayList<>();
+        //获取开始时间 和 结束时间 集合
+        Map<Integer, Integer> timeMap = getTimeMap(sceneDTO.getDate());
+        Set<Map.Entry<Integer, Integer>> entries = timeMap.entrySet();
+        for(Map.Entry<Integer, Integer> entry : entries){
+            Integer start = entry.getKey();
+            Integer end = entry.getValue();
+            SceneSchedulePO sceneSchedule = new SceneSchedulePO();
+            sceneSchedule.setStartTime(start);
+            sceneSchedule.setEndTime(end);
+            sceneSchedule.setStartTime(Integer.valueOf(String.valueOf(start)));
+            for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
+                if(start.equals(sceneSchedulePO.getStartTime())){
+                    sceneSchedule.setSelect(false);//已存在，不可选
+                }
+            }
+            result.add(sceneSchedule);//封装拍摄景档期的所有档期
+        }
+
+        return  result;
     }
 
     //获取开始时间和结束时间
@@ -152,4 +173,62 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
 
         return hashMap;
     }
+
+
+    //获取开始时间集合List
+    public List<Long> getTimeList(Integer second){
+        Long seconds = second * 1000L;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(seconds);//传递进来的参数
+        Date time1 = calendar.getTime();
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        String format1 = sdf1.format(time1);
+        String[] split = format1.split("-");
+        calendar.set(Integer.valueOf(split[0]),Integer.valueOf(split[1])-1,Integer.valueOf(split[2]),9,0);
+        Integer end = 24;
+        List<Long> times = new ArrayList<>();
+        for(int i = 0;i < end; i++){
+            Date time2 = calendar.getTime();
+            long time3 = time2.getTime()/1000;
+            //long time3 = time2.getTime();
+            times.add(time3);
+            calendar.add(Calendar.MINUTE,30);
+        }
+        return times;
+    }
+
+    //获取开始时间  和 结束时间 集合
+    public Map<Integer,Integer> getTimeMap(Integer second){
+        Long seconds = second * 1000L;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(seconds);//传递进来的参数
+        Date time1 = calendar.getTime();
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        String format1 = sdf1.format(time1);
+        String[] split = format1.split("-");
+        calendar.set(Integer.valueOf(split[0]),Integer.valueOf(split[1])-1,Integer.valueOf(split[2]),9,0);
+        Integer end = 24;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Map<String,String> timeStr = new LinkedHashMap<>();
+        Map<Integer,Integer> times = new LinkedHashMap<>();
+        for(int i = 0;i < end; i++){
+            Date time2 = calendar.getTime();
+            Integer startTime = Integer.valueOf(String.valueOf(time2.getTime()/1000));
+            calendar.add(Calendar.MINUTE,30);
+
+            Date time3 = calendar.getTime();
+            Integer endTime = Integer.valueOf(String.valueOf(time3.getTime() / 1000));
+            times.put(startTime,endTime);
+
+            String startStr = sdf.format(time2);
+            String endStr = sdf.format(time3);
+            timeStr.put(startStr,endStr);
+        }
+
+        return times;
+    }
+
+
+
 }

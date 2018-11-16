@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.dao;
 
+import com.qiein.erp.pk.web.entity.dto.SceneDTO;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
 import org.apache.ibatis.annotations.Param;
 
@@ -57,4 +58,11 @@ public interface SceneScheduleDao {
      * @return
      */
     Integer batSave(List<SceneSchedulePO> sceneSchedulePOS);
+
+    /**
+     * 根据
+     * @param sceneDTO
+     * @return
+     */
+    List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDate(SceneDTO sceneDTO);
 }
