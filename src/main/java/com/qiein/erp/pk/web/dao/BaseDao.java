@@ -1,6 +1,6 @@
 package com.qiein.erp.pk.web.dao;
 
-import com.qiein.erp.pk.web.entity.po.Base;
+import com.qiein.erp.pk.web.entity.po.BasePO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,43 +12,43 @@ import java.util.List;
 public interface BaseDao {
     int deleteByPrimaryKey(@Param("id") Integer id, @Param("companyId")Integer companyId);
 
-    int insert(Base base);
+    int insert(BasePO base);
 
-    Base selectByPrimaryKey(@Param("id") Integer id,@Param("companyId")Integer companyId);
+    BasePO selectByPrimaryKey(@Param("id") Integer id, @Param("companyId")Integer companyId);
 
-    List<Base> selectAll(@Param("companyId")Integer companyId);
+    List<BasePO> selectAll(@Param("companyId")Integer companyId);
 
-    int updateByPrimaryKey(Base base);
+    int updateByPrimaryKey(BasePO base);
 
     /**
      * 查询所有开启的基地
      * @param companyId
      * @return
      */
-    List<Base> selectOpenAll(Integer companyId);
+    List<BasePO> selectOpenAll(Integer companyId);
 
     /**
      * 批量新增
      * @param bases
      */
-    void batInsert(List<Base> bases);
+    void batInsert(List<BasePO> bases);
 
     /**
      * 批量编辑
      * @param bases
      */
-    void batUpdate(List<Base> bases);
+    void batUpdate(List<BasePO> bases);
 
     /**
      * 批量新增或修改
      * @param bases
      */
-    void batInsertOrUpdate(List<Base> bases);
+    void batInsertOrUpdate(List<BasePO> bases);
 
     /**
      * 基地排序
      * @param bases
      */
-    void baseSort(List<Base> bases);
+    void baseSort(List<BasePO> bases);
 
 }

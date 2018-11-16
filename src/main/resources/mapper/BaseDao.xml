@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qiein.erp.pk.web.dao.BaseDao" >
-  <resultMap id="BaseResultMap" type="com.qiein.erp.pk.web.entity.po.Base" >
+  <resultMap id="BaseResultMap" type="com.qiein.erp.pk.web.entity.po.BasePO" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="base_name" property="baseName" jdbcType="VARCHAR" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
@@ -12,7 +12,7 @@
     delete from hm_erp_base
     where id = #{id} and company_id = #{companyId}
   </delete>
-  <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
+  <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.BasePO" >
     insert into hm_erp_base (id, base_name, company_id,base_status,priority
       )
     select #{id}, #{baseName}, #{companyId},#{baseStatus},
@@ -21,7 +21,7 @@
                WHERE company_id = #{companyId})
 
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Base" >
+  <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.BasePO" >
     update hm_erp_base
     <set>
         <if test="baseName != null and baseName != ''">

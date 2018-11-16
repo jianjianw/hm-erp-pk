@@ -1,7 +1,7 @@
 package com.qiein.erp.pk.web.service;
 
 import java.util.List;
-import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 
@@ -18,7 +18,7 @@ public interface PlanScheduleService {
      * 查询场馆
      * @return
      */
-	List<Venue> venueSelect(int companyId,Integer roleId,String[] venueId,String[] roleLevel);
+	List<VenuePO> venueSelect(int companyId, Integer roleId, String[] venueId, String[] roleLevel);
 	/**
      * 查询角色等级
      * @return
@@ -28,7 +28,7 @@ public interface PlanScheduleService {
      * 仅查询场馆
      * @return
      */
-	List<Venue> venueSelectOnly(int companyId);
+	List<VenuePO> venueSelectOnly(int companyId);
 	/**
      * 查询休息
      * @return
@@ -55,5 +55,11 @@ public interface PlanScheduleService {
      * @return
      */
 	List<StaffScheduleVO> staffRest(int companyId, Integer roleId, String venueId, Integer time);
+	/**
+     * 查询当月主界面休息摄影师
+     * @return
+     */
+	List<StaffScheduleVO> selectMonthRest(Integer companyId, int firstDay, int lastDay, Integer roleId,
+			String[] venueId);
 
 }

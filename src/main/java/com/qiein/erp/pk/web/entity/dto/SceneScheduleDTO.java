@@ -1,6 +1,5 @@
 package com.qiein.erp.pk.web.entity.dto;
 
-import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
 
 import java.io.Serializable;

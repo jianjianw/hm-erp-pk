@@ -3,17 +3,14 @@ package com.qiein.erp.pk.web.service.impl;
 import com.qiein.erp.pk.web.dao.SceneScheduleDao;
 import com.qiein.erp.pk.web.entity.dto.SceneScheduleDTO;
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
-import com.qiein.erp.pk.web.entity.dto.TimeStampScheduleDTO;
-import com.qiein.erp.pk.web.entity.po.Scene;
+import com.qiein.erp.pk.web.entity.po.ScenePO;
 import com.qiein.erp.pk.web.entity.po.VenueRoomScenePO;
-import com.qiein.erp.pk.web.entity.dto.VenueScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
 import com.qiein.erp.pk.web.service.SceneScheduleService;
 import com.qiein.erp.pk.web.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -53,8 +50,8 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         for(VenueRoomScenePO venueRoomScenePO : venueRoomScenePOS){
             Integer poVenueId = venueRoomScenePO.getVenueId();
             Integer poRoomId = venueRoomScenePO.getRoomId();
-            List<Scene> scenes = venueRoomScenePO.getScenes();
-            for(Scene scene : scenes ){//每一个拍摄景都要封装一个list
+            List<ScenePO> scenes = venueRoomScenePO.getScenes();
+            for(ScenePO scene : scenes ){//每一个拍摄景都要封装一个list
                 Integer sceneId = scene.getId();
                 SceneScheduleDTO sceneScheduleDTO = new SceneScheduleDTO();
                 sceneScheduleDTO.setVenueId(poVenueId);
@@ -97,6 +94,19 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         sceneScheduleDao.batSaveOrUpdate(sceneSchedulePOS);
     }
 
+    @Override
+    public List<SceneSchedulePO> batSave(List<SceneSchedulePO> sceneSchedulePOS) {
+
+       /* for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
+            //SceneSchedulePO sceneSchedulePO1 = sceneScheduleDao.saveReturnId(sceneSchedulePO);
+            sceneScheduleDao.saveReturnId(sceneSchedulePO);
+            Integer id = sceneSchedulePO.getId();
+            System.out.println();
+        }*/
+        sceneScheduleDao.batSave(sceneSchedulePOS);
+        return sceneSchedulePOS;
+    }
+
     //获取开始时间和结束时间
     public Map<String,Integer> getStartAndEndTime(Integer dateTime){
 
@@ -119,28 +129,5 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         hashMap.put("end",Integer.valueOf(String.valueOf(end)));
 
         return hashMap;
-    }
-
-    //获取开始时间集合
-    public List<Long> getTimeList(Integer second){
-        Long seconds = second * 1000L;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(seconds);//传递进来的参数
-        Date time1 = calendar.getTime();
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        String format1 = sdf1.format(time1);
-        String[] split = format1.split("-");
-        calendar.set(Integer.valueOf(split[0]),Integer.valueOf(split[1])-1,Integer.valueOf(split[2]),9,0);
-        //Integer begin=9;
-        Integer end = 18;
-        List<Long> times = new ArrayList<>();
-        for(int i = 0;i < end; i++){
-            Date time2 = calendar.getTime();
-            long time3 = time2.getTime()/1000;
-            //long time3 = time2.getTime();
-            times.add(time3);
-            calendar.add(Calendar.MINUTE,30);
-        }
-        return times;
     }
 }

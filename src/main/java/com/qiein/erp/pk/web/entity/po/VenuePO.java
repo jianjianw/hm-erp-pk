@@ -12,7 +12,7 @@ import java.util.List;
  * author:wang lei
  * date : 2018-11-04
  * */
-public class Venue implements Serializable {
+public class VenuePO implements Serializable {
     private static final long serialVersionUID = -1302559071626317704L;
 
     private Integer id;   //场馆id

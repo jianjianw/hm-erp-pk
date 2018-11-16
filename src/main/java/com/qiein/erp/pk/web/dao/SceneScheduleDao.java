@@ -44,4 +44,17 @@ public interface SceneScheduleDao {
      */
     void batSaveOrUpdate(List<SceneSchedulePO> sceneSchedulePOS);
 
+    /**
+     * 保存返回id
+     * @param sceneSchedulePO
+     * @return
+     */
+    Integer saveReturnId(SceneSchedulePO sceneSchedulePO);
+
+    /**
+     * 批量保存
+     * @param sceneSchedulePOS
+     * @return
+     */
+    Integer batSave(List<SceneSchedulePO> sceneSchedulePOS);
 }

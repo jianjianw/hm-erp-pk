@@ -18,7 +18,7 @@
     <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
   </resultMap>
   
-  <resultMap id="VenueMap" type="com.qiein.erp.pk.web.entity.po.Venue" >
+  <resultMap id="VenueMap" type="com.qiein.erp.pk.web.entity.po.VenuePO" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
     <result column="venue_status" property="venueStatus" jdbcType="INTEGER" />
@@ -43,7 +43,7 @@
   <!--查询摄影师或者化妆师  -->
   <select id="staffAll" resultMap="StaffScheduleMap">
 	SELECT
-		ss.staff_id,sr.role_id
+		ss.staff_id,sr.role_id,ss.venue_id
 	FROM
 		hm_erp_staff s
 	LEFT JOIN hm_erp_staff_role sr ON s.staff_id=sr.staff_id AND s.company_id=sr.company_id

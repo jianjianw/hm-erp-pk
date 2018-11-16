@@ -1,7 +1,7 @@
 package com.qiein.erp.pk.web.service.impl;
 
 import com.qiein.erp.pk.web.dao.BaseDao;
-import com.qiein.erp.pk.web.entity.po.Base;
+import com.qiein.erp.pk.web.entity.po.BasePO;
 import com.qiein.erp.pk.web.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,30 +25,30 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public int insert(Base base) {
+    public int insert(BasePO base) {
         return baseDao.insert(base);
     }
 
     @Override
-    public Base selectByPrimaryKey(Integer id,Integer companyId) {
+    public BasePO selectByPrimaryKey(Integer id, Integer companyId) {
         return baseDao.selectByPrimaryKey(id,companyId);
     }
 
     @Override
-    public List<Base> selectAll(Integer companyId) {
+    public List<BasePO> selectAll(Integer companyId) {
         return baseDao.selectAll(companyId);
     }
 
     @Override
-    public int updateByPrimaryKey(Base base) {
+    public int updateByPrimaryKey(BasePO base) {
         return baseDao.updateByPrimaryKey(base);
     }
 
     @Override
-    public void batInsertOrUpdate(List<Base> bases) {
+    public void batInsertOrUpdate(List<BasePO> bases) {
 
-        for(Base base : bases){
-            Base base1 = baseDao.selectByPrimaryKey(base.getId(), base.getCompanyId());
+        for(BasePO base : bases){
+            BasePO base1 = baseDao.selectByPrimaryKey(base.getId(), base.getCompanyId());
             if(base1 == null){
                 baseDao.insert(base);
             }else{
@@ -63,22 +63,22 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public List<Base> selectOpenAll(Integer companyId) {
+    public List<BasePO> selectOpenAll(Integer companyId) {
         return baseDao.selectOpenAll(companyId);
     }
 
     @Override
-    public void batInsert(List<Base> bases) {
+    public void batInsert(List<BasePO> bases) {
         baseDao.batInsert(bases);
     }
 
     @Override
-    public void batUpdate(List<Base> bases) {
+    public void batUpdate(List<BasePO> bases) {
         baseDao.batUpdate(bases);
     }
 
     @Override
-    public void baseSort(List<Base> bases) {
+    public void baseSort(List<BasePO> bases) {
         baseDao.baseSort(bases);
     }
 }

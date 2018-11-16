@@ -5,9 +5,8 @@ import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
-import com.qiein.erp.pk.web.entity.po.Scene;
+import com.qiein.erp.pk.web.entity.po.ScenePO;
 import com.qiein.erp.pk.web.service.SceneService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class SceneController extends InitController{
 
     @ApiOperation(value = "新增拍摄景")
     @PostMapping("/insert")
-    public ResultInfo insert(@RequestBody Scene scene){
+    public ResultInfo insert(@RequestBody ScenePO scene){
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(scene);
 
@@ -50,7 +49,7 @@ public class SceneController extends InitController{
     @ApiImplicitParam(name = "id", value = "场景id" ,dataType = "Integer")
     public ResultInfo selectByPrimaryKey(Integer id){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        Scene scene = sceneService.selectByPrimaryKey(id,companyId);
+        ScenePO scene = sceneService.selectByPrimaryKey(id,companyId);
         return ResultInfoUtil.success(scene);
     }
 
@@ -58,13 +57,13 @@ public class SceneController extends InitController{
     @GetMapping("/select_all")
     public ResultInfo selectAll(){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        List<Scene> scenes = sceneService.selectAll(companyId);
+        List<ScenePO> scenes = sceneService.selectAll(companyId);
         return ResultInfoUtil.success(scenes);
     }
 
     @ApiOperation(value = "根据id更新")
     @PostMapping("/update_by_primary_key")
-    public ResultInfo updateByPrimaryKey(@RequestBody Scene scene){
+    public ResultInfo updateByPrimaryKey(@RequestBody ScenePO scene){
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(scene);
 
@@ -79,7 +78,7 @@ public class SceneController extends InitController{
     @GetMapping("/find_scene_by_room_id")
     public ResultInfo findSceneByRoomId(Integer roomId){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        List<Scene> list  = sceneService.findSceneByRoomId(companyId,roomId);
+        List<ScenePO> list  = sceneService.findSceneByRoomId(companyId,roomId);
         return ResultInfoUtil.success(list);
 
     }
@@ -87,7 +86,7 @@ public class SceneController extends InitController{
     @ApiOperation(value = "排序")
     //场景排序，修改优先级
     @PostMapping("/scene_sort")
-    public ResultInfo sceneSort(@RequestBody List<Scene> scenes){
+    public ResultInfo sceneSort(@RequestBody List<ScenePO> scenes){
         sceneService.sceneSort(scenes);
         return ResultInfoUtil.success();
     }
@@ -106,7 +105,7 @@ public class SceneController extends InitController{
     //批量编辑或新增
     @ApiOperation(value = "批量编辑或新增")
     @PostMapping("/bat_insert_or_update_scene")
-    public ResultInfo batInsertOrUpdateScene(@RequestBody List<Scene> scenes){
+    public ResultInfo batInsertOrUpdateScene(@RequestBody List<ScenePO> scenes){
         sceneService.batInsertOrUpdateScene(scenes);
         return ResultInfoUtil.success();
     }
@@ -115,7 +114,7 @@ public class SceneController extends InitController{
     //批量新增
     @ApiOperation(value = "批量新增")
     @PostMapping("/bat_insert_scene")
-    public ResultInfo batInsertScene(@RequestBody List<Scene> scenes){
+    public ResultInfo batInsertScene(@RequestBody List<ScenePO> scenes){
         sceneService.batInsertScene(scenes);
         return ResultInfoUtil.success();
     }
@@ -123,7 +122,7 @@ public class SceneController extends InitController{
     //批量编辑
     @ApiOperation(value = "批量编辑")
     @PostMapping("/bat_update_scene")
-    public ResultInfo batUpdateScene(@RequestBody List<Scene> scenes){
+    public ResultInfo batUpdateScene(@RequestBody List<ScenePO> scenes){
         sceneService.batUpdateScene(scenes);
         return ResultInfoUtil.success();
     }

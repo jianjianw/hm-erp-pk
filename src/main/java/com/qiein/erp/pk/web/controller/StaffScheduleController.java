@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
-import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.util.TimeUtil;
-import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 import com.qiein.erp.pk.web.entity.vo.TempStaffVO;
@@ -50,18 +49,20 @@ public class StaffScheduleController extends InitController{
          List<StaffScheduleVO> StaffScheduleVOAlls= staffScheduleService.staffAll(companyId,roleId,venueId,time);
          //获取已排班摄影师
          List<StaffScheduleVO> StaffScheduleVOPKs= staffScheduleService.staffPK(companyId,roleId,venueId,time);
-         for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
-        	 for (StaffScheduleVO StaffScheduleVOPK : StaffScheduleVOPKs) {
-     			if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVOPK.getVenueId()) && 
-     					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
-     				StaffScheduleVOAll.setStatus(1);
-     			}
-     		}
-		}
+         if(StaffScheduleVOAlls !=null && StaffScheduleVOPKs!=null){
+        	 for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
+            	 for (StaffScheduleVO StaffScheduleVOPK : StaffScheduleVOPKs) {
+         			if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVOPK.getVenueId()) && 
+         					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
+         				StaffScheduleVOAll.setStatus(1);
+         			}
+         		}
+    		}
+         }
+         
         //获取休息摄影师
         List<StaffScheduleVO> StaffScheduleVORests= staffScheduleService.staffRest(companyId,roleId,venueId,time);
-        if(StaffScheduleVORests!=null && StaffScheduleVORests.size()>0){
-        	
+        if(StaffScheduleVORests!=null && StaffScheduleVOAlls !=null){
         	for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
         		for (StaffScheduleVO StaffScheduleVORest : StaffScheduleVORests) {
 					if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVORest.getVenueId())&&
@@ -81,7 +82,7 @@ public class StaffScheduleController extends InitController{
     public ResultInfo venueSelect(@RequestParam(value="roleId") Integer roleId,
     		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
-         List<Venue> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
+         List<VenuePO> Venues= staffScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
         return ResultInfoUtil.success(Venues);
     }
     /**
@@ -91,7 +92,7 @@ public class StaffScheduleController extends InitController{
     @GetMapping("/venue_select_only")
     public ResultInfo venueSelectOnly(){
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
-         List<Venue> Venues= staffScheduleService.venueSelectOnly(companyId);
+         List<VenuePO> Venues= staffScheduleService.venueSelectOnly(companyId);
         return ResultInfoUtil.success(Venues);
     }
     /**

@@ -1,12 +1,11 @@
 package com.qiein.erp.pk.web.service.impl;
 
 import com.qiein.erp.pk.web.dao.VenueDao;
-import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
 import com.qiein.erp.pk.web.entity.dto.VenueDTO;
-import com.qiein.erp.pk.web.entity.po.Base;
+import com.qiein.erp.pk.web.entity.po.BasePO;
 import com.qiein.erp.pk.web.entity.po.Room;
-import com.qiein.erp.pk.web.entity.po.Scene;
-import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.po.ScenePO;
+import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.service.BaseService;
 import com.qiein.erp.pk.web.service.RoomService;
 import com.qiein.erp.pk.web.service.SceneService;
@@ -18,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -46,28 +44,28 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
-    public int insert(Venue venue) {
+    public int insert(VenuePO venue) {
         return venueDao.insert(venue);
     }
 
     @Override
-    public Venue selectByPrimaryKey(Integer id,Integer companyId) {
+    public VenuePO selectByPrimaryKey(Integer id, Integer companyId) {
         return venueDao.selectByPrimaryKey(id,companyId);
     }
 
     @Override
     public List<VenueDTO> selectAll(Integer companyId,Integer venueType) {
         //查询分店
-        List<Venue> venues = venueDao.selectAll(companyId, venueType);
+        List<VenuePO> venues = venueDao.selectAll(companyId, venueType);
         //查询基地
-        List<Base> bases = baseService.selectAll(companyId);
+        List<BasePO> bases = baseService.selectAll(companyId);
 
         List<VenueDTO> result = new ArrayList<>();
         try {
-            for (Venue venue : venues){
+            for (VenuePO venue : venues){
                 VenueDTO venueDTO = new VenueDTO();
                 BeanUtils.copyProperties(venueDTO, venue);
-                for(Base base : bases){
+                for(BasePO base : bases){
                     if(base.getId().equals(venueDTO.getBaseId())){
                         venueDTO.setBaseName(base.getBaseName());
                         break;
@@ -83,12 +81,12 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
-    public int updateByPrimaryKey(Venue venue) {
+    public int updateByPrimaryKey(VenuePO venue) {
         return venueDao.updateByPrimaryKey(venue);
     }
 
     @Override
-    public void venueSort(List<Venue> venues) {
+    public void venueSort(List<VenuePO> venues) {
         venueDao.venueSort(venues);
     }
     /**
@@ -121,7 +119,7 @@ public class VenueServiceImpl implements VenueService {
                 sb.append(String.valueOf(size));
             }
             //查询拍摄间下面的拍摄景
-            List<Scene> scenes = sceneService.findSceneByVenueId(companyId, venue.getId());
+            List<ScenePO> scenes = sceneService.findSceneByVenueId(companyId, venue.getId());
             if(scenes != null && scenes.size()>0){
                 int size = scenes.size();
                 sb.append("/").append(String.valueOf(size));

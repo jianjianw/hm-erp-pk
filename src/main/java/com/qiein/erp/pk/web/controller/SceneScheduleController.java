@@ -4,16 +4,11 @@ package com.qiein.erp.pk.web.controller;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
-import com.qiein.erp.pk.web.entity.dto.TimeStampScheduleDTO;
-import com.qiein.erp.pk.web.entity.dto.VenueScheduleDTO;
-import com.qiein.erp.pk.web.entity.po.Scene;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
-import com.qiein.erp.pk.web.service.SceneService;
 import com.qiein.erp.pk.web.service.SceneScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -63,6 +58,19 @@ public class SceneScheduleController extends InitController{
         sceneScheduleService.batSaveOrUpdate(sceneSchedulePOS);
         return ResultInfoUtil.success();
     }
+
+    /**
+     * 批量保存拍摄景档期
+     * @param sceneSchedulePOS
+     * @return
+     */
+    @PostMapping("/bat_save")
+    public ResultInfo batSave(@RequestBody List<SceneSchedulePO> sceneSchedulePOS){
+        //如果要防止添加重复记录 就要一条一条插入   。  也是可以的
+        List<SceneSchedulePO> reslut = sceneScheduleService.batSave(sceneSchedulePOS);
+        return ResultInfoUtil.success(reslut);
+    }
+
 
 
 

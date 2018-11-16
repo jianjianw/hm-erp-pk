@@ -2,7 +2,7 @@ package com.qiein.erp.pk.web.dao;
 
 import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
 import com.qiein.erp.pk.web.entity.po.VenueRoomScenePO;
-import com.qiein.erp.pk.web.entity.po.Scene;
+import com.qiein.erp.pk.web.entity.po.ScenePO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -14,13 +14,13 @@ import java.util.List;
 public interface SceneDao {
     int deleteByPrimaryKey(@Param("id") Integer id, @Param("companyId")Integer companyId);
 
-    int insert(Scene scene);
+    int insert(ScenePO scene);
 
-    Scene selectByPrimaryKey(@Param("id") Integer id, @Param("companyId")Integer companyId);
+    ScenePO selectByPrimaryKey(@Param("id") Integer id, @Param("companyId")Integer companyId);
 
-    List<Scene> selectAll( @Param("companyId")Integer companyId);
+    List<ScenePO> selectAll(@Param("companyId")Integer companyId);
 
-    int updateByPrimaryKey(Scene scene);
+    int updateByPrimaryKey(ScenePO scene);
 
     /**
      * 根据房间id 查找拍摄场景
@@ -28,9 +28,9 @@ public interface SceneDao {
      * @param roomId
      * @return
      */
-    List<Scene> findSceneByRoomId(@Param("companyId") Integer companyId, @Param("roomId") Integer roomId);
+    List<ScenePO> findSceneByRoomId(@Param("companyId") Integer companyId, @Param("roomId") Integer roomId);
 
-    void sceneSort(List<Scene> scenes);
+    void sceneSort(List<ScenePO> scenes);
     /**
      * 获取场馆下面的拍摄间和拍摄景
      * @param companyId
@@ -46,7 +46,7 @@ public interface SceneDao {
      * 批量编辑拍摄景
      * @param scenes
      */
-    void batInsertOrUpdateScene(List<Scene> scenes);
+    void batInsertOrUpdateScene(List<ScenePO> scenes);
 
     /**
      * 查询场馆下面的拍摄景
@@ -54,19 +54,19 @@ public interface SceneDao {
      * @param venueId
      * @return
      */
-    List<Scene> findSceneByVenueId(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId);
+    List<ScenePO> findSceneByVenueId(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId);
 
     /**
      * 批量新增
      * @param scenes
      */
-    void batInsertScene(List<Scene> scenes);
+    void batInsertScene(List<ScenePO> scenes);
 
     /**
      * 批量编辑
      * @param scenes
      */
-    void batUpdateScene(List<Scene> scenes);
+    void batUpdateScene(List<ScenePO> scenes);
 
     /**
      * 查询场馆 房间 拍摄景

@@ -1,6 +1,6 @@
 package com.qiein.erp.pk.web.entity.vo;
 
-import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.po.VenuePO;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public class VenueSelectVO {
     private Integer baseId;
     private String baseName;
-    List<Venue> venues;
+    List<VenuePO> venues;
 
     public Integer getBaseId() {
         return baseId;
@@ -29,11 +29,11 @@ public class VenueSelectVO {
         this.baseName = baseName;
     }
 
-    public List<Venue> getVenues() {
+    public List<VenuePO> getVenues() {
         return venues;
     }
 
-    public void setVenues(List<Venue> venues) {
+    public void setVenues(List<VenuePO> venues) {
         this.venues = venues;
     }
 }

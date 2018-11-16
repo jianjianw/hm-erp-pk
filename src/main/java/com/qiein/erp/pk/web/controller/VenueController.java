@@ -1,18 +1,12 @@
 package com.qiein.erp.pk.web.controller;
 
 
-import com.qiein.erp.pk.exception.ExceptionEnum;
 import com.qiein.erp.pk.util.ObjectUtil;
-import com.qiein.erp.pk.util.RegexUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.VenueDTO;
-import com.qiein.erp.pk.web.entity.po.Venue;
-import com.qiein.erp.pk.web.service.BaseService;
-import com.qiein.erp.pk.web.service.RoomService;
-import com.qiein.erp.pk.web.service.SceneService;
+import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.service.VenueService;
-import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +36,7 @@ public class VenueController extends InitController{
     }
 
     @PostMapping("/insert")
-    public ResultInfo insert(@RequestBody Venue venue){
+    public ResultInfo insert(@RequestBody VenuePO venue){
         /*if(!RegexUtil.checkMobile(venue.getVenuePhone())){
             return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
         }*/
@@ -56,7 +50,7 @@ public class VenueController extends InitController{
     @GetMapping("/select_by_primary_key")
     public ResultInfo selectByPrimaryKey(Integer id){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        Venue venue = venueService.selectByPrimaryKey(id,companyId);
+        VenuePO venue = venueService.selectByPrimaryKey(id,companyId);
         return ResultInfoUtil.success(venue);
     }
 
@@ -71,7 +65,7 @@ public class VenueController extends InitController{
 
 
     @PostMapping("/update_by_primary_key")
-    public ResultInfo updateByPrimaryKey(@RequestBody Venue venue){
+    public ResultInfo updateByPrimaryKey(@RequestBody VenuePO venue){
         /*if(!RegexUtil.checkMobile(venue.getVenuePhone())){
             return ResultInfoUtil.error(ExceptionEnum.PHONE_ERROR);
         }*/
@@ -83,7 +77,7 @@ public class VenueController extends InitController{
 
     //内场馆排序 1  或  门店排序 2
     @PostMapping("/venue_sort")
-    public ResultInfo venueSort(@RequestBody List<Venue> Venues){
+    public ResultInfo venueSort(@RequestBody List<VenuePO> Venues){
         venueService.venueSort(Venues);
         return ResultInfoUtil.success();
     }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qiein.erp.pk.web.dao.StaffScheduleDao;
-import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 import com.qiein.erp.pk.web.service.StaffScheduleService;
@@ -32,8 +32,8 @@ public class StaffScheduleImpl implements StaffScheduleService {
      * @return
      */
 	@Override
-	public List<Venue> venueSelect(int companyId,Integer roleId,String[] venueId,String[] roleLevel) {
-		List<Venue> Venues=staffScheduleDao.venueSelect(companyId,roleId,venueId,roleLevel);
+	public List<VenuePO> venueSelect(int companyId, Integer roleId, String[] venueId, String[] roleLevel) {
+		List<VenuePO> Venues=staffScheduleDao.venueSelect(companyId,roleId,venueId,roleLevel);
 		return Venues;
 	}
 	/**
@@ -50,8 +50,8 @@ public class StaffScheduleImpl implements StaffScheduleService {
      * @return
      */
 	@Override
-	public List<Venue> venueSelectOnly(int companyId) {
-		List<Venue> Venues= staffScheduleDao.venueSelectOnly(companyId);
+	public List<VenuePO> venueSelectOnly(int companyId) {
+		List<VenuePO> Venues= staffScheduleDao.venueSelectOnly(companyId);
 		return Venues;
 	}
 	/**

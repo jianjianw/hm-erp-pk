@@ -12,17 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
-import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
-import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.util.TimeUtil;
-import com.qiein.erp.pk.web.entity.po.Venue;
+import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 import com.qiein.erp.pk.web.entity.vo.TempStaffVO;
 import com.qiein.erp.pk.web.service.PlanScheduleService;
-import com.qiein.erp.pk.web.service.StaffScheduleService;
 
 /**
  * 摄影师人员排空
@@ -82,7 +79,7 @@ public class PlancheduleController extends InitController{
     public ResultInfo venueSelect(@RequestParam(value="roleId") Integer roleId,
     		@RequestParam(value="venueId",required=false) String[] venueId,@RequestParam(value="roleLevel",required=false) String[] roleLevel){
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
-         List<Venue> Venues= planScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
+         List<VenuePO> Venues= planScheduleService.venueSelect(companyId,roleId,venueId,roleLevel);
         return ResultInfoUtil.success(Venues);
     }
     /**
@@ -92,7 +89,7 @@ public class PlancheduleController extends InitController{
     @GetMapping("/venue_select_only")
     public ResultInfo venueSelectOnly(){
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
-         List<Venue> Venues= planScheduleService.venueSelectOnly(companyId);
+         List<VenuePO> Venues= planScheduleService.venueSelectOnly(companyId);
         return ResultInfoUtil.success(Venues);
     }
     /**
@@ -176,7 +173,22 @@ public class PlancheduleController extends InitController{
   				row.put("total",count);
   				newmaps.add(row);
   			}
-  		}		
+  		}	
+  	//把休息的摄影师放入
+  		List<StaffScheduleVO> staffMonthRest=planScheduleService.selectMonthRest(companyId,firstDay,lastDay,roleId,venueId);
+  		TempStaffVO tempStaffs=null;
+  		if(staffMonthRest!=null && staffMonthRest.size()>0){
+  			for (Map<String, Object> map : newmaps) {
+  	  			for (StaffScheduleVO staffScheduleVO : staffMonthRest) {
+  	  				if(map.get("venueId").equals(staffScheduleVO.getVenueId())&&
+  	  						map.get("staffId").equals(staffScheduleVO.getStaffId())){
+  	  					tempStaffs=new TempStaffVO();
+  	  					tempStaffs.setStaffStatus(staffScheduleVO.getStaffStatus());
+  	  					map.put(String.valueOf(staffScheduleVO.getTime()), tempStaffs);
+  	  				}
+  	  			}
+  			} 
+  		}
         return ResultInfoUtil.success(newmaps);
     }
 

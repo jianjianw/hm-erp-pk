@@ -38,4 +38,10 @@ public interface SceneScheduleService {
      */
     void batSaveOrUpdate(List<SceneSchedulePO> sceneSchedulePOS);
 
+    /**
+     * 批量保存
+     * @param sceneSchedulePOS
+     * @return
+     */
+    List<SceneSchedulePO> batSave(List<SceneSchedulePO> sceneSchedulePOS);
 }

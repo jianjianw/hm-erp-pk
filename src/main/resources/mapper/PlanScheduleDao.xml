@@ -18,7 +18,7 @@
     <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
   </resultMap>
   
-  <resultMap id="VenueMap" type="com.qiein.erp.pk.web.entity.po.Venue" >
+  <resultMap id="VenueMap" type="com.qiein.erp.pk.web.entity.po.VenuePO" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
     <result column="venue_status" property="venueStatus" jdbcType="INTEGER" />
@@ -43,15 +43,17 @@
   <!--查询摄影师或者化妆师  -->
   <select id="staffAll" resultMap="StaffScheduleMap">
   	SELECT
-		ss.id,ss.staff_id,sr.role_id,ss.venue_id
+		ss.staff_id,sr.role_id,ss.venue_id
 	FROM
-		hm_erp_staff_schedule ss
-	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ss.staff_id AND sr.company_id=ss.company_id
+		hm_erp_staff s
+	LEFT JOIN hm_erp_staff_role sr ON s.staff_id=sr.staff_id AND s.company_id=sr.company_id
+	LEFT JOIN hm_erp_staff_schedule ss ON ss.staff_id=s.staff_id AND s.company_id AND ss.company_id
+	LEFT JOIN hm_pub_staff st ON st.ID=s.staff_id AND st.COMPANYID=s.company_id
 	WHERE
-		ss.company_id=#{companyId}
-		AND ss.venue_id=#{venueId}
-		AND ss.staff_day=#{time}
-		AND sr.role_id=#{roleId}
+		ss.company_id = #{companyId}
+		AND ss.venue_id = #{venueId}
+		AND sr.role_id = #{roleId}
+		AND st.ISDEL=0
   </select>
   
   <!--查询已排班摄影师或者化妆师  -->
@@ -117,6 +119,26 @@
 	WHERE
 		v.company_id=#{companyId}
 		AND sv.staff_id IS NOT NULL
+  </select>
+  
+  <!--查询主界面当月休息摄影师  -->
+  <select id="selectMonthRest" resultMap="StaffScheduleMap">
+  	SELECT
+		ss.staff_id,sr.role_id,ss.venue_id,FROM_UNIXTIME(ss.staff_day, '%d') time,ss.staff_status
+	FROM
+		hm_erp_plan_schedule ss
+	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ss.staff_id AND sr.company_id=ss.company_id
+	WHERE
+		ss.company_id=#{companyId}
+		<if test="venueId != null and venueId.length > 0 "> 
+			AND ss.venue_id IN
+			<foreach collection="venueId" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>
+		 </if>
+		AND ss.staff_day BETWEEN #{firstTime} AND #{endTime}
+		AND sr.role_id=#{roleId}
+		AND ss.staff_status=2
   </select>
   
   <!--查询摄影师等级 -->
