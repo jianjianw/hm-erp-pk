@@ -122,13 +122,13 @@
     AND staff2.COMPANYID = staff_sch2.company_id
     WHERE
         ord.company_id =#{companyId}
-        <if test="timeType = 'ps'">
+        <if test="timeType == 'ps'">
             and venue_sch.venue_day BETWEEN #{start} and #{end}
         </if>
-        <if test="timeType= 'dd'">
+        <if test="timeType== 'dd'">
             and ord.order_time BETWEEN #{start} and #{end}
         </if>
-        <if test="timeType= 'qh'">
+        <if test="timeType== 'qh'">
             and plan_sch.staff_day BETWEEN #{start} and #{end}
         </if>
         <if test="shootId !=null and shootId!=''">
