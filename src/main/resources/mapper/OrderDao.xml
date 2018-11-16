@@ -218,6 +218,7 @@
     </select>
     <select id="selectByOrdId" resultMap="orderMap">
         SELECT
+            pro.order_id,
             ord.order_num,
             ord.meal_id,
             ord.company_id,

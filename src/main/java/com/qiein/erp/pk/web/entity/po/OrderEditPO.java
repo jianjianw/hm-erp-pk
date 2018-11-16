@@ -20,13 +20,13 @@ public class OrderEditPO {
     private String birthday;//生日
     private String marryTime;//婚期
     private Integer saleId;//销售id
-    private Integer orderTime;//订单时间
+    private String orderTime;//订单时间
 
-    public Integer getOrderTime() {
+    public String getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(Integer orderTime) {
+    public void setOrderTime(String orderTime) {
         this.orderTime = orderTime;
     }
 
