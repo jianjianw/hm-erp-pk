@@ -58,7 +58,7 @@ public class RoomController extends InitController{
         Room room = roomService.selectByPrimaryKey(roomId,companyId);
         return ResultInfoUtil.success(room);
     }
-    @ApiOperation(value = "根据主键查询房间")
+    @ApiOperation(value = "根据房间类型查询房间")
     @ApiImplicitParam(name = "roomType",value = "房间类型  化妆间:1 拍摄间:2 ", dataType = "Integer")
     @GetMapping("/select_all")
     public ResultInfo selectAll(Integer roomType){

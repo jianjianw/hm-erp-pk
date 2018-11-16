@@ -65,10 +65,26 @@ public interface PlanScheduleDao {
      */
 	List<StaffScheduleVO> staffRest(@Param("companyId")Integer companyId, @Param("roleId")Integer roleId, 
 			@Param("venueId")String venueId,@Param("time")Integer time);
-	
+	/**
+     * 查询当月休息摄影师
+     * @return
+     */
 	List<StaffScheduleVO> selectMonthRest(@Param("companyId") Integer companyId,
 			@Param("firstTime") Integer firstTime,@Param("endTime") Integer endTime,@Param("roleId") Integer roleId,
 			@Param("venueId") String[] venueId);
+	/**
+     * 查询摄影师返回id
+     * @return
+     */
+	StaffScheduleVO selectByVenueIdAndStaffId(@Param("staffId")Integer staffId, @Param("venueId")Integer venueId, 
+			@Param("time")Integer time,@Param("companyId")Integer companyId);
+	/**
+     * 插入摄影师返回id
+     * @return
+     */
+	void insertStaffSchedule(StaffScheduleVO staffScheduleVOt);
+	
+	
 	
 	
 	

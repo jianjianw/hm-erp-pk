@@ -32,10 +32,9 @@ public class SceneSchedulePO implements Serializable {
     private StaffVO staffVO;
 
 
-    //add
-    private String sceneName; //场景name   订单新增时 要传入的数据  batSave()是要穿
-
-    //add  下拉框 是否可选  ture 可选
+    //add 订单新增时 要传入的数据  batSave() 和 batSaveSelect()时要传
+    private String sceneName; //场景name
+    //add  下拉框里面的数据是否可选  ture 可选
     private boolean select;
 
 

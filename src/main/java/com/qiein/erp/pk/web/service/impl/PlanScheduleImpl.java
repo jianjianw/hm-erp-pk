@@ -109,5 +109,23 @@ public class PlanScheduleImpl implements PlanScheduleService {
 		List<StaffScheduleVO> StaffScheduleRests=planScheduleDao.selectMonthRest(companyId,firstDay,lastDay,roleId, venueId);
 		return StaffScheduleRests;
 	}
+	/**
+     * 查询摄影师返回id
+     * @return
+     */
+	@Override
+	public StaffScheduleVO selectByVenueIdAndStaffId(Integer staffId, Integer venueId, Integer time,
+			Integer companyId) {
+		StaffScheduleVO staffScheduleVO=planScheduleDao.selectByVenueIdAndStaffId(staffId,venueId,time,companyId);
+		return staffScheduleVO;
+	}
+	/**
+     * 插入摄影师返回id
+     * @return
+     */
+	@Override
+	public void insertStaffSchedule(StaffScheduleVO staffScheduleVOt) {
+		planScheduleDao.insertStaffSchedule(staffScheduleVOt);
+	}
 	
 }
