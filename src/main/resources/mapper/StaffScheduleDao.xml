@@ -93,7 +93,7 @@
 		AND ss.staff_day=#{time}
   </select>
   
-  <!--查询当日休息摄影师  -->
+  <!--查询当日休息摄影师 或者已经排好日期 -->
   <select id="staffRest" resultMap="StaffScheduleMap">
   	SELECT
 		ss.id,ss.staff_id,sr.role_id,ss.venue_id
@@ -105,7 +105,6 @@
 		AND ss.venue_id=#{venueId}
 		AND ss.staff_day=#{time}
 		AND sr.role_id=#{roleId}
-		AND ss.staff_status=2
   </select>
   
   <!--查询主界面当月休息摄影师  -->
