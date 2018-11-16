@@ -40,6 +40,26 @@
   	id,venue_id, staff_day_limit, staff_status,venue_name,staff_id,NICKNAME,
   		role_level,role_id,role_name,time
   </sql>
+  <!--查询人员档期根据staffid  -->
+  <select id="selectByVenueIdAndStaffId" resultMap="StaffScheduleMap">
+  	SELECT
+		ss.id
+	FROM
+		hm_erp_plan_schedule ss
+	WHERE 
+	ss.company_id=#{companyId}
+	AND ss.staff_id=#{staffId}
+	AND ss.venue_id=#{venueId}
+	AND ss.staff_day=#{time}
+  </select>
+  <!--新增人员档期，返回id  -->
+  <insert id="insertStaffSchedule" useGeneratedKeys="true" keyProperty="id">
+  	INSERT 
+  		hm_erp_plan_schedule (venue_id,staff_id,staff_day,staff_status, company_id,staff_day_limit)
+	VALUES
+	(#{venueId}, #{staffId}, #{time}, #{staffStatus},#{companyId},#{staffDayLimit})
+  </insert>
+  
   <!--查询摄影师或者化妆师  -->
   <select id="staffAll" resultMap="StaffScheduleMap">
   	SELECT
