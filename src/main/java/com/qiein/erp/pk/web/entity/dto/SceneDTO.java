@@ -6,21 +6,54 @@ import java.io.Serializable;
 public class SceneDTO implements Serializable {
     private static final long serialVersionUID = -2090391419659702910L;
 
-    private Integer id;     //场景id
-
-    private Integer shootId;    //拍摄间id
-
-    private String sceneName;  //场景名字
-
-    private Short sceneStatus;  //场景状态  1 开启  0 关闭
-
-    private Integer priority;   //排序
+    private Integer sceneId; //场景id
 
     private Integer companyId;  //公司id
 
-   /*  <result column="room_name" property="companyId" jdbcType="INTEGER" />
-    <result column="venue_id" property="companyId" jdbcType="INTEGER" />
-    <result column="venue_name" property="companyId" jdbcType="INTEGER" />
-    <result column="base_id" property="companyId" jdbcType="INTEGER" />
-*/
+    private Integer venueId;  //场馆id
+
+    private Integer shootId;    //拍摄间id
+
+    private Integer date;       //具体到日时间戳
+
+
+    public Integer getSceneId() {
+        return sceneId;
+    }
+
+    public void setSceneId(Integer sceneId) {
+        this.sceneId = sceneId;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
+    public Integer getVenueId() {
+        return venueId;
+    }
+
+    public void setVenueId(Integer venueId) {
+        this.venueId = venueId;
+    }
+
+    public Integer getShootId() {
+        return shootId;
+    }
+
+    public void setShootId(Integer shootId) {
+        this.shootId = shootId;
+    }
+
+    public Integer getDate() {
+        return date;
+    }
+
+    public void setDate(Integer date) {
+        this.date = date;
+    }
 }
