@@ -61,5 +61,15 @@ public interface StaffScheduleService {
      */
 	List<StaffScheduleVO> selectMonthRest(Integer companyId, int firstDay, int lastDay, Integer roleId,
 			String[] venueId);
+	/**
+     * 新增人员档期
+     * @return
+     */
+	int insertStaffSchedule(StaffScheduleVO staffScheduleVO);
+	/**
+     * 查询人员档期
+     * @return
+     */
+	StaffScheduleVO selectByVenueIdAndStaffId(Integer staffId, Integer venueId, Integer time,Integer companyId);
 
 }
