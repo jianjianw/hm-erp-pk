@@ -45,11 +45,15 @@ public class MakeupRoomScheduleController extends  InitController{
 
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody MakeupRoomSchedulePO makeupRoomSchedulePO){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        makeupRoomSchedulePO.setCompanyId(companyId);
         makeupRoomScheduleService.insert(makeupRoomSchedulePO);
         return ResultInfoUtil.success();
     }
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody MakeupRoomSchedulePO makeupRoomSchedulePO){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        makeupRoomSchedulePO.setCompanyId(companyId);
         makeupRoomScheduleService.updateByPrimaryKey(makeupRoomSchedulePO);
         return ResultInfoUtil.success();
     }
@@ -61,6 +65,10 @@ public class MakeupRoomScheduleController extends  InitController{
      */
     @PostMapping("bat_save_or_update")
     public ResultInfo batSaveOrUpdate(@RequestBody List<MakeupRoomSchedulePO> makeupRoomSchedulePOS){
+        Integer companyId = getCurrentLoginStaff().getCompanyId();
+        for(MakeupRoomSchedulePO makeupRoomSchedulePO : makeupRoomSchedulePOS ){
+            makeupRoomSchedulePO.setCompanyId(companyId);
+        }
         makeupRoomScheduleService.batSaveOrUpdate(makeupRoomSchedulePOS);
         return ResultInfoUtil.success();
     }

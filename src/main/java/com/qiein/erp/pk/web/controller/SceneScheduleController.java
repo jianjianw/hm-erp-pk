@@ -34,7 +34,6 @@ public class SceneScheduleController extends InitController{
     //打卡
     @PostMapping("/punch_in")
     public ResultInfo punchIn(Integer id,Integer statusId){//拍摄间档期id   statusId拍摄间档期状态
-        //status_id
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         sceneScheduleService.punchIn(companyId,id,statusId);
         //1：默认初始，预定中；2：开始，使用中；3：使用完毕；
@@ -43,11 +42,15 @@ public class SceneScheduleController extends InitController{
 
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody SceneSchedulePO sceneSchedulePO){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        sceneSchedulePO.setCompanyId(companyId);
         sceneScheduleService.insert(sceneSchedulePO);
         return ResultInfoUtil.success();
     }
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody SceneSchedulePO sceneSchedulePO){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        sceneSchedulePO.setCompanyId(companyId);
         sceneScheduleService.updateByPrimaryKey(sceneSchedulePO);
         return ResultInfoUtil.success();
     }
@@ -57,6 +60,10 @@ public class SceneScheduleController extends InitController{
      */
     @PostMapping("/bat_save_or_update")
     public ResultInfo batSaveOrUpdate(@RequestBody List<SceneSchedulePO> sceneSchedulePOS){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS ){
+            sceneSchedulePO.setCompanyId(companyId);
+        }
         sceneScheduleService.batSaveOrUpdate(sceneSchedulePOS);
         return ResultInfoUtil.success();
     }
