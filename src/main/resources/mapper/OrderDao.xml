@@ -133,7 +133,6 @@
         </if>
         <if test="shootId !=null and shootId!=''">
             and staff_sch1.id in (${shootId})
-            staff_sch2.id
         </if>
         <if test="makeupId !=null and makeupId!=''">
             and staff_sch2.id  in (${makeupId})
@@ -211,6 +210,21 @@
         </if>
         <if test="shootRoomSchId!=null and shootRoomSchId !=''">
             AND sence_pro.shoot_schedule_id =#{shootRoomSchId}
+        </if>
+        <if test="type ==1">
+        and shoot_pro.venue_schedule_id is null
+        </if>
+        <if test="type ==2">
+        and shoot_pro.plan_schedule_id is null
+        </if>
+        <if test="type ==3">
+        and (shoot_pro.makeup_schedule_id is null or shoot_pro.shoot_schedule_id is null )
+        </if>
+        <if test="type ==4">
+        and sence_pro.shoot_schedule_id is null
+        </if>
+        <if test="type ==5">
+        and shoot_pro.makeup_room_schedule_id is null
         </if>
         GROUP BY
         pro.id,
