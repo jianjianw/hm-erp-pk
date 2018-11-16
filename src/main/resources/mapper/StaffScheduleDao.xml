@@ -53,7 +53,7 @@
 	AND ss.staff_day=#{time}
   </select>
   <!--新增人员档期，返回id  -->
-  <insert id="insertStaffSchedule" keyColumn="id" keyProperty="id">
+  <insert id="insertStaffSchedule" useGeneratedKeys="true" keyProperty="id">
   	INSERT 
   		hm_erp_staff_schedule (venue_id,staff_id,staff_day,staff_status, company_id,staff_day_limit)
 	VALUES
