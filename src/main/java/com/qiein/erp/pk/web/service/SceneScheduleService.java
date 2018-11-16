@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.service;
 
+import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.web.entity.dto.SceneDTO;
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
@@ -68,4 +69,12 @@ public interface SceneScheduleService {
      * @return
      */
     List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDateTime(SceneDTO sceneDTO);
+
+    /**
+     * 先查询再保存
+     * @param sceneSchedulePOS
+     * @return
+     */
+    ResultInfo batSaveSelect(List<SceneSchedulePO> sceneSchedulePOS);
+
 }

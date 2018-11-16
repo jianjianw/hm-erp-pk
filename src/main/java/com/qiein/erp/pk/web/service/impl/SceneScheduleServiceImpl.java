@@ -1,5 +1,7 @@
 package com.qiein.erp.pk.web.service.impl;
 
+import com.qiein.erp.pk.util.ResultInfo;
+import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.dao.SceneScheduleDao;
 import com.qiein.erp.pk.web.entity.dto.SceneDTO;
 import com.qiein.erp.pk.web.entity.dto.SceneScheduleDTO;
@@ -156,6 +158,28 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
     public List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDateTime(SceneDTO sceneDTO) {
         List<SceneSchedulePO> result = sceneScheduleDao.selectSceneScheduleBySceneIdAndDate(sceneDTO);
         return  result;
+    }
+
+    @Override
+    public ResultInfo batSaveSelect(List<SceneSchedulePO> sceneSchedulePOS) {
+
+         for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
+            SceneDTO sceneDTO = new SceneDTO();
+            sceneDTO.setCompanyId(sceneSchedulePO.getCompanyId());
+            sceneDTO.setVenueId(sceneSchedulePO.getVenueId());
+            sceneDTO.setShootId(sceneSchedulePO.getShootId());
+            sceneDTO.setSceneId(sceneSchedulePO.getSceneId());
+            sceneDTO.setStartTime(sceneSchedulePO.getStartTime());
+            sceneDTO.setEndTime(sceneSchedulePO.getEndTime());
+            //防止重复  先查
+            List<SceneSchedulePO> sceneSchedule = selectSceneScheduleBySceneIdAndDateTime(sceneDTO);
+            if(sceneSchedule != null && sceneSchedule.size() > 0 ){
+                return ResultInfoUtil.error(409,sceneSchedulePO.getSceneName()+"档期已存在");
+            }
+            sceneScheduleDao.saveReturnId(sceneSchedulePO);
+        }
+
+        return ResultInfoUtil.success(sceneSchedulePOS);
     }
 
     //获取开始时间和结束时间
