@@ -40,6 +40,14 @@ public interface SceneScheduleService {
      */
     void batSaveOrUpdate(List<SceneSchedulePO> sceneSchedulePOS);
 
+
+    /**
+     * 保存返回id
+     * @param sceneSchedulePO
+     * @return
+     */
+    Integer saveReturnId(SceneSchedulePO sceneSchedulePO);
+
     /**
      * 批量保存
      * @param sceneSchedulePOS
@@ -48,9 +56,16 @@ public interface SceneScheduleService {
     List<SceneScheduleVO> batSave(List<SceneSchedulePO> sceneSchedulePOS);
 
     /**
-     * 根据场景和时间 查询场景档期
+     * 根据场景和时间(具体到天) 查询场景档期
      * @param sceneDTO
      * @return
      */
     List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDate(SceneDTO sceneDTO);
+
+    /**
+     * 根据场景和时间(具体到时间2018-11-16 9:00 - 2018-11-16  9:30) 查询场景档期
+     * @param sceneDTO
+     * @return
+     */
+    List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDateTime(SceneDTO sceneDTO);
 }

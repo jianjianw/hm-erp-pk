@@ -68,13 +68,41 @@ public class SceneScheduleController extends InitController{
      */
     @PostMapping("/bat_save")
     public ResultInfo batSave(@RequestBody List<SceneSchedulePO> sceneSchedulePOS){
-        //如果要防止添加重复记录 就要一条一条插入   。  也是可以的
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS ){
+            sceneSchedulePO.setCompanyId(companyId);
+        }
         List<SceneScheduleVO> reslut = sceneScheduleService.batSave(sceneSchedulePOS);
         return ResultInfoUtil.success(reslut);
+
+    }
+    @PostMapping("/bat_save_")
+    public ResultInfo batSave_(@RequestBody List<SceneSchedulePO> sceneSchedulePOS){
+
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS ){
+            sceneSchedulePO.setCompanyId(companyId);
+        }
+        for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
+            SceneDTO sceneDTO = new SceneDTO();
+            sceneDTO.setCompanyId(companyId);
+            sceneDTO.setVenueId(sceneSchedulePO.getVenueId());
+            sceneDTO.setShootId(sceneSchedulePO.getShootId());
+            sceneDTO.setSceneId(sceneSchedulePO.getSceneId());
+            sceneDTO.setStartTime(sceneSchedulePO.getStartTime());
+            sceneDTO.setEndTime(sceneSchedulePO.getEndTime());
+            //防止重复  先查
+            List<SceneSchedulePO> sceneSchedule = sceneScheduleService.selectSceneScheduleBySceneIdAndDateTime(sceneDTO);
+            if(sceneSchedule != null && sceneSchedule.size() > 0 ){
+                return ResultInfoUtil.error(409,sceneSchedulePO.getSceneName()+"档期已存在");
+            }
+            sceneScheduleService.saveReturnId(sceneSchedulePO);
+        }
+       return ResultInfoUtil.success(sceneSchedulePOS);
     }
 
     /**
-     * 根据场景和时间 查询场景档期
+     * 根据场景和时间 查询场景档期   （具体景点 右边的档期列表  这期先不上）
      * @param sceneDTO
      * @return
      */

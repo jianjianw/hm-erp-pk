@@ -33,7 +33,10 @@ public enum ExceptionEnum {
     USER_IS_DEL(401, "用户已被删除"),
     USER_IS_LOCK(402, "用户已锁定"),
     USERNAME_OR_PASSWORD_ERROR(403, "用户名或密码错误"),
-    PHONE_ERROR(346, "手机号格式错误");
+    PHONE_ERROR(346, "手机号格式错误"),
+
+    //档期
+    SCENE_SCHEDULE_EXIST(409,"档期已存在");
 
     private Integer code;
     private String msg;
