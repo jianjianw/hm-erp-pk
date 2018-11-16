@@ -3,10 +3,17 @@ package com.qiein.erp.pk.web.entity.vo;
  * 人员排空
  */
 public class TempStaffVO {
+	private Integer id;
 	private int count;//接单合计
     private String mealName;
     private Integer staffStatus;
     
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Integer getStaffStatus() {
 		return staffStatus;
 	}
