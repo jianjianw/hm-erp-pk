@@ -106,7 +106,7 @@
   <select id="findMakeupRoomScheduleByDateAndRoomIds" parameterType="map" resultMap="BaseResultMap">
     select id, venue_id, service_id, makeup_room_id, makeup_day, makeup_day_limit, company_id
     from hm_erp_makeup_room_schedule
-    where venue_id = #{companyId}
+    where venue_id = #{venueId}
           and service_id = #{serviceId}
           and makeup_day = #{date}
           <if test="roomIds != null and roomIds.size() > 0">
