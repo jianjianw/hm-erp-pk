@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qiein.erp.pk.web.dao.MealDao" >
 
-  <resultMap id="MealMap" type="com.qiein.erp.pk.web.entity.po.Meal" >
+  <resultMap id="MealMap" type="com.qiein.erp.pk.web.entity.po.MealPO" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
     <result column="photo_type" property="photoType" jdbcType="INTEGER" />
@@ -40,6 +40,7 @@
   <select id="mealSelect" resultMap="mealSelectMap">
 	  select meal_type,dic.DICNAME,meal.id,meal_name from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId}
   </select>
+  <!--查询服务id  -->
   <resultMap id="ServiceMap" type="com.qiein.erp.pk.web.entity.po.ServicePO" >
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
