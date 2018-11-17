@@ -29,14 +29,14 @@
     <result column="COMPANYID" property="companyId" jdbcType="INTEGER" />
     <result column="ISSHOW" property="showFlag" jdbcType="BOOLEAN" />
   </resultMap>
-	<!-- <resultMap id="mealSelectMap" type="com.qiein.erp.pk.web.entity.vo.MealSelectVO">
+	 <resultMap id="mealSelectMap" type="com.qiein.erp.pk.web.entity.vo.MealSelectVO">
 		<result column="meal_type" property="typeId"/>
 		<result column="DICNAME" property="typeName"/>
 		<collection property="meals" ofType="com.qiein.erp.pk.web.entity.po.MealPO">
 			<result column="id" property="id"/>
 			<result column="meal_name" property="mealName"/>
 		</collection>
-	</resultMap>  -->
+	</resultMap>
   <select id="mealSelect" resultMap="mealSelectMap">
 	  select meal_type,dic.DICNAME,meal.id,meal_name from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId}
   </select>
