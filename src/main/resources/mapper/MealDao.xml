@@ -74,7 +74,7 @@
   </select>
   
 <!--   查询服务名称  -->
-  <select id="selectServiceName" resultMap="ServiceMap">
+  <!-- <select id="selectServiceName" resultMap="ServiceMap">
   	SELECT
 		ser.id,ser.service_name
 	FROM
@@ -82,7 +82,7 @@
 	WHERE
 		ser.company_id=#{companyId}
 		AND ser.id=#{serviceId}
-  </select>
+  </select> -->
   
 <!--   查询套餐类别 -->
   <select id="selectMealType" resultMap="DictionayMap">
@@ -93,18 +93,7 @@
 	WHERE
 		dic.COMPANYID = #{companyId}
 	AND dic.DICTYPE = 'meal_type' 
-	ORDER BY dic.PRIORITY 	
-  </select>
-  
-  <!--  查询套餐类别名称 -->
-  <select id="selecDicName" resultMap="DictionayMap">
-	SELECT
-		dic.ID,dic.DICTYPE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID,dic.DICCODE
-	FROM
-		hm_crm_dictionary dic
-	WHERE
-		dic.COMPANYID = #{companyId}
-	AND dic.ID=#{mealType} 	
+	ORDER BY dic.ISSHOW DESC,dic.PRIORITY 	
   </select>
   
   <!-- 新增套餐分类  -->
