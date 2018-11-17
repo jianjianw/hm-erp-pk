@@ -1,7 +1,6 @@
 package com.qiein.erp.pk.web.entity.vo;
 
-import com.qiein.erp.pk.web.entity.po.Room;
-import com.qiein.erp.pk.web.entity.po.RoomPO;
+import com.qiein.erp.pk.web.entity.po.RoomSelectPO;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
 public class RoomSelectVO {
     private Integer venueId;
     private String venueName;
-    private List<RoomPO> rooms;
+    private List<RoomSelectPO> rooms;
 
     public Integer getVenueId() {
         return venueId;
@@ -30,11 +29,11 @@ public class RoomSelectVO {
         this.venueName = venueName;
     }
 
-    public List<RoomPO> getRooms() {
+    public List<RoomSelectPO> getRooms() {
         return rooms;
     }
 
-    public void setRooms(List<RoomPO> rooms) {
+    public void setRooms(List<RoomSelectPO> rooms) {
         this.rooms = rooms;
     }
 }

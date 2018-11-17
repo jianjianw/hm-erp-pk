@@ -14,7 +14,7 @@
   <resultMap id="roomSelectMap" type="com.qiein.erp.pk.web.entity.vo.RoomSelectVO">
     <id column="venue_id" property="venueId"/>
     <result column="venue_name" property="venueName"/>
-    <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.RoomPO">
+    <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.RoomSelectPO">
       <result column="room_id" property="roomId"/>
       <result column="room_name" property="roomName"/>
     </collection>
