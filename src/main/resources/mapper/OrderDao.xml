@@ -34,6 +34,7 @@
     <resultMap id="orderMap" type="com.qiein.erp.pk.web.entity.vo.OrderProVO">
         <id column="order_id" property="orderId"/>
         <result column="order_num" property="orderNum"/>
+        <result column="meal_name" property="mealName"/>
         <result column="meal_id" property="mealId"/>
         <result column="sale_id" property="staffId"/>
         <result column="NICKNAME" property="staffName"/>
@@ -62,6 +63,13 @@
             <result column="shoot_schedule_id" property="shootSchId"/>
             <result column="makeup_schedule_id" property="makeupSchId"/>
             <result column="plan_schedule_id" property="planSchId"/>
+            <collection property="shootRooms" ofType="com.qiein.erp.pk.web.entity.vo.ShootRoomVO">
+                <id column="shoot_schedule_id" property="shootRoomSchId"/>
+                <result column="scene_id" property="roomId"/>
+                <result column="scene_name" property="shootRoomName"/>
+                <result column="start_time" property="start"/>
+                <result column="end_time" property="end"/>
+            </collection>
         </collection>
     </resultMap>
     <select id="selectOrder" resultMap="baseMap">
@@ -235,6 +243,7 @@
             pro.order_id,
             ord.order_num,
             ord.meal_id,
+            meal.meal_name,
             ord.company_id,
             ord.sale_id,
             staff.NICKNAME,
@@ -252,9 +261,11 @@
             pro.order_type,
             pro.id pro_id,
             ord.srctype,
-            GROUP_CONCAT(
-                scene_pro.shoot_schedule_id SEPARATOR ","
-            ) shoot_room_sch_id,
+            scene_pro.shoot_schedule_id,
+            scene_sch.scene_id,
+            scene.scene_name,
+            scene_sch.start_time,
+            scene_sch.end_time,
             shoot_pro.makeup_room_schedule_id,
             shoot_pro.makeup_schedule_id,
             shoot_pro.plan_schedule_id,
@@ -279,10 +290,13 @@
         AND venue_sch.company_id = shoot_pro.company_id
         LEFT JOIN hm_erp_meal meal ON meal.id = ord.meal_id
         AND meal.company_id = ord.company_id
+        LEFT JOIN hm_erp_scene_schedule scene_sch ON scene_sch.id = scene_pro.shoot_schedule_id
+        AND scene_sch.company_id = scene_pro.company_id
+        LEFT JOIN hm_erp_scene scene ON scene_sch.scene_id = scene.id
+        AND scene.company_id = scene_sch.company_id
         LEFT JOIN hm_pub_staff staff ON staff.id = ord.sale_id
         AND staff.COMPANYID = ord.company_id
         where ord.id=#{orderId} and ord.company_id=#{companyId}
-        group by scene_pro.shoot_schedule_id
     </select>
     <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
         insert into hm_erp_order(kzid,meal_id,company_id,sale_id,order_time,srctype,collector_id,collector_name,old_kz_name,kz_name,kz_phone,mate_name,mate_phone,address,marry_time,letter_id,child_name,birth_day,age,sex,type)

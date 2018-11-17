@@ -9,7 +9,8 @@ import java.util.List;
 public class OrderProVO {
     private Integer orderId;//订单id
     private String orderNum;//订单编号
-    private String mealId;//套餐id
+    private Integer mealId;//套餐id
+    private String mealName;//套餐名称
     private Integer staffId;//销售id
     private String staffName;//销售姓名
     private Integer srcType;//渠道id
@@ -43,11 +44,19 @@ public class OrderProVO {
         this.orderNum = orderNum;
     }
 
-    public String getMealId() {
+    public String getMealName() {
+        return mealName;
+    }
+
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
+    }
+
+    public Integer getMealId() {
         return mealId;
     }
 
-    public void setMealId(String mealId) {
+    public void setMealId(Integer mealId) {
         this.mealId = mealId;
     }
 
