@@ -13,6 +13,24 @@ public class ProcessPO {
     private Integer makeupSchId;//化妆师档期id
     private Integer planSchId;//企划档期id
     private Integer companyId;//公司id
+    private Integer orderType;
+    private Integer orderId;
+
+    public Integer getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(Integer orderType) {
+        this.orderType = orderType;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
 
     public Integer getCompanyId() {
         return companyId;

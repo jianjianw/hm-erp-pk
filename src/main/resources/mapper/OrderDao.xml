@@ -362,10 +362,10 @@
             makeup_schedule_id =#{makeupSchId},
             shoot_schedule_id =#{shootSchId},
             plan_schedule_id =#{planSchId}
-        where process_id= #{proId}and company_id=#{companyId}
+        where process_id= #{proId} and company_id=#{companyId}
     </update>
     <delete id="deleteSceneSch">
-        delete from hm_erp_scene_schedule where process_id=#{proId} and company_id=#{companyId}
+        delete from hm_erp_process_scene_schedule where process_id=#{proId} and company_id=#{companyId}
     </delete>
     <update id="updateOrder">
         UPDATE hm_erp_order
