@@ -33,6 +33,15 @@ public class OrderPO {
     private String birthday;//生日
     private String marryTime;//婚期
     private Integer saleId;//销售id
+    private Integer orderTime;
+
+    public Integer getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(Integer orderTime) {
+        this.orderTime = orderTime;
+    }
 
     public Integer getSaleId() {
         return saleId;
