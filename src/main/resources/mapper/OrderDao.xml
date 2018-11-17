@@ -106,7 +106,6 @@
         meal.id meal_id ,
         meal.meal_name ,
         pro.order_type ,
-        ord.order_memo,
         staff_sch1.id shoot_id,
         staff1.NICKNAME shoot_name,
         staff_sch2.id makeup_id,
@@ -445,7 +444,6 @@
             AND shoot_pro.plan_schedule_id =#{planSchId}
         </if>
         <if test="shootRoomSchId!=null and shootRoomSchId !=''">
-            AND scene_pro.shoot_schedule_id =#{shootRoomSchId}
         </if>
     </select>
     <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
