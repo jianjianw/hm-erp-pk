@@ -35,6 +35,15 @@ public class OrderPO {
     private String marryTime;//婚期
     private Integer saleId;//销售id
     private Integer orderTime;
+    private Integer letterId;
+
+    public Integer getLetterId() {
+        return letterId;
+    }
+
+    public void setLetterId(Integer letterId) {
+        this.letterId = letterId;
+    }
 
     public String getOldKzName() {
         return oldKzName;
