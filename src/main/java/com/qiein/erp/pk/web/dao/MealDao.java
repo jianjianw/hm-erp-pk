@@ -62,5 +62,5 @@ public interface MealDao {
 	 * @param companyId
 	 * @return
 	 */
-	List<MealSelectVO> mealSelect(@Param("companyId")Integer companyId);
+	List<MealSelectVO> mealSelect(@Param("companyId")Integer companyId,@Param("serviceId")Integer serviceId);
 }

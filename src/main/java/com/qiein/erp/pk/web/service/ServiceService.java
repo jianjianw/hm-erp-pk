@@ -34,7 +34,7 @@ public interface ServiceService {
     /**
      * 查重
      */
-    String checkWasIn(String serviceName,Integer companyId);
+    String checkWasIn(String serviceName,Integer companyId,Integer id);
     /**
      * 场馆服务关联查询（场馆档期用）
      */

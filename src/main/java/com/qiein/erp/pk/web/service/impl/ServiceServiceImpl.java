@@ -149,8 +149,8 @@ public class ServiceServiceImpl implements ServiceService {
     /**
      * 查重
      */
-    public String checkWasIn(String serviceName,Integer companyId){
-        return serviceDao.checkWasIn(serviceName,companyId);
+    public String checkWasIn(String serviceName,Integer companyId,Integer id){
+        return serviceDao.checkWasIn(serviceName,companyId,id);
     }
     /**
      * 场馆服务关联查询（场馆档期用）

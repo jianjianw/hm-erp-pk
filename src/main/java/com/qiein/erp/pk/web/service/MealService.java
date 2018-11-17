@@ -54,6 +54,6 @@ public interface MealService {
 	 * @param companyId
 	 * @return
 	 */
-	List<MealSelectVO> mealSelect(Integer companyId);
+	List<MealSelectVO> mealSelect(Integer companyId ,Integer serviceId);
     
 }

@@ -2,11 +2,7 @@ package com.qiein.erp.pk.web.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
@@ -98,17 +94,6 @@ public class MealController extends InitController{
     			return ResultInfoUtil.error(9999, "缺少参数");
     		}
     		meal.setCompanyId(companyId);
-    		/*//查询套餐类别名称
-        	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
-        	meal.setMealTypeName(dictionaryErp.getDicName());
-        	//查询拍摄名称
-        	DictionaryErp photo=mealService.selecDicName(meal.getPhotoType(),meal.getCompanyId());
-        	meal.setPhotoName(photo.getDicName());
-        	//查询服务类别名称
-        	ServicePO servicePO=mealService.selectServiceName(meal.getServiceId(),meal.getCompanyId());
-            meal.setServiceName(servicePO.getServiceName());
-            System.out.println(JSONObject.toJSONString(meal));*/
-            
     		mealService.insertMeal(meal);
         return ResultInfoUtil.success();
     }
@@ -131,17 +116,6 @@ public class MealController extends InitController{
     public ResultInfo updateByPrimaryKey(@RequestBody MealPO meal){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
     	meal.setCompanyId(companyId);
-    	/*//查询套餐类别名称
-    	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
-    	meal.setMealTypeName(dictionaryErp.getDicName());
-    	//查询拍摄名称
-    	DictionaryErp photo=mealService.selecDicName(meal.getPhotoType(),meal.getCompanyId());
-    	meal.setPhotoName(photo.getDicName());
-    	//查询服务类别名称
-    	ServicePO servicePO=mealService.selectServiceName(meal.getServiceId(),meal.getCompanyId());
-        meal.setServiceName(servicePO.getServiceName());
-        System.out.println(JSONObject.toJSONString(meal));*/
-        
         mealService.updateByMeal(meal);
         return ResultInfoUtil.success();
     }
@@ -151,9 +125,9 @@ public class MealController extends InitController{
      * @return
      */
     @GetMapping("/meal_select")
-    public ResultInfo mealSelect(){
+    public ResultInfo mealSelect(@RequestParam(value = "serviceId",required = false) Integer serviceId){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        return ResultInfoUtil.success(mealService.mealSelect(companyId));
+        return ResultInfoUtil.success(mealService.mealSelect(companyId,serviceId));
     }
   
 }

@@ -108,8 +108,8 @@ public class MealServiceImpl implements MealService {
 	 * @param companyId
 	 * @return
 	 */
-	public List<MealSelectVO> mealSelect(Integer companyId){
-		return mealDao.mealSelect(companyId);
+	public List<MealSelectVO> mealSelect(Integer companyId ,Integer serviceId){
+		return mealDao.mealSelect(companyId,serviceId);
 	}
 	
 }

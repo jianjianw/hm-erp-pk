@@ -30,7 +30,7 @@ public class ServiceController extends InitController{
     public ResultInfo addService(@RequestBody ServiceDTO serviceDTO){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         serviceDTO.setCompanyId(companyId);
-        if(StringUtil.isNotEmpty(serviceService.checkWasIn(serviceDTO.getServiceName(),serviceDTO.getCompanyId()))){
+        if(StringUtil.isNotEmpty(serviceService.checkWasIn(serviceDTO.getServiceName(),serviceDTO.getCompanyId(),null))){
             throw new RException(ExceptionEnum.SERVICE_WAS_IN);
         }
         serviceService.addService(serviceDTO);
@@ -43,7 +43,7 @@ public class ServiceController extends InitController{
     public ResultInfo editService(@RequestBody ServiceDTO serviceDTO){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         serviceDTO.setCompanyId(companyId);
-        if(StringUtil.isNotEmpty(serviceService.checkWasIn(serviceDTO.getServiceName(),serviceDTO.getCompanyId()))){
+        if(StringUtil.isNotEmpty(serviceService.checkWasIn(serviceDTO.getServiceName(),serviceDTO.getCompanyId(),serviceDTO.getId()))){
             throw new RException(ExceptionEnum.SERVICE_WAS_IN);
         }
         serviceService.editService(serviceDTO);

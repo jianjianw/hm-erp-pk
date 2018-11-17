@@ -35,10 +35,11 @@
 		<collection property="meals" ofType="com.qiein.erp.pk.web.entity.po.MealPO">
 			<result column="id" property="id"/>
 			<result column="meal_name" property="mealName"/>
+			<result column="clothes_num" property="clothesNum"/>
 		</collection>
 	</resultMap>
   <select id="mealSelect" resultMap="mealSelectMap">
-	  select meal_type,dic.DICNAME,meal.id,meal_name from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId}
+	  select meal_type,dic.DICNAME,meal.id,meal_name,clothes_num from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId} and meal.service_id=#{serviceId}
   </select>
   <!-- 查询服务id  -->
   <resultMap id="ServiceMap" type="com.qiein.erp.pk.web.entity.po.ServicePO" >
@@ -72,17 +73,6 @@
 		ser.company_id=#{companyId}
   </select>
   
-<!--   查询服务名称  -->
-  <select id="selectServiceName" resultMap="ServiceMap">
-  	SELECT
-		ser.id,ser.service_name
-	FROM
-	 	hm_erp_service ser
-	WHERE
-		ser.company_id=#{companyId}
-		AND ser.id=#{serviceId}
-  </select>
-  
 <!--   查询套餐类别 -->
   <select id="selectMealType" resultMap="DictionayMap">
 	SELECT
@@ -92,18 +82,7 @@
 	WHERE
 		dic.COMPANYID = #{companyId}
 	AND dic.DICTYPE = 'meal_type' 
-	ORDER BY dic.ISSHOW 	
-  </select>
-  
-  <!--  查询套餐类别名称 -->
-  <select id="selecDicName" resultMap="DictionayMap">
-	SELECT
-		dic.ID,dic.DICTYPE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID,dic.DICCODE
-	FROM
-		hm_crm_dictionary dic
-	WHERE
-		dic.COMPANYID = #{companyId}
-	AND dic.ID=#{mealType} 	
+	ORDER BY dic.ISSHOW DESC,dic.PRIORITY 	
   </select>
   
   <!-- 新增套餐分类  -->
@@ -111,7 +90,15 @@
 	INSERT 
 		hm_crm_dictionary (DICTYPE,DICNAME,PRIORITY,COMPANYID,ISSHOW,DICCODE)
 	SELECT
-	#{dicType},#{dicName},#{priority},#{companyId},#{showFlag},
+	#{dicType},#{dicName},
+	(SELECT
+			IFNULL(MAX(dic.PRIORITY),0)+1
+		 FROM
+			hm_crm_dictionary dic
+		WHERE
+			dic.COMPANYID=1
+		AND dic.DICTYPE='meal_type'),
+	#{companyId},#{showFlag},
 		(SELECT
 			IFNULL(MAX(dic.DICCODE),0)+1
 		 FROM
@@ -142,10 +129,10 @@
 <!--   新增主套餐 --> 
   <insert id="insertMeal" parameterType="com.qiein.erp.pk.web.entity.po.BasePO" >
     insert into 
-    	hm_erp_meal (meal_name, photo_type,photo_name, meal_type,meal_status,meal_amount,
-    			memo,priority,clothes_num,company_id,meal_type_name,service_id,service_name)
-    	values (#{mealName}, #{photoType},#{photoName}, #{mealType}, #{mealStatus}, #{mealAmount},
-    		 #{memo}, #{priority}, #{clothesNum}, #{companyId},#{mealTypeName},#{serviceId},#{serviceName}
+    	hm_erp_meal (meal_name, photo_type,meal_type,meal_status,meal_amount,
+    			memo,priority,clothes_num,company_id,service_id)
+    	values (#{mealName}, #{photoType}, #{mealType}, #{mealStatus}, #{mealAmount},
+    		 #{memo}, #{priority}, #{clothesNum}, #{companyId},#{serviceId}
       )
   </insert>
   
@@ -159,9 +146,6 @@
     	</if>
     	<if test="photoType != null and photoType != 0 ">
     		photo_type=#{photoType},
-    	</if>
-    	<if test="photoName != null and photoName != '' ">
-    		photo_name=#{photoName},
     	</if>
     	<if test="mealType != null and mealType != 0 ">
     		meal_type=#{mealType},
@@ -181,14 +165,8 @@
     	<if test="priority != null and priority != 0">
     		priority=#{priority},
     	</if>
-    	<if test="mealTypeName != null and mealTypeName != '' ">
-    		meal_type_name=#{mealTypeName},
-    	</if>
     	<if test="serviceId != null and serviceId != 0 ">
     		service_id=#{serviceId},
-    	</if>
-    	<if test="serviceName != null and serviceName != '' ">
-    		service_name=#{serviceName}
     	</if>
     </set> 
     WHERE 
