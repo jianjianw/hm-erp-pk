@@ -209,5 +209,15 @@
           and room.room_type = 2
   </select>
 
+    <select id="findSceneCount" parameterType="map" resultType="Integer">
+        select count(*)
+        from hm_erp_venue_room room inner join hm_erp_scene scene
+        on  room.room_id = scene.shoot_id and room.company_id = scene.company_id
+        where scene.company_id = #{companyId}
+        and room.room_type = 2
+        and room.venue_id = #{venueId}
+        and scene.scene_status = #{status}
+    </select>
+
 
 </mapper>

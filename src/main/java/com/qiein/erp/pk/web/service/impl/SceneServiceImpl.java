@@ -97,4 +97,9 @@ public class SceneServiceImpl implements SceneService {
         return sceneDao.findVenueRoomScene(companyId,venueId);
     }
 
+    @Override
+    public Integer findSceneCount(Integer companyId, Integer venueId, Integer status) {
+        return sceneDao.findSceneCount(companyId,venueId,status);
+    }
+
 }

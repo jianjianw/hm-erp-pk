@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.service.impl;
 
+import com.qiein.erp.pk.constant.RoomConstant;
 import com.qiein.erp.pk.web.dao.VenueDao;
 import com.qiein.erp.pk.web.entity.dto.VenueDTO;
 import com.qiein.erp.pk.web.entity.po.BasePO;
@@ -108,25 +109,25 @@ public class VenueServiceImpl implements VenueService {
         for(VenueDTO venue :venueDTOS){
 
             //化妆间的个数
-            List<RoomPO> makeupRoomPOS = roomService.findRoomByVenueId(companyId,venue.getId(),1);
-            if(makeupRoomPOS != null && makeupRoomPOS.size()> 0 ){
-                venue.setMakeupRoomNums(String.valueOf(makeupRoomPOS.size()));
-            }
-            //拍摄间的个数
-            StringBuilder sb = new StringBuilder();
-            List<RoomPO> shootRoomPOS = roomService.findRoomByVenueId(companyId,venue.getId(),2);
-            if(shootRoomPOS != null && shootRoomPOS.size()> 0 ){
-                int size = shootRoomPOS.size();
-                sb.append(String.valueOf(size));
-            }
-            //查询拍摄间下面的拍摄景
-            List<ScenePO> scenes = sceneService.findSceneByVenueId(companyId, venue.getId());
-            if(scenes != null && scenes.size()>0){
-                int size = scenes.size();
-                sb.append("/").append(String.valueOf(size));
-                venue.setShootRoomNums(sb.toString());
+            Integer makeupRoomCount = roomService.findRoomCount(companyId, venue.getId(), 1, 1);
+            if(makeupRoomCount.equals(0)){
+                venue.setMakeupRoomNums("");
+            }else{
+                venue.setMakeupRoomNums(String.valueOf(makeupRoomCount));
             }
 
+            //拍摄间的个数
+            Integer shootRoomCount = roomService.findRoomCount(companyId, venue.getId(), 2, 1);
+            //查询场馆下面的拍摄景
+            Integer sceneCount = sceneService.findSceneCount(companyId, venue.getId(), 1);
+
+            StringBuilder sb = new StringBuilder();
+            //有拍摄间才能有拍摄景
+            if(shootRoomCount.equals(0)){
+                venue.setShootRoomNums("");
+            }else{
+                venue.setShootRoomNums(sb.append(shootRoomCount).append("/").append(sceneCount).toString());
+            }
         }
 
         return venueDTOS;

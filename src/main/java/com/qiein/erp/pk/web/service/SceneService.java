@@ -72,4 +72,13 @@ public interface SceneService {
      * @return
      */
     List<VenueRoomScenePO> findVenueRoomScene(Integer companyId, Integer venueId);
+
+    /**
+     * 查询场馆下面的拍摄景
+     * @param companyId
+     * @param venueId
+     * @param status
+     * @return
+     */
+    Integer findSceneCount(Integer companyId, Integer venueId,Integer status);
 }

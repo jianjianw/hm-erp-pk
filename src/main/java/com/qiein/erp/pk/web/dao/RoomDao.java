@@ -74,4 +74,17 @@ public interface RoomDao {
      * @param levelAndRoomDTOs
      */
     void batUpdateRoomLevel(List<LevelAndRoomDTO> levelAndRoomDTOs);
+
+    /**
+     * 查询场馆下面房间的个数
+     * @param companyId
+     * @param venueId
+     * @param roomType
+     * @param status
+     * @return
+     */
+    Integer findRoomCount(@Param("companyId")Integer companyId,
+                          @Param("venueId") Integer venueId,
+                          @Param("roomType") Integer roomType,
+                          @Param("status") Integer status);
 }
