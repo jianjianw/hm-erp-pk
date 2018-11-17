@@ -40,12 +40,6 @@ public interface BaseDao {
     void batUpdate(List<BasePO> bases);
 
     /**
-     * 批量新增或修改
-     * @param bases
-     */
-    void batInsertOrUpdate(List<BasePO> bases);
-
-    /**
      * 基地排序
      * @param bases
      */
