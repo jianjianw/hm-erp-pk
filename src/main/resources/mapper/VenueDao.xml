@@ -13,6 +13,7 @@
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
     <result column="priority" property = "priority" jdbcType="INTEGER"/>
   </resultMap>
+
   <resultMap id="BaseVenueMap" type="com.qiein.erp.pk.web.entity.vo.VenueSelectVO">
     <id column="base_id" property="baseId"/>
     <result column="base_name" property="baseName"/>
@@ -20,6 +21,13 @@
       <result column="id" property="id"/>
       <result column="venue_name" property="venueName"/>
     </collection>
+  </resultMap>
+
+  <resultMap id="VenueSortMap" type="com.qiein.erp.pk.web.entity.vo.VenueSortVO">
+    <id column="base_id" property="baseId"/>
+    <result column="base_name" property="baseName"/>
+    <result column="base_priority" property="basePriority"/>
+    <collection property="venuePOS" ofType="com.qiein.erp.pk.web.entity.po.VenuePO" resultMap = "BaseResultMap"/>
   </resultMap>
 
   <select id="getVenues" resultMap="BaseVenueMap">
@@ -125,9 +133,15 @@
   </select>
 
 
-
-
-
-
+  <select id="findBaseAndVenue" resultMap="VenueSortMap" parameterType="map">
+      select base.id base_id, base.base_name,base.priority base_priority, venue.id, venue.venue_name, venue.venue_type,
+             venue.venue_phone, venue.respo, venue.address, venue.venue_status,venue.company_id,venue.priority
+      from hm_erp_base base
+      inner join  hm_erp_venue venue on venue.base_id =  base.id
+      and venue.company_id = base.company_id
+      where base.company_id=#{companyId}
+             and venue.venue_type = #{venueType}
+             order by base.priority asc, venue.priority
+  </select>
 
 </mapper>

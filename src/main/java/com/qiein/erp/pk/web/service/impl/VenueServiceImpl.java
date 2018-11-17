@@ -7,6 +7,7 @@ import com.qiein.erp.pk.web.entity.po.BasePO;
 import com.qiein.erp.pk.web.entity.po.RoomPO;
 import com.qiein.erp.pk.web.entity.po.ScenePO;
 import com.qiein.erp.pk.web.entity.po.VenuePO;
+import com.qiein.erp.pk.web.entity.vo.VenueSortVO;
 import com.qiein.erp.pk.web.service.BaseService;
 import com.qiein.erp.pk.web.service.RoomService;
 import com.qiein.erp.pk.web.service.SceneService;
@@ -141,6 +142,11 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public String checkPhone(VenuePO venuePO) {
         return venueDao.checkPhone(venuePO);
+    }
+
+    @Override
+    public List<VenueSortVO> findBaseAndVenue(Integer companyId, Integer venueType) {
+        return venueDao.findBaseAndVenue(companyId,venueType);
     }
 
 

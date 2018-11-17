@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.service;
 import com.qiein.erp.pk.web.entity.dto.VenueDTO;
 import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
+import com.qiein.erp.pk.web.entity.vo.VenueSortVO;
 
 import java.util.List;
 /**
@@ -49,7 +50,10 @@ public interface VenueService {
     public String checkPhone(VenuePO venuePO);
 
 
-
-
-
+    /**
+     * 查询所有基地 和 基地下面的场馆
+     * @param companyId
+     * @return
+     */
+    List<VenueSortVO> findBaseAndVenue(Integer companyId, Integer venueType);
 }
