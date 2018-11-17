@@ -106,6 +106,17 @@ public class MealController extends InitController{
     public ResultInfo selectAll(){
     	Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<MealPO> meal = mealService.selectAll(companyId);
+        List<DictionaryErp> mealTypes= mealService.selectMealType(companyId);
+        if(meal!=null && mealTypes!=null){
+        	for (MealPO mealPO : meal) {
+            	for (DictionaryErp dictionaryErp : mealTypes) {
+        			if(mealPO.getMealType().equals(dictionaryErp.getDicCode())){
+        				mealPO.setMealTypeName(dictionaryErp.getDicName());
+        			}
+        		}
+    		}
+        }
+        
         return ResultInfoUtil.success(meal);
     }
     /**

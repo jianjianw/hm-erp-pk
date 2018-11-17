@@ -60,15 +60,18 @@ public class StaffServiceImpl implements StaffService {
         String roleName = CommonConstant.NULL_STR;
         switch (Integer.parseInt(roleId)) {
             case 1:
-                roleName = "摄像师";
+                roleName = "摄影师";
                 break;
             case 2:
                 roleName = "化妆师";
                 break;
             case 3:
-                roleName="销售";
+                roleName="摄像师";
                 break;
             case 4:
+                roleName="销售";
+                break;
+            case 5:
                 roleName="主管";
                 break;
             default:

@@ -60,6 +60,10 @@ public interface OrderDao {
      */
     OrderProVO selectByOrdId(@Param("orderId")Integer orderId,@Param("companyId") Integer companyId);
     /**
+     * 手机端获取数据
+     */
+    List<OrderProVO> selectForPhone(OrderSelectDTO orderDTO);
+    /**
      * 修改流程档期（除拍摄间外）
      */
     void updateProcessShootSch(ProcessPO processPO);

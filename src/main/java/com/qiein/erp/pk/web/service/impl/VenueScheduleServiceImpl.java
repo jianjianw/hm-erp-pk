@@ -107,9 +107,23 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                serviceScheduleVOS.add(serviceScheduleVO);
             }
         }
-
+        List<String> hj=new ArrayList<>();
+        for(Integer date:everyDayOfMonth){
+            Integer count=0;
+            Integer target=0;
+            for(ServiceScheduleVO serviceSchSelectVO:serviceScheduleVOS){
+                for(VenueScheduleVO venueScheduleVO:serviceSchSelectVO.getVenueScheduleVOS()){
+                    if(venueScheduleVO.getTime().equals(date)){
+                        count+=venueScheduleVO.getCount();
+                        target+=venueScheduleVO.getTargetCount();
+                    }
+                }
+            }
+            hj.add(count+CommonConstant.FILE_SEPARATOR+target);
+        }
         venueScheduleShowVO.setVenueServiceVOS(venueServiceVOS);
         venueScheduleShowVO.setServiceScheduleVOS(serviceScheduleVOS);
+        venueScheduleShowVO.setHjs(hj);
         return venueScheduleShowVO;
     }
     /**

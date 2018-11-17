@@ -9,6 +9,15 @@ import java.util.List;
 public class VenueScheduleShowVO {
     private List<VenueServiceVO> venueServiceVOS;//表头
     private List<ServiceScheduleVO> serviceScheduleVOS;//数据
+    private List<String> hjs;
+
+    public List<String> getHjs() {
+        return hjs;
+    }
+
+    public void setHjs(List<String> hjs) {
+        this.hjs = hjs;
+    }
 
     public List<VenueServiceVO> getVenueServiceVOS() {
         return venueServiceVOS;

@@ -40,6 +40,10 @@ public interface OrderService {
      */
     OrderProVO selectByOrdId(Integer orderId, Integer companyId);
     /**
+     * 手机端获取数据
+     */
+    List<OrderProVO> selectForPhone(OrderSelectDTO orderDTO);
+    /**
      * 编辑流程
      */
     void editProcess(ProcessPO processPO);

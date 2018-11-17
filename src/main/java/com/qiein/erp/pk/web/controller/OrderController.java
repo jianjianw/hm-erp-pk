@@ -61,6 +61,15 @@ public class OrderController extends InitController{
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(orderService.selectByOrdId(orderId,companyId));
     }
+    /**
+     * 手机端获取数据
+     */
+    @PostMapping("/select_for_phone")
+    public  ResultInfo selectForPhone(@RequestBody OrderSelectDTO orderDTO){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        orderDTO.setCompanyId(companyId);
+        return ResultInfoUtil.success(orderService.selectForPhone(orderDTO));
+    }
 
     /**
      * 编辑流程
