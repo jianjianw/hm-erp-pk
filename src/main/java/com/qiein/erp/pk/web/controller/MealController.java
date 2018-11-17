@@ -2,11 +2,7 @@ package com.qiein.erp.pk.web.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
@@ -151,9 +147,9 @@ public class MealController extends InitController{
      * @return
      */
     @GetMapping("/meal_select")
-    public ResultInfo mealSelect(){
+    public ResultInfo mealSelect(@RequestParam Integer serviceId){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        return ResultInfoUtil.success(mealService.mealSelect(companyId));
+        return ResultInfoUtil.success(mealService.mealSelect(companyId,serviceId));
     }
   
 }
