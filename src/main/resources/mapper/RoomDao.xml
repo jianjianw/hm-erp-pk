@@ -19,6 +19,29 @@
       <result column="room_name" property="roomName"/>
     </collection>
   </resultMap>
+
+    <resultMap id="RoomLevelMap" type="com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO" >
+
+        <id column="ID" property="roomLevelId" jdbcType="INTEGER" />
+        <result column="DICTYPE" property="roomLevelType" />
+        <result column="DICCODE" property="roomLevelCode"  />
+        <result column="DICNAME" property="roomLevelName" />
+        <result column="PRIORITY" property="priority"/>
+        <result column="ISSHOW" property="roomLevelStatus" />
+        <result column="COMPANYID" property="companyId" />
+        <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.Room" resultMap="BaseResultMap"/>
+
+    </resultMap>
+
+    <resultMap id="LevelMap" type="com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO" >
+        <id column="ID" property="roomLevelId" jdbcType="INTEGER" />
+        <result column="DICTYPE" property="roomLevelType" />
+        <result column="DICCODE" property="roomLevelCode"  />
+        <result column="DICNAME" property="roomLevelName" />
+        <result column="PRIORITY" property="priority"/>
+        <result column="ISSHOW" property="roomLevelStatus" />
+        <result column="COMPANYID" property="companyId" />
+    </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="map" >
     delete from hm_erp_venue_room
     where room_id = #{roomId} and company_id = #{companyId}
@@ -146,18 +169,7 @@
   </insert>
 
 
-  <resultMap id="RoomLevelMap" type="com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO" >
 
-    <id column="ID" property="roomLevelId" jdbcType="INTEGER" />
-    <result column="DICTYPE" property="roomLevelType" />
-    <result column="DICCODE" property="roomLevelCode"  />
-    <result column="DICNAME" property="roomLevelName" />
-    <result column="PRIORITY" property="priority"/>
-    <result column="ISSHOW" property="roomLevelStatus" />
-    <result column="COMPANYID" property="companyId" />
-    <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.Room" resultMap="BaseResultMap"/>
-
-  </resultMap>
 
     <select id="findRoomByLevelId" resultMap="BaseResultMap">
     select room_id, venue_id, room_name, room_level, room_type, priority, room_status,
@@ -223,7 +235,8 @@
 
   </update>
 
-  <select id="findRoomLevel" parameterType="map" resultMap="RoomLevelMap">
+
+  <select id="findRoomLevel" parameterType="map" resultMap="LevelMap">
     select dic.ID,dic.DICTYPE,dic.DICCODE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID
     from hm_crm_dictionary dic
     where dic.COMPANYID = #{companyId}

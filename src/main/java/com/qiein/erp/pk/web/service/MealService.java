@@ -13,8 +13,11 @@ public interface MealService {
      * @return
      */
 	int insertMeal(MealPO meal);
-
-	List<MealPO> selectAll();
+	/**
+     * 查询所有套餐
+     * @return
+     */
+	List<MealPO> selectAll(Integer companyId);
 	/**
      * 编辑主套餐
      * @return

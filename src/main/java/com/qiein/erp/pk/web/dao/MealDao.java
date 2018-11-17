@@ -24,7 +24,7 @@ public interface MealDao {
      * 查询所有套餐
      * @return
      */
-    List<MealPO> selectAll();
+    List<MealPO> selectAll(Integer companyId);
     /**
      * 编辑套餐
      * @return
