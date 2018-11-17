@@ -26,7 +26,16 @@ public class OrderProVO {
     private String address;//地址
     private Integer companyId;
     private String orderTime;//订单时间
+    private Integer type;//拍摄类型
     private List<ProcessVO> processVOS;//订单下的流程们
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public String getOrderTime() {
         return orderTime;

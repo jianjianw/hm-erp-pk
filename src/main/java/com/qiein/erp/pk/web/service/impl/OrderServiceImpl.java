@@ -82,7 +82,12 @@ public class OrderServiceImpl implements OrderService {
     public OrderProVO selectByOrdId(Integer orderId, Integer companyId) {
         return orderDao.selectByOrdId(orderId, companyId);
     }
-
+    /**
+     * 手机端获取数据
+     */
+    public List<OrderProVO> selectForPhone(OrderSelectDTO orderDTO){
+        return orderDao.selectForPhone(orderDTO);
+    }
     /**
      * 编辑流程
      */

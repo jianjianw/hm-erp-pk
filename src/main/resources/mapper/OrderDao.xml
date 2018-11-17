@@ -50,6 +50,7 @@
         <result column="marry_time" property="marryTime"/>
         <result column="address" property="address"/>
         <result column="order_time" property="orderTime"/>
+        <result column="type" property="type"/>
         <collection property="processVOS" ofType="com.qiein.erp.pk.web.entity.vo.ProcessVO">
             <id column="pro_id" property="proId"/>
             <result column="venue_id" property="venueId"/>
@@ -332,6 +333,115 @@
         LEFT JOIN hm_pub_staff staff3 ON staff3.id = plan_sch.staff_id
         AND plan_sch.company_id = staff3.companyId
         where ord.id=#{orderId} and ord.company_id=#{companyId}
+    </select>
+    <select id="selectForPhone" resultMap="orderMap">
+        SELECT
+            pro.order_id,
+            ord.order_num,
+            ord.meal_id,
+            meal.meal_name,
+            ord.company_id,
+            ord.sale_id,
+            staff.NICKNAME,
+            ord.kz_name,
+            ord.kz_phone,
+            ord.mate_name,
+            ord.mate_phone,
+            ord.address,
+        ord.type,
+            FROM_UNIXTIME(ord.order_time, "%Y/%m/%d") order_time,
+            FROM_UNIXTIME(ord.marry_time, "%Y/%m/%d") marry_time,
+            ord.child_name,
+            FROM_UNIXTIME(ord.birth_day, "%Y/%m/%d") birth_day,
+            ord.age,
+            ord.sex,
+            pro.order_type,
+            pro.id pro_id,
+            ord.srctype,
+            scene_pro.shoot_schedule_id,
+            scene_sch.scene_id,
+            scene.scene_name,
+            scene_sch.start_time,
+            scene_sch.end_time,
+            shoot_pro.makeup_room_schedule_id,
+            room.room_name makeupRoomName,
+            shoot_pro.makeup_schedule_id,
+            staff2.NICKNAME makeupName,
+            shoot_pro.plan_schedule_id,
+            staff3.NICKNAME planName,
+            shoot_pro.shoot_schedule_id,
+            staff1.NICKNAME shootName,
+            shoot_pro.venue_schedule_id,
+            CONCAT(
+                venue.venue_name,
+                '/',
+                service.service_name
+            ) venueName,
+            meal.clothes_num,
+            FROM_UNIXTIME(
+                venue_sch.venue_day,
+                "%Y/%m/%d"
+            ) venue_day,
+            venue_sch.venue_id,
+            venue_sch.service_id,
+            plan_sch.staff_day planTime
+        FROM
+            hm_erp_order ord
+        LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
+        AND pro.company_id = ord.company_id
+        LEFT JOIN hm_erp_process_scene_schedule scene_pro ON scene_pro.process_id = pro.id
+        AND scene_pro.company_id = pro.company_id
+        LEFT JOIN hm_erp_process_shoot_schedule shoot_pro ON shoot_pro.process_id = pro.id
+        AND shoot_pro.company_id = pro.company_id
+        LEFT JOIN hm_erp_makeup_room_schedule makeup_room_sch ON makeup_room_sch.id = shoot_pro.makeup_room_schedule_id
+        AND makeup_room_sch.company_id = shoot_pro.company_id
+        LEFT JOIN hm_erp_venue_room room ON room.room_id = makeup_room_sch.makeup_room_id
+        AND room.company_id = makeup_room_sch.company_id
+        LEFT JOIN hm_erp_venue_schedule venue_sch ON venue_sch.id = shoot_pro.venue_schedule_id
+        AND venue_sch.company_id = shoot_pro.company_id
+        LEFT JOIN hm_erp_venue venue ON venue_sch.venue_id = venue.id
+        AND venue_sch.company_id = venue.company_id
+        LEFT JOIN hm_erp_service service ON service.id = venue_sch.service_id
+        AND service.company_id = venue_sch.company_id
+        LEFT JOIN hm_erp_meal meal ON meal.id = ord.meal_id
+        AND meal.company_id = ord.company_id
+        LEFT JOIN hm_erp_scene_schedule scene_sch ON scene_sch.id = scene_pro.shoot_schedule_id
+        AND scene_sch.company_id = scene_pro.company_id
+        LEFT JOIN hm_erp_scene scene ON scene_sch.scene_id = scene.id
+        AND scene.company_id = scene_sch.company_id
+        LEFT JOIN hm_pub_staff staff ON staff.id = ord.sale_id
+        AND staff.COMPANYID = ord.company_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
+        AND staff_sch1.company_id = shoot_pro.company_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.shoot_schedule_id
+        AND staff_sch2.company_id = shoot_pro.company_id
+        LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
+        AND staff1.COMPANYID = staff_sch1.company_id
+        LEFT JOIN hm_pub_staff staff2 ON staff2.ID = staff_sch2.staff_id
+        AND staff2.COMPANYID = staff_sch2.company_id
+        LEFT JOIN hm_erp_plan_schedule plan_sch ON plan_sch.id = shoot_pro.plan_schedule_id
+        AND plan_sch.company_id = shoot_pro.company_id
+        LEFT JOIN hm_pub_staff staff3 ON staff3.id = plan_sch.staff_id
+        AND plan_sch.company_id = staff3.companyId
+        where ord.company_id=#{companyId}
+        <if test="venueSchId!=null and venueSchId !=''">
+            AND shoot_pro.venue_schedule_id = #{venueSchId}
+        </if>
+        <if test="makeupRoomSchId!=null and makeupRoomSchId !=''">
+            AND shoot_pro.makeup_room_schedule_id = #{makeupRoomSchId}
+        </if>
+        <if test="makeupSchId!=null and makeupSchId !=''">
+            AND shoot_pro.makeup_schedule_id = #{makeupSchId}
+        </if>
+        <if test="shootSchId!=null and shootSchId !=''">
+            AND shoot_pro.shoot_schedule_id = #{shootSchId}
+        </if>
+        <if test="planSchId!=null and planSchId !=''">
+            AND shoot_pro.plan_schedule_id =#{planSchId}
+        </if>
+        <if test="shootRoomSchId!=null and shootRoomSchId !=''">
+            AND scene_pro.shoot_schedule_id =#{shootRoomSchId}
+        </if>
     </select>
     <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
         insert into hm_erp_order(kzid,meal_id,company_id,sale_id,order_time,srctype,collector_id,collector_name,old_kz_name,kz_name,kz_phone,mate_name,mate_phone,address,marry_time,letter_id,child_name,birth_day,age,sex,type)
