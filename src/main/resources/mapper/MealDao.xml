@@ -197,11 +197,26 @@
   
   <!--查询套餐  -->
   <select id="selectAll" resultMap="MealMap" >
-    SELECT 
-    	<include refid="baseColumn"/>
-    FROM 
-    	hm_erp_meal
+	SELECT
+		meal.id,meal.meal_name,meal_amount,meal.memo,meal.photo_type,
+		(SELECT
+			dic.DICNAME photo_name
+			FROM
+			hm_erp_meal meal
+		LEFT JOIN hm_crm_dictionary dic ON meal.meal_type=dic.DICCODE  AND meal.company_id=dic.COMPANYID 
+		WHERE 
+		meal.company_id=1
+		AND dic.DICTYPE='common_type') photo_name,
+		(SELECT
+			dic.DICNAME meal_type_name
+		FROM
+			hm_erp_meal meal
+		LEFT JOIN hm_crm_dictionary dic ON meal.meal_type=dic.DICCODE  AND meal.company_id=dic.COMPANYID 
+		WHERE 
+			meal.company_id=1
+		AND dic.DICTYPE='meal_type') meal_type_name,meal.clothes_num,meal.priority,meal.meal_status
+	FROM
+		hm_erp_meal meal    
   </select>
-  
   
 </mapper>
