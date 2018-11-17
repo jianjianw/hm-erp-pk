@@ -94,7 +94,7 @@ public class RoomServiceImpl implements RoomService {
         //添加分类
         roomDao.addRoomLevel(levelAndRoomDTO);
         //添加房间
-        List<RoomPO> roomPOS = levelAndRoomDTO.getRoomPOS();
+        List<RoomPO> roomPOS = levelAndRoomDTO.getRooms();
         if(roomPOS != null && roomPOS.size()>0){
             roomDao.batAddRoom(roomPOS);
         }
