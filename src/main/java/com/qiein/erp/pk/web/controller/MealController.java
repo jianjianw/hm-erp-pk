@@ -1,15 +1,12 @@
 package com.qiein.erp.pk.web.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.alibaba.fastjson.JSONObject;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
@@ -87,10 +84,7 @@ public class MealController extends InitController{
     public ResultInfo selectServiceId(){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
          List<ServicePO> servicePo= mealService.selectServiceId(companyId);
-         /*for (ServicePO servicePO : servicePos) {
-        	 servicePO.setServiceStatus(String.valueOf(servicePO.getServiceStatus())));
-        	 
-		}*/
+        
         return ResultInfoUtil.success(servicePo);
     }
     /**
@@ -100,11 +94,11 @@ public class MealController extends InitController{
     @PostMapping("/insert_meal")
     public ResultInfo insertMeal(@RequestBody MealPO meal){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-    		if(meal.getMealType()==null){
-    			
+    		if(meal==null){
+    			return ResultInfoUtil.error(9999, "缺少参数");
     		}
     		meal.setCompanyId(companyId);
-    		//查询套餐类别名称
+    		/*//查询套餐类别名称
         	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
         	meal.setMealTypeName(dictionaryErp.getDicName());
         	//查询拍摄名称
@@ -113,7 +107,7 @@ public class MealController extends InitController{
         	//查询服务类别名称
         	ServicePO servicePO=mealService.selectServiceName(meal.getServiceId(),meal.getCompanyId());
             meal.setServiceName(servicePO.getServiceName());
-            System.out.println(JSONObject.toJSONString(meal));
+            System.out.println(JSONObject.toJSONString(meal));*/
             
     		mealService.insertMeal(meal);
         return ResultInfoUtil.success();
@@ -125,7 +119,8 @@ public class MealController extends InitController{
      */
     @GetMapping("/select_all")
     public ResultInfo selectAll(){
-        List<MealPO> meal = mealService.selectAll();
+    	Integer companyId=getCurrentLoginStaff().getCompanyId();
+        List<MealPO> meal = mealService.selectAll(companyId);
         return ResultInfoUtil.success(meal);
     }
     /**
@@ -135,9 +130,8 @@ public class MealController extends InitController{
     @PostMapping("/update_by_meal")
     public ResultInfo updateByPrimaryKey(@RequestBody MealPO meal){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-    	System.out.println(JSONObject.toJSONString(meal));
     	meal.setCompanyId(companyId);
-    	//查询套餐类别名称
+    	/*//查询套餐类别名称
     	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
     	meal.setMealTypeName(dictionaryErp.getDicName());
     	//查询拍摄名称
@@ -146,7 +140,7 @@ public class MealController extends InitController{
     	//查询服务类别名称
     	ServicePO servicePO=mealService.selectServiceName(meal.getServiceId(),meal.getCompanyId());
         meal.setServiceName(servicePO.getServiceName());
-        System.out.println(JSONObject.toJSONString(meal));
+        System.out.println(JSONObject.toJSONString(meal));*/
         
         mealService.updateByMeal(meal);
         return ResultInfoUtil.success();
