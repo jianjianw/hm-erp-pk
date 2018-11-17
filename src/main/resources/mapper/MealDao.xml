@@ -73,17 +73,6 @@
 		ser.company_id=#{companyId}
   </select>
   
-<!--   查询服务名称  -->
-  <!-- <select id="selectServiceName" resultMap="ServiceMap">
-  	SELECT
-		ser.id,ser.service_name
-	FROM
-	 	hm_erp_service ser
-	WHERE
-		ser.company_id=#{companyId}
-		AND ser.id=#{serviceId}
-  </select> -->
-  
 <!--   查询套餐类别 -->
   <select id="selectMealType" resultMap="DictionayMap">
 	SELECT

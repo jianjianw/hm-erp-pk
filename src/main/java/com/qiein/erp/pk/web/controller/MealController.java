@@ -94,17 +94,6 @@ public class MealController extends InitController{
     			return ResultInfoUtil.error(9999, "缺少参数");
     		}
     		meal.setCompanyId(companyId);
-    		/*//查询套餐类别名称
-        	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
-        	meal.setMealTypeName(dictionaryErp.getDicName());
-        	//查询拍摄名称
-        	DictionaryErp photo=mealService.selecDicName(meal.getPhotoType(),meal.getCompanyId());
-        	meal.setPhotoName(photo.getDicName());
-        	//查询服务类别名称
-        	ServicePO servicePO=mealService.selectServiceName(meal.getServiceId(),meal.getCompanyId());
-            meal.setServiceName(servicePO.getServiceName());
-            System.out.println(JSONObject.toJSONString(meal));*/
-            
     		mealService.insertMeal(meal);
         return ResultInfoUtil.success();
     }
@@ -127,17 +116,6 @@ public class MealController extends InitController{
     public ResultInfo updateByPrimaryKey(@RequestBody MealPO meal){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
     	meal.setCompanyId(companyId);
-    	/*//查询套餐类别名称
-    	DictionaryErp dictionaryErp=mealService.selecDicName(meal.getMealType(),meal.getCompanyId());
-    	meal.setMealTypeName(dictionaryErp.getDicName());
-    	//查询拍摄名称
-    	DictionaryErp photo=mealService.selecDicName(meal.getPhotoType(),meal.getCompanyId());
-    	meal.setPhotoName(photo.getDicName());
-    	//查询服务类别名称
-    	ServicePO servicePO=mealService.selectServiceName(meal.getServiceId(),meal.getCompanyId());
-        meal.setServiceName(servicePO.getServiceName());
-        System.out.println(JSONObject.toJSONString(meal));*/
-        
         mealService.updateByMeal(meal);
         return ResultInfoUtil.success();
     }
