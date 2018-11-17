@@ -47,7 +47,7 @@
   
   <sql id="baseColumn">
   	id,meal_name, photo_type, meal_type,meal_status,meal_amount,memo,priority,clothes_num,company_id,
-  	meal_type_name,service_id,service_name,photo_name
+  	service_id
   </sql>
   
   <!--查询拍摄类别 -->
