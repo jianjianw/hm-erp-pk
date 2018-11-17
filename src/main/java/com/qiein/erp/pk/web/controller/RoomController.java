@@ -8,9 +8,6 @@ import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
 import com.qiein.erp.pk.web.entity.po.Room;
 import com.qiein.erp.pk.web.service.RoomService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +38,6 @@ public class RoomController extends InitController{
      * @param room
      * @return
      */
-    @ApiOperation(value = "添加房间")
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody Room room){
         //去掉对象中的空格
@@ -51,15 +47,21 @@ public class RoomController extends InitController{
         roomService.insert(room);
         return ResultInfoUtil.success();
     }
-    @ApiOperation(value = "根据主键查询房间")
+    /**
+     * 根据主键查询房间
+     */
     @GetMapping("/select_by_primary_key")
     public ResultInfo selectByPrimaryKey(Integer roomId){//id已经确定了是化妆间还是拍摄间。
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         Room room = roomService.selectByPrimaryKey(roomId,companyId);
         return ResultInfoUtil.success(room);
     }
-    @ApiOperation(value = "根据房间类型查询房间")
-    @ApiImplicitParam(name = "roomType",value = "房间类型  化妆间:1 拍摄间:2 ", dataType = "Integer")
+
+    /**
+     * 根据房间类型查询房间
+     * @param roomType
+     * @return
+     */
     @GetMapping("/select_all")
     public ResultInfo selectAll(Integer roomType){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
@@ -67,7 +69,11 @@ public class RoomController extends InitController{
         return ResultInfoUtil.success(rooms);
     }
 
-    @ApiOperation(value = "根据主键编辑房间")
+    /**
+     * 根据主键编辑房间
+     * @param room
+     * @return
+     */
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody Room room){
 
@@ -84,11 +90,12 @@ public class RoomController extends InitController{
         return ResultInfoUtil.success(roomService.selectRoomByServiceId(venueIds,companyId));
     }
 
-    @ApiOperation(value = "查询场馆下面的拍摄间或者房间")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "venueId",value = "场馆id", dataType = "Integer"),
-            @ApiImplicitParam(name = "roomType",value = "房间类型(化妆间：1 拍摄间：2)",dataType = "Integer")
-    })
+    /**
+     * 查询场馆下面的拍摄间或者房间
+     * @param venueId
+     * @param roomType
+     * @return
+     */
     //查询场馆下面的化妆间 1 或者 拍摄间 2
     @GetMapping("/find_room_by_venue_id")
     public ResultInfo findRoomByVenueId(Integer venueId, Integer roomType){
@@ -97,7 +104,11 @@ public class RoomController extends InitController{
         return ResultInfoUtil.success(rooms);
     }
 
-    @ApiOperation(value = "化妆间或者房间排序")
+    /**
+     * 化妆间或者房间排序
+     * @param rooms
+     * @return
+     */
     //化妆间排序 1  或  拍摄间排序 2
     @PostMapping("/room_sort")
     public ResultInfo roomSort(@RequestBody List<Room> rooms){
@@ -105,19 +116,22 @@ public class RoomController extends InitController{
         return ResultInfoUtil.success();
     }
 
-    @ApiOperation(value = "化妆间等级或者房间等级排序")
+    /**
+     * 化妆间等级等级排序
+     */
     @PostMapping("/room_level_sort")
     public ResultInfo roomLevelSort(@RequestBody List<LevelAndRoomDTO> levelAndRoomDTOS){
         roomService.roomLevelSort(levelAndRoomDTOS);
         return ResultInfoUtil.success();
     }
 
-    //排序前 先查询所有的数据
-    @ApiOperation(value = "查询房间等级 和 下面的房间")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "venueId",value = "场馆id", dataType = "Integer"),
-            @ApiImplicitParam(name = "roomType",value = "房间类型(化妆间：1 拍摄间：2)",dataType = "Integer")
-    })
+    /**
+     * 查询房间等级 和 下面的房间
+     * 排序前 先查询所有的数据
+     * @param venueId
+     * @param roomType
+     * @return
+     */
     @GetMapping("get_all_room_and_type")
     public ResultInfo getLevelAndRoom(Integer venueId,String roomType){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
@@ -146,8 +160,7 @@ public class RoomController extends InitController{
         return ResultInfoUtil.success(list);
     }
 
-    //添加分类(化妆间)  添加到字典表
-    @ApiOperation(value = "添加房间等级和房间")
+    //添加分类 和 房间(房间可添加 也可以不添加)  添加到字典表
     @PostMapping("/add_room_type")
     public ResultInfo addRoomLevel(@RequestBody LevelAndRoomDTO levelAndRoomDTO){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
@@ -156,8 +169,9 @@ public class RoomController extends InitController{
         return ResultInfoUtil.success();
     }
 
-    //批量添加房间
-    @ApiOperation(value = "批量添加房间")
+    /**
+     * 批量添加房间
+     */
     @PostMapping("/bat_add_room")
     public ResultInfo batAddRoom(@RequestBody List<Room> rooms){
         roomService.batAddRoom(rooms);
@@ -165,8 +179,11 @@ public class RoomController extends InitController{
     }
 
 
-    //批量编辑和新增
-    @ApiOperation(value = "批量添加和编辑房间")
+    /**
+     * 批量添加和编辑房间
+     * @param rooms
+     * @return
+     */
     @PostMapping("/bat_insert_or_update")
     public ResultInfo batInsertOrUpdate(@RequestBody List<Room> rooms){
         roomService.batInsertOrUpdate(rooms);
@@ -174,16 +191,19 @@ public class RoomController extends InitController{
     }
 
     /**
-     * 批量更新房间
+     * 批量编辑房间
      */
-    @ApiOperation(value = "批量编辑房间")
     @PostMapping("/bat_update_room")
     public ResultInfo batUpdateRoom(@RequestBody List<Room> rooms){
         roomService.batUpdateRoom(rooms);
         return ResultInfoUtil.success();
     }
 
-    @ApiOperation(value = "修改房间等级")
+    /**
+     * 修改房间等级
+     * @param levelAndRoomDTO
+     * @return
+     */
     @PostMapping("/update_room_type")
     public ResultInfo updateRoomLevel(@RequestBody LevelAndRoomDTO levelAndRoomDTO){
         if(StringUtils.equals(levelAndRoomDTO.getRoomType(), RoomConstant.MAKEUP_ROOM)){//化妆间
@@ -196,7 +216,11 @@ public class RoomController extends InitController{
         return ResultInfoUtil.success();
     }
 
-    @ApiOperation(value = "批量修改房间等级")
+    /**
+     * 批量修改房间等级
+     * @param levelAndRoomDTOs
+     * @return
+     */
     @PostMapping("/bat_update_room_type")
     public ResultInfo batUpdateRoomLevel(@RequestBody List<LevelAndRoomDTO> levelAndRoomDTOs){
 

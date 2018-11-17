@@ -1,6 +1,5 @@
 package com.qiein.erp.pk.web.entity.po;
 
-import com.qiein.erp.pk.aop.validate.annotation.NotEmptyStr;
 
 import java.io.Serializable;
 /*
