@@ -348,7 +348,7 @@
             ord.mate_name,
             ord.mate_phone,
             ord.address,
-        ord.type,
+            ord.type,
             FROM_UNIXTIME(ord.order_time, "%Y/%m/%d") order_time,
             FROM_UNIXTIME(ord.marry_time, "%Y/%m/%d") marry_time,
             ord.child_name,

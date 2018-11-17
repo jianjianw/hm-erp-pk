@@ -154,6 +154,8 @@
         LEFT JOIN hm_erp_service service ON service.id = venue_sch.service_id
         AND service.company_id = venue_sch.company_id
         WHERE
+                venue.venue_name is not null and
+        service.service_name is not null and
             venue_sch.venue_day = #{venueTime}
         AND venue_sch.company_id =#{companyId}
     </select>
