@@ -120,6 +120,7 @@
     where room.company_id = #{companyId}
     and room.venue_id = #{venueId}
     and room.room_type = #{roomType}
+    order by room.priority asc, scene.priority asc
 
   </select>
 
