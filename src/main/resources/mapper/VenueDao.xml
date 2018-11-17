@@ -35,6 +35,7 @@
     WHERE
         venue.company_id = #{companyId}
         	and venue.venue_type=1
+        	and venue.venue_status = 1
 
   </select>
 

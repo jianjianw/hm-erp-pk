@@ -1,5 +1,7 @@
 package com.qiein.erp.pk.web.entity.vo;
 
+import java.util.List;
+
 /**
  * 流程vo
  * author xiangliang
@@ -13,10 +15,18 @@ public class ProcessVO {
     private Integer clothes;//服装套数
     private Integer venueSchId;//场馆档期id
     private Integer makeupRoomSchId;//化妆间档期id
-    private String shootRoomSchId;//拍摄间档期id
+    private List<ShootRoomVO> shootRooms;//拍摄景档期list
     private Integer shootSchId;//摄影师档期id
     private Integer makeupSchId;//化妆师档期id
     private Integer planSchId;//企划档期id
+
+    public List<ShootRoomVO> getShootRooms() {
+        return shootRooms;
+    }
+
+    public void setShootRooms(List<ShootRoomVO> shootRooms) {
+        this.shootRooms = shootRooms;
+    }
 
     public Integer getVenueId() {
         return venueId;
@@ -80,14 +90,6 @@ public class ProcessVO {
 
     public void setMakeupRoomSchId(Integer makeupRoomSchId) {
         this.makeupRoomSchId = makeupRoomSchId;
-    }
-
-    public String getShootRoomSchId() {
-        return shootRoomSchId;
-    }
-
-    public void setShootRoomSchId(String shootRoomSchId) {
-        this.shootRoomSchId = shootRoomSchId;
     }
 
     public Integer getShootSchId() {
