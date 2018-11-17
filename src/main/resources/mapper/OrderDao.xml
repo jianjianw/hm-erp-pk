@@ -128,7 +128,7 @@
     AND makeup_room_sch.company_id = shoot_pro.company_id
     LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
     AND staff_sch1.company_id = shoot_pro.company_id
-    LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.shoot_schedule_id
+    LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
     AND staff_sch2.company_id = shoot_pro.company_id
     LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
     AND staff1.COMPANYID = staff_sch1.company_id
@@ -213,7 +213,7 @@
         AND sence_pro.company_id = pro.company_id
         LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
         AND staff_sch1.company_id = shoot_pro.company_id
-        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.shoot_schedule_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
         AND staff_sch2.company_id = shoot_pro.company_id
         LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
         AND staff1.COMPANYID = staff_sch1.company_id
@@ -322,7 +322,7 @@
         AND staff.COMPANYID = ord.company_id
         LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
         AND staff_sch1.company_id = shoot_pro.company_id
-        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.shoot_schedule_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id =shoot_pro.makeup_schedule_id
         AND staff_sch2.company_id = shoot_pro.company_id
         LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
         AND staff1.COMPANYID = staff_sch1.company_id
@@ -413,7 +413,7 @@
         AND staff.COMPANYID = ord.company_id
         LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
         AND staff_sch1.company_id = shoot_pro.company_id
-        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.shoot_schedule_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
         AND staff_sch2.company_id = shoot_pro.company_id
         LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
         AND staff1.COMPANYID = staff_sch1.company_id
