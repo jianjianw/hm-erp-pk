@@ -8,6 +8,7 @@ public class OrderPO {
     private Integer orderId;//订单id
     private Integer proId;//流程id
     private String kzId;//客资id
+    private String oldKzName;//老客姓名
     private String orderNum;//订单编号
     private String kzName;//客资姓名
     private String kzPhone;//客资电话
@@ -34,6 +35,14 @@ public class OrderPO {
     private String marryTime;//婚期
     private Integer saleId;//销售id
     private Integer orderTime;
+
+    public String getOldKzName() {
+        return oldKzName;
+    }
+
+    public void setOldKzName(String oldKzName) {
+        this.oldKzName = oldKzName;
+    }
 
     public Integer getOrderTime() {
         return orderTime;
