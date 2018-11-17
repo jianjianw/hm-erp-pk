@@ -1,5 +1,8 @@
 package com.qiein.erp.pk.web.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qiein.erp.pk.constant.CommonConstant;
 import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.web.dao.OrderDao;
@@ -32,8 +35,9 @@ public class OrderServiceImpl implements OrderService {
      * @param orderDTO
      * @return
      */
-    public List<OrderVO> getOrder(OrderDTO orderDTO) {
-        return orderDao.selectOrder(orderDTO);
+    public PageInfo<OrderVO> getOrder(OrderDTO orderDTO) {
+        PageHelper.startPage(orderDTO.getPageNum(),orderDTO.getPageSize());
+        return new PageInfo<>(orderDao.selectOrder(orderDTO));
     }
 
     /**

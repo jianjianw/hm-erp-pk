@@ -27,7 +27,16 @@ public class OrderProVO {
     private Integer companyId;
     private String orderTime;//订单时间
     private Integer type;//拍摄类型
+    private String orderMemo;//订单备注
     private List<ProcessVO> processVOS;//订单下的流程们
+
+    public String getOrderMemo() {
+        return orderMemo;
+    }
+
+    public void setOrderMemo(String orderMemo) {
+        this.orderMemo = orderMemo;
+    }
 
     public Integer getType() {
         return type;

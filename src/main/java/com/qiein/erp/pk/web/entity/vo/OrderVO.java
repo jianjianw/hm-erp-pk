@@ -33,6 +33,15 @@ public class OrderVO {
     private String marryTime;//婚期
     private Integer collectorName;//推广人姓名
     private Integer saleId;
+    private String orderMemo;//订单备注
+
+    public String getOrderMemo() {
+        return orderMemo;
+    }
+
+    public void setOrderMemo(String orderMemo) {
+        this.orderMemo = orderMemo;
+    }
 
     public Integer getSaleId() {
         return saleId;
