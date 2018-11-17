@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qiein.erp.pk.web.dao.RoomDao" >
-  <resultMap id="BaseResultMap" type="com.qiein.erp.pk.web.entity.po.Room" >
+  <resultMap id="BaseResultMap" type="com.qiein.erp.pk.web.entity.po.RoomPO" >
     <id column="room_id" property="roomId" jdbcType="INTEGER" />
     <result column="venue_id" property="venueId" jdbcType="INTEGER" />
     <result column="room_name" property="roomName" jdbcType="VARCHAR" />
@@ -14,7 +14,7 @@
   <resultMap id="roomSelectMap" type="com.qiein.erp.pk.web.entity.vo.RoomSelectVO">
     <id column="venue_id" property="venueId"/>
     <result column="venue_name" property="venueName"/>
-    <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.RoomPO">
+    <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.RoomSelectPO">
       <result column="room_id" property="roomId"/>
       <result column="room_name" property="roomName"/>
     </collection>
@@ -29,7 +29,7 @@
         <result column="PRIORITY" property="priority"/>
         <result column="ISSHOW" property="roomLevelStatus" />
         <result column="COMPANYID" property="companyId" />
-        <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.Room" resultMap="BaseResultMap"/>
+        <collection property="rooms" ofType="com.qiein.erp.pk.web.entity.po.RoomPO" resultMap="BaseResultMap"/>
 
     </resultMap>
 
@@ -46,7 +46,7 @@
     delete from hm_erp_venue_room
     where room_id = #{roomId} and company_id = #{companyId}
   </delete>
-  <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.Room" >
+  <insert id="insert" parameterType="com.qiein.erp.pk.web.entity.po.RoomPO" >
     insert into hm_erp_venue_room (room_id, venue_id, room_name, 
       room_level, room_type,room_status, company_id,priority)
     select #{roomId}, #{venueId}, #{roomName},
@@ -55,7 +55,7 @@
                      FROM hm_erp_venue_room
                      WHERE company_id = #{companyId})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.Room" >
+  <update id="updateByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.RoomPO" >
     update hm_erp_venue_room
     set venue_id = #{venueId},
       room_name = #{roomName},

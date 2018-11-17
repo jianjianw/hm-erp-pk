@@ -32,7 +32,14 @@
         <result column="room_status" property="roomStatus" jdbcType="SMALLINT" />
         <result column="company_id" property="companyId" jdbcType="INTEGER" />
 
-        <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.ScenePO" resultMap="SceneResultMap"/>
+        <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.ScenePO">
+            <id column="id" property="id" jdbcType="INTEGER" />
+            <result column="shoot_id" property="shootId" jdbcType="INTEGER" />
+            <result column="scene_name" property="sceneName" jdbcType="VARCHAR" />
+            <result column="scene_status" property="sceneStatus" jdbcType="SMALLINT" />
+            <result column="scenePriority" property="priority" jdbcType="INTEGER" />
+            <result column="company_id" property="companyId" jdbcType="INTEGER" />
+        </collection>
     </resultMap>
 
     <resultMap id="SceneResultMap" type="com.qiein.erp.pk.web.entity.po.ScenePO" >
@@ -126,7 +133,7 @@
   <select id="findRoomAndSceneByVenueId" parameterType="map" resultMap="RoomResultMap">
 
     select room.room_id, room.venue_id,room.room_name,room.room_level,room.room_type,room.priority,room.room_status,
-            scene.id, scene.scene_name,scene.shoot_id,scene.scene_status,scene.priority,scene.company_id
+            scene.id, scene.scene_name,scene.shoot_id,scene.scene_status,scene.priority scenePriority,scene.company_id
     from hm_erp_venue_room room inner join hm_erp_scene scene
     on  room.room_id = scene.shoot_id and room.company_id = scene.company_id
     where room.company_id = #{companyId}

@@ -1,8 +1,7 @@
 package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
-import com.qiein.erp.pk.web.entity.po.Room;
-import com.qiein.erp.pk.web.entity.vo.RoomSelectVO;
+import com.qiein.erp.pk.web.entity.po.RoomPO;
 import com.qiein.erp.pk.web.entity.vo.RoomVO;
 
 import java.util.List;
@@ -15,13 +14,13 @@ public interface RoomService {
 
     int deleteByPrimaryKey(Integer roomId,Integer companyId);
 
-    int insert(Room room);
+    int insert(RoomPO roomPO);
 
-    Room selectByPrimaryKey(Integer roomId,Integer companyId);
+    RoomPO selectByPrimaryKey(Integer roomId, Integer companyId);
 
-    List<Room> selectAll(Integer companyId,Integer roomType);
+    List<RoomPO> selectAll(Integer companyId, Integer roomType);
 
-    int updateByPrimaryKey(Room room);
+    int updateByPrimaryKey(RoomPO roomPO);
 
     /**
      * 获取下拉框
@@ -37,13 +36,13 @@ public interface RoomService {
      * @param roomType
      * @return
      */
-    List<Room> findRoomByVenueId(Integer companyId,Integer venueId, Integer roomType);
+    List<RoomPO> findRoomByVenueId(Integer companyId, Integer venueId, Integer roomType);
 
     /**
      * 化妆间 拍摄间排序
-     * @param rooms
+     * @param roomPOS
      */
-    void roomSort(List<Room> rooms);
+    void roomSort(List<RoomPO> roomPOS);
 
     /**
      * 房间分类排序
@@ -58,18 +57,18 @@ public interface RoomService {
     void addRoomLevel(LevelAndRoomDTO levelAndRoomDTO);
 
     //批量添加房间
-    void batAddRoom(List<Room> rooms);
+    void batAddRoom(List<RoomPO> roomPOS);
 
     /**
      * 批量新增或更新
-     * @param rooms
+     * @param roomPOS
      */
-    void batInsertOrUpdate(List<Room> rooms);
+    void batInsertOrUpdate(List<RoomPO> roomPOS);
 
     /**
      * 批量编辑房间
      */
-    void batUpdateRoom(List<Room> rooms);
+    void batUpdateRoom(List<RoomPO> roomPOS);
 
     /**
      * 修改房间等级

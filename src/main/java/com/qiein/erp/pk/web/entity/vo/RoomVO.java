@@ -1,7 +1,5 @@
 package com.qiein.erp.pk.web.entity.vo;
 
-import com.qiein.erp.pk.web.entity.po.Room;
-
 import java.util.List;
 
 /**

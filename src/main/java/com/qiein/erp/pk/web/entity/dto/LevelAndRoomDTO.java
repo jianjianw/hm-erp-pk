@@ -1,6 +1,6 @@
 package com.qiein.erp.pk.web.entity.dto;
 
-import com.qiein.erp.pk.web.entity.po.Room;
+import com.qiein.erp.pk.web.entity.po.RoomPO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class LevelAndRoomDTO implements Serializable {
     private Integer companyId;
 
     //等级下面的房子
-    private List<Room> rooms  = new ArrayList<>();
+    private List<RoomPO> rooms = new ArrayList<>();
 
 
     public Integer getRoomLevelId() {
@@ -86,11 +86,11 @@ public class LevelAndRoomDTO implements Serializable {
         this.roomLevelStatus = roomLevelStatus;
     }
 
-    public List<Room> getRooms() {
+    public List<RoomPO> getRooms() {
         return rooms;
     }
 
-    public void setRooms(List<Room> rooms) {
+    public void setRooms(List<RoomPO> rooms) {
         this.rooms = rooms;
     }
 
