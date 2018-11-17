@@ -89,4 +89,14 @@ public interface RoomService {
      */
     void batUpdateRoomLevel(List<LevelAndRoomDTO> levelAndRoomDTOs);
 
+    /**
+     * 查询场馆下面房间的个数
+     * @param companyId
+     * @param venueId
+     * @param roomType
+     * @param status
+     * @return
+     */
+    Integer findRoomCount(Integer companyId, Integer venueId, Integer roomType,Integer status);
+
 }

@@ -97,8 +97,8 @@ public class SceneScheduleController extends InitController{
         for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS ){
             sceneSchedulePO.setCompanyId(companyId);
         }
-        ResultInfo  result = sceneScheduleService.batSaveSelect(sceneSchedulePOS);
-        return ResultInfoUtil.success(result);
+        ResultInfo result = sceneScheduleService.batSaveSelect(sceneSchedulePOS);
+        return result;
     }
 
     /**

@@ -7,6 +7,7 @@ import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.VenueDTO;
 import com.qiein.erp.pk.web.entity.po.VenuePO;
+import com.qiein.erp.pk.web.entity.vo.VenueSortVO;
 import com.qiein.erp.pk.web.service.VenueService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -126,6 +127,17 @@ public class VenueController extends InitController{
        Integer companyId=getCurrentLoginStaff().getCompanyId();
        return ResultInfoUtil.success(venueService.getVenues(companyId));
    }
+
+
+    /**
+     * 查询公司下面的内景馆(1) 或 门店(2)
+     */
+    @GetMapping("/find_base_and_venue")
+    public ResultInfo findBaseAndVenue(Integer venueType){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        List<VenueSortVO> result = venueService.findBaseAndVenue(companyId,venueType);
+        return ResultInfoUtil.success(result);
+    }
 
     /**
      * testController

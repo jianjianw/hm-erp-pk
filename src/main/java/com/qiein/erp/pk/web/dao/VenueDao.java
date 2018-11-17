@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.dao;
 
 import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
+import com.qiein.erp.pk.web.entity.vo.VenueSortVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -41,4 +42,12 @@ public interface VenueDao {
      */
     String checkPhone(VenuePO venuePO);
 
+    /**
+     * 查询公司下面的基地和内景馆
+     * @param companyId
+     * @param venueType
+     * @return
+     */
+    List<VenueSortVO> findBaseAndVenue(@Param("companyId") Integer companyId,
+                                       @Param("venueType") Integer venueType);
 }

@@ -76,4 +76,14 @@ public interface SceneDao {
      */
     List<VenueRoomScenePO> findVenueRoomScene(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId);
 
+    /**
+     * 查询场馆下面的拍摄景
+     * @param companyId
+     * @param venueId
+     * @param status
+     * @return
+     */
+    Integer findSceneCount(@Param("companyId") Integer companyId,
+                           @Param("venueId") Integer venueId,
+                           @Param("status") Integer status);
 }

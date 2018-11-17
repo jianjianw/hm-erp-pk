@@ -111,7 +111,7 @@ public class SceneController extends InitController{
     }
 
     /**
-     * 查询场馆下面的房间和拍摄景
+     * 查询场馆下面的房间和拍摄景  排序前先查询
      * @param venueId
      * @return
      */

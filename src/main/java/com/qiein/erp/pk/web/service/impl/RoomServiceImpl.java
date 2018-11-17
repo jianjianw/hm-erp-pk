@@ -138,5 +138,10 @@ public class RoomServiceImpl implements RoomService {
         roomDao.batUpdateRoomLevel(levelAndRoomDTOs);
     }
 
+    @Override
+    public Integer findRoomCount(Integer companyId, Integer venueId, Integer roomType, Integer status) {
+        return roomDao.findRoomCount(companyId,venueId,roomType,status);
+    }
+
 
 }

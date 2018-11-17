@@ -257,4 +257,14 @@
             and DICCODE = #{item.roomLevelCode}
         </foreach>
     </update>
+
+    <select id="findRoomCount" parameterType="map" resultType="Integer">
+         select count(*)
+            from hm_erp_venue_room
+            where company_id =#{companyId}
+              and venue_id = #{venueId}
+              and room_type = #{roomType}
+              and room_status = #{status}
+    </select>
+
 </mapper>
