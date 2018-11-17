@@ -6,7 +6,7 @@ import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
-import com.qiein.erp.pk.web.entity.po.Room;
+import com.qiein.erp.pk.web.entity.po.RoomPO;
 import com.qiein.erp.pk.web.service.RoomService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +35,16 @@ public class RoomController extends InitController{
 
     /**
      * 添加房间
-     * @param room
+     * @param roomPO
      * @return
      */
     @PostMapping("/insert")
-    public ResultInfo insert(@RequestBody Room room){
+    public ResultInfo insert(@RequestBody RoomPO roomPO){
         //去掉对象中的空格
-        ObjectUtil.objectStrParamTrim(room);
+        ObjectUtil.objectStrParamTrim(roomPO);
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        room.setCompanyId(companyId);
-        roomService.insert(room);
+        roomPO.setCompanyId(companyId);
+        roomService.insert(roomPO);
         return ResultInfoUtil.success();
     }
     /**
@@ -53,8 +53,8 @@ public class RoomController extends InitController{
     @GetMapping("/select_by_primary_key")
     public ResultInfo selectByPrimaryKey(Integer roomId){//id已经确定了是化妆间还是拍摄间。
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        Room room = roomService.selectByPrimaryKey(roomId,companyId);
-        return ResultInfoUtil.success(room);
+        RoomPO roomPO = roomService.selectByPrimaryKey(roomId,companyId);
+        return ResultInfoUtil.success(roomPO);
     }
 
     /**
@@ -65,23 +65,23 @@ public class RoomController extends InitController{
     @GetMapping("/select_all")
     public ResultInfo selectAll(Integer roomType){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        List<Room> rooms = roomService.selectAll(companyId,roomType);
-        return ResultInfoUtil.success(rooms);
+        List<RoomPO> roomPOS = roomService.selectAll(companyId,roomType);
+        return ResultInfoUtil.success(roomPOS);
     }
 
     /**
      * 根据主键编辑房间
-     * @param room
+     * @param roomPO
      * @return
      */
     @PostMapping("/update_by_primary_key")
-    public ResultInfo updateByPrimaryKey(@RequestBody Room room){
+    public ResultInfo updateByPrimaryKey(@RequestBody RoomPO roomPO){
 
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        room.setCompanyId(companyId);
+        roomPO.setCompanyId(companyId);
         //去掉对象中的空格
-        ObjectUtil.objectStrParamTrim(room);
-        roomService.updateByPrimaryKey(room);
+        ObjectUtil.objectStrParamTrim(roomPO);
+        roomService.updateByPrimaryKey(roomPO);
         return ResultInfoUtil.success();
     }
     @GetMapping("/select_room_for_service")
@@ -100,19 +100,19 @@ public class RoomController extends InitController{
     @GetMapping("/find_room_by_venue_id")
     public ResultInfo findRoomByVenueId(Integer venueId, Integer roomType){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
-        List<Room> rooms = roomService.findRoomByVenueId(companyId, venueId, roomType);
-        return ResultInfoUtil.success(rooms);
+        List<RoomPO> roomPOS = roomService.findRoomByVenueId(companyId, venueId, roomType);
+        return ResultInfoUtil.success(roomPOS);
     }
 
     /**
      * 化妆间或者房间排序
-     * @param rooms
+     * @param roomPOS
      * @return
      */
     //化妆间排序 1  或  拍摄间排序 2
     @PostMapping("/room_sort")
-    public ResultInfo roomSort(@RequestBody List<Room> rooms){
-        roomService.roomSort(rooms);
+    public ResultInfo roomSort(@RequestBody List<RoomPO> roomPOS){
+        roomService.roomSort(roomPOS);
         return ResultInfoUtil.success();
     }
 
@@ -136,7 +136,7 @@ public class RoomController extends InitController{
     public ResultInfo getLevelAndRoom(Integer venueId,String roomType){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         //查询所有房间
-        List<Room> rooms = roomService.findRoomByVenueId(companyId, venueId, Integer.valueOf(roomType));
+        List<RoomPO> roomPOS = roomService.findRoomByVenueId(companyId, venueId, Integer.valueOf(roomType));
 
         if(StringUtils.equals(roomType, RoomConstant.MAKEUP_ROOM)){//化妆间
             roomType = RoomConstant.MAKEUP_ROOM_LEVEL;
@@ -150,10 +150,10 @@ public class RoomController extends InitController{
         //封装房间到等级
         for(LevelAndRoomDTO levelAndRoomDTO : list){
             Integer roomLevelCode = levelAndRoomDTO.getRoomLevelCode();
-            for(Room room : rooms){
-                Integer roomLevel = room.getRoomLevel();
+            for(RoomPO roomPO : roomPOS){
+                Integer roomLevel = roomPO.getRoomLevel();
                 if(roomLevelCode.equals(roomLevel)){
-                    levelAndRoomDTO.getRooms().add(room);
+                    levelAndRoomDTO.getRooms().add(roomPO);
                 }
             }
         }
@@ -173,20 +173,20 @@ public class RoomController extends InitController{
      * 批量添加房间
      */
     @PostMapping("/bat_add_room")
-    public ResultInfo batAddRoom(@RequestBody List<Room> rooms){
-        roomService.batAddRoom(rooms);
+    public ResultInfo batAddRoom(@RequestBody List<RoomPO> roomPOS){
+        roomService.batAddRoom(roomPOS);
         return ResultInfoUtil.success();
     }
 
 
     /**
      * 批量添加和编辑房间
-     * @param rooms
+     * @param roomPOS
      * @return
      */
     @PostMapping("/bat_insert_or_update")
-    public ResultInfo batInsertOrUpdate(@RequestBody List<Room> rooms){
-        roomService.batInsertOrUpdate(rooms);
+    public ResultInfo batInsertOrUpdate(@RequestBody List<RoomPO> roomPOS){
+        roomService.batInsertOrUpdate(roomPOS);
         return ResultInfoUtil.success();
     }
 
@@ -194,8 +194,8 @@ public class RoomController extends InitController{
      * 批量编辑房间
      */
     @PostMapping("/bat_update_room")
-    public ResultInfo batUpdateRoom(@RequestBody List<Room> rooms){
-        roomService.batUpdateRoom(rooms);
+    public ResultInfo batUpdateRoom(@RequestBody List<RoomPO> roomPOS){
+        roomService.batUpdateRoom(roomPOS);
         return ResultInfoUtil.success();
     }
 

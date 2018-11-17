@@ -7,7 +7,7 @@ import java.io.Serializable;
 *  author:wang lei
 *  date : 2018-11-04
 * */
-public class Room implements Serializable {
+public class RoomPO implements Serializable {
     private static final long serialVersionUID = 474466157479846785L;
 
     private Integer roomId;  //房间id

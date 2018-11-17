@@ -1,7 +1,7 @@
 package com.qiein.erp.pk.web.dao;
 
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
-import com.qiein.erp.pk.web.entity.po.Room;
+import com.qiein.erp.pk.web.entity.po.RoomPO;
 import com.qiein.erp.pk.web.entity.vo.RoomSelectVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,28 +14,28 @@ import java.util.List;
 public interface RoomDao {
     int deleteByPrimaryKey(@Param("roomId")Integer roomId,@Param("companyId")Integer companyId);
 
-    int insert(Room room);
+    int insert(RoomPO roomPO);
 
-    Room selectByPrimaryKey(@Param("roomId") Integer roomId,@Param("companyId")Integer companyId);
+    RoomPO selectByPrimaryKey(@Param("roomId") Integer roomId, @Param("companyId")Integer companyId);
 
-    List<Room> selectAll(@Param("companyId")Integer companyId,@Param("roomType")Integer roomType);
+    List<RoomPO> selectAll(@Param("companyId")Integer companyId, @Param("roomType")Integer roomType);
 
-    int updateByPrimaryKey(Room room);
+    int updateByPrimaryKey(RoomPO roomPO);
 
     List<RoomSelectVO> roomSelect(@Param("venueIds") String venueIds,@Param("type") Integer type,@Param("companyId") Integer companyId);
 
 
-    List<Room> findRoomByVenueId(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId,
-                                 @Param("roomType")Integer roomType);
+    List<RoomPO> findRoomByVenueId(@Param("companyId") Integer companyId, @Param("venueId")Integer venueId,
+                                   @Param("roomType")Integer roomType);
 
-    void roomSort(List<Room> rooms);
+    void roomSort(List<RoomPO> roomPOS);
 
     void roomLevelSort(List<LevelAndRoomDTO> levelAndRoomDTOS);
 
     //添加房间等级
     void addRoomLevel(LevelAndRoomDTO levelAndRoomDTO);
     //批量添加房间
-    void batAddRoom(List<Room> rooms);
+    void batAddRoom(List<RoomPO> roomPOS);
 
     /**
      * 获取等级下面的房间
@@ -46,15 +46,15 @@ public interface RoomDao {
 
     /**
      * 批量编辑房间
-     * @param rooms
+     * @param roomPOS
      */
-    void batUpdateRoom(List<Room> rooms);
+    void batUpdateRoom(List<RoomPO> roomPOS);
 
     /**
      * 批量编辑和新增
-     * @param rooms
+     * @param roomPOS
      */
-    void batInsertOrUpdate(List<Room> rooms);
+    void batInsertOrUpdate(List<RoomPO> roomPOS);
 
     /**
      * 修改房间等级

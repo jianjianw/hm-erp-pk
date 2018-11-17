@@ -1,9 +1,6 @@
 package com.qiein.erp.pk.web.entity.dto;
 
-import com.qiein.erp.pk.web.entity.po.Room;
-
 import java.io.Serializable;
-import java.util.List;
 
 /* 场馆dto
 * author:wang lei

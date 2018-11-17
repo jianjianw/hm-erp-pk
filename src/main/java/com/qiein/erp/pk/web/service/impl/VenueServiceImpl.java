@@ -3,7 +3,7 @@ package com.qiein.erp.pk.web.service.impl;
 import com.qiein.erp.pk.web.dao.VenueDao;
 import com.qiein.erp.pk.web.entity.dto.VenueDTO;
 import com.qiein.erp.pk.web.entity.po.BasePO;
-import com.qiein.erp.pk.web.entity.po.Room;
+import com.qiein.erp.pk.web.entity.po.RoomPO;
 import com.qiein.erp.pk.web.entity.po.ScenePO;
 import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.service.BaseService;
@@ -108,15 +108,15 @@ public class VenueServiceImpl implements VenueService {
         for(VenueDTO venue :venueDTOS){
 
             //化妆间的个数
-            List<Room> makeupRooms = roomService.findRoomByVenueId(companyId,venue.getId(),1);
-            if(makeupRooms != null && makeupRooms.size()> 0 ){
-                venue.setMakeupRoomNums(String.valueOf(makeupRooms.size()));
+            List<RoomPO> makeupRoomPOS = roomService.findRoomByVenueId(companyId,venue.getId(),1);
+            if(makeupRoomPOS != null && makeupRoomPOS.size()> 0 ){
+                venue.setMakeupRoomNums(String.valueOf(makeupRoomPOS.size()));
             }
             //拍摄间的个数
             StringBuilder sb = new StringBuilder();
-            List<Room> shootRooms = roomService.findRoomByVenueId(companyId,venue.getId(),2);
-            if(shootRooms != null && shootRooms.size()> 0 ){
-                int size = shootRooms.size();
+            List<RoomPO> shootRoomPOS = roomService.findRoomByVenueId(companyId,venue.getId(),2);
+            if(shootRoomPOS != null && shootRoomPOS.size()> 0 ){
+                int size = shootRoomPOS.size();
                 sb.append(String.valueOf(size));
             }
             //查询拍摄间下面的拍摄景

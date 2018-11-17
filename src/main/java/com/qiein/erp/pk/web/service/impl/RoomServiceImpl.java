@@ -3,7 +3,7 @@ package com.qiein.erp.pk.web.service.impl;
 import com.qiein.erp.pk.constant.RoomConstant;
 import com.qiein.erp.pk.web.dao.RoomDao;
 import com.qiein.erp.pk.web.entity.dto.LevelAndRoomDTO;
-import com.qiein.erp.pk.web.entity.po.Room;
+import com.qiein.erp.pk.web.entity.po.RoomPO;
 import com.qiein.erp.pk.web.entity.vo.RoomSelectVO;
 import com.qiein.erp.pk.web.entity.vo.RoomVO;
 import com.qiein.erp.pk.web.service.RoomService;
@@ -30,26 +30,26 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public int insert(Room room) {
-        return roomDao.insert(room);
+    public int insert(RoomPO roomPO) {
+        return roomDao.insert(roomPO);
     }
 
     @Override
-    public Room selectByPrimaryKey(Integer roomId,Integer companyId) {
+    public RoomPO selectByPrimaryKey(Integer roomId, Integer companyId) {
         return roomDao.selectByPrimaryKey(roomId,companyId);
     }
 
     @Override
-    public List<Room> selectAll(Integer companyId,Integer roomType) {
-        List<Room> rooms = roomDao.selectAll(companyId, roomType);
-        Comparator<Room> comparing = Comparator.comparing(Room::getPriority);
-        rooms.sort(comparing);
-        return rooms;
+    public List<RoomPO> selectAll(Integer companyId, Integer roomType) {
+        List<RoomPO> roomPOS = roomDao.selectAll(companyId, roomType);
+        Comparator<RoomPO> comparing = Comparator.comparing(RoomPO::getPriority);
+        roomPOS.sort(comparing);
+        return roomPOS;
     }
 
     @Override
-    public int updateByPrimaryKey(Room room) {
-        return roomDao.updateByPrimaryKey(room);
+    public int updateByPrimaryKey(RoomPO roomPO) {
+        return roomDao.updateByPrimaryKey(roomPO);
     }
     /**
      * 获取下拉框
@@ -66,13 +66,13 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<Room> findRoomByVenueId(Integer companyId,Integer venueId, Integer roomType) {
+    public List<RoomPO> findRoomByVenueId(Integer companyId, Integer venueId, Integer roomType) {
         return roomDao.findRoomByVenueId(companyId,venueId,roomType);
     }
 
     @Override
-    public void roomSort(List<Room> rooms) {
-        roomDao.roomSort(rooms);
+    public void roomSort(List<RoomPO> roomPOS) {
+        roomDao.roomSort(roomPOS);
     }
 
     @Override
@@ -94,33 +94,33 @@ public class RoomServiceImpl implements RoomService {
         //添加分类
         roomDao.addRoomLevel(levelAndRoomDTO);
         //添加房间
-        List<Room> rooms = levelAndRoomDTO.getRooms();
-        if(rooms != null && rooms.size()>0){
-            roomDao.batAddRoom(rooms);
+        List<RoomPO> roomPOS = levelAndRoomDTO.getRoomPOS();
+        if(roomPOS != null && roomPOS.size()>0){
+            roomDao.batAddRoom(roomPOS);
         }
     }
 
     @Override
-    public void batAddRoom(List<Room> rooms) {
-        roomDao.batAddRoom(rooms);
+    public void batAddRoom(List<RoomPO> roomPOS) {
+        roomDao.batAddRoom(roomPOS);
     }
 
     @Override
-    public void batInsertOrUpdate(List<Room> rooms) {
+    public void batInsertOrUpdate(List<RoomPO> roomPOS) {
 
-        for(Room room : rooms){
-            Room room1 = roomDao.selectByPrimaryKey(room.getRoomId(), room.getCompanyId());
-            if(room1 == null){
-                roomDao.insert(room);
+        for(RoomPO roomPO : roomPOS){
+            RoomPO roomPO1 = roomDao.selectByPrimaryKey(roomPO.getRoomId(), roomPO.getCompanyId());
+            if(roomPO1 == null){
+                roomDao.insert(roomPO);
             }else{
-                roomDao.updateByPrimaryKey(room);
+                roomDao.updateByPrimaryKey(roomPO);
             }
         }
     }
 
     @Override
-    public void batUpdateRoom(List<Room> rooms) {
-        roomDao.batUpdateRoom(rooms);
+    public void batUpdateRoom(List<RoomPO> roomPOS) {
+        roomDao.batUpdateRoom(roomPOS);
     }
 
     @Override
