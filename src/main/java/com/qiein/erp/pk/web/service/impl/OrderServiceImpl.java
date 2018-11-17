@@ -87,16 +87,26 @@ public class OrderServiceImpl implements OrderService {
      * 编辑流程
      */
     public void editProcess(ProcessPO processPO) {
+        if(processPO.getProId()==null){
+            OrderPO orderPO=new OrderPO();
+            orderPO.setOrderId(processPO.getOrderId());
+            orderPO.setOrderType(processPO.getOrderType());
+            orderPO.setCompanyId(processPO.getCompanyId());
+            orderDao.insertPro(orderPO);
+            processPO.setProId(orderPO.getProId());
+        }
         //编辑流程档期档期（除了拍摄间）
         orderDao.updateProcessShootSch(processPO);
         //删除流程关于拍摄间的档期 用于编辑
         orderDao.deleteSceneSch(processPO.getProId(), processPO.getCompanyId());
         //给流程添加拍摄间档期
         List<String> list = new ArrayList<>();
-        for (String shootRoomId : processPO.getShootRoomSchId().split(CommonConstant.STR_SEPARATOR)) {
-            list.add(shootRoomId);
+        if (StringUtil.isNotEmpty(processPO.getShootRoomSchId())) {
+            for (String shootRoomId : processPO.getShootRoomSchId().split(CommonConstant.STR_SEPARATOR)) {
+                list.add(shootRoomId);
+            }
+            orderDao.insertSceneSch(processPO.getProId(), list, processPO.getCompanyId());
         }
-        orderDao.insertSceneSch(processPO.getProId(), list, processPO.getCompanyId());
     }
 
     /**
