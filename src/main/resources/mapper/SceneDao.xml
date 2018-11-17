@@ -11,6 +11,39 @@
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
   </resultMap>
 
+    <resultMap id="VenueRoomSceneMap" type="com.qiein.erp.pk.web.entity.po.VenueRoomScenePO" >
+        <result column="venue_id" property="venueId" jdbcType="INTEGER" />
+        <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
+        <result column="room_id" property="roomId" jdbcType="INTEGER" />
+        <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+        <result column="company_id" property="companyId" jdbcType="INTEGER" />
+        <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.ScenePO" resultMap="SceneResultMap"/>
+
+    </resultMap>
+
+    <resultMap id="RoomResultMap" type="com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO" >
+
+        <id column="room_id" property="roomId" jdbcType="INTEGER" />
+        <result column="venue_id" property="venueId" jdbcType="INTEGER" />
+        <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+        <result column="room_level" property="roomLevel" jdbcType="INTEGER" />
+        <result column="room_type" property="roomType" jdbcType="SMALLINT" />
+        <result column="priority" property="priority" jdbcType="SMALLINT" />
+        <result column="room_status" property="roomStatus" jdbcType="SMALLINT" />
+        <result column="company_id" property="companyId" jdbcType="INTEGER" />
+
+        <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.ScenePO" resultMap="SceneResultMap"/>
+    </resultMap>
+
+    <resultMap id="SceneResultMap" type="com.qiein.erp.pk.web.entity.po.ScenePO" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="shoot_id" property="shootId" jdbcType="INTEGER" />
+        <result column="scene_name" property="sceneName" jdbcType="VARCHAR" />
+        <result column="scene_status" property="sceneStatus" jdbcType="SMALLINT" />
+        <result column="priority" property="priority" jdbcType="INTEGER" />
+        <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    </resultMap>
+
   <sql id="baseColumn">
       id,shoot_id,scene_name,scene_status,priority,company_id
   </sql>
@@ -88,28 +121,7 @@
 
  </update>
 
-  <resultMap id="RoomResultMap" type="com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO" >
 
-    <id column="room_id" property="roomId" jdbcType="INTEGER" />
-    <result column="venue_id" property="venueId" jdbcType="INTEGER" />
-    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
-    <result column="room_level" property="roomLevel" jdbcType="INTEGER" />
-    <result column="room_type" property="roomType" jdbcType="SMALLINT" />
-    <result column="priority" property="priority" jdbcType="SMALLINT" />
-    <result column="room_status" property="roomStatus" jdbcType="SMALLINT" />
-    <result column="company_id" property="companyId" jdbcType="INTEGER" />
-
-    <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.ScenePO" resultMap="SceneResultMap"/>
-  </resultMap>
-
-  <resultMap id="SceneResultMap" type="com.qiein.erp.pk.web.entity.po.ScenePO" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="shoot_id" property="shootId" jdbcType="INTEGER" />
-    <result column="scene_name" property="sceneName" jdbcType="VARCHAR" />
-    <result column="scene_status" property="sceneStatus" jdbcType="SMALLINT" />
-    <result column="priority" property="priority" jdbcType="INTEGER" />
-    <result column="company_id" property="companyId" jdbcType="INTEGER" />
-  </resultMap>
 
   <select id="findRoomAndSceneByVenueId" parameterType="map" resultMap="RoomResultMap">
 
@@ -170,15 +182,7 @@
     </foreach>
   </update>
 
-  <resultMap id="VenueRoomSceneMap" type="com.qiein.erp.pk.web.entity.po.VenueRoomScenePO" >
-    <result column="venue_id" property="venueId" jdbcType="INTEGER" />
-    <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
-    <result column="room_id" property="roomId" jdbcType="INTEGER" />
-    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
-    <result column="company_id" property="companyId" jdbcType="INTEGER" />
-    <collection property="scenes" ofType = "com.qiein.erp.pk.web.entity.po.ScenePO" resultMap="SceneResultMap"/>
 
-  </resultMap>
 
 
 
