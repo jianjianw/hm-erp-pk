@@ -115,6 +115,15 @@ public class SceneScheduleController extends InitController{
     }
 
 
+    //根据档期id获取档期  获取多个
+    @GetMapping("/find_scene_schedule_by_ids")
+    public ResultInfo findSceneScheduleByIds(@RequestBody List<Integer> ids){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        List<SceneSchedulePO> result =  sceneScheduleService.findSceneScheduleByIds(companyId,ids);
+        return ResultInfoUtil.success(result);
+    }
+
+
 
 
 

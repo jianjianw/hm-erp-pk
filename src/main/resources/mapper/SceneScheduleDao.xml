@@ -11,6 +11,7 @@
         <result column="status_id" property="statusId" jdbcType="VARCHAR" />
         <result column="company_id" property="companyId" jdbcType="INTEGER" />
         <result column="venue_id" property="venueId" jdbcType="INTEGER" />
+        <result column="scene_name" property="sceneName" jdbcType="VARCHAR" />
     </resultMap>
 
     <resultMap id="sceneSchedule" type="com.qiein.erp.pk.web.entity.po.SceneSchedulePO">
@@ -155,6 +156,19 @@
         and scene.shoot_id = #{shootId}
         and scene.scene_id = #{sceneId}
 
+    </select>
+
+    <select id="findSceneScheduleByIds" parameterType="ArrayList" resultMap="BaseResultMap">
+         select scene_schedule.id, scene_schedule.shoot_id, scene_schedule.scene_id, scene_schedule.start_time, scene_schedule.end_time,
+        scene_schedule.status_id, scene_schedule.company_id, scene_schedule.venue_id, scene.scene_name
+        from hm_erp_scene_schedule scene_schedule
+        inner join hm_erp_scene scene on scene_schedule.scene_id = scene.id
+        and scene_schedule.company_id = scene.company_id
+        where company_id = #{companyId}
+        and id in
+        <foreach collection="ids" item="id" index="index" separator="," open="(" close=")">
+            (#{id})
+        </foreach>
     </select>
 
 </mapper>

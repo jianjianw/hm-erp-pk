@@ -77,4 +77,11 @@ public interface SceneScheduleService {
      */
     ResultInfo batSaveSelect(List<SceneSchedulePO> sceneSchedulePOS);
 
+    /**
+     * 根据ids查询场景档期  多个
+     * @param companyId
+     * @param ids
+     * @return
+     */
+    List<SceneSchedulePO> findSceneScheduleByIds(Integer companyId,List<Integer> ids);
 }

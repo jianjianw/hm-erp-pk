@@ -127,8 +127,8 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
     public List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDate(SceneDTO sceneDTO){
 
         Map<String, Integer> startAndEndTime = getStartAndEndTime(sceneDTO.getDate());
-        sceneDTO.setStartTime(startAndEndTime.get("start"));
-        sceneDTO.setEndTime(startAndEndTime.get("end"));
+        sceneDTO.setStartTime(startAndEndTime.get("start"));//当天最小时间
+        sceneDTO.setEndTime(startAndEndTime.get("end"));//当天最大时间
         //获得拍摄景档期
         List<SceneSchedulePO> sceneSchedulePOS = sceneScheduleDao.selectSceneScheduleBySceneIdAndDate(sceneDTO);
 
@@ -158,7 +158,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
 
     @Override
     public List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDateTime(SceneDTO sceneDTO) {
-        List<SceneSchedulePO> result = sceneScheduleDao.selectSceneScheduleBySceneIdAndDate(sceneDTO);
+        List<SceneSchedulePO> result = sceneScheduleDao.selectSceneScheduleBySceneIdAndDate(sceneDTO);//保存的时候先要查询  时间段
         return  result;
     }
 
@@ -182,6 +182,12 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         }
 
         return ResultInfoUtil.success(sceneSchedulePOS);
+    }
+
+    @Override
+    public List<SceneSchedulePO> findSceneScheduleByIds(Integer companyId, List<Integer> ids) {
+        List<SceneSchedulePO> sceneSchedulePOS = sceneScheduleDao.findSceneScheduleByIds(companyId,ids);
+        return sceneSchedulePOS;
     }
 
     //获取开始时间和结束时间
