@@ -19,7 +19,7 @@
     <result column="photo_name" property="photoName" jdbcType="VARCHAR" />
   </resultMap>
   
-   <resultMap id="DictionayMap" type="com.qiein.erp.pk.web.entity.po.DictionaryErp" >
+  <resultMap id="DictionayMap" type="com.qiein.erp.pk.web.entity.po.DictionaryErp" >
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="DICTYPE" property="dicType" jdbcType="VARCHAR" />
     <result column="DICCODE" property="dicCode" jdbcType="INTEGER" />
@@ -32,15 +32,15 @@
 	<resultMap id="mealSelectMap" type="com.qiein.erp.pk.web.entity.vo.MealSelectVO">
 		<result column="meal_type" property="typeId"/>
 		<result column="DICNAME" property="typeName"/>
-		<collection property="meals" ofType="com.qiein.erp.pk.web.entity.po.Meal">
+		<collection property="meals" ofType="com.qiein.erp.pk.web.entity.po.MealPO">
 			<result column="id" property="id"/>
 			<result column="meal_name" property="mealName"/>
 		</collection>
-	</resultMap>
-  <select id="mealSelect" resultMap="mealSelectMap">
+	</resultMap> 
+  <!-- <select id="mealSelect" resultMap="mealSelectMap">
 	  select meal_type,dic.DICNAME,meal.id,meal_name from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId}
   </select>
-  <!--查询服务id  -->
+  查询服务id 
   <resultMap id="ServiceMap" type="com.qiein.erp.pk.web.entity.po.ServicePO" >
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
@@ -51,7 +51,7 @@
   	service_id
   </sql>
   
-  <!--查询拍摄类别 -->
+  查询拍摄类别
   <select id="selectPhoto" resultMap="DictionayMap">
 	SELECT
 		dic.ID,dic.DICTYPE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID
@@ -62,7 +62,7 @@
 	AND dic.DICTYPE = 'common_type'  	
   </select>
   
-  <!--查询服务ID  -->
+  查询服务ID 
   <select id="selectServiceId" resultMap="ServiceMap">
   	SELECT
 		ser.id,ser.service_name,ser.service_status
@@ -72,7 +72,7 @@
 		ser.company_id=#{companyId}
   </select>
   
-  <!--查询服务名称  -->
+  查询服务名称 
   <select id="selectServiceName" resultMap="ServiceMap">
   	SELECT
 		ser.id,ser.service_name
@@ -83,7 +83,7 @@
 		AND ser.id=#{serviceId}
   </select>
   
-  <!--查询套餐类别 -->
+  查询套餐类别
   <select id="selectMealType" resultMap="DictionayMap">
 	SELECT
 		dic.ID,dic.DICTYPE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID,dic.DICCODE
@@ -95,7 +95,7 @@
 	ORDER BY dic.ISSHOW 	
   </select>
   
-   <!--查询套餐类别名称 -->
+   查询套餐类别名称
   <select id="selecDicName" resultMap="DictionayMap">
 	SELECT
 		dic.ID,dic.DICTYPE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID,dic.DICCODE
@@ -106,7 +106,7 @@
 	AND dic.ID=#{mealType} 	
   </select>
   
-  <!--新增套餐分类  -->
+  新增套餐分类 
   <insert id="insertMealType">
 	INSERT 
 		hm_crm_dictionary (DICTYPE,DICNAME,PRIORITY,COMPANYID,ISSHOW,DICCODE)
@@ -121,7 +121,7 @@
 		AND dic.DICTYPE='meal_type')
   </insert>
   
-  <!--编辑套餐  -->
+  编辑套餐 
   <update id="updateMealType" parameterType="com.qiein.erp.pk.web.entity.po.DictionaryErp" >
     UPDATE 
     	hm_crm_dictionary
@@ -139,7 +139,7 @@
     WHERE
 		id = #{id} AND COMPANYID = #{companyId}
   </update>
-  <!--新增主套餐  -->
+  新增主套餐 
   <insert id="insertMeal" parameterType="com.qiein.erp.pk.web.entity.po.BasePO" >
     insert into 
     	hm_erp_meal (meal_name, photo_type,photo_name, meal_type,meal_status,meal_amount,
@@ -149,7 +149,7 @@
       )
   </insert>
   
-  <!--编辑套餐  -->
+  编辑套餐 
   <update id="updateByMeal" parameterType="com.qiein.erp.pk.web.entity.po.Meal" >
     UPDATE 
     	hm_erp_meal
@@ -193,10 +193,10 @@
     </set> 
     WHERE 
     	id = #{id} and company_id=#{companyId}
-  </update>
+  </update> -->
   
   <!--查询套餐  -->
-  <select id="selectAll" resultMap="MealMap" >
+   <select id="selectAll" resultMap="MealMap" >
 	SELECT
 		meal.id,meal.meal_name,meal_amount,meal.memo,meal.photo_type,
 		(SELECT
@@ -217,6 +217,6 @@
 		AND dic.DICTYPE='meal_type') meal_type_name,meal.clothes_num,meal.priority,meal.meal_status
 	FROM
 		hm_erp_meal meal    
-  </select>
+  </select> 
   
 </mapper>
