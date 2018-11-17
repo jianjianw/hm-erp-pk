@@ -2,14 +2,13 @@ package com.qiein.erp.pk.web.service.impl;
 
 import java.util.List;
 
-import com.qiein.erp.pk.web.entity.vo.MealSelectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.qiein.erp.pk.web.dao.MealDao;
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
-import com.qiein.erp.pk.web.entity.po.Meal;
+import com.qiein.erp.pk.web.entity.po.MealPO;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
+import com.qiein.erp.pk.web.entity.vo.MealSelectVO;
 import com.qiein.erp.pk.web.service.MealService;
 
 @Service
@@ -22,7 +21,7 @@ public class MealServiceImpl implements MealService {
      * @return
      */
 	@Override
-	public int insertMeal(Meal meal) {
+	public int insertMeal(MealPO meal) {
 		return mealDao.insertMeal(meal);
 	}
 	/**
@@ -30,8 +29,8 @@ public class MealServiceImpl implements MealService {
      * @return
      */
 	@Override
-	public List<Meal> selectAll() {
-		List<Meal> selectAll = mealDao.selectAll();
+	public List<MealPO> selectAll() {
+		List<MealPO> selectAll = mealDao.selectAll();
 		return selectAll;
 	}
 	/**
@@ -39,7 +38,7 @@ public class MealServiceImpl implements MealService {
      * @return
      */
 	@Override
-	public int updateByMeal(Meal meal) {
+	public int updateByMeal(MealPO meal) {
 		return mealDao.updateByMeal(meal);
 	}
 	/**

@@ -3,24 +3,23 @@ package com.qiein.erp.pk.web.service;
 import java.util.List;
 
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
-import com.qiein.erp.pk.web.entity.po.Meal;
+import com.qiein.erp.pk.web.entity.po.MealPO;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.vo.MealSelectVO;
-import org.apache.ibatis.annotations.Param;
 
 public interface MealService {
 	/**
      * 新增套餐
      * @return
      */
-	int insertMeal(Meal meal);
+	int insertMeal(MealPO meal);
 
-	List<Meal> selectAll();
+	List<MealPO> selectAll();
 	/**
      * 编辑主套餐
      * @return
      */
-	int updateByMeal(Meal meal);
+	int updateByMeal(MealPO meal);
 	/**
      * 查询套餐类别
      * @return

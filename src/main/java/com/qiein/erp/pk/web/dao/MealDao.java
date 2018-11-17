@@ -2,12 +2,11 @@ package com.qiein.erp.pk.web.dao;
 
 import java.util.List;
 
-import com.qiein.erp.pk.web.entity.vo.MealSelectVO;
 import org.apache.ibatis.annotations.Param;
-
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
-import com.qiein.erp.pk.web.entity.po.Meal;
+import com.qiein.erp.pk.web.entity.po.MealPO;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
+import com.qiein.erp.pk.web.entity.vo.MealSelectVO;
 /**
  * 套餐
  * @author Han
@@ -20,17 +19,17 @@ public interface MealDao {
 	 * @param meal
 	 * @return
 	 */
-    int insertMeal(Meal meal);
+    int insertMeal(MealPO meal);
     /**
      * 查询所有套餐
      * @return
      */
-    List<Meal> selectAll();
+    List<MealPO> selectAll();
     /**
      * 编辑套餐
      * @return
      */
-    int updateByMeal(Meal meal);
+    int updateByMeal(MealPO meal);
     
     /**
      * 查询套餐类别

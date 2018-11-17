@@ -1,8 +1,7 @@
 package com.qiein.erp.pk.web.entity.vo;
 
-import com.qiein.erp.pk.web.entity.po.Meal;
-
 import java.util.List;
+import com.qiein.erp.pk.web.entity.po.MealPO;
 
 /**
  * 套餐下拉框
@@ -11,7 +10,7 @@ import java.util.List;
 public class MealSelectVO {
     private Integer typeId;//类型
     private String typeName;
-    private List<Meal> meals;//套餐
+    private List<MealPO> meals;//套餐
 
     public Integer getTypeId() {
         return typeId;
@@ -29,11 +28,11 @@ public class MealSelectVO {
         this.typeName = typeName;
     }
 
-    public List<Meal> getMeals() {
+    public List<MealPO> getMeals() {
         return meals;
     }
 
-    public void setMeals(List<Meal> meals) {
+    public void setMeals(List<MealPO> meals) {
         this.meals = meals;
     }
 }

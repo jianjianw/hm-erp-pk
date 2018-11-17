@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
-import com.qiein.erp.pk.web.entity.po.Meal;
+import com.qiein.erp.pk.web.entity.po.MealPO;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.service.MealService;
 
@@ -25,7 +25,7 @@ import com.qiein.erp.pk.web.service.MealService;
 public class MealController extends InitController{
 
     @Autowired
-    private MealService mealService;
+    private MealService mealService;  
     
     /**
      * 查询拍摄类别
@@ -98,7 +98,7 @@ public class MealController extends InitController{
      * @return
      */
     @PostMapping("/insert_meal")
-    public ResultInfo insertMeal(@RequestBody Meal meal){
+    public ResultInfo insertMeal(@RequestBody MealPO meal){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
     		if(meal.getMealType()==null){
     			
@@ -125,7 +125,7 @@ public class MealController extends InitController{
      */
     @GetMapping("/select_all")
     public ResultInfo selectAll(){
-        List<Meal> meal = mealService.selectAll();
+        List<MealPO> meal = mealService.selectAll();
         return ResultInfoUtil.success(meal);
     }
     /**
@@ -133,7 +133,7 @@ public class MealController extends InitController{
      * @return
      */
     @PostMapping("/update_by_meal")
-    public ResultInfo updateByPrimaryKey(@RequestBody Meal meal){
+    public ResultInfo updateByPrimaryKey(@RequestBody MealPO meal){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
     	System.out.println(JSONObject.toJSONString(meal));
     	meal.setCompanyId(companyId);

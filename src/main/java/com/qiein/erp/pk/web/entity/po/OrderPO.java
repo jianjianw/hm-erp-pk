@@ -8,6 +8,7 @@ public class OrderPO {
     private Integer orderId;//订单id
     private Integer proId;//流程id
     private String kzId;//客资id
+    private String oldKzName;//老客姓名
     private String orderNum;//订单编号
     private String kzName;//客资姓名
     private String kzPhone;//客资电话
@@ -30,9 +31,35 @@ public class OrderPO {
     private Integer type;//拍摄类型
     private Integer age;//年龄
     private Integer sex;//性别
-    private String birthday;//生日
+    private String birthDay;//生日
     private String marryTime;//婚期
     private Integer saleId;//销售id
+    private Integer orderTime;
+    private Integer letterId;
+
+    public Integer getLetterId() {
+        return letterId;
+    }
+
+    public void setLetterId(Integer letterId) {
+        this.letterId = letterId;
+    }
+
+    public String getOldKzName() {
+        return oldKzName;
+    }
+
+    public void setOldKzName(String oldKzName) {
+        this.oldKzName = oldKzName;
+    }
+
+    public Integer getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(Integer orderTime) {
+        this.orderTime = orderTime;
+    }
 
     public Integer getSaleId() {
         return saleId;
@@ -74,12 +101,12 @@ public class OrderPO {
         this.sex = sex;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getBirthDay() {
+        return birthDay;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
     }
 
     public String getMarryTime() {
