@@ -147,7 +147,7 @@ public class MealController extends InitController{
      * @return
      */
     @GetMapping("/meal_select")
-    public ResultInfo mealSelect(@RequestParam Integer serviceId){
+    public ResultInfo mealSelect(@RequestParam(value = "serviceId",required = false) Integer serviceId){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         return ResultInfoUtil.success(mealService.mealSelect(companyId,serviceId));
     }
