@@ -57,6 +57,7 @@ public class StaffScheduleController extends InitController{
          					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
          				StaffScheduleVOAll.setId(StaffScheduleVOPK.getId());
          				StaffScheduleVOAll.setStatus(1);
+         				StaffScheduleVOAll.setCount(StaffScheduleVOPK.getCount());
          			}
          		}
     		}

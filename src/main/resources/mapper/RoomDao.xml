@@ -88,6 +88,7 @@
     where company_id = #{companyId}
     and venue_id = #{venueId}
     and room_type = #{roomType}
+    order by priority
   </select>
 
   <update id="roomSort" parameterType="ArrayList">
@@ -158,14 +159,14 @@
 
   </resultMap>
 
-
-  <select id="findRoomByLevelId" resultMap="BaseResultMap">
+    <select id="findRoomByLevelId" resultMap="BaseResultMap">
     select room_id, venue_id, room_name, room_level, room_type, priority, room_status,
     company_id
     from hm_erp_venue_room
-    where company_id ={companyId} and room_type = #{roomType}
-
-  </select>
+    where
+    room_type = #{roomType}
+    and company_id = #{companyId}
+   </select>
 
   <update id="batUpdateRoom" parameterType="ArrayList">
 
@@ -227,6 +228,7 @@
     from hm_crm_dictionary dic
     where dic.COMPANYID = #{companyId}
     and dic.DICTYPE = #{roomType}
+    order by PRIORITY
   </select>
 
 
