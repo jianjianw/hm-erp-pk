@@ -26,6 +26,14 @@ public class ProcessVO {
     private String planName;//企划名称
     private Integer planTime;//企划时间
 
+    public Integer getPlanTime() {
+        return planTime;
+    }
+
+    public void setPlanTime(Integer planTime) {
+        this.planTime = planTime;
+    }
+
     public String getVenueName() {
         return venueName;
     }
