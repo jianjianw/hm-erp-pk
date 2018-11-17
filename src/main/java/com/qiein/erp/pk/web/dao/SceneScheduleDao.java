@@ -65,4 +65,13 @@ public interface SceneScheduleDao {
      * @return
      */
     List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDate(SceneDTO sceneDTO);
+
+    /**
+     * 根据ids查询场景档期  多个
+     * @param companyId
+     * @param ids
+     * @return
+     */
+    List<SceneSchedulePO> findSceneScheduleByIds(@Param("companyId") Integer companyId,
+                                                 @Param("ids") List<Integer> ids);
 }
