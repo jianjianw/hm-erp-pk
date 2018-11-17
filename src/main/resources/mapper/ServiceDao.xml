@@ -172,6 +172,9 @@
     </select>
     <select id="checkWasIn" resultType="String">
         select service_name from hm_erp_service  where service_name=#{serviceName} and company_id=#{companyId}
+        <if test="id !=null and id !=''">
+        and id !=#{id}
+        </if>
     </select>
     <select id="venueService" resultMap="venueServiceMap">
         SELECT
