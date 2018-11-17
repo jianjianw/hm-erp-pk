@@ -42,7 +42,7 @@ public interface ServiceDao {
     /**
      * 查重
      */
-    String checkWasIn(@Param("serviceName")String serviceName,@Param("companyId")Integer companyId);
+    String checkWasIn(@Param("serviceName")String serviceName,@Param("companyId")Integer companyId,@Param("id")Integer id);
     /**
      * 场馆服务关联查询（场馆档期用）
      */
