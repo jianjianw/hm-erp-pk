@@ -52,4 +52,12 @@ public interface OrderService {
      * 修改订单
      */
     void updateOrder(OrderEditPO orderEditPO);
+
+    /**
+     * 修改备注
+     * @param memo
+     * @param orderId
+     * @param companyId
+     */
+    void editMemo(String memo,Integer orderId,Integer companyId);
 }

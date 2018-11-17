@@ -124,4 +124,13 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrder(OrderEditPO orderEditPO) {
         orderDao.updateOrder(orderEditPO);
     }
+    /**
+     * 修改备注
+     * @param memo
+     * @param orderId
+     * @param companyId
+     */
+    public void editMemo(String memo,Integer orderId,Integer companyId){
+        orderDao.editMemo(memo,orderId,companyId);
+    }
 }

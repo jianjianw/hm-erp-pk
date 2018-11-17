@@ -493,9 +493,14 @@
              marry_time =  #{marryTime},
              child_name =  #{childName},
              birth_day =  #{birthday},
-             order_memo=#{orderMemo},
              age =  #{age},
              sex =  #{sex}
+             where company_id=#{companyId} and id=#{orderId}
+    </update>
+    <update id="editMemo">
+        UPDATE hm_erp_order
+            SET
+             order_memo=#{memo}
              where company_id=#{companyId} and id=#{orderId}
     </update>
 
