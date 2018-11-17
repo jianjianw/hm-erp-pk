@@ -12,13 +12,59 @@ public class ProcessVO {
     private Integer serviceId;//服务id
     private Integer orderType;//流程状态
     private String shootTime;//拍摄时间
-    private Integer clothes;//服装套数
+    private int clothes;//服装套数
     private Integer venueSchId;//场馆档期id
+    private String venueName;//场馆名称
     private Integer makeupRoomSchId;//化妆间档期id
+    private String makeupRoomName;//化妆间名称
     private List<ShootRoomVO> shootRooms;//拍摄景档期list
     private Integer shootSchId;//摄影师档期id
+    private String shootName;//摄影师名字
     private Integer makeupSchId;//化妆师档期id
+    private String makeupName;//化妆师名称
     private Integer planSchId;//企划档期id
+    private String planName;//企划名称
+    private Integer planTime;//企划时间
+
+    public String getVenueName() {
+        return venueName;
+    }
+
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
+    }
+
+    public String getMakeupRoomName() {
+        return makeupRoomName;
+    }
+
+    public void setMakeupRoomName(String makeupRoomName) {
+        this.makeupRoomName = makeupRoomName;
+    }
+
+    public String getShootName() {
+        return shootName;
+    }
+
+    public void setShootName(String shootName) {
+        this.shootName = shootName;
+    }
+
+    public String getMakeupName() {
+        return makeupName;
+    }
+
+    public void setMakeupName(String makeupName) {
+        this.makeupName = makeupName;
+    }
+
+    public String getPlanName() {
+        return planName;
+    }
+
+    public void setPlanName(String planName) {
+        this.planName = planName;
+    }
 
     public List<ShootRoomVO> getShootRooms() {
         return shootRooms;
@@ -68,11 +114,11 @@ public class ProcessVO {
         this.shootTime = shootTime;
     }
 
-    public Integer getClothes() {
+    public int getClothes() {
         return clothes;
     }
 
-    public void setClothes(Integer clothes) {
+    public void setClothes(int clothes) {
         this.clothes = clothes;
     }
 
