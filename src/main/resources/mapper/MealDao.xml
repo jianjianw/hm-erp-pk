@@ -176,11 +176,15 @@
   <!--查询套餐  -->
    <select id="selectAll" resultMap="MealMap" >
 	SELECT
-		<include refid="baseColumn"/>		 
+		dic.DICNAME photo_name ,meal.id,meal.meal_name, meal.photo_type, meal.meal_type,meal.meal_status,
+		meal.meal_amount,meal.memo,meal.priority,meal.clothes_num,meal.company_id,
+  	meal.service_id
 	FROM
-		hm_erp_meal 
+		hm_erp_meal meal
+	LEFT JOIN hm_crm_dictionary dic ON dic.DICCODE=meal.photo_type AND dic.COMPANYID=meal.company_id 
+		AND dic.DICTYPE='common_type'
 	where
-		company_id=#{companyId}   
+		company_id=#{companyId}  
   </select> 
   
 </mapper>
