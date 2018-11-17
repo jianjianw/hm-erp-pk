@@ -70,6 +70,7 @@
     LEFT JOIN hm_erp_venue venue ON venue.id = room.venue_id
     AND venue.company_id = room.company_id
     WHERE
+    room.room_status=1 and
         room.room_type = #{type}
     AND room.venue_id in (${venueIds})
     and room.company_id = #{companyId}
