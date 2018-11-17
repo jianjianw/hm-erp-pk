@@ -134,7 +134,7 @@
 
     select room.room_id, room.venue_id,room.room_name,room.room_level,room.room_type,room.priority,room.room_status,
             scene.id, scene.scene_name,scene.shoot_id,scene.scene_status,scene.priority scenePriority,scene.company_id
-    from hm_erp_venue_room room inner join hm_erp_scene scene
+    from hm_erp_venue_room room left join hm_erp_scene scene
     on  room.room_id = scene.shoot_id and room.company_id = scene.company_id
     where room.company_id = #{companyId}
     and room.venue_id = #{venueId}
