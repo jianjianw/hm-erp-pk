@@ -29,8 +29,8 @@ public class MealServiceImpl implements MealService {
      * @return
      */
 	@Override
-	public List<MealPO> selectAll() {
-		List<MealPO> selectAll = mealDao.selectAll();
+	public List<MealPO> selectAll(Integer companyId) {
+		List<MealPO> selectAll = mealDao.selectAll(companyId);
 		return selectAll;
 	}
 	/**

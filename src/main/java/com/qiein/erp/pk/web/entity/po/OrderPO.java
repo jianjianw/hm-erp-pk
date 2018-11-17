@@ -31,8 +31,8 @@ public class OrderPO {
     private Integer type;//拍摄类型
     private Integer age;//年龄
     private Integer sex;//性别
-    private String birthDay;//生日
-    private String marryTime;//婚期
+    private Integer birthDay;//生日
+    private Integer marryTime;//婚期
     private Integer saleId;//销售id
     private Integer orderTime;
     private Integer letterId;
@@ -101,19 +101,19 @@ public class OrderPO {
         this.sex = sex;
     }
 
-    public String getBirthDay() {
+    public Integer getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(String birthDay) {
+    public void setBirthDay(Integer birthDay) {
         this.birthDay = birthDay;
     }
 
-    public String getMarryTime() {
+    public Integer getMarryTime() {
         return marryTime;
     }
 
-    public void setMarryTime(String marryTime) {
+    public void setMarryTime(Integer marryTime) {
         this.marryTime = marryTime;
     }
 
