@@ -25,71 +25,84 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
+
     /**
      * 获取订单总页面
+     *
      * @param orderDTO
      * @return
      */
-    public List<OrderVO> getOrder(OrderDTO orderDTO){
+    public List<OrderVO> getOrder(OrderDTO orderDTO) {
         return orderDao.selectOrder(orderDTO);
     }
+
     /**
      * 根据档期id获取订单页面
+     *
      * @param orderDTO
      * @return
      */
-    public List<OrderVO> selectBySchId(OrderSelectDTO orderDTO){
+    public List<OrderVO> selectBySchId(OrderSelectDTO orderDTO) {
         return orderDao.selectBySchId(orderDTO);
     }
 
     /**
      * 新增订单(正常订单)
+     *
      * @param orderPO
      */
-    public void insertOrder(OrderPO orderPO){
-        if(orderPO.getOrderId()==null){
+    public void insertOrder(OrderPO orderPO) {
+        if (orderPO.getOrderId() == null) {
             //新增订单
             orderDao.insertOrder(orderPO);
             //编辑订单编号
-            orderDao.insertOrderNum(StringUtil.to26Jinzhi(orderPO.getOrderId()),orderPO.getOrderId());
+            orderDao.insertOrderNum(StringUtil.to26Jinzhi(orderPO.getOrderId()), orderPO.getOrderId());
         }
+        orderDao.insertPro(orderPO);
         //给流程添加档期（除了拍摄间）
         orderDao.insertShootSch(orderPO);
         //给流程添加拍摄间档期
-        List<String> list=new ArrayList<>();
-        for(String shootRoomId:orderPO.getShootRoomSchIds().split(CommonConstant.STR_SEPARATOR)){
-            list.add(shootRoomId);
+        List<String> list = new ArrayList<>();
+        if (StringUtil.isNotEmpty(orderPO.getShootRoomSchIds())) {
+            for (String shootRoomId : orderPO.getShootRoomSchIds().split(CommonConstant.STR_SEPARATOR)) {
+                list.add(shootRoomId);
+            }
+            orderDao.insertSceneSch(orderPO.getProId(), list, orderPO.getCompanyId());
         }
-        orderDao.insertSceneSch(orderPO.getProId(),list,orderPO.getCompanyId());
+
     }
+
     /**
      * 根据订单id 获取流程
+     *
      * @param orderId
      * @param companyId
      * @return
      */
-    public OrderProVO selectByOrdId(Integer orderId, Integer companyId){
-        return orderDao.selectByOrdId(orderId,companyId);
+    public OrderProVO selectByOrdId(Integer orderId, Integer companyId) {
+        return orderDao.selectByOrdId(orderId, companyId);
     }
+
     /**
      * 编辑流程
      */
-    public void editProcess(ProcessPO processPO){
+    public void editProcess(ProcessPO processPO) {
         //编辑流程档期档期（除了拍摄间）
         orderDao.updateProcessShootSch(processPO);
         //删除流程关于拍摄间的档期 用于编辑
-        orderDao.deleteSceneSch(processPO.getProId(),processPO.getCompanyId());
+        orderDao.deleteSceneSch(processPO.getProId(), processPO.getCompanyId());
         //给流程添加拍摄间档期
-        List<String> list=new ArrayList<>();
-        for(String shootRoomId:processPO.getShootRoomSchId().split(CommonConstant.STR_SEPARATOR)){
+        List<String> list = new ArrayList<>();
+        for (String shootRoomId : processPO.getShootRoomSchId().split(CommonConstant.STR_SEPARATOR)) {
             list.add(shootRoomId);
         }
-        orderDao.insertSceneSch(processPO.getProId(),list,processPO.getCompanyId());
+        orderDao.insertSceneSch(processPO.getProId(), list, processPO.getCompanyId());
     }
+
     /**
      * 修改订单
      */
-    public void updateOrder(OrderEditPO orderEditPO){
+    public void updateOrder(OrderEditPO orderEditPO) {
         orderDao.updateOrder(orderEditPO);
     }
 }
