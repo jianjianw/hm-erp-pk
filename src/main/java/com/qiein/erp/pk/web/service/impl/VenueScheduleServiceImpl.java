@@ -95,7 +95,7 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
 
             }
             int count=0;
-            for(Integer i:list){
+            for(int i:list){
                 i-=count;
                 venueServiceVO.getServiceScheduleVOS().remove(i);
                 count++;
