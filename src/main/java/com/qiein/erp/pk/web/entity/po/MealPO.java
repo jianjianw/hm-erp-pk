@@ -71,7 +71,7 @@ public class MealPO implements Serializable{
 	/**
 	 * 其他服务名称
 	 */
-	private String otherServiceName;
+	private String otherServiceName;  
 	
 	public Integer getOther_service() {
 		return other_service;

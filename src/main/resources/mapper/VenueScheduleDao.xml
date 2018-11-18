@@ -93,7 +93,7 @@
             AND base.company_id = venue.company_id
             LEFT JOIN hm_erp_service service ON service.id = service_venue.service_id
             AND service.company_id = service_venue.company_id
-            where service_venue.company_id=#{companyId} and venue.venue_status=1
+            where service_venue.company_id=#{companyId} and venue.venue_status=1 and service.service_status=1
         </select>
     <select id="getVenueScheduleSetWasIn" resultMap="setMap">
             SELECT
