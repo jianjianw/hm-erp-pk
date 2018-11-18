@@ -161,10 +161,13 @@
             and plan_sch.staff_day BETWEEN #{start} and #{end}
         </if>
         <if test="shootId !=null and shootId!=''">
-            and staff_sch1.id in (${shootId})
+            and staff1.id in (${shootId})
         </if>
         <if test="makeupId !=null and makeupId!=''">
-            and staff_sch2.id  in (${makeupId})
+            and staff2.id  in (${makeupId})
+        </if>
+        <if test="venueId !=null and venueId!=''">
+            and venue_sch.venue_id in (${venueId})
         </if>
         <if test="orderType !=null and orderType!=''">
             and pro.order_type  in (${orderType})
