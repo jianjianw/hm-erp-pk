@@ -97,7 +97,7 @@
 		 FROM
 			hm_crm_dictionary dic
 		WHERE
-			dic.COMPANYID=1
+			dic.COMPANYID=#{companyId}
 		AND dic.DICTYPE='meal_type'),
 	#{companyId},#{showFlag},
 		(SELECT

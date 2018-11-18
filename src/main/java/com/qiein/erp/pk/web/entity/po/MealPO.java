@@ -64,7 +64,30 @@ public class MealPO implements Serializable{
 	 * 服务名称
 	 */
 	private String serviceName;
+	/**
+	 * 其他服务
+	 */
+	private Integer other_service;
+	/**
+	 * 其他服务名称
+	 */
+	private String otherServiceName;
+	
+	public Integer getOther_service() {
+		return other_service;
+	}
 
+	public void setOther_service(Integer other_service) {
+		this.other_service = other_service;
+	}
+
+	public String getOtherServiceName() {
+		return otherServiceName;
+	}
+
+	public void setOtherServiceName(String otherServiceName) {
+		this.otherServiceName = otherServiceName;
+	}
 	/**
 	 * 其他服务
 	 * @return
