@@ -7,6 +7,7 @@ package com.qiein.erp.pk.web.entity.vo;
 public class StaffRoleTypeVO {
     private Integer staffId;//员工信息
     private String staffName;
+    private String nickName;
     private String phone;
     private String roleLevel;//角色等级
     private Integer venueId;//场馆id
@@ -14,7 +15,15 @@ public class StaffRoleTypeVO {
     private Integer companyId;
     //人员档期时间戳
     private Integer time;
-    
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     public Integer getTime() {
 		return time;
 	}

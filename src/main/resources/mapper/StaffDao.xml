@@ -29,7 +29,8 @@
     <resultMap id="producerMap" type="com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO">
         <result property="staffId" column="staff_id"/>
         <result property="venueId" column="venue_id"/>
-        <result property="staffName" column="NICKNAME"/>
+        <result property="staffName" column="USERNAME"/>
+        <result property="nickName" column="NICKNAME"/>
         <result property="phone" column="PHONE"/>
         <result property="roleLevel" column="role_level"/>
         <result property="roleId" column="role_id"/>
@@ -152,6 +153,7 @@
     <select id="selectProducer" resultMap="producerMap">
         SELECT
             venue.staff_id,
+            staff.USERNAME,
             staff.NICKNAME,
             staff.PHONE,
             venue_id,
