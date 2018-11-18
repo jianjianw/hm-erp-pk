@@ -82,7 +82,12 @@ public interface StaffScheduleDao {
      * @return
      */
 	StaffScheduleVO selectByVenueIdAndStaffId(@Param("staffId")Integer staffId, @Param("venueId")Integer venueId, 
-			@Param("time")Integer time,@Param("companyId")Integer companyId); 
+			@Param("time")Integer time,@Param("companyId")Integer companyId);
+	/**
+     *更新人员状态
+     * @return
+     */
+	void updateStaffStatus(StaffScheduleVO staffSchedule); 
 	
 	
 }

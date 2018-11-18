@@ -128,5 +128,13 @@ public class StaffScheduleImpl implements StaffScheduleService {
 		StaffScheduleVO staffScheduleVO=staffScheduleDao.selectByVenueIdAndStaffId(staffId,venueId,time,companyId);
 		return staffScheduleVO;
 	}
+	/**
+     * 人员更新
+     * @return
+     */
+	@Override
+	public void updateStaffStatus(StaffScheduleVO staffSchedule) {
+		staffScheduleDao.updateStaffStatus(staffSchedule);
+	}
 	
 }

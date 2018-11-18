@@ -83,6 +83,11 @@ public interface PlanScheduleDao {
      * @return
      */
 	void insertStaffSchedule(StaffScheduleVO staffScheduleVOt);
+	/**
+     * 更新人员状态
+     * @return
+     */
+	void updateStaffStatus(StaffScheduleVO staffSchedule);
 	
 	
 	

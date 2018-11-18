@@ -71,5 +71,10 @@ public interface StaffScheduleService {
      * @return
      */
 	StaffScheduleVO selectByVenueIdAndStaffId(Integer staffId, Integer venueId, Integer time,Integer companyId);
+	/**
+     * 人员状态更新
+     * @return
+     */
+	void updateStaffStatus(StaffScheduleVO staffSchedule);
 
 }

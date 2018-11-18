@@ -40,6 +40,21 @@
   	id,venue_id, staff_day_limit, staff_status,venue_name,staff_id,NICKNAME,
   		role_level,role_id,role_name,time
   </sql>
+  
+  <!--更新人员状态  -->
+  <update id="updateStaffStatus" >
+	UPDATE
+		hm_erp_plan_schedule ssc
+	<set>
+		<if test="staffStatus != null and staffStatus != 0 ">
+    		ssc.staff_status = #{staffStatus},
+    	</if>
+	</set>
+	WHERE
+		ssc.id=#{id}
+		AND ssc.company_id=#{companyId}
+  </update>
+  
   <!--查询人员档期根据staffid  -->
   <select id="selectByVenueIdAndStaffId" resultMap="StaffScheduleMap">
   	SELECT

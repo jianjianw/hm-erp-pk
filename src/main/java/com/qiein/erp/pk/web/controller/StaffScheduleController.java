@@ -23,6 +23,8 @@ import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 import com.qiein.erp.pk.web.entity.vo.TempStaffVO;
 import com.qiein.erp.pk.web.service.StaffScheduleService;
 
+import retrofit2.http.POST;
+
 /**
  * 摄影师人员排空
  * author：HJF 2018/11/10
@@ -33,6 +35,18 @@ public class StaffScheduleController extends InitController{
 	
     @Autowired
     private StaffScheduleService staffScheduleService;
+    /**
+     * 更新人员状态
+     * @return
+     */
+    @PostMapping("/update_staff_status")
+    public ResultInfo updateStaffStatus(@RequestBody StaffScheduleVO staffSchedule){
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
+		//放入公司id
+		staffSchedule.setCompanyId(companyId);
+		staffScheduleService.updateStaffStatus(staffSchedule);
+        return ResultInfoUtil.success("成功");
+    }
     
     /**
      * 查询摄影师档期--订单界面下拉框

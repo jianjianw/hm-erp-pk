@@ -33,7 +33,18 @@ public class PlancheduleController extends InitController{
 	
     @Autowired
     private PlanScheduleService planScheduleService;
-    
+    /**
+     * 更新人员状态
+     * @return
+     */
+    @PostMapping("/update_staff_status")
+    public ResultInfo updateStaffStatus(@RequestBody StaffScheduleVO staffSchedule){
+		Integer companyId=getCurrentLoginStaff().getCompanyId();
+		//放入公司id
+		staffSchedule.setCompanyId(companyId);
+		planScheduleService.updateStaffStatus(staffSchedule);
+        return ResultInfoUtil.success("成功");
+    }
     /**
      * 新增人员档期，返回id和员工
      * @return

@@ -127,5 +127,13 @@ public class PlanScheduleImpl implements PlanScheduleService {
 	public void insertStaffSchedule(StaffScheduleVO staffScheduleVOt) {
 		planScheduleDao.insertStaffSchedule(staffScheduleVOt);
 	}
+	/**
+     * 更新人员状态
+     * @return
+     */
+	@Override
+	public void updateStaffStatus(StaffScheduleVO staffSchedule) {
+		planScheduleDao.updateStaffStatus(staffSchedule);
+	}
 	
 }
