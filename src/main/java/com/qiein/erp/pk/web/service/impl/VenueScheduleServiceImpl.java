@@ -77,7 +77,9 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                             venueScheduleVO.setTargetCount(orderVenueScheduleVO.getVenueDayLimit());
                             venueScheduleVO.setCount(orderVenueScheduleVO.getCount());
                             venueScheduleVO.setScheduleId(orderVenueScheduleVO.getId());
-                            i++;
+                            if(orderVenueScheduleVO.getCount()!=0){
+                                i++;
+                            }
                         }
                     }
 

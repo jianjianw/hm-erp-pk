@@ -82,6 +82,7 @@
                 <result column="scene_name" property="shootRoomName"/>
                 <result column="start_time" property="start"/>
                 <result column="end_time" property="end"/>
+                <result column="status_id" property="status"/>
             </collection>
         </collection>
     </resultMap>
@@ -225,8 +226,6 @@
         AND ord.company_id = pro.company_id
         LEFT JOIN hm_erp_process_shoot_schedule shoot_pro ON shoot_pro.process_id = pro.id
         AND shoot_pro.company_id = pro.company_id
-        LEFT JOIN hm_erp_process_scene_schedule sence_pro ON sence_pro.process_id = pro.id
-        AND sence_pro.company_id = pro.company_id
         LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
         AND staff_sch1.company_id = shoot_pro.company_id
         LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
@@ -296,6 +295,7 @@
             scene.scene_name,
             scene_sch.start_time,
             scene_sch.end_time,
+            scene_sch.status_id,
             shoot_room.room_id,
             scene_pro.shoot_schedule_id shoot_room_schedule_id,
             shoot_pro.makeup_room_schedule_id,
