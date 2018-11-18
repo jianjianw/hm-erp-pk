@@ -5,11 +5,11 @@ package com.qiein.erp.pk.web.entity.vo;
  */
 public class ShootRoomVO {
     private Integer shootRoomSchId;//拍摄景档期id
-    private Integer roomId;//拍摄景id
+    private Integer roomId;//拍摄间id
     private String shootRoomName;//拍摄景名称
     private Integer start;//开始
     private Integer end;//结束
-
+    private Integer sceneId;//拍摄景id
     public Integer getShootRoomSchId() {
         return shootRoomSchId;
     }

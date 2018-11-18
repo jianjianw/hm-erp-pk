@@ -74,7 +74,8 @@
             <result column="planTime" property="planTime"/>
             <collection property="shootRooms" ofType="com.qiein.erp.pk.web.entity.vo.ShootRoomVO">
                 <id column="shoot_room_schedule_id" property="shootRoomSchId"/>
-                <result column="scene_id" property="roomId"/>
+                <result column="room_id" property="roomId"/>
+                <result column="scene_id" property="sceneId"/>
                 <result column="scene_name" property="shootRoomName"/>
                 <result column="start_time" property="start"/>
                 <result column="end_time" property="end"/>
@@ -282,6 +283,7 @@
             scene.scene_name,
             scene_sch.start_time,
             scene_sch.end_time,
+            shoot_room.room_id,
             scene_pro.shoot_schedule_id shoot_room_schedule_id,
             shoot_pro.makeup_room_schedule_id,
             room.room_name makeupRoomName,
@@ -329,11 +331,13 @@
         AND scene_sch.company_id = scene_pro.company_id
         LEFT JOIN hm_erp_scene scene ON scene_sch.scene_id = scene.id
         AND scene.company_id = scene_sch.company_id
+        LEFT JOIN hm_erp_venue_room shoot_room ON shoot_room.room_id = scene.shoot_id
+        AND shoot_room.company_id = scene.company_id
         LEFT JOIN hm_pub_staff staff ON staff.id = ord.sale_id
         AND staff.COMPANYID = ord.company_id
         LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
         AND staff_sch1.company_id = shoot_pro.company_id
-        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id =shoot_pro.makeup_schedule_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
         AND staff_sch2.company_id = shoot_pro.company_id
         LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
         AND staff1.COMPANYID = staff_sch1.company_id
