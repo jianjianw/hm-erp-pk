@@ -93,5 +93,11 @@ public interface SceneScheduleService {
     List<SceneSchedulePO> findSceneScheduleByIds(Integer companyId,List<Integer> ids);
 
 
-
+    /**
+     * 先删除 后 插入
+     * @param sceneSchedulePOS
+     * @param deleteIds
+     * @return
+     */
+    ResultInfo batDeleteUpdate(List<SceneSchedulePO> sceneSchedulePOS, List<Integer> deleteIds);
 }

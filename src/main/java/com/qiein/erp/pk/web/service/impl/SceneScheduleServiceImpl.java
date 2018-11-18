@@ -226,7 +226,6 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
             }
         }
 
-
         //编辑剩余的数据
         if(sceneSchedulePOS != null && sceneSchedulePOS.size()>0){
             sceneScheduleDao.batSaveOrUpdate(sceneSchedulePOS);
@@ -240,6 +239,19 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
     public List<SceneSchedulePO> findSceneScheduleByIds(Integer companyId, List<Integer> ids) {
         List<SceneSchedulePO> sceneSchedulePOS = sceneScheduleDao.findSceneScheduleByIds(companyId,ids);
         return sceneSchedulePOS;
+    }
+
+    @Transactional
+    @Override
+    public ResultInfo batDeleteUpdate(List<SceneSchedulePO> sceneSchedulePOS, List<Integer> deleteIds) {
+
+        //先删除
+        if(deleteIds != null && deleteIds.size() > 0){
+            sceneScheduleDao.batDelete(deleteIds);
+        }
+        //后插入
+        ResultInfo resultInfo = batSaveSelect(sceneSchedulePOS);
+        return resultInfo;
     }
 
     //获取开始时间和结束时间  2018-11-10 00:00:00  到 2018-11-10 23:59:59

@@ -120,6 +120,23 @@ public class SceneScheduleController extends InitController{
     }
 
     /**
+     * 批量先删除 后 插入
+     * @param sceneRequestDTO
+     * @return
+     */
+    @PostMapping("/bat_delete_update")
+    public ResultInfo batDeleteUpdate(@RequestBody SceneRequestDTO sceneRequestDTO){
+        List<SceneSchedulePO> sceneSchedulePOS = sceneRequestDTO.getSceneSchedulePOS();
+        List<Integer> deleteIds = sceneRequestDTO.getDeleteIds();
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS ){
+            sceneSchedulePO.setCompanyId(companyId);
+        }
+        List<SceneSchedulePO> result = sceneScheduleService.batDeleteUpdate(sceneSchedulePOS,deleteIds);
+        return ResultInfoUtil.success(result);
+    }
+
+    /**
      * 根据场景和时间 查询场景档期   （具体景点 右边的档期列表  这期先不上）
      * @param sceneDTO
      * @return
