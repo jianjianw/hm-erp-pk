@@ -38,6 +38,7 @@
         <result column="order_num" property="orderNum"/>
         <result column="meal_name" property="mealName"/>
         <result column="meal_id" property="mealId"/>
+        <result column="other_service" property="otherService"/>
         <result column="sale_id" property="staffId"/>
         <result column="NICKNAME" property="staffName"/>
         <result column="srctype" property="srcType"/>
@@ -272,6 +273,7 @@
             ord.order_num,
             ord.meal_id,
             meal.meal_name,
+            meal.other_service,
             ord.company_id,
             ord.sale_id,
             staff.NICKNAME,
@@ -372,6 +374,7 @@
             ord.order_num,
             ord.meal_id,
             meal.meal_name,
+            meal.other_service,
             ord.company_id,
             ord.sale_id,
             staff.NICKNAME,
