@@ -48,13 +48,13 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                     venueScheduleVO.setCount(0);
                     venueScheduleVO.setTargetCount(0);
                     venueScheduleVOS.add(venueScheduleVO);
-                    Long lo=new Long(day);
-                    lo*=1000;
+                    Long lo = new Long(day);
+                    lo *= 1000;
                     Date date = new Date(lo);
                     Calendar c = Calendar.getInstance();
                     c.setTime(date);
-                    int i=c.get(Calendar.DAY_OF_WEEK);
-                    if(i==1){
+                    int i = c.get(Calendar.DAY_OF_WEEK);
+                    if (i == 1) {
                         venueScheduleVO.setSunday(true);
                     }
                 }
@@ -62,11 +62,13 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
             }
         }
         //获取实际数据
-        List<OrderVenueScheduleVO> orderVenueScheduleVOS = venueScheduleDao.getVenueSchedule(companyId,TimeUtil.getMonthStartTimeStampByDate(monthStr),TimeUtil.getMonthEndTimeStampByDate(monthStr));
+        List<OrderVenueScheduleVO> orderVenueScheduleVOS = venueScheduleDao.getVenueSchedule(companyId, TimeUtil.getMonthStartTimeStampByDate(monthStr), TimeUtil.getMonthEndTimeStampByDate(monthStr));
         //把实际值全部赋值 以及去除场馆关闭并且数据为空的list
         for (VenueServiceVO venueServiceVO : venueServiceVOS) {
             int serviceCount = 0;
+            List<Integer> list = new ArrayList<>();
             for (ServiceScheduleVO serviceScheduleVO : venueServiceVO.getServiceScheduleVOS()) {
+
                 int i = 0;
                 serviceScheduleVO.setVenueId(venueServiceVO.getVenueId());
                 serviceScheduleVO.setVenueName(venueServiceVO.getVenueName());
@@ -77,7 +79,7 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                             venueScheduleVO.setTargetCount(orderVenueScheduleVO.getVenueDayLimit());
                             venueScheduleVO.setCount(orderVenueScheduleVO.getCount());
                             venueScheduleVO.setScheduleId(orderVenueScheduleVO.getId());
-                            if(orderVenueScheduleVO.getCount()!=0){
+                            if (orderVenueScheduleVO.getCount() != 0) {
                                 i++;
                             }
 
@@ -86,11 +88,14 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
 
                 }
                 //去除场馆关闭且数据为空的数据
-                if (i == 0 && (venueServiceVO.getVenueStatus().equals(0)||serviceScheduleVO.getServiceStatus().equals(0))) {
-                    venueServiceVO.getServiceScheduleVOS().remove(serviceCount);
-                } else {
-                    serviceCount++;
+                if (i == 0 && (venueServiceVO.getVenueStatus().equals(0) || serviceScheduleVO.getServiceStatus().equals(0))) {
+                    list.add(serviceCount);
                 }
+                serviceCount++;
+
+            }
+            for(Integer i:list){
+                venueServiceVO.getServiceScheduleVOS().remove(i);
             }
 
         }
@@ -106,56 +111,58 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
         //前端要的数据
         List<ServiceScheduleVO> serviceScheduleVOS = new ArrayList<>();
         for (VenueServiceVO venueServiceVO : venueServiceVOS) {
-            for(ServiceScheduleVO serviceScheduleVO:venueServiceVO.getServiceScheduleVOS()){
-               serviceScheduleVOS.add(serviceScheduleVO);
+            for (ServiceScheduleVO serviceScheduleVO : venueServiceVO.getServiceScheduleVOS()) {
+                serviceScheduleVOS.add(serviceScheduleVO);
             }
         }
-        List<String> hj=new ArrayList<>();
-        for(Integer date:everyDayOfMonth){
-            Integer count=0;
-            Integer target=0;
-            for(ServiceScheduleVO serviceSchSelectVO:serviceScheduleVOS){
-                for(VenueScheduleVO venueScheduleVO:serviceSchSelectVO.getVenueScheduleVOS()){
-                    if(venueScheduleVO.getTime().equals(date)){
-                        count+=venueScheduleVO.getCount();
-                        target+=venueScheduleVO.getTargetCount();
+        List<String> hj = new ArrayList<>();
+        for (Integer date : everyDayOfMonth) {
+            Integer count = 0;
+            Integer target = 0;
+            for (ServiceScheduleVO serviceSchSelectVO : serviceScheduleVOS) {
+                for (VenueScheduleVO venueScheduleVO : serviceSchSelectVO.getVenueScheduleVOS()) {
+                    if (venueScheduleVO.getTime().equals(date)) {
+                        count += venueScheduleVO.getCount();
+                        target += venueScheduleVO.getTargetCount();
                     }
                 }
             }
-            hj.add(count+CommonConstant.FILE_SEPARATOR+target);
+            hj.add(count + CommonConstant.FILE_SEPARATOR + target);
         }
         venueScheduleShowVO.setVenueServiceVOS(venueServiceVOS);
         venueScheduleShowVO.setServiceScheduleVOS(serviceScheduleVOS);
         venueScheduleShowVO.setHjs(hj);
         return venueScheduleShowVO;
     }
+
     /**
      * 场馆档期设置页面
      */
-    public List<VenueScheduleSetVO> getVenueScheduleSet(Integer companyId){
+    public List<VenueScheduleSetVO> getVenueScheduleSet(Integer companyId) {
         return venueScheduleDao.getVenueScheduleSet(companyId);
     }
+
     /**
      * 档期设置
      */
-    public void VenueScheduleSet(VenueScheduleSetDTO venueScheduleSetDTO){
-        List<Integer> dayList=TimeUtil.getMonthEveryDay(venueScheduleSetDTO.getStart(),venueScheduleSetDTO.getEnd());
-        List<Integer> week=new ArrayList<>();
-        List<VenueScheduleInsertPO> venueScheduleInsertPOS=new ArrayList<>();
-        List<VenueScheduleInsertPO> checkPO=venueScheduleDao.getVenueScheduleSetWasIn(venueScheduleSetDTO);
-        for(String day:venueScheduleSetDTO.getWeek().split(CommonConstant.STR_SEPARATOR)){
+    public void VenueScheduleSet(VenueScheduleSetDTO venueScheduleSetDTO) {
+        List<Integer> dayList = TimeUtil.getMonthEveryDay(venueScheduleSetDTO.getStart(), venueScheduleSetDTO.getEnd());
+        List<Integer> week = new ArrayList<>();
+        List<VenueScheduleInsertPO> venueScheduleInsertPOS = new ArrayList<>();
+        List<VenueScheduleInsertPO> checkPO = venueScheduleDao.getVenueScheduleSetWasIn(venueScheduleSetDTO);
+        for (String day : venueScheduleSetDTO.getWeek().split(CommonConstant.STR_SEPARATOR)) {
             week.add(Integer.parseInt(day));
         }
-        for(Integer day:dayList){
-            if(checkWeek(week,day)){
-                VenueScheduleInsertPO venueScheduleInsertPO=new VenueScheduleInsertPO();
+        for (Integer day : dayList) {
+            if (checkWeek(week, day)) {
+                VenueScheduleInsertPO venueScheduleInsertPO = new VenueScheduleInsertPO();
                 venueScheduleInsertPO.setVenueId(venueScheduleSetDTO.getVenueId());
                 venueScheduleInsertPO.setServiceId(venueScheduleSetDTO.getServiceId());
                 venueScheduleInsertPO.setVenueDay(day);
                 venueScheduleInsertPO.setVenueDayLimit(venueScheduleSetDTO.getTarget());
                 venueScheduleInsertPO.setCompanyId(venueScheduleSetDTO.getCompanyId());
-                for(VenueScheduleInsertPO venueScheduleInsertPO1:checkPO){
-                    if(day.equals(venueScheduleInsertPO1.getVenueDay())){
+                for (VenueScheduleInsertPO venueScheduleInsertPO1 : checkPO) {
+                    if (day.equals(venueScheduleInsertPO1.getVenueDay())) {
                         venueScheduleInsertPO.setId(venueScheduleInsertPO1.getId());
                     }
                 }
@@ -165,41 +172,45 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
         venueScheduleDao.insertSet(venueScheduleInsertPOS);
 
     }
+
     //校验星期几
-    public boolean checkWeek(List<Integer> week,Integer time){
-        Long lo=new Long(time);
-        lo*=1000;
+    public boolean checkWeek(List<Integer> week, Integer time) {
+        Long lo = new Long(time);
+        lo *= 1000;
         Date date = new Date(lo);
         Calendar c = Calendar.getInstance();
         c.setTime(date);
-        int i=c.get(Calendar.DAY_OF_WEEK);
-        for(Integer weekDay:week){
-            if(i==weekDay){
+        int i = c.get(Calendar.DAY_OF_WEEK);
+        for (Integer weekDay : week) {
+            if (i == weekDay) {
                 return true;
             }
         }
         return false;
     }
+
     /**
      * 场馆档期下拉框
      */
-    public List<VenueSchSelectVO> venueSchSelect(Integer venueTime,Integer companyId){
-        List<VenueSchSelectVO> list=venueScheduleDao.venueSchSelect(venueTime,companyId);
-        for(VenueSchSelectVO venueSchSelectVO:list){
-            for(ServiceSchSelectVO serviceSchSelectVO:venueSchSelectVO.getServiceSchSelectVOS()){
-                if(serviceSchSelectVO.getCount()<=serviceSchSelectVO.getTarget()){
+    public List<VenueSchSelectVO> venueSchSelect(Integer venueTime, Integer companyId) {
+        List<VenueSchSelectVO> list = venueScheduleDao.venueSchSelect(venueTime, companyId);
+        for (VenueSchSelectVO venueSchSelectVO : list) {
+            for (ServiceSchSelectVO serviceSchSelectVO : venueSchSelectVO.getServiceSchSelectVOS()) {
+                if (serviceSchSelectVO.getCount() <= serviceSchSelectVO.getTarget()) {
                     serviceSchSelectVO.setStatus(true);
                 }
             }
         }
         return list;
     }
+
     /**
      * 编辑单个档期
+     *
      * @param schId
      * @param target
      */
-    public void editVenueSch(Integer schId,Integer target){
-        venueScheduleDao.editVenueSch(schId,target);
+    public void editVenueSch(Integer schId, Integer target) {
+        venueScheduleDao.editVenueSch(schId, target);
     }
 }
