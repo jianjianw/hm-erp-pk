@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.service;
 
+import com.github.pagehelper.PageInfo;
 import com.qiein.erp.pk.web.entity.dto.OrderDTO;
 import com.qiein.erp.pk.web.entity.dto.OrderSelectDTO;
 import com.qiein.erp.pk.web.entity.po.OrderEditPO;
@@ -20,7 +21,7 @@ public interface OrderService {
      * @param orderDTO
      * @return
      */
-    List<OrderVO> getOrder(OrderDTO orderDTO);
+    PageInfo<OrderVO> getOrder(OrderDTO orderDTO);
     /**
      * 根据档期id获取订单页面
      * @param orderDTO
@@ -51,4 +52,12 @@ public interface OrderService {
      * 修改订单
      */
     void updateOrder(OrderEditPO orderEditPO);
+
+    /**
+     * 修改备注
+     * @param memo
+     * @param orderId
+     * @param companyId
+     */
+    void editMemo(String memo,Integer orderId,Integer companyId);
 }

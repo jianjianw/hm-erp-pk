@@ -23,6 +23,7 @@
         <result property="makeupName" column="makeup_name"/>
         <result property="shootRoomId" column="shootRoomId"/>
         <result property="childName" column="child_name"/>
+        <result property="orderMemo" column="order_memo"/>
         <result property="type" column="type"/>
         <result property="age" column="age"/>
         <result property="sex" column="sex"/>
@@ -50,6 +51,7 @@
         <result column="marry_time" property="marryTime"/>
         <result column="address" property="address"/>
         <result column="order_time" property="orderTime"/>
+        <result column="order_memo" property="orderMemo"/>
         <result column="type" property="type"/>
         <collection property="processVOS" ofType="com.qiein.erp.pk.web.entity.vo.ProcessVO">
             <id column="pro_id" property="proId"/>
@@ -94,6 +96,7 @@
         ord.child_name,
         ord.type,
         ord.age,
+        ord.order_memo,
         ord.sex,
         ord.sale_id,
         ord.marry_time,
@@ -196,6 +199,7 @@
         ord.sale_id,
         ord.marry_time,
         ord.birth_day,
+        ord.order_memo,
         pro.order_type,
         staff_sch1.id shoot_id,
         staff1.NICKNAME shoot_name,
@@ -258,6 +262,7 @@
             ord.mate_name,
             ord.mate_phone,
             ord.address,
+            ord.order_memo,
             FROM_UNIXTIME(ord.order_time, "%Y/%m/%d") order_time,
             FROM_UNIXTIME(ord.marry_time, "%Y/%m/%d") marry_time,
             ord.child_name,
@@ -347,6 +352,7 @@
             ord.mate_name,
             ord.mate_phone,
             ord.address,
+            ord.order_memo,
             ord.type,
             FROM_UNIXTIME(ord.order_time, "%Y/%m/%d") order_time,
             FROM_UNIXTIME(ord.marry_time, "%Y/%m/%d") marry_time,
@@ -438,12 +444,11 @@
             AND shoot_pro.plan_schedule_id =#{planSchId}
         </if>
         <if test="shootRoomSchId!=null and shootRoomSchId !=''">
-            AND scene_pro.shoot_schedule_id =#{shootRoomSchId}
         </if>
     </select>
     <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
-        insert into hm_erp_order(kzid,meal_id,company_id,sale_id,order_time,srctype,collector_id,collector_name,old_kz_name,kz_name,kz_phone,mate_name,mate_phone,address,marry_time,letter_id,child_name,birth_day,age,sex,type)
-        values(#{kzId},#{mealId},#{companyId},#{saleId},#{orderTime},#{srcType},#{collectorId},#{collectorName},#{oldKzName},#{kzName},#{kzPhone},#{mateName},#{matePhone},#{address},#{marryTime},#{letterId},#{childName},#{birthDay},#{age},#{sex},#{type})
+        insert into hm_erp_order(kzid,meal_id,company_id,sale_id,order_time,srctype,collector_id,collector_name,old_kz_name,kz_name,kz_phone,mate_name,mate_phone,address,marry_time,letter_id,child_name,birth_day,age,sex,type,order_memo)
+        values(#{kzId},#{mealId},#{companyId},#{saleId},#{orderTime},#{srcType},#{collectorId},#{collectorName},#{oldKzName},#{kzName},#{kzPhone},#{mateName},#{matePhone},#{address},#{marryTime},#{letterId},#{childName},#{birthDay},#{age},#{sex},#{type},#{orderMemo})
     </insert>
     <update id="insertOrderNum">
         update hm_erp_order set order_num=#{orderNum} where id=#{id}
@@ -490,6 +495,12 @@
              birth_day =  #{birthday},
              age =  #{age},
              sex =  #{sex}
+             where company_id=#{companyId} and id=#{orderId}
+    </update>
+    <update id="editMemo">
+        UPDATE hm_erp_order
+            SET
+             order_memo=#{memo}
              where company_id=#{companyId} and id=#{orderId}
     </update>
 

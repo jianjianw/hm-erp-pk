@@ -78,4 +78,11 @@ public interface OrderDao {
      * 修改订单
      */
     void updateOrder(OrderEditPO orderEditPO);
+    /**
+     * 修改备注
+     * @param memo
+     * @param orderId
+     * @param companyId
+     */
+    void editMemo(@Param("memo")String memo,@Param("orderId")Integer orderId,@Param("companyId")Integer companyId);
 }

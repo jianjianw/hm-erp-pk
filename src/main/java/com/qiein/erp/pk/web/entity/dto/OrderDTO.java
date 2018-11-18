@@ -17,6 +17,24 @@ public class OrderDTO {
     private Integer orderType;//订单状态
     private Integer companyId;
     private Integer type;
+    private Integer pageNum;//页码
+    private Integer pageSize;//每页数量
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
 
     public Integer getType() {
         return type;

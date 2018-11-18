@@ -93,4 +93,13 @@ public class OrderController extends InitController{
         orderService.updateOrder(orderEditPO);
         return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
     }
+    /**
+     * 修改备注
+     */
+    @GetMapping("edit_memo")
+    public ResultInfo editMemo(@RequestParam String memo,@RequestParam Integer orderId){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        orderService.editMemo(memo,orderId,companyId);
+        return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
+    }
 }

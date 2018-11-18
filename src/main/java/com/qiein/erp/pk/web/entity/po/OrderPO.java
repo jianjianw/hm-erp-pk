@@ -36,6 +36,15 @@ public class OrderPO {
     private Integer saleId;//销售id
     private Integer orderTime;
     private Integer letterId;
+    private String orderMemo;
+
+    public String getOrderMemo() {
+        return orderMemo;
+    }
+
+    public void setOrderMemo(String orderMemo) {
+        this.orderMemo = orderMemo;
+    }
 
     public Integer getLetterId() {
         return letterId;
