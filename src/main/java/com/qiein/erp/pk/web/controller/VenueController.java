@@ -130,7 +130,7 @@ public class VenueController extends InitController{
 
 
     /**
-     * 查询公司下面的内景馆(1) 或 门店(2)
+     * 查询公司下面的内景馆(1) 或 门店(2)   排序前先查询
      */
     @GetMapping("/find_base_and_venue")
     public ResultInfo findBaseAndVenue(Integer venueType){
