@@ -76,7 +76,7 @@
 		ser.company_id=#{companyId}
   </select>
   
-<!--   查询套餐类别 -->
+  <!--查询套餐类别 -->
   <select id="selectMealType" resultMap="DictionayMap">
 	SELECT
 		dic.ID,dic.DICTYPE,dic.DICNAME,dic.PRIORITY,dic.ISSHOW,dic.COMPANYID,dic.DICCODE
@@ -88,6 +88,16 @@
 	ORDER BY dic.ISSHOW DESC,dic.PRIORITY 	
   </select>
   
+  <select id="mealTypeRepeat" resultMap="DictionayMap">
+	SELECT
+		dic.ID
+	FROM
+		hm_crm_dictionary dic
+	WHERE
+		dic.COMPANYID = #{companyId}
+		AND dic.DICTYPE = 'meal_type'
+ 		AND dic.DICNAME=#{dicName} 	
+  </select>
   <!-- 新增套餐分类  -->
   <insert id="insertMealType">
 	INSERT 
@@ -144,7 +154,16 @@
     		#{clothesNum}, #{companyId},#{serviceId},#{otherService}
       )
   </insert>
-  
+  <!-- 套餐名去重 -->
+  <select id="mealReapt" resultMap="MealMap">
+	SELECT
+		meal.id
+	FROM
+		hm_erp_meal meal
+	WHERE
+		meal.company_id=#{companyId}
+		AND meal.meal_name=#{mealName}	
+  </select>
   <!-- 编辑套餐  -->
   <update id="updateByMeal" parameterType="com.qiein.erp.pk.web.entity.po.MealPO" >
     UPDATE 
