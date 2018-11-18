@@ -4,6 +4,7 @@ package com.qiein.erp.pk.web.controller;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.SceneDTO;
+import com.qiein.erp.pk.web.entity.dto.SceneRequestDTO;
 import com.qiein.erp.pk.web.entity.dto.ShootScheduleDTO;
 import com.qiein.erp.pk.web.entity.po.SceneSchedulePO;
 import com.qiein.erp.pk.web.entity.vo.SceneScheduleVO;
@@ -99,6 +100,23 @@ public class SceneScheduleController extends InitController{
         }
         ResultInfo result = sceneScheduleService.batSaveSelect(sceneSchedulePOS);
         return result;
+    }
+
+    /**
+     * 批量编辑
+     * @param sceneRequestDTO
+     * @return
+     */
+    @PostMapping("/bat_update")
+    public ResultInfo batUpdate(@RequestBody SceneRequestDTO sceneRequestDTO){
+        List<SceneSchedulePO> sceneSchedulePOS = sceneRequestDTO.getSceneSchedulePOS();
+        List<Integer> deleteIds = sceneRequestDTO.getDeleteIds();
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS ){
+            sceneSchedulePO.setCompanyId(companyId);
+        }
+        List<SceneSchedulePO> result = sceneScheduleService.batUpdate(sceneSchedulePOS,deleteIds);
+        return ResultInfoUtil.success(result);
     }
 
     /**

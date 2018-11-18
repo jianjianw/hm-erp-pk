@@ -1,5 +1,7 @@
 package com.qiein.erp.pk.web.service.impl;
 
+import com.qiein.erp.pk.exception.ExceptionEnum;
+import com.qiein.erp.pk.exception.RException;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.dao.SceneScheduleDao;
@@ -14,6 +16,7 @@ import com.qiein.erp.pk.web.service.SceneScheduleService;
 import com.qiein.erp.pk.web.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -158,10 +161,11 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
 
     @Override
     public List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDateTime(SceneDTO sceneDTO) {
-        List<SceneSchedulePO> result = sceneScheduleDao.selectSceneScheduleBySceneIdAndDate(sceneDTO);//保存的时候先要查询  时间段
+        List<SceneSchedulePO> result = sceneScheduleDao.selectSceneScheduleBySceneIdAndDateTime(sceneDTO);//保存的时候先要查询  时间段
         return  result;
     }
 
+    @Transactional
     @Override
     public ResultInfo batSaveSelect(List<SceneSchedulePO> sceneSchedulePOS) {
 
@@ -174,7 +178,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
             sceneDTO.setStartTime(sceneSchedulePO.getStartTime());
             sceneDTO.setEndTime(sceneSchedulePO.getEndTime());
             //防止重复  先查
-            List<SceneSchedulePO> sceneSchedule = selectSceneScheduleBySceneIdAndDateTime(sceneDTO);
+            List<SceneSchedulePO> sceneSchedule = sceneScheduleDao.selectSceneScheduleBySceneIdAndDateTime(sceneDTO);
             if(sceneSchedule != null && sceneSchedule.size() > 0 ){
                 return ResultInfoUtil.error(409,sceneSchedulePO.getSceneName()+"档期已存在");
             }
@@ -184,13 +188,61 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         return ResultInfoUtil.success(sceneSchedulePOS);
     }
 
+    @Transactional
+    @Override
+    public List<SceneSchedulePO> batUpdate(List<SceneSchedulePO> sceneSchedulePOS,List<Integer> deleteIds) {//先删除
+
+        //先删除要删除的数据
+        if(deleteIds != null && deleteIds.size() > 0){
+            sceneScheduleDao.batDelete(deleteIds);
+        }
+        //移除要删除的数据
+        for (int i = sceneSchedulePOS.size() - 1; i >= 0; i--) {
+            SceneSchedulePO sceneSchedulePO = sceneSchedulePOS.get(i);
+            Integer id = sceneSchedulePO.getId();
+            if(id == null ){//如果id是空 说明是新增的数据
+                //新增数据前要查询
+                SceneDTO sceneDTO = new SceneDTO();
+                sceneDTO.setCompanyId(sceneSchedulePO.getCompanyId());
+                sceneDTO.setVenueId(sceneSchedulePO.getVenueId());
+                sceneDTO.setShootId(sceneSchedulePO.getShootId());
+                sceneDTO.setSceneId(sceneSchedulePO.getSceneId());
+                sceneDTO.setStartTime(sceneSchedulePO.getStartTime());
+                sceneDTO.setEndTime(sceneSchedulePO.getEndTime());
+                //防止重复  先查
+                List<SceneSchedulePO> sceneSchedule = sceneScheduleDao.selectSceneScheduleBySceneIdAndDateTime(sceneDTO);
+                if(sceneSchedule != null && sceneSchedule.size() > 0 ){
+                    throw new RException(sceneSchedulePO.getSceneName()+"档期已存在  startTime: "+sceneDTO.getStartTime()+"- endTime: "+sceneDTO.getEndTime(),409);
+                }
+                //新增数据 返回id
+                sceneScheduleDao.saveReturnId(sceneSchedulePO);
+                continue;
+            }
+            for (Integer value : deleteIds) {
+                if (id.equals(value)) {
+                    sceneSchedulePOS.remove(i);//移除要删除的数据
+                    break;
+                }
+            }
+        }
+
+
+        //编辑剩余的数据
+        if(sceneSchedulePOS != null && sceneSchedulePOS.size()>0){
+            sceneScheduleDao.batSaveOrUpdate(sceneSchedulePOS);
+        }
+        //返回剩余的数据
+        return sceneSchedulePOS;
+
+    }
+
     @Override
     public List<SceneSchedulePO> findSceneScheduleByIds(Integer companyId, List<Integer> ids) {
         List<SceneSchedulePO> sceneSchedulePOS = sceneScheduleDao.findSceneScheduleByIds(companyId,ids);
         return sceneSchedulePOS;
     }
 
-    //获取开始时间和结束时间
+    //获取开始时间和结束时间  2018-11-10 00:00:00  到 2018-11-10 23:59:59
     public Map<String,Integer> getStartAndEndTime(Integer dateTime){
 
         Map<String,Integer>  hashMap = new HashMap<>();
