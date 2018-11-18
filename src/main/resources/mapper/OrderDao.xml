@@ -82,6 +82,7 @@
                 <result column="scene_name" property="shootRoomName"/>
                 <result column="start_time" property="start"/>
                 <result column="end_time" property="end"/>
+                <result column="status_id" property="status"/>
             </collection>
         </collection>
     </resultMap>
@@ -296,6 +297,7 @@
             scene.scene_name,
             scene_sch.start_time,
             scene_sch.end_time,
+            scene_sch.status_id,
             shoot_room.room_id,
             scene_pro.shoot_schedule_id shoot_room_schedule_id,
             shoot_pro.makeup_room_schedule_id,
