@@ -132,8 +132,8 @@ public class SceneScheduleController extends InitController{
         for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS ){
             sceneSchedulePO.setCompanyId(companyId);
         }
-        List<SceneSchedulePO> result = sceneScheduleService.batDeleteUpdate(sceneSchedulePOS,deleteIds);
-        return ResultInfoUtil.success(result);
+        ResultInfo resultInfo = sceneScheduleService.batDeleteUpdate(sceneSchedulePOS, deleteIds);
+        return ResultInfoUtil.success(resultInfo);
     }
 
     /**
