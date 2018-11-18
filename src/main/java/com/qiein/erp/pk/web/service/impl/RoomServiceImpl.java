@@ -143,5 +143,11 @@ public class RoomServiceImpl implements RoomService {
         return roomDao.findRoomCount(companyId,venueId,roomType,status);
     }
 
+    @Override
+    public String checkName(RoomPO roomPO) {
+        //名字查重
+        return roomDao.checkName(roomPO);
+    }
+
 
 }

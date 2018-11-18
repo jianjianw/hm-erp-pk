@@ -1,6 +1,7 @@
 package com.qiein.erp.pk.web.service;
 
 import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
+import com.qiein.erp.pk.web.entity.po.RoomPO;
 import com.qiein.erp.pk.web.entity.po.VenueRoomScenePO;
 import com.qiein.erp.pk.web.entity.po.ScenePO;
 
@@ -89,4 +90,11 @@ public interface SceneService {
      * @return
      */
     List<RoomAndSceneDTO> findSceneSelect(Integer companyId, Integer venueId);
+
+    /**
+     * 名字查重
+     * @param scenePO
+     * @return
+     */
+    String checkName(ScenePO scenePO);
 }

@@ -99,4 +99,13 @@ public interface RoomService {
      */
     Integer findRoomCount(Integer companyId, Integer venueId, Integer roomType,Integer status);
 
+
+    /**
+     * 名字查重
+     * @param roomPO
+     * @return
+     */
+    String checkName(RoomPO roomPO);
+
+
 }

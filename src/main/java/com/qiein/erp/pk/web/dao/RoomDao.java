@@ -87,4 +87,11 @@ public interface RoomDao {
                           @Param("venueId") Integer venueId,
                           @Param("roomType") Integer roomType,
                           @Param("status") Integer status);
+
+    /**
+     * 名字查重
+     * @param roomPO
+     * @return
+     */
+    String checkName(RoomPO roomPO);
 }

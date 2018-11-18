@@ -119,4 +119,9 @@ public class SceneServiceImpl implements SceneService {
         return roomAndSceneDTOS;
     }
 
+    @Override
+    public String checkName(ScenePO scenePO) {
+        return sceneDao.checkName(scenePO);
+    }
+
 }
