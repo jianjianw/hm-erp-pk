@@ -219,5 +219,16 @@
         and scene.scene_status = #{status}
     </select>
 
+    <select id="checkName" parameterType="com.qiein.erp.pk.web.entity.po.ScenePO" resultType="string" >
+         select scene_name
+           from hm_erp_scene
+             where company_id = #{companyId}
+             and shoot_id = #{shootId}
+             and scene_name = #{sceneName}
+             <if test="id != null">
+                and id != #{id}
+             </if>
+    </select>
+
 
 </mapper>

@@ -267,4 +267,16 @@
               and room_status = #{status}
     </select>
 
+
+    <select id="checkName" parameterType="com.qiein.erp.pk.web.entity.po.RoomPO" resultType="string">
+        select  room_name
+          from hm_erp_venue_room
+              where company_id =#{companyId}
+              and venue_id = #{venueId}
+              and room_type = #{roomType}
+              and room_name = #{roomName}
+              <if test="roomId != null">
+                and room_id != #{roomId}
+              </if>
+    </select>
 </mapper>

@@ -1,12 +1,14 @@
 package com.qiein.erp.pk.web.controller;
 
 
+import com.qiein.erp.pk.exception.ExceptionEnum;
 import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.RoomAndSceneDTO;
 import com.qiein.erp.pk.web.entity.po.ScenePO;
 import com.qiein.erp.pk.web.service.SceneService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +49,12 @@ public class SceneController extends InitController{
 
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         scene.setCompanyId(companyId);
+        //名字去重
+        String name = sceneService.checkName(scene);
+        if(StringUtils.isNotBlank(name)){
+            return ResultInfoUtil.error(ExceptionEnum.NAME_EXIST);
+        }
+
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(scene);
         sceneService.insert(scene);
@@ -85,6 +93,11 @@ public class SceneController extends InitController{
     public ResultInfo updateByPrimaryKey(@RequestBody ScenePO scene){
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         scene.setCompanyId(companyId);
+        //名字去重
+        String name = sceneService.checkName(scene);
+        if(StringUtils.isNotBlank(name)){
+            return ResultInfoUtil.error(ExceptionEnum.NAME_EXIST);
+        }
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(scene);
         sceneService.updateByPrimaryKey(scene);
@@ -156,6 +169,14 @@ public class SceneController extends InitController{
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         List<RoomAndSceneDTO> roomAndScene = sceneService.findSceneSelect(companyId,venueId);
         return ResultInfoUtil.success(roomAndScene);
+    }
+
+    @GetMapping("/test")
+    public ResultInfo test(@RequestBody ScenePO scenePO){
+        int companyId = getCurrentLoginStaff().getCompanyId();
+        scenePO.setCompanyId(companyId);
+        String result = sceneService.checkName(scenePO);
+        return ResultInfoUtil.success(result);
     }
 
 

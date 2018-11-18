@@ -86,4 +86,11 @@ public interface SceneDao {
     Integer findSceneCount(@Param("companyId") Integer companyId,
                            @Param("venueId") Integer venueId,
                            @Param("status") Integer status);
+
+    /**
+     * 名字查重
+     * @param scenePO
+     * @return
+     */
+    String checkName(ScenePO scenePO);
 }

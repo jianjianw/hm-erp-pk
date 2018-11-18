@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.controller;
 
 
 import com.qiein.erp.pk.constant.RoomConstant;
+import com.qiein.erp.pk.exception.ExceptionEnum;
 import com.qiein.erp.pk.util.ObjectUtil;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
@@ -40,10 +41,16 @@ public class RoomController extends InitController{
      */
     @PostMapping("/insert")
     public ResultInfo insert(@RequestBody RoomPO roomPO){
-        //去掉对象中的空格
-        ObjectUtil.objectStrParamTrim(roomPO);
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         roomPO.setCompanyId(companyId);
+
+        String name = roomService.checkName(roomPO);
+        if(StringUtils.isNotBlank(name)){
+            return ResultInfoUtil.error(ExceptionEnum.NAME_EXIST);
+        }
+        //去掉对象中的空格
+        ObjectUtil.objectStrParamTrim(roomPO);
+
         roomService.insert(roomPO);
         return ResultInfoUtil.success();
     }
@@ -76,9 +83,13 @@ public class RoomController extends InitController{
      */
     @PostMapping("/update_by_primary_key")
     public ResultInfo updateByPrimaryKey(@RequestBody RoomPO roomPO){
-
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         roomPO.setCompanyId(companyId);
+        //名字去重
+        String name = roomService.checkName(roomPO);
+        if(StringUtils.isNotBlank(name)){
+            return ResultInfoUtil.error(ExceptionEnum.NAME_EXIST);
+        }
         //去掉对象中的空格
         ObjectUtil.objectStrParamTrim(roomPO);
         roomService.updateByPrimaryKey(roomPO);
@@ -235,6 +246,17 @@ public class RoomController extends InitController{
         roomService.batUpdateRoomLevel(levelAndRoomDTOs);
         return ResultInfoUtil.success();
     }
+
+
+    @GetMapping("/test")
+    public ResultInfo test(@RequestBody RoomPO roomPO){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        roomPO.setCompanyId(companyId);
+        String result = roomService.checkName(roomPO);
+        return ResultInfoUtil.success(result);
+    }
+
+
 
 
 }
