@@ -80,12 +80,13 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                             if(orderVenueScheduleVO.getCount()!=0){
                                 i++;
                             }
+
                         }
                     }
 
                 }
                 //去除场馆关闭且数据为空的数据
-                if (i == 0 && venueServiceVO.getVenueStatus().equals(0)) {
+                if (i == 0 && (venueServiceVO.getVenueStatus().equals(0)||serviceScheduleVO.getServiceStatus().equals(0))) {
                     serviceScheduleVO.getVenueScheduleVOS().remove(serviceCount);
                 } else {
                     serviceCount++;

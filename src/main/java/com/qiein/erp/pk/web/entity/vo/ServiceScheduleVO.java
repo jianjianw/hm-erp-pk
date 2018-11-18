@@ -9,9 +9,18 @@ public class ServiceScheduleVO {
     private Integer serviceId;//服务id
     private String serviceName;//服务名称
     private Integer serviceType;//服务类型
+    private Integer serviceStatus;//服务状态
     private Integer venueId;//场馆id
     private String venueName;//场馆名称
     private List<VenueScheduleVO> venueScheduleVOS;//档期类
+
+    public Integer getServiceStatus() {
+        return serviceStatus;
+    }
+
+    public void setServiceStatus(Integer serviceStatus) {
+        this.serviceStatus = serviceStatus;
+    }
 
     public Integer getVenueId() {
         return venueId;

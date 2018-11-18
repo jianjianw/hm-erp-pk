@@ -9,6 +9,7 @@
             <result property="serviceId" column="service_id"/>
             <result property="serviceName" column="service_name"/>
             <result property="serviceType" column="service_type"/>
+            <result property="serviceStatus" column="service_status"/>
         </collection>
     </resultMap>
     <!--新增服务 -->
@@ -182,7 +183,8 @@
             service.service_name,
             service_venue.venue_id,
             venue.venue_name,
-            venue.venue_status
+            venue.venue_status,
+            service.service_status
         FROM
             hm_erp_service_venue service_venue
         LEFT JOIN hm_erp_service service ON service.id = service_venue.service_id
