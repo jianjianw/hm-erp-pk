@@ -105,6 +105,7 @@
        and id = #{id}
     </update>
 
+
     <insert id="batSaveOrUpdate" parameterType="ArrayList">
 
       insert into hm_erp_scene_schedule (id, shoot_id, scene_id,
@@ -170,5 +171,39 @@
             (#{id})
         </foreach>
     </select>
+
+    <select id="selectSceneScheduleBySceneIdAndDateTime" parameterType="com.qiein.erp.pk.web.entity.dto.SceneDTO" resultMap="BaseResultMap">
+        select scene.id,scene.shoot_id,scene.scene_id,scene.start_time,scene.end_time,scene.status_id,scene.company_id,scene.venue_id
+        from hm_erp_scene_schedule scene
+        where scene.company_id = #{companyId}
+        and scene.start_time = #{startTime}
+        and scene.end_time = #{endTime}
+        and scene.venue_id = #{venueId}
+        and scene.shoot_id = #{shootId}
+        and scene.scene_id = #{sceneId}
+    </select>
+
+    <delete id="batDelete" parameterType="ArrayList">
+         delete from hm_erp_scene_schedule
+         where id in
+      <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+          #{item}
+      </foreach>
+    </delete>
+
+    <update id="batUpdate" parameterType="ArrayList">
+      <foreach collection="list" index="index" item="item" separator=";">
+          update hm_erp_scene_schedule
+          set shoot_id = #{item.shootId},
+          scene_id = #{item.sceneId},
+          start_time = #{item.startTime},
+          end_time = #{item.endTime},
+          status_id = #{item.statusId},
+          company_id = #{item.companyId},
+          venue_id = #{item.venueId}
+          where id = #{item.id}
+          and company_id = #{item.companyId}
+      </foreach>
+    </update>
 
 </mapper>

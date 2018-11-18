@@ -60,7 +60,7 @@ public interface SceneScheduleDao {
     Integer batSave(List<SceneSchedulePO> sceneSchedulePOS);
 
     /**
-     * 根据场景和时间 查询场景档期
+     * 根据场景和时间 查询场景档期   (当天的时间  时间具体到天  2018-11-10 : 00:00:00  - 2018-11-10 : 23:59:59)
      * @param sceneDTO
      * @return
      */
@@ -74,4 +74,23 @@ public interface SceneScheduleDao {
      */
     List<SceneSchedulePO> findSceneScheduleByIds(@Param("companyId") Integer companyId,
                                                  @Param("ids") List<Integer> ids);
+    /**
+     * 根据场景和时间 查询场景档期   (具体到时间点  9:00 - 9:30)
+     * @param sceneDTO
+     * @return
+     */
+    List<SceneSchedulePO> selectSceneScheduleBySceneIdAndDateTime(SceneDTO sceneDTO);
+
+    /**
+     * 批量删除数据
+     * @param deleteIds
+     */
+    void batDelete(List<Integer> deleteIds);
+
+    /**
+     * 批量编辑
+     * @param sceneSchedulePOS
+     */
+    void batUpdate(List<SceneSchedulePO> sceneSchedulePOS);
+
 }
