@@ -22,6 +22,8 @@ public class ScenePO implements Serializable {
 
     private Integer companyId;  //公司id
 
+    private String selectId;       //下拉框 shootId_id   拍摄间id + 场景id
+
 
     public Integer getId() {
         return id;
@@ -69,5 +71,13 @@ public class ScenePO implements Serializable {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public String getSelectId() {
+        return selectId;
+    }
+
+    public void setSelectId(String selectId) {
+        this.selectId = selectId;
     }
 }

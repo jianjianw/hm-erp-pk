@@ -102,4 +102,21 @@ public class SceneServiceImpl implements SceneService {
         return sceneDao.findSceneCount(companyId,venueId,status);
     }
 
+    @Override
+    public List<RoomAndSceneDTO> findSceneSelect(Integer companyId, Integer venueId) {
+
+        List<RoomAndSceneDTO> roomAndSceneDTOS = sceneDao.findRoomAndSceneByVenueId(companyId, venueId, 2);
+        for(RoomAndSceneDTO roomAndSceneDTO : roomAndSceneDTOS){
+            List<ScenePO> scenes = roomAndSceneDTO.getScenes();
+            for(ScenePO scenePO : scenes){
+                StringBuilder sb = new StringBuilder();
+                Integer shootId = scenePO.getShootId();//房间id
+                Integer id = scenePO.getId();//场景id
+                scenePO.setSelectId(sb.append(shootId).append("-").append(id).toString());//下拉框id
+            }
+
+        }
+        return roomAndSceneDTOS;
+    }
+
 }

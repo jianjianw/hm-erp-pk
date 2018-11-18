@@ -81,4 +81,12 @@ public interface SceneService {
      * @return
      */
     Integer findSceneCount(Integer companyId, Integer venueId,Integer status);
+
+    /**
+     * 拍摄景的下拉框
+     * @param companyId
+     * @param venueId
+     * @return
+     */
+    List<RoomAndSceneDTO> findSceneSelect(Integer companyId, Integer venueId);
 }
