@@ -263,8 +263,7 @@
         </if>
 
         GROUP BY
-        pro.id,
-        sence_pro.shoot_schedule_id
+        pro.id
     </select>
     <select id="selectByOrdId" resultMap="orderMap">
         SELECT
