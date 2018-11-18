@@ -11,6 +11,7 @@ public class OrderProVO {
     private String orderNum;//订单编号
     private Integer mealId;//套餐id
     private String mealName;//套餐名称
+    private Integer otherService;//其他服务
     private Integer staffId;//销售id
     private String staffName;//销售姓名
     private Integer srcType;//渠道id
@@ -29,6 +30,14 @@ public class OrderProVO {
     private Integer type;//拍摄类型
     private String orderMemo;//订单备注
     private List<ProcessVO> processVOS;//订单下的流程们
+
+    public Integer getOtherService() {
+        return otherService;
+    }
+
+    public void setOtherService(Integer otherService) {
+        this.otherService = otherService;
+    }
 
     public String getOrderMemo() {
         return orderMemo;

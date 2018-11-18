@@ -12,6 +12,7 @@ public class ProcessPO {
     private Integer shootSchId;//摄影师档期id
     private Integer makeupSchId;//化妆师档期id
     private Integer planSchId;//企划档期id
+    private Integer videoSchId;//摄影师档期id
     private Integer companyId;//公司id
     private Integer orderType;
     private Integer orderId;
