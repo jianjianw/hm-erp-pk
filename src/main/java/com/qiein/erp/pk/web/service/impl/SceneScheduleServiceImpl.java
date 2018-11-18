@@ -250,8 +250,7 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
             sceneScheduleDao.batDelete(deleteIds);
         }
         //后插入
-        ResultInfo resultInfo = batSaveSelect(sceneSchedulePOS);
-        return resultInfo;
+        return batSaveSelect(sceneSchedulePOS);
     }
 
     //获取开始时间和结束时间  2018-11-10 00:00:00  到 2018-11-10 23:59:59
