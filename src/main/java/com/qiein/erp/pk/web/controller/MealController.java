@@ -55,6 +55,11 @@ public class MealController extends InitController{
     		return ResultInfoUtil.error(9999,"类型id错误");
     	}
     		dictionaryErp.setCompanyId(companyId);
+    		//套餐分类名去重
+    		List<DictionaryErp> dic=mealService.mealTypeRepeat(dictionaryErp);
+    		if(dic!=null && dic.size()>0){
+    			return ResultInfoUtil.success("该套餐分类名已存在");
+    		}
     		mealService.insertMealType(dictionaryErp);
         return ResultInfoUtil.success();
     }
@@ -94,6 +99,11 @@ public class MealController extends InitController{
     			return ResultInfoUtil.error(9999, "缺少参数");
     		}
     		meal.setCompanyId(companyId);
+    		//新增主套餐去重
+    		List<MealPO> mealRepeat=mealService.mealReapt(meal);
+    		if(mealRepeat!=null && mealRepeat.size()>0){
+    			 return ResultInfoUtil.success("此套餐名已存在");
+    		}
     		mealService.insertMeal(meal);
         return ResultInfoUtil.success();
     }

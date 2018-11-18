@@ -133,7 +133,7 @@ public class SceneScheduleController extends InitController{
             sceneSchedulePO.setCompanyId(companyId);
         }
         ResultInfo resultInfo = sceneScheduleService.batDeleteUpdate(sceneSchedulePOS, deleteIds);
-        return ResultInfoUtil.success(resultInfo);
+        return resultInfo;
     }
 
     /**

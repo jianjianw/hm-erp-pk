@@ -63,4 +63,16 @@ public interface MealDao {
 	 * @return
 	 */
 	List<MealSelectVO> mealSelect(@Param("companyId")Integer companyId,@Param("serviceId")Integer serviceId);
+	/**
+	 * 主套餐名去重
+	 * @param companyId
+	 * @return
+	 */
+	List<MealPO> mealReapt(MealPO meal);
+	/**
+	 * 套餐分类名去重
+	 * @param companyId
+	 * @return
+	 */
+	List<DictionaryErp> mealTypeRepeat(DictionaryErp dictionaryErp);
 }

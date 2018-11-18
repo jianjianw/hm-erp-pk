@@ -55,6 +55,18 @@ public interface MealService {
 	 * @return
 	 */
 	List<MealSelectVO> mealSelect(Integer companyId ,Integer serviceId);
+	/**
+	 * 主套餐名去重
+	 * @param companyId
+	 * @return
+	 */
+	List<MealPO> mealReapt(MealPO meal);
+	/**
+	 * 套餐分类名去重
+	 * @param companyId
+	 * @return
+	 */
+	List<DictionaryErp> mealTypeRepeat(DictionaryErp dictionaryErp);
 	
     
 }
