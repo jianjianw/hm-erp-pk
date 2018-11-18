@@ -146,5 +146,18 @@ public class SceneController extends InitController{
     }
 
 
+    /**
+     * 拍摄景的下拉框
+     * @param venueId
+     * @return
+     */
+    @GetMapping("/find_scene_select")
+    public ResultInfo findSceneSelect(Integer venueId){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+        List<RoomAndSceneDTO> roomAndScene = sceneService.findSceneSelect(companyId,venueId);
+        return ResultInfoUtil.success(roomAndScene);
+    }
+
+
 
 }
