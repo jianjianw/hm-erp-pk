@@ -36,10 +36,11 @@
 			<result column="id" property="id"/>
 			<result column="meal_name" property="mealName"/>
 			<result column="clothes_num" property="clothesNum"/>
+			<result column="other_service" property="otherService"/>
 		</collection>
 	</resultMap>
   <select id="mealSelect" resultMap="mealSelectMap">
-	  select meal_type,dic.DICNAME,meal.id,meal_name,clothes_num from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId} and meal.service_id=#{serviceId}
+	  select meal_type,dic.DICNAME,meal.id,meal_name,clothes_num,other_service from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId} and meal.service_id=#{serviceId}
   </select>
   <!-- 查询服务id  -->
   <resultMap id="ServiceMap" type="com.qiein.erp.pk.web.entity.po.ServicePO" >

@@ -21,6 +21,7 @@
         <result property="shootName" column="shoot_name"/>
         <result property="makeupId" column="makeup_id"/>
         <result property="makeupName" column="makeup_name"/>
+        <result property="videoName" column="video_name"/>
         <result property="shootRoomId" column="shootRoomId"/>
         <result property="childName" column="child_name"/>
         <result property="orderMemo" column="order_memo"/>
@@ -72,7 +73,7 @@
             <result column="planName" property="planName"/>
             <result column="planTime" property="planTime"/>
             <collection property="shootRooms" ofType="com.qiein.erp.pk.web.entity.vo.ShootRoomVO">
-                <id column="shoot_schedule_id" property="shootRoomSchId"/>
+                <id column="shoot_room_schedule_id" property="shootRoomSchId"/>
                 <result column="scene_id" property="roomId"/>
                 <result column="scene_name" property="shootRoomName"/>
                 <result column="start_time" property="start"/>
@@ -110,6 +111,7 @@
         staff1.NICKNAME shoot_name,
         staff_sch2.id makeup_id,
         staff2.NICKNAME makeup_name,
+        staff3.Nickname video_name,
         GROUP_CONCAT(sence_sch.id SEPARATOR ',') shootRoomId
     FROM
         hm_erp_order ord
@@ -133,10 +135,14 @@
     AND staff_sch1.company_id = shoot_pro.company_id
     LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
     AND staff_sch2.company_id = shoot_pro.company_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch3 ON staff_sch2.id = shoot_pro.video_schedule_id
+        AND staff_sch3.company_id = shoot_pro.company_id
     LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
     AND staff1.COMPANYID = staff_sch1.company_id
     LEFT JOIN hm_pub_staff staff2 ON staff2.ID = staff_sch2.staff_id
     AND staff2.COMPANYID = staff_sch2.company_id
+        LEFT JOIN hm_pub_staff staff3 ON staff3.ID = staff_sch3.staff_id
+        AND staff3.COMPANYID = staff_sch3.company_id
     WHERE
         ord.company_id =#{companyId}
         <if test="timeType == 'ps'">
@@ -276,6 +282,7 @@
             scene.scene_name,
             scene_sch.start_time,
             scene_sch.end_time,
+            scene_pro.shoot_schedule_id shoot_room_schedule_id,
             shoot_pro.makeup_room_schedule_id,
             room.room_name makeupRoomName,
             shoot_pro.makeup_schedule_id,

@@ -34,6 +34,15 @@ public class OrderVO {
     private Integer collectorName;//推广人姓名
     private Integer saleId;
     private String orderMemo;//订单备注
+    private String videoName;//摄像师名称
+
+    public String getVideoName() {
+        return videoName;
+    }
+
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
+    }
 
     public String getOrderMemo() {
         return orderMemo;
