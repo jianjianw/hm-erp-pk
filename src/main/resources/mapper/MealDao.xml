@@ -17,6 +17,8 @@
     <result column="service_id" property="serviceId" jdbcType="INTEGER" />
     <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
     <result column="photo_name" property="photoName" jdbcType="VARCHAR" />
+    <result column="other_service" property="otherService" jdbcType="INTEGER" />
+    <result column="other_service_name" property="otherServiceName" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="DictionayMap" type="com.qiein.erp.pk.web.entity.po.DictionaryErp" >
@@ -109,7 +111,7 @@
 		AND dic.DICTYPE='meal_type')
   </insert>
   
-  <!-- 编辑套餐  -->
+  <!-- 编辑套餐分类  -->
   <update id="updateMealType" parameterType="com.qiein.erp.pk.web.entity.po.DictionaryErp" >
     UPDATE 
     	hm_crm_dictionary
@@ -131,9 +133,15 @@
   <insert id="insertMeal" parameterType="com.qiein.erp.pk.web.entity.po.BasePO" >
     insert into 
     	hm_erp_meal (meal_name, photo_type,meal_type,meal_status,meal_amount,
-    			memo,priority,clothes_num,company_id,service_id)
-    	values (#{mealName}, #{photoType}, #{mealType}, #{mealStatus}, #{mealAmount},
-    		 #{memo}, #{priority}, #{clothesNum}, #{companyId},#{serviceId}
+    			memo,priority,clothes_num,company_id,service_id,other_service)
+    	values (#{mealName}, #{photoType}, #{mealType}, #{mealStatus}, #{mealAmount},#{memo}, 
+    		(SELECT
+				IFNULL(MAX(meal.priority),0)+1
+		 	FROM
+				hm_erp_meal meal
+			WHERE
+				meal.company_id=#{companyId}), 
+    		#{clothesNum}, #{companyId},#{serviceId},#{otherService}
       )
   </insert>
   
@@ -169,6 +177,9 @@
     	<if test="serviceId != null and serviceId != 0 ">
     		service_id=#{serviceId},
     	</if>
+    	<if test="otherService != null and otherService != 0 ">
+    		other_service=#{otherService},
+    	</if>
     </set> 
     WHERE 
     	id = #{id} and company_id=#{companyId}
@@ -176,16 +187,15 @@
   
   <!--查询套餐  -->
    <select id="selectAll" resultMap="MealMap" >
-	SELECT
-		dic.DICNAME photo_name ,meal.id,meal.meal_name, meal.photo_type, meal.meal_type,meal.meal_status,
-		meal.meal_amount,meal.memo,meal.priority,meal.clothes_num,meal.company_id,
-  	meal.service_id
+		SELECT
+		meal.other_service,r.role_name other_service_name,dic.DICNAME photo_name ,meal.id,meal.meal_name, meal.photo_type, meal.meal_type,meal.meal_status,
+		meal.meal_amount,meal.memo,meal.priority,meal.clothes_num,meal.company_id,meal.service_id
 	FROM
 		hm_erp_meal meal
-	LEFT JOIN hm_crm_dictionary dic ON dic.DICCODE=meal.photo_type AND dic.COMPANYID=meal.company_id 
-		AND dic.DICTYPE='common_type'
+	LEFT JOIN hm_crm_dictionary dic ON dic.DICCODE=meal.photo_type AND dic.COMPANYID=meal.company_id AND dic.DICTYPE='common_type'
+	LEFT JOIN hm_erp_role r ON r.id= meal.other_service AND r.company_id=meal.company_id	
 	where
-		company_id=#{companyId}  
+		meal.company_id=#{companyId}  
   </select> 
   
 </mapper>
