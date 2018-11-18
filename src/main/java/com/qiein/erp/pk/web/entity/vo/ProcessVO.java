@@ -25,6 +25,15 @@ public class ProcessVO {
     private Integer planSchId;//企划档期id
     private String planName;//企划名称
     private Integer planTime;//企划时间
+    private Integer videoSchId;//摄像师档期id
+
+    public Integer getVideoSchId() {
+        return videoSchId;
+    }
+
+    public void setVideoSchId(Integer videoSchId) {
+        this.videoSchId = videoSchId;
+    }
 
     public Integer getPlanTime() {
         return planTime;

@@ -9,9 +9,18 @@ public class OrderSelectDTO {
     private Integer venueSchId;//场馆档期id
     private Integer makeupRoomSchId;//化妆间档期id
     private Integer makeupSchId;//化妆师档期id
-    private Integer shootSchId;//摄像师档期id
+    private Integer shootSchId;//摄影师档期id
     private Integer planSchId;//企划档期id
     private Integer shootRoomSchId;//拍摄间档期id
+    private Integer videoSchId;//摄像师档期id
+
+    public Integer getVideoSchId() {
+        return videoSchId;
+    }
+
+    public void setVideoSchId(Integer videoSchId) {
+        this.videoSchId = videoSchId;
+    }
 
     public Integer getCompanyId() {
         return companyId;

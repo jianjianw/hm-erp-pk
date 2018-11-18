@@ -23,7 +23,7 @@ public class OrderPO {
     private Integer venueSchId;//场馆档期id
     private Integer makeupRoomSchId;//化妆间档期id
     private Integer makeupSchId;//化妆师档期id
-    private Integer shootSchId;//摄像师档期id
+    private Integer shootSchId;//摄影师档期id
     private Integer planSchId;//企划档期id
     private String shootRoomSchIds;//拍摄间档期id
     private Integer orderType;//订单状态
@@ -37,6 +37,7 @@ public class OrderPO {
     private Integer orderTime;
     private Integer letterId;
     private String orderMemo;
+    private Integer videoSchId;//摄像师档期id
 
     public String getOrderMemo() {
         return orderMemo;
