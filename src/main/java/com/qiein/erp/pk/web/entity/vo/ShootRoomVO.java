@@ -10,6 +10,15 @@ public class ShootRoomVO {
     private Integer start;//开始
     private Integer end;//结束
     private Integer sceneId;//拍摄景id
+
+    public Integer getSceneId() {
+        return sceneId;
+    }
+
+    public void setSceneId(Integer sceneId) {
+        this.sceneId = sceneId;
+    }
+
     public Integer getShootRoomSchId() {
         return shootRoomSchId;
     }
