@@ -1,6 +1,7 @@
 package com.qiein.erp.pk.web.service.impl;
 
 import com.qiein.erp.pk.constant.CommonConstant;
+import com.qiein.erp.pk.util.ListUtil;
 import com.qiein.erp.pk.util.TimeUtil;
 import com.qiein.erp.pk.web.dao.ServiceDao;
 import com.qiein.erp.pk.web.dao.VenueScheduleDao;
@@ -94,13 +95,14 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                 serviceCount++;
 
             }
-            int count=0;
-            for(int i:list){
-                i-=count;
-                venueServiceVO.getServiceScheduleVOS().remove(i);
-                count++;
-            }
-
+//            int count=0;
+//
+//            for(int i:list){
+//                i-=count;
+//                venueServiceVO.getServiceScheduleVOS().remove(i);
+//                count++;
+//            }
+            ListUtil.removeKeys(venueServiceVO.getServiceScheduleVOS(),list);
         }
         //去除场馆关闭且数据为空的数据
         for (VenueServiceVO venueServiceVO : venueServiceVOS) {
