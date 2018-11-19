@@ -88,6 +88,8 @@ public interface PlanScheduleDao {
      * @return
      */
 	void updateStaffStatus(StaffScheduleVO staffSchedule);
+
+	void update(@Param("staffId")Integer staffId,@Param("schId")Integer schId);
 	
 	
 	

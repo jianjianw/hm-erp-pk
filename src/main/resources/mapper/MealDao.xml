@@ -21,6 +21,12 @@
     <result column="other_service_name" property="otherServiceName" jdbcType="VARCHAR" />
   </resultMap>
   
+  <resultMap id="RoleMap" type="com.qiein.erp.pk.web.entity.po.RolePO">
+  		<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    	<result column="company_id" property="companyId" jdbcType="INTEGER" />
+  </resultMap>
+  
   <resultMap id="DictionayMap" type="com.qiein.erp.pk.web.entity.po.DictionaryErp" >
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="DICTYPE" property="dicType" jdbcType="VARCHAR" />
@@ -43,6 +49,16 @@
 	</resultMap>
   <select id="mealSelect" resultMap="mealSelectMap">
 	  select meal_type,dic.DICNAME,meal.id,meal_name,clothes_num,other_service from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId} and meal.service_id=#{serviceId} and meal_status=1
+  </select>
+  <!--查询其他服务  -->
+  <select id="selectOtherService" resultMap="RoleMap">
+  		SELECT
+			id,role_name,company_id
+		FROM
+			hm_erp_role
+		WHERE
+ 			company_id=1
+			AND role_name NOT IN('化妆师','摄影师')
   </select>
   <!-- 查询服务id  -->
   <resultMap id="ServiceMap" type="com.qiein.erp.pk.web.entity.po.ServicePO" >
@@ -206,13 +222,14 @@
   
   <!--查询套餐  -->
    <select id="selectAll" resultMap="MealMap" >
-		SELECT
+	SELECT
 		meal.other_service,r.role_name other_service_name,dic.DICNAME photo_name ,meal.id,meal.meal_name, meal.photo_type, meal.meal_type,meal.meal_status,
-		meal.meal_amount,meal.memo,meal.priority,meal.clothes_num,meal.company_id,meal.service_id
+		meal.meal_amount,meal.memo,meal.priority,meal.clothes_num,meal.company_id,meal.service_id,ser.service_name
 	FROM
 		hm_erp_meal meal
 	LEFT JOIN hm_crm_dictionary dic ON dic.DICCODE=meal.photo_type AND dic.COMPANYID=meal.company_id AND dic.DICTYPE='common_type'
-	LEFT JOIN hm_erp_role r ON r.id= meal.other_service AND r.company_id=meal.company_id	
+	LEFT JOIN hm_erp_role r ON r.id= meal.other_service AND r.company_id=meal.company_id
+	LEFT JOIN hm_erp_service ser ON ser.id=meal.service_id AND ser.company_id=meal.company_id	
 	where
 		meal.company_id=#{companyId}  
   </select> 

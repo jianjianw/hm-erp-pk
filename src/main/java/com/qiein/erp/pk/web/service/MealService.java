@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
 import com.qiein.erp.pk.web.entity.po.MealPO;
+import com.qiein.erp.pk.web.entity.po.RolePO;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.vo.MealSelectVO;
 
@@ -67,6 +68,12 @@ public interface MealService {
 	 * @return
 	 */
 	List<DictionaryErp> mealTypeRepeat(DictionaryErp dictionaryErp);
+	/**
+	 * 查询其他服务
+	 * @param companyId
+	 * @return
+	 */
+	List<RolePO> selectOtherService(Integer companyId);
 	
     
 }

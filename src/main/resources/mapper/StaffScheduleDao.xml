@@ -139,7 +139,7 @@
 		 </if>
 		AND ss.staff_day BETWEEN #{firstTime} AND #{endTime}
 		AND sr.role_id=#{roleId}
-		AND ss.staff_status=2
+		AND ss.staff_status=2 
   </select>
   <!--新增休息  -->
   <insert id="insertRest">

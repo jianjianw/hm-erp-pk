@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.qiein.erp.pk.web.dao.MealDao;
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
 import com.qiein.erp.pk.web.entity.po.MealPO;
+import com.qiein.erp.pk.web.entity.po.RolePO;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.vo.MealSelectVO;
 import com.qiein.erp.pk.web.service.MealService;
@@ -129,6 +130,16 @@ public class MealServiceImpl implements MealService {
 	public List<DictionaryErp> mealTypeRepeat(DictionaryErp dictionaryErp) {
 		List<DictionaryErp> dic=mealDao.mealTypeRepeat(dictionaryErp);
 		return dic;
+	}
+	/**
+	 * 查询其他服务
+	 * @param companyId
+	 * @return
+	 */
+	@Override
+	public List<RolePO> selectOtherService(Integer companyId) {
+		List<RolePO> RolePO=mealDao.selectOtherService(companyId);
+		return RolePO;
 	}
 	
 }

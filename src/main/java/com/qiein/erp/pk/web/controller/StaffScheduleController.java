@@ -216,18 +216,18 @@ public class StaffScheduleController extends InitController{
   				newmaps.add(row);
   			}
   		}
-  		//把有档期休息的摄影师放入
+  		//把有档期其他日子休息的摄影师放入
   		List<StaffScheduleVO> staffMonthRest=staffScheduleService.selectMonthRest(companyId,firstDay,lastDay,roleId,venueId);
-  		TempStaffVO tempStaffs=null;
+  		TempStaffVO temp=null;
   		if(staffMonthRest!=null && staffMonthRest.size()>0){
   			for (Map<String, Object> map : newmaps) {
   	  			for (StaffScheduleVO staffScheduleVO : staffMonthRest) {
   	  				if(map.get("venueId").equals(staffScheduleVO.getVenueId())&&
   	  						map.get("staffId").equals(staffScheduleVO.getStaffId())){
-  	  					tempStaffs=new TempStaffVO();
-  	  					tempStaff.setId(staffScheduleVO.getId());
-  	  					tempStaffs.setStaffStatus(staffScheduleVO.getStaffStatus());
-  	  					map.put(String.valueOf(staffScheduleVO.getTime()), tempStaffs);
+  	  					temp=new TempStaffVO();
+  	  					temp.setId(staffScheduleVO.getId());
+  	  					temp.setStaffStatus(staffScheduleVO.getStaffStatus());
+  	  					map.put(String.valueOf(staffScheduleVO.getTime()), temp);
   	  				}
   	  			}
   			} 

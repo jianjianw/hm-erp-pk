@@ -8,6 +8,11 @@ public class TempStaffVO {
     private String mealName;
     private Integer staffStatus;
     
+	@Override
+	public String toString() {
+		return "TempStaffVO [id=" + id + ", count=" + count + ", mealName=" + mealName + ", staffStatus=" + staffStatus
+				+ "]";
+	}
 	public Integer getId() {
 		return id;
 	}

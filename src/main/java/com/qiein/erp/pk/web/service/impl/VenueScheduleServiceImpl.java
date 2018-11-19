@@ -86,7 +86,7 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                                 int type=0;
                                 for(String orderType:orderVenueScheduleVO.getOrderType().split(CommonConstant.STR_SEPARATOR)){
 
-                                    if(orderType.equals(2)||orderType.equals(3)){
+                                    if(orderType.equals("2")||orderType.equals("3")){
                                         type=1;
                                     }
 
