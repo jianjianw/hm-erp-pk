@@ -147,7 +147,7 @@
 	WHERE
 		ss.company_id=#{companyId}
 		AND sr.role_id=#{roleId}
-		AND ss.venue_id=#{venueId}
+		<!-- AND ss.venue_id=#{venueId} -->
 		AND ss.staff_status=1
 		AND ss.staff_day=#{time}
   </select>
@@ -161,7 +161,7 @@
 	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ss.staff_id AND sr.company_id=ss.company_id
 	WHERE
 		ss.company_id=#{companyId}
-		AND ss.venue_id=#{venueId}
+		<!-- AND ss.venue_id=#{venueId} -->
 		AND ss.staff_day=#{time}
 		AND sr.role_id=#{roleId}
   </select>
