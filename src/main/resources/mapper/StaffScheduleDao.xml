@@ -6,7 +6,7 @@
   <resultMap  id="VenueStaffScheduleVOMap" type="com.qiein.erp.pk.web.entity.vo.VenueStaffScheduleVO">
   	<id column="venue_id" property="venueId" jdbcType="INTEGER" />
   	<result column="venue_name" property="venueName" jdbcType="VARCHAR" />
-  	<collection property="staffScheduleVO" ofType="com.qiein.erp.pk.web.entity.vo.VenueStaffScheduleVO" javaType="List">
+  	<collection property="staffScheduleVO" ofType="com.qiein.erp.pk.web.entity.vo.StaffScheduleVO" javaType="List">
   		<id column="id" property="id" jdbcType="INTEGER" />
     	<result column="venue_id" property="venueId" jdbcType="INTEGER" />
     	<result column="staff_day_limit" property="staffDayLimit" jdbcType="INTEGER" />
