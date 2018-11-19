@@ -8,6 +8,7 @@ import com.qiein.erp.pk.web.entity.po.OrderPO;
 import com.qiein.erp.pk.web.entity.po.ProcessPO;
 import com.qiein.erp.pk.web.entity.vo.OrderProVO;
 import com.qiein.erp.pk.web.entity.vo.OrderVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -60,4 +61,8 @@ public interface OrderService {
      * @param companyId
      */
     void editMemo(String memo,Integer orderId,Integer companyId);
+    /**
+     * 根据员工搜索
+     */
+    List<OrderProVO> selectOrderByStaff(Integer companyId,Integer staffId,Integer start,Integer end,String type);
 }

@@ -9,6 +9,15 @@ public class VenueScheduleVO {
     private int targetCount;//目标拍摄对数
     private Integer scheduleId;//档期id
     private boolean isSunday;//是否是星期天
+    private Integer orderType;
+
+    public Integer getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(Integer orderType) {
+        this.orderType = orderType;
+    }
 
     public boolean isSunday() {
         return isSunday;

@@ -85,4 +85,8 @@ public interface OrderDao {
      * @param companyId
      */
     void editMemo(@Param("memo")String memo,@Param("orderId")Integer orderId,@Param("companyId")Integer companyId);
+    /**
+     * 根据员工搜索
+     */
+    List<OrderProVO> selectOrderByStaff(@Param("companyId")Integer companyId,@Param("staffId")Integer staffId,@Param("start")Integer start,@Param("end")Integer end,@Param("type")String type);
 }

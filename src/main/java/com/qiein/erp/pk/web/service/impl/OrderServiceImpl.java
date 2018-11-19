@@ -133,4 +133,10 @@ public class OrderServiceImpl implements OrderService {
     public void editMemo(String memo,Integer orderId,Integer companyId){
         orderDao.editMemo(memo,orderId,companyId);
     }
+    /**
+     * 根据员工搜索
+     */
+    public List<OrderProVO> selectOrderByStaff(Integer companyId,Integer staffId,Integer start,Integer end,String type){
+        return orderDao.selectOrderByStaff(companyId,staffId,start,end,type);
+    }
 }
