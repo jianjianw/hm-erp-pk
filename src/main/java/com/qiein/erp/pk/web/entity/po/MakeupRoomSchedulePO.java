@@ -23,6 +23,9 @@ public class MakeupRoomSchedulePO implements Serializable {
 
     private Integer companyId;
 
+    //add
+    private Integer orderType;      //拍摄类型
+
 
     public Integer getId() {
         return id;
@@ -78,5 +81,13 @@ public class MakeupRoomSchedulePO implements Serializable {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public Integer getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(Integer orderType) {
+        this.orderType = orderType;
     }
 }

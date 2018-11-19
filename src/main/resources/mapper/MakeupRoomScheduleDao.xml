@@ -11,6 +11,17 @@
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
   </resultMap>
 
+    <resultMap id="MakeupScheduleMap" type="com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="venue_id" property="venueId" jdbcType="INTEGER" />
+        <result column="service_id" property="serviceId" jdbcType="INTEGER" />
+        <result column="makeup_room_id" property="makeupRoomId" jdbcType="INTEGER" />
+        <result column="makeup_day" property="makeupDay" jdbcType="INTEGER" />
+        <result column="makeup_day_limit" property="makeupDayLimit" jdbcType="SMALLINT" />
+        <result column="company_id" property="companyId" jdbcType="INTEGER" />
+        <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from hm_erp_makeup_room_schedule
     where id = #{id,jdbcType=INTEGER}
@@ -49,7 +60,7 @@
 
 
 
-  <select id="selectMakeupRoomScheduleByDate" parameterType="map" resultMap="BaseResultMap">
+ <!-- <select id="selectMakeupRoomScheduleByDate" parameterType="map" resultMap="BaseResultMap">
       select id, venue_id, service_id, makeup_room_id, makeup_day, makeup_day_limit, company_id
       from hm_erp_makeup_room_schedule
       where company_id = #{companyId}
@@ -57,7 +68,22 @@
       <if test="venueId != null">
         and venue_id = #{venueId}
       </if>
-  </select>
+  </select>-->
+
+    <select id="selectMakeupRoomScheduleByDate" parameterType="map" resultMap="MakeupScheduleMap">
+        select room_schedule.id, room_schedule.venue_id, room_schedule.service_id, room_schedule.makeup_room_id,
+        room_schedule.makeup_day,room_schedule. makeup_day_limit, room_schedule.company_id,order_process.order_type
+        from hm_erp_makeup_room_schedule room_schedule
+        inner join hm_erp_process_shoot_schedule shoot_schedule on shoot_schedule.makeup_room_schedule_id = room_schedule.id
+        and shoot_schedule.company_id = room_schedule.company_id
+        inner join hm_erp_order_process order_process on order_process.id = shoot_schedule.process_id
+        and order_process.company_id  = shoot_schedule.company_id
+            where room_schedule.company_id = #{companyId}
+            and room_schedule.makeup_day BETWEEN #{startTime} AND #{endTime}
+            <if test="venueId != null">
+                and room_schedule.venue_id = #{venueId}
+            </if>
+    </select>
 
   <update id="updateLimitByPrimaryKey" parameterType="com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO">
      update hm_erp_makeup_room_schedule
