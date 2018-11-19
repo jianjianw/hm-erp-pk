@@ -37,6 +37,11 @@ public class SceneSchedulePO implements Serializable {
     //add  下拉框里面的数据是否可选  ture 可选
     private boolean select;
 
+    //add
+    private String venueName;
+    private String roomName;
+
+
 
 
 
@@ -134,5 +139,21 @@ public class SceneSchedulePO implements Serializable {
 
     public void setSelect(boolean select) {
         this.select = select;
+    }
+
+    public String getVenueName() {
+        return venueName;
+    }
+
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 }

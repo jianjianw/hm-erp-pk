@@ -154,18 +154,18 @@ public class StaffScheduleController extends InitController{
     	 staffScheduleVO.setCompanyId(companyId);
     	 staffScheduleVO.setStaffDayLimit(1);
     	 staffScheduleVO.setStaffStatus(2);
-    	 StaffScheduleVO staffScheduleVOs= staffScheduleService.selectRest(staffScheduleVO);
-    	 if(staffScheduleVOs==null){
+    	 StaffScheduleVO staffScheduleVOtemp= staffScheduleService.selectRest(staffScheduleVO);
+    	 if(staffScheduleVOtemp == null){
     		 staffScheduleService.insertRest(staffScheduleVO);
     		 return ResultInfoUtil.success("设置成功");
     	 }
-    	 if(staffScheduleVOs.getStaffStatus()==1){
-    		 return ResultInfoUtil.success("不可修改");
+    	 //更新状态
+    	 if(staffScheduleVOtemp != null){
+    		 staffScheduleService.updateStaffStatus(staffScheduleVOtemp);
+    		 return ResultInfoUtil.success("状态已更新");
     	 }
-    	 if(staffScheduleVOs.getStaffStatus()==2){
-    		 return ResultInfoUtil.success("当日已休息");
-    	 }
-        return ResultInfoUtil.success(null);
+    	 
+        return ResultInfoUtil.success(staffScheduleVOtemp);
     }
     /**
      * 查询人员档期
