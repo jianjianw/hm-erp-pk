@@ -73,8 +73,9 @@
         left join hm_pub_staff staff on staff.ID = staff_schedule.staff_id
         and staff.COMPANYID = staff_schedule.company_id
 
-        left join hm_erp_order_process order_process on order_process.order_id = scene_link.process_id
+        left join hm_erp_order_process order_process on order_process.id = scene_link.process_id
         and order_process.company_id = scene_link.company_id
+
 
         where scene.company_id = #{companyId}
         and scene.start_time BETWEEN #{startTime} AND #{endTime}
