@@ -235,7 +235,15 @@
 		ss.staff_day,ser.service_name,meal.service_id,meal.photo_type photo_id,dic.DICNAME photo_name
 	FROM
 		 hm_erp_process_shoot_schedule shoot
-	LEFT JOIN hm_erp_staff_schedule ss ON shoot.shoot_schedule_id=ss.id AND shoot.company_id=ss.company_id
+	<if test="roleId ==1 ">
+    	LEFT JOIN hm_erp_staff_schedule ss ON shoot.shoot_schedule_id=ss.id AND shoot.company_id=ss.company_id
+    </if>
+	<if test="roleId ==2 ">
+    	LEFT JOIN hm_erp_staff_schedule ss ON shoot.makeup_schedule_id=ss.id AND shoot.company_id=ss.company_id
+    </if>
+    <if test="roleId ==3 ">
+    	LEFT JOIN hm_erp_staff_schedule ss ON shoot.video_schedule_id=ss.id AND shoot.company_id=ss.company_id
+    </if>
 	LEFT JOIN hm_pub_staff st ON st.ID=ss.staff_id AND st.COMPANYID=ss.company_id
 	LEFT JOIN hm_erp_venue ve ON ve.id=ss.venue_id AND ve.company_id=ss.company_id
 	LEFT JOIN hm_erp_staff_role reals ON reals.staff_id =ss.staff_id AND reals.company_id=ss.company_id
