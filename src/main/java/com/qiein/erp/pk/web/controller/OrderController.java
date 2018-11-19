@@ -8,6 +8,7 @@ import com.qiein.erp.pk.web.entity.dto.OrderSelectDTO;
 import com.qiein.erp.pk.web.entity.po.OrderEditPO;
 import com.qiein.erp.pk.web.entity.po.OrderPO;
 import com.qiein.erp.pk.web.entity.po.ProcessPO;
+import com.qiein.erp.pk.web.entity.po.StaffPO;
 import com.qiein.erp.pk.web.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -102,4 +103,14 @@ public class OrderController extends InitController{
         orderService.editMemo(memo,orderId,companyId);
         return ResultInfoUtil.success(TipMsgEnum.SAVE_SUCCESS);
     }
+    /**
+     * 员工展示关联档期页面
+     */
+    @GetMapping("select_order_by_staff")
+    public ResultInfo selectOrderByStaff(@RequestParam Integer start,@RequestParam Integer end,@RequestParam String type){
+        StaffPO staffPO=getCurrentLoginStaff();
+        return ResultInfoUtil.success(orderService.selectOrderByStaff(staffPO.getCompanyId(),staffPO.getId(),start,end,type));
+
+    }
 }
+

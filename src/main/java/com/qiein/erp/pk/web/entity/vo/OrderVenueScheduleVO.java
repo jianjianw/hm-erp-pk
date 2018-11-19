@@ -11,6 +11,15 @@ public class OrderVenueScheduleVO {
     private Integer venueDayLimit;//当日档期限量
     private Integer serviceId;//服务id
     private int count;//当日已定档期数
+    private Integer orderType;
+
+    public Integer getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(Integer orderType) {
+        this.orderType = orderType;
+    }
 
     public Integer getId() {
         return id;
