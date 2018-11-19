@@ -21,6 +21,7 @@
         <result column="company_id" property="companyId" jdbcType="INTEGER" />
         <result column="order_type" property="orderType" jdbcType="INTEGER" />
         <result column="countNum" property="countNum" jdbcType="INTEGER" />
+        <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
     </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -73,7 +74,7 @@
 
     <select id="selectMakeupRoomScheduleByDate" parameterType="map" resultMap="MakeupScheduleMap">
         select room_schedule.id, room_schedule.venue_id, room_schedule.service_id, room_schedule.makeup_room_id,
-        room_schedule.makeup_day,room_schedule. makeup_day_limit, room_schedule.company_id,order_process.order_type,
+        room_schedule.makeup_day,room_schedule. makeup_day_limit, room_schedule.company_id,order_process.order_type,meal.meal_name,
 
         ifnull(
         (
@@ -94,6 +95,11 @@
         and shoot_schedule.company_id = room_schedule.company_id
         inner join hm_erp_order_process order_process on order_process.id = shoot_schedule.process_id
         and order_process.company_id  = shoot_schedule.company_id
+        inner join hm_erp_order erp_order  on erp_order.id = order_process.order_id
+        and erp_order.company_id = order_process.company_id
+        inner join hm_erp_meal meal on meal.id = erp_order.meal_id
+        and meal.company_id = erp_order.company_id
+
             where room_schedule.company_id = #{companyId}
             and room_schedule.makeup_day BETWEEN #{startTime} AND #{endTime}
             <if test="venueId != null">

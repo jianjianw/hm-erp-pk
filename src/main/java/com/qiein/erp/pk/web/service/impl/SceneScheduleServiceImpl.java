@@ -58,6 +58,8 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
         for(VenueRoomScenePO venueRoomScenePO : venueRoomScenePOS){
             Integer poVenueId = venueRoomScenePO.getVenueId();
             Integer poRoomId = venueRoomScenePO.getRoomId();
+            String venueName = venueRoomScenePO.getVenueName();
+            String roomName = venueRoomScenePO.getRoomName();
             List<ScenePO> scenes = venueRoomScenePO.getScenes();
             for(ScenePO scene : scenes ){//每一个拍摄景都要封装一个list
                 Integer sceneId = scene.getId();
@@ -66,6 +68,8 @@ public class SceneScheduleServiceImpl implements SceneScheduleService {
                 sceneScheduleDTO.setRoomId(poRoomId);
                 sceneScheduleDTO.setSceneId(sceneId);
                 for(SceneSchedulePO sceneSchedulePO : sceneSchedulePOS){
+                    sceneSchedulePO.setVenueName(venueName);
+                    sceneSchedulePO.setRoomName(roomName);
                     Integer venueId1 = sceneSchedulePO.getVenueId();
                     Integer shootId = sceneSchedulePO.getShootId();
                     Integer sceneId1 = sceneSchedulePO.getSceneId();

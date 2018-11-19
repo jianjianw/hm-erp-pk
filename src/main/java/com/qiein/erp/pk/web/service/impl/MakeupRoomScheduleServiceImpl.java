@@ -75,6 +75,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
             Integer voVenueId = serviceVenueRoomVO.getVenueId();
             Integer serviceId = serviceVenueRoomVO.getServiceId();
             String serviceName = serviceVenueRoomVO.getServiceName();
+            String venueName = serviceVenueRoomVO.getVenueName();
             List<VenueAndRoomVO> makeupRooms = serviceVenueRoomVO.getMakeupRooms();
             // 如果服务下面没有房间  也要返回数据  对应的房间id没有值
             if (makeupRooms.size() == 0) {
@@ -91,6 +92,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                         makeupRoomsDTO.setIsSunday(true);
                     }
                     makeupRoomsDTO.setServiceName(serviceName);
+                    makeupRoomsDTO.setVenueName(venueName);
                     makeupRooms1.add(makeupRoomsDTO);
                 }
                 data.add(makeupRoomScheduleVO);//封装服务下面没有放假的数据
@@ -103,7 +105,8 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                 makeupRoomScheduleVO.setServiceId(serviceId);//服务id
                 Integer roomId = venueAndRoomVO.getRoomId();//房间id
                 Integer roomStatus;
-                if(venueAndRoomVO.isRoomStatus()){roomStatus=1;}
+                if(venueAndRoomVO.isRoomStatus())
+                {roomStatus=1;}
                 else{
                     roomStatus=0;
                 }
@@ -119,6 +122,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                     }
                     makeupRoomsDTO.setServiceName(serviceName);
                     makeupRoomsDTO.setRoomStatus(roomStatus);
+                    makeupRoomsDTO.setVenueName(venueName);
                     makeupRoomsDTOs.add(makeupRoomsDTO);
                 }
                 data.add(makeupRoomScheduleVO);//封装每个房间中的数据
@@ -134,6 +138,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
            Integer orderType = makeupRoomSchedulePO.getOrderType();
            Integer makeupDayLimit = makeupRoomSchedulePO.getMakeupDayLimit();
            Integer countNum = makeupRoomSchedulePO.getCountNum();
+           String mealName = makeupRoomSchedulePO.getMealName();
 
 
            for(MakeupRoomScheduleVO makeupRoomScheduleVO :data){
@@ -149,6 +154,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                            makeupRoomDTO.setScheduleId(makeupRoomSchedulePO.getId());
                            makeupRoomDTO.setOrderType(orderType);
                            makeupRoomDTO.setCountNum(countNum);//关联的拍摄流程的个数
+                           makeupRoomDTO.setMealName(mealName);
                            break;
                        }
                    }

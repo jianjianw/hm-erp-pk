@@ -12,9 +12,11 @@ public class MakeupRoomDTO implements Serializable {
     private Integer makeupDayLimit; //  每日档期限额
     //add
     private Integer orderType;  //订单类型
-    private String serviceName; //服务名字
     private Integer roomStatus; //房间的状态
     private Integer countNum;    //拍摄流程个数
+    private String mealName;    //套餐名字
+    private String serviceName; //服务名字
+    private String venueName;   //场馆名字
 
 
     public Integer getDate() {
@@ -79,5 +81,21 @@ public class MakeupRoomDTO implements Serializable {
 
     public void setCountNum(Integer countNum) {
         this.countNum = countNum;
+    }
+
+    public String getMealName() {
+        return mealName;
+    }
+
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
+    }
+
+    public String getVenueName() {
+        return venueName;
+    }
+
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
     }
 }

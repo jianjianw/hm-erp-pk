@@ -28,6 +28,9 @@ public class MakeupRoomSchedulePO implements Serializable {
 
     private Integer countNum;  //拍摄流程个数
 
+    private String mealName;    //套餐名字
+
+
 
     public Integer getId() {
         return id;
@@ -99,5 +102,13 @@ public class MakeupRoomSchedulePO implements Serializable {
 
     public void setCountNum(Integer countNum) {
         this.countNum = countNum;
+    }
+
+    public String getMealName() {
+        return mealName;
+    }
+
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
     }
 }
