@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.service.impl;
 
 import com.qiein.erp.pk.constant.CommonConstant;
 import com.qiein.erp.pk.util.ListUtil;
+import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.util.TimeUtil;
 import com.qiein.erp.pk.web.dao.ServiceDao;
 import com.qiein.erp.pk.web.dao.VenueScheduleDao;
@@ -48,6 +49,7 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                     venueScheduleVO.setTime(day);
                     venueScheduleVO.setCount(0);
                     venueScheduleVO.setTargetCount(0);
+                    venueScheduleVO.setOrderType(0);
                     venueScheduleVOS.add(venueScheduleVO);
                     Long lo = new Long(day);
                     lo *= 1000;
@@ -80,7 +82,16 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                             venueScheduleVO.setTargetCount(orderVenueScheduleVO.getVenueDayLimit());
                             venueScheduleVO.setCount(orderVenueScheduleVO.getCount());
                             venueScheduleVO.setScheduleId(orderVenueScheduleVO.getId());
-                            venueScheduleVO.setOrderType(orderVenueScheduleVO.getOrderType());
+                            if(StringUtil.isNotEmpty(orderVenueScheduleVO.getOrderType())){
+                                for(String orderType:orderVenueScheduleVO.getOrderType().split(CommonConstant.STR_SEPARATOR)){
+                                    if(orderType.equals(2)||orderType.equals(3)){
+                                        venueScheduleVO.setOrderType(2);
+                                    }else{
+                                        venueScheduleVO.setOrderType(1);
+                                    }
+                                }
+                            }
+
 
                             if (orderVenueScheduleVO.getCount() != 0) {
                                 i++;
