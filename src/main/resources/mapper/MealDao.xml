@@ -48,7 +48,11 @@
 		</collection>
 	</resultMap>
   <select id="mealSelect" resultMap="mealSelectMap">
-	  select meal_type,dic.DICNAME,meal.id,meal_name,clothes_num,other_service from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId} and meal.service_id=#{serviceId} and meal_status=1
+	  select meal_type,dic.DICNAME,meal.id,meal_name,clothes_num,other_service from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId}
+	  <if test="serviceId !=null and serviceId!=''">
+	  and meal.service_id=#{serviceId}
+	  </if>
+	  and meal_status=1
   </select>
   <!--查询其他服务  -->
   <select id="selectOtherService" resultMap="RoleMap">
