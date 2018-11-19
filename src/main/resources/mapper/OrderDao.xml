@@ -93,7 +93,7 @@
         </collection>
     </resultMap>
     <select id="selectOrder" resultMap="baseMap">
-    SELECT
+        SELECT
         pro.id ,
         pro.order_id,
         FROM_UNIXTIME(ord.order_time,"%Y/%m/%d") order_time,
@@ -124,38 +124,38 @@
         staff2.NICKNAME makeup_name,
         staff3.Nickname video_name,
         GROUP_CONCAT(sence_sch.id SEPARATOR ',') shootRoomId
-    FROM
+        FROM
         hm_erp_order ord
-    LEFT JOIN hm_erp_meal meal ON ord.meal_id = meal.id
-    AND ord.company_id = meal.company_id
-    LEFT JOIN hm_erp_order_process pro ON ord.id = pro.order_id
-    AND ord.company_id = pro.company_id
-    LEFT JOIN hm_erp_process_shoot_schedule shoot_pro ON shoot_pro.process_id = pro.id
-    AND shoot_pro.company_id = pro.company_id
-    LEFT JOIN hm_erp_process_scene_schedule sence_pro ON sence_pro.process_id = pro.id
-    AND sence_pro.company_id = pro.company_id
-    LEFT JOIN hm_erp_plan_schedule plan_sch ON shoot_pro.plan_schedule_id = plan_sch.id
-    AND shoot_pro.company_id = plan_sch.company_id
-    LEFT JOIN hm_erp_scene_schedule sence_sch ON sence_sch.id = sence_pro.shoot_schedule_id
-    AND sence_sch.company_id = sence_pro.company_id
-    LEFT JOIN hm_erp_venue_schedule venue_sch ON venue_sch.id = shoot_pro.venue_schedule_id
-    AND venue_sch.company_id = shoot_pro.company_id
-    LEFT JOIN hm_erp_makeup_room_schedule makeup_room_sch ON makeup_room_sch.id = shoot_pro.makeup_room_schedule_id
-    AND makeup_room_sch.company_id = shoot_pro.company_id
-    LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
-    AND staff_sch1.company_id = shoot_pro.company_id
-    LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
-    AND staff_sch2.company_id = shoot_pro.company_id
-    LEFT JOIN hm_erp_staff_schedule staff_sch3 ON staff_sch3.id = shoot_pro.video_schedule_id
-    AND staff_sch3.company_id = shoot_pro.company_id
-    LEFT JOIN hm_pub_staff staff3 ON staff3.ID = staff_sch3.staff_id
-    AND staff3.COMPANYID = staff_sch3.company_id
-    LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
-    AND staff1.COMPANYID = staff_sch1.company_id
-    LEFT JOIN hm_pub_staff staff2 ON staff2.ID = staff_sch2.staff_id
-    AND staff2.COMPANYID = staff_sch2.company_id
+        LEFT JOIN hm_erp_meal meal ON ord.meal_id = meal.id
+        AND ord.company_id = meal.company_id
+        LEFT JOIN hm_erp_order_process pro ON ord.id = pro.order_id
+        AND ord.company_id = pro.company_id
+        LEFT JOIN hm_erp_process_shoot_schedule shoot_pro ON shoot_pro.process_id = pro.id
+        AND shoot_pro.company_id = pro.company_id
+        LEFT JOIN hm_erp_process_scene_schedule sence_pro ON sence_pro.process_id = pro.id
+        AND sence_pro.company_id = pro.company_id
+        LEFT JOIN hm_erp_plan_schedule plan_sch ON shoot_pro.plan_schedule_id = plan_sch.id
+        AND shoot_pro.company_id = plan_sch.company_id
+        LEFT JOIN hm_erp_scene_schedule sence_sch ON sence_sch.id = sence_pro.shoot_schedule_id
+        AND sence_sch.company_id = sence_pro.company_id
+        LEFT JOIN hm_erp_venue_schedule venue_sch ON venue_sch.id = shoot_pro.venue_schedule_id
+        AND venue_sch.company_id = shoot_pro.company_id
+        LEFT JOIN hm_erp_makeup_room_schedule makeup_room_sch ON makeup_room_sch.id = shoot_pro.makeup_room_schedule_id
+        AND makeup_room_sch.company_id = shoot_pro.company_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
+        AND staff_sch1.company_id = shoot_pro.company_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
+        AND staff_sch2.company_id = shoot_pro.company_id
+        LEFT JOIN hm_erp_staff_schedule staff_sch3 ON staff_sch3.id = shoot_pro.video_schedule_id
+        AND staff_sch3.company_id = shoot_pro.company_id
+        LEFT JOIN hm_pub_staff staff3 ON staff3.ID = staff_sch3.staff_id
+        AND staff3.COMPANYID = staff_sch3.company_id
+        LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
+        AND staff1.COMPANYID = staff_sch1.company_id
+        LEFT JOIN hm_pub_staff staff2 ON staff2.ID = staff_sch2.staff_id
+        AND staff2.COMPANYID = staff_sch2.company_id
 
-    WHERE
+        WHERE
         ord.company_id =#{companyId}
         <if test="timeType == 'ps'">
             and venue_sch.venue_day BETWEEN #{start} and #{end}
@@ -170,13 +170,13 @@
             and staff1.id in (${shootId})
         </if>
         <if test="makeupId !=null and makeupId!=''">
-            and staff2.id  in (${makeupId})
+            and staff2.id in (${makeupId})
         </if>
         <if test="venueId !=null and venueId!=''">
             and venue_sch.venue_id in (${venueId})
         </if>
         <if test="orderType !=null and orderType!=''">
-            and pro.order_type  in (${orderType})
+            and pro.order_type in (${orderType})
         </if>
         <if test="mealIds !=null and mealIds!=''">
             and meal.id in (${mealIds})
@@ -196,11 +196,11 @@
         <if test="type ==5">
             and shoot_pro.makeup_room_schedule_id is null
         </if>
-    GROUP BY
-	pro.id,
-	sence_pro.shoot_schedule_id
+        GROUP BY
+        pro.id,
+        sence_pro.shoot_schedule_id
 
-  </select>
+    </select>
     <select id="selectBySchId" resultMap="baseMap">
         SELECT
         pro.id,
@@ -293,11 +293,11 @@
             FROM_UNIXTIME(ord.order_time, "%Y/%m/%d") order_time,
             FROM_UNIXTIME(ord.marry_time, "%Y/%m/%d") marry_time,
             ord.child_name,
-            FROM_UNIXTIME(ord.birth_day, "%Y/%m/%d") birth_day,
+            FROM_UNIXTIME(ord.birth_day, "%Y/%m/%d")  birth_day,
             ord.age,
             ord.sex,
             pro.order_type,
-            pro.id pro_id,
+            pro.id                                    pro_id,
             ord.srctype,
             scene_sch.scene_id,
             scene.scene_name,
@@ -305,140 +305,141 @@
             scene_sch.end_time,
             scene_sch.status_id,
             shoot_room.room_id,
-            scene_pro.shoot_schedule_id shoot_room_schedule_id,
+            scene_pro.shoot_schedule_id               shoot_room_schedule_id,
             shoot_pro.makeup_room_schedule_id,
-            room.room_name makeupRoomName,
+            room.room_name                            makeupRoomName,
             shoot_pro.makeup_schedule_id,
-            staff2.NICKNAME makeupName,
+            staff2.NICKNAME                           makeupName,
             shoot_pro.plan_schedule_id,
-            staff3.NICKNAME planName,
+            staff3.NICKNAME                           planName,
             shoot_pro.shoot_schedule_id,
-            staff1.NICKNAME shootName,
+            staff1.NICKNAME                           shootName,
             shoot_pro.venue_schedule_id,
-             shoot_pro.video_schedule_id,
-              staff4.NICKNAME video_name,
+            shoot_pro.video_schedule_id,
+            staff4.NICKNAME                           video_name,
             CONCAT(
-                venue.venue_name,
-                '/',
-                service.service_name
-            ) venueName,
+                    venue.venue_name,
+                    '/',
+                    service.service_name
+            )                                         venueName,
             meal.clothes_num,
             FROM_UNIXTIME(
-                venue_sch.venue_day,
-                "%Y/%m/%d"
-            ) venue_day,
+                    venue_sch.venue_day,
+                    "%Y/%m/%d"
+            )                                         venue_day,
             venue_sch.venue_id,
             venue_sch.service_id,
-            plan_sch.staff_day planTime,
-            staff5.id follow_people_id,
-            staff5.NICKNAME follow_people_name
+            plan_sch.staff_day                        planTime,
+            staff5.id                                 follow_people_id,
+            staff5.NICKNAME                           follow_people_name
         FROM
             hm_erp_order ord
-        LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
-        AND pro.company_id = ord.company_id
-        LEFT JOIN hm_erp_process_scene_schedule scene_pro ON scene_pro.process_id = pro.id
-        AND scene_pro.company_id = pro.company_id
-        LEFT JOIN hm_erp_process_shoot_schedule shoot_pro ON shoot_pro.process_id = pro.id
-        AND shoot_pro.company_id = pro.company_id
-        LEFT JOIN hm_erp_makeup_room_schedule makeup_room_sch ON makeup_room_sch.id = shoot_pro.makeup_room_schedule_id
-        AND makeup_room_sch.company_id = shoot_pro.company_id
-        LEFT JOIN hm_erp_venue_room room ON room.room_id = makeup_room_sch.makeup_room_id
-        AND room.company_id = makeup_room_sch.company_id
-        LEFT JOIN hm_erp_venue_schedule venue_sch ON venue_sch.id = shoot_pro.venue_schedule_id
-        AND venue_sch.company_id = shoot_pro.company_id
-        LEFT JOIN hm_erp_venue venue ON venue_sch.venue_id = venue.id
-        AND venue_sch.company_id = venue.company_id
-        LEFT JOIN hm_erp_service service ON service.id = venue_sch.service_id
-        AND service.company_id = venue_sch.company_id
-        LEFT JOIN hm_erp_meal meal ON meal.id = ord.meal_id
-        AND meal.company_id = ord.company_id
-        LEFT JOIN hm_erp_scene_schedule scene_sch ON scene_sch.id = scene_pro.shoot_schedule_id
-        AND scene_sch.company_id = scene_pro.company_id
-        LEFT JOIN hm_erp_scene scene ON scene_sch.scene_id = scene.id
-        AND scene.company_id = scene_sch.company_id
-        LEFT JOIN hm_erp_venue_room shoot_room ON shoot_room.room_id = scene.shoot_id
-        AND shoot_room.company_id = scene.company_id
-        LEFT JOIN hm_pub_staff staff ON staff.id = ord.sale_id
-        AND staff.COMPANYID = ord.company_id
-        LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
-        AND staff_sch1.company_id = shoot_pro.company_id
-        LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
-        AND staff_sch2.company_id = shoot_pro.company_id
-        LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
-        AND staff1.COMPANYID = staff_sch1.company_id
-        LEFT JOIN hm_pub_staff staff2 ON staff2.ID = staff_sch2.staff_id
-        AND staff2.COMPANYID = staff_sch2.company_id
-        LEFT JOIN hm_erp_plan_schedule plan_sch ON plan_sch.id = shoot_pro.plan_schedule_id
-        AND plan_sch.company_id = shoot_pro.company_id
-        LEFT JOIN hm_pub_staff staff5 ON staff5.ID = plan_sch.follow_people
-        AND staff5.COMPANYID = plan_sch.company_id
-        LEFT JOIN hm_pub_staff staff3 ON staff3.id = plan_sch.staff_id
-        AND plan_sch.company_id = staff3.companyId
-        LEFT JOIN hm_erp_staff_schedule staff_sch4 ON staff_sch4.id = shoot_pro.video_schedule_id
-        AND staff_sch4.company_id = shoot_pro.company_id
-        LEFT JOIN hm_pub_staff staff4 ON staff4.ID = staff_sch4.staff_id
-        AND staff4.COMPANYID = staff_sch4.company_id
-        where ord.id=#{orderId} and ord.company_id=#{companyId}
+            LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
+                                                  AND pro.company_id = ord.company_id
+            LEFT JOIN hm_erp_process_scene_schedule scene_pro ON scene_pro.process_id = pro.id
+                                                                 AND scene_pro.company_id = pro.company_id
+            LEFT JOIN hm_erp_process_shoot_schedule shoot_pro ON shoot_pro.process_id = pro.id
+                                                                 AND shoot_pro.company_id = pro.company_id
+            LEFT JOIN hm_erp_makeup_room_schedule makeup_room_sch
+                ON makeup_room_sch.id = shoot_pro.makeup_room_schedule_id
+                   AND makeup_room_sch.company_id = shoot_pro.company_id
+            LEFT JOIN hm_erp_venue_room room ON room.room_id = makeup_room_sch.makeup_room_id
+                                                AND room.company_id = makeup_room_sch.company_id
+            LEFT JOIN hm_erp_venue_schedule venue_sch ON venue_sch.id = shoot_pro.venue_schedule_id
+                                                         AND venue_sch.company_id = shoot_pro.company_id
+            LEFT JOIN hm_erp_venue venue ON venue_sch.venue_id = venue.id
+                                            AND venue_sch.company_id = venue.company_id
+            LEFT JOIN hm_erp_service service ON service.id = venue_sch.service_id
+                                                AND service.company_id = venue_sch.company_id
+            LEFT JOIN hm_erp_meal meal ON meal.id = ord.meal_id
+                                          AND meal.company_id = ord.company_id
+            LEFT JOIN hm_erp_scene_schedule scene_sch ON scene_sch.id = scene_pro.shoot_schedule_id
+                                                         AND scene_sch.company_id = scene_pro.company_id
+            LEFT JOIN hm_erp_scene scene ON scene_sch.scene_id = scene.id
+                                            AND scene.company_id = scene_sch.company_id
+            LEFT JOIN hm_erp_venue_room shoot_room ON shoot_room.room_id = scene.shoot_id
+                                                      AND shoot_room.company_id = scene.company_id
+            LEFT JOIN hm_pub_staff staff ON staff.id = ord.sale_id
+                                            AND staff.COMPANYID = ord.company_id
+            LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
+                                                          AND staff_sch1.company_id = shoot_pro.company_id
+            LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
+                                                          AND staff_sch2.company_id = shoot_pro.company_id
+            LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
+                                             AND staff1.COMPANYID = staff_sch1.company_id
+            LEFT JOIN hm_pub_staff staff2 ON staff2.ID = staff_sch2.staff_id
+                                             AND staff2.COMPANYID = staff_sch2.company_id
+            LEFT JOIN hm_erp_plan_schedule plan_sch ON plan_sch.id = shoot_pro.plan_schedule_id
+                                                       AND plan_sch.company_id = shoot_pro.company_id
+            LEFT JOIN hm_pub_staff staff5 ON staff5.ID = plan_sch.follow_people
+                                             AND staff5.COMPANYID = plan_sch.company_id
+            LEFT JOIN hm_pub_staff staff3 ON staff3.id = plan_sch.staff_id
+                                             AND plan_sch.company_id = staff3.companyId
+            LEFT JOIN hm_erp_staff_schedule staff_sch4 ON staff_sch4.id = shoot_pro.video_schedule_id
+                                                          AND staff_sch4.company_id = shoot_pro.company_id
+            LEFT JOIN hm_pub_staff staff4 ON staff4.ID = staff_sch4.staff_id
+                                             AND staff4.COMPANYID = staff_sch4.company_id
+        where ord.id = #{orderId} and ord.company_id = #{companyId}
     </select>
     <select id="selectForPhone" resultMap="orderMap">
         SELECT
-            pro.order_id,
-            ord.order_num,
-            ord.meal_id,
-            meal.meal_name,
-            meal.other_service,
-            ord.company_id,
-            ord.sale_id,
-            staff.NICKNAME,
-            ord.kz_name,
-            ord.kz_phone,
-            ord.mate_name,
-            ord.mate_phone,
-            ord.address,
-            ord.order_memo,
-            ord.type,
-            FROM_UNIXTIME(ord.order_time, "%Y/%m/%d") order_time,
-            FROM_UNIXTIME(ord.marry_time, "%Y/%m/%d") marry_time,
-            ord.child_name,
-            FROM_UNIXTIME(ord.birth_day, "%Y/%m/%d") birth_day,
-            ord.age,
-            ord.sex,
-            pro.order_type,
-            pro.id pro_id,
-            ord.srctype,
-            scene_sch.scene_id,
-            scene.scene_name,
-            scene_sch.start_time,
-            scene_sch.end_time,
-            shoot_pro.makeup_room_schedule_id,
-            room.room_name makeupRoomName,
-            shoot_pro.makeup_schedule_id,
-            staff2.NICKNAME makeupName,
-            shoot_pro.plan_schedule_id,
-            staff3.NICKNAME planName,
-            shoot_pro.shoot_schedule_id,
-            staff1.NICKNAME shootName,
-             shoot_pro.video_schedule_id,
-            staff4.NICKNAME video_name,
-            shoot_pro.venue_schedule_id,
+        pro.order_id,
+        ord.order_num,
+        ord.meal_id,
+        meal.meal_name,
+        meal.other_service,
+        ord.company_id,
+        ord.sale_id,
+        staff.NICKNAME,
+        ord.kz_name,
+        ord.kz_phone,
+        ord.mate_name,
+        ord.mate_phone,
+        ord.address,
+        ord.order_memo,
+        ord.type,
+        FROM_UNIXTIME(ord.order_time, "%Y/%m/%d") order_time,
+        FROM_UNIXTIME(ord.marry_time, "%Y/%m/%d") marry_time,
+        ord.child_name,
+        FROM_UNIXTIME(ord.birth_day, "%Y/%m/%d") birth_day,
+        ord.age,
+        ord.sex,
+        pro.order_type,
+        pro.id pro_id,
+        ord.srctype,
+        scene_sch.scene_id,
+        scene.scene_name,
+        scene_sch.start_time,
+        scene_sch.end_time,
+        shoot_pro.makeup_room_schedule_id,
+        room.room_name makeupRoomName,
+        shoot_pro.makeup_schedule_id,
+        staff2.NICKNAME makeupName,
+        shoot_pro.plan_schedule_id,
+        staff3.NICKNAME planName,
+        shoot_pro.shoot_schedule_id,
+        staff1.NICKNAME shootName,
+        shoot_pro.video_schedule_id,
+        staff4.NICKNAME video_name,
+        shoot_pro.venue_schedule_id,
 
-            CONCAT(
-                venue.venue_name,
-                '/',
-                service.service_name
-            ) venueName,
-            meal.clothes_num,
-            FROM_UNIXTIME(
-                venue_sch.venue_day,
-                "%Y/%m/%d"
-            ) venue_day,
-            venue_sch.venue_id,
-            venue_sch.service_id,
-            plan_sch.staff_day planTime,
+        CONCAT(
+        venue.venue_name,
+        '/',
+        service.service_name
+        ) venueName,
+        meal.clothes_num,
+        FROM_UNIXTIME(
+        venue_sch.venue_day,
+        "%Y/%m/%d"
+        ) venue_day,
+        venue_sch.venue_id,
+        venue_sch.service_id,
+        plan_sch.staff_day planTime,
         staff5.id follow_people_id,
         staff5.NICKNAME follow_people_name
         FROM
-            hm_erp_order ord
+        hm_erp_order ord
         LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
         AND pro.company_id = ord.company_id
         LEFT JOIN hm_erp_process_scene_schedule scene_pro ON scene_pro.process_id = pro.id
@@ -506,63 +507,63 @@
     </select>
     <select id="selectOrderByStaff" resultMap="orderMap">
         SELECT
-            pro.order_id,
-            ord.order_num,
-            ord.meal_id,
-            meal.meal_name,
-            meal.other_service,
-            ord.company_id,
-            ord.sale_id,
-            staff.NICKNAME,
-            ord.kz_name,
-            ord.kz_phone,
-            ord.mate_name,
-            ord.mate_phone,
-            ord.address,
-            ord.order_memo,
-            ord.type,
-            FROM_UNIXTIME(ord.order_time, "%Y/%m/%d") order_time,
-            FROM_UNIXTIME(ord.marry_time, "%Y/%m/%d") marry_time,
-            ord.child_name,
-            FROM_UNIXTIME(ord.birth_day, "%Y/%m/%d") birth_day,
-            ord.age,
-            ord.sex,
-            pro.order_type,
-            pro.id pro_id,
-            ord.srctype,
-            scene_sch.scene_id,
-            scene.scene_name,
-            scene_sch.start_time,
-            scene_sch.end_time,
-            shoot_pro.makeup_room_schedule_id,
-            room.room_name makeupRoomName,
-            shoot_pro.makeup_schedule_id,
-            staff2.NICKNAME makeupName,
-            shoot_pro.plan_schedule_id,
-            staff3.NICKNAME planName,
-            shoot_pro.shoot_schedule_id,
-            staff1.NICKNAME shootName,
-             shoot_pro.video_schedule_id,
-            staff4.NICKNAME video_name,
-            shoot_pro.venue_schedule_id,
+        pro.order_id,
+        ord.order_num,
+        ord.meal_id,
+        meal.meal_name,
+        meal.other_service,
+        ord.company_id,
+        ord.sale_id,
+        staff.NICKNAME,
+        ord.kz_name,
+        ord.kz_phone,
+        ord.mate_name,
+        ord.mate_phone,
+        ord.address,
+        ord.order_memo,
+        ord.type,
+        FROM_UNIXTIME(ord.order_time, "%Y/%m/%d") order_time,
+        FROM_UNIXTIME(ord.marry_time, "%Y/%m/%d") marry_time,
+        ord.child_name,
+        FROM_UNIXTIME(ord.birth_day, "%Y/%m/%d") birth_day,
+        ord.age,
+        ord.sex,
+        pro.order_type,
+        pro.id pro_id,
+        ord.srctype,
+        scene_sch.scene_id,
+        scene.scene_name,
+        scene_sch.start_time,
+        scene_sch.end_time,
+        shoot_pro.makeup_room_schedule_id,
+        room.room_name makeupRoomName,
+        shoot_pro.makeup_schedule_id,
+        staff2.NICKNAME makeupName,
+        shoot_pro.plan_schedule_id,
+        staff3.NICKNAME planName,
+        shoot_pro.shoot_schedule_id,
+        staff1.NICKNAME shootName,
+        shoot_pro.video_schedule_id,
+        staff4.NICKNAME video_name,
+        shoot_pro.venue_schedule_id,
 
-            CONCAT(
-                venue.venue_name,
-                '/',
-                service.service_name
-            ) venueName,
-            meal.clothes_num,
-            FROM_UNIXTIME(
-                venue_sch.venue_day,
-                "%Y/%m/%d"
-            ) venue_day,
-            venue_sch.venue_id,
-            venue_sch.service_id,
-            plan_sch.staff_day planTime,
+        CONCAT(
+        venue.venue_name,
+        '/',
+        service.service_name
+        ) venueName,
+        meal.clothes_num,
+        FROM_UNIXTIME(
+        venue_sch.venue_day,
+        "%Y/%m/%d"
+        ) venue_day,
+        venue_sch.venue_id,
+        venue_sch.service_id,
+        plan_sch.staff_day planTime,
         staff5.id follow_people_id,
         staff5.NICKNAME follow_people_name
         FROM
-            hm_erp_order ord
+        hm_erp_order ord
         LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
         AND pro.company_id = ord.company_id
         LEFT JOIN hm_erp_process_scene_schedule scene_pro ON scene_pro.process_id = pro.id
@@ -615,18 +616,25 @@
         and (staff1.id =#{staffId} or staff2.id=#{staffId} or staff3.id=#{staffId} or staff4.id=#{staffId})
     </select>
     <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
-        insert into hm_erp_order(kzid,meal_id,company_id,sale_id,order_time,srctype,collector_id,collector_name,old_kz_name,kz_name,kz_phone,mate_name,mate_phone,address,marry_time,letter_id,child_name,birth_day,age,sex,type,order_memo)
-        values(#{kzId},#{mealId},#{companyId},#{saleId},#{orderTime},#{srcType},#{collectorId},#{collectorName},#{oldKzName},#{kzName},#{kzPhone},#{mateName},#{matePhone},#{address},#{marryTime},#{letterId},#{childName},#{birthDay},#{age},#{sex},#{type},#{orderMemo})
+        insert into hm_erp_order (kzid, meal_id, company_id, sale_id, order_time, srctype, collector_id, collector_name, old_kz_name, kz_name, kz_phone, mate_name, mate_phone, address, marry_time, letter_id, child_name, birth_day, age, sex, type, order_memo)
+        values (#{kzId}, #{mealId}, #{companyId}, #{saleId}, #{orderTime}, #{srcType}, #{collectorId}, #{collectorName},
+                         #{oldKzName}, #{kzName}, #{kzPhone}, #{mateName}, #{matePhone}, #{address}, #{marryTime},
+                                                              #{letterId}, #{childName}, #{birthDay}, #{age}, #{sex},
+                                                              #{type}, #{orderMemo})
     </insert>
     <update id="insertOrderNum">
-        update hm_erp_order set order_num=#{orderNum} where id=#{id}
+        update hm_erp_order
+        set order_num = #{orderNum}
+        where id = #{id}
     </update>
     <insert id="insertPro" useGeneratedKeys="true" keyProperty="proId">
-        insert into hm_erp_order_process(order_id,company_id,order_type) values(#{orderId},#{companyId},#{orderType})
+        insert into hm_erp_order_process (order_id, company_id, order_type)
+        values (#{orderId}, #{companyId}, #{orderType})
     </insert>
     <insert id="insertShootSch">
-        insert into hm_erp_process_shoot_schedule(process_id,shoot_schedule_id,makeup_schedule_id,makeup_room_schedule_id,venue_schedule_id,plan_schedule_id,company_id,video_schedule_id)
-        values(#{proId},#{shootSchId},#{makeupSchId},#{makeupRoomSchId},#{venueSchId},#{planSchId},#{companyId},#{videoSchId})
+        insert into hm_erp_process_shoot_schedule (process_id, shoot_schedule_id, makeup_schedule_id, makeup_room_schedule_id, venue_schedule_id, plan_schedule_id, company_id, video_schedule_id)
+        values (#{proId}, #{shootSchId}, #{makeupSchId}, #{makeupRoomSchId}, #{venueSchId}, #{planSchId}, #{companyId},
+                #{videoSchId})
     </insert>
     <insert id="insertSceneSch">
         insert into hm_erp_process_scene_schedule(process_id,shoot_schedule_id,company_id) VALUES
@@ -638,60 +646,66 @@
     <update id="updateProcessShootSch">
         UPDATE hm_erp_process_shoot_schedule
         SET
-            venue_schedule_id =#{venueSchId},
-            makeup_room_schedule_id =#{makeupRoomSchId},
-            makeup_schedule_id =#{makeupSchId},
-            shoot_schedule_id =#{shootSchId},
-            plan_schedule_id =#{planSchId},
-            video_schedule_id=#{videoSchId}
-        where process_id= #{proId} and company_id=#{companyId}
+            venue_schedule_id       = #{venueSchId},
+            makeup_room_schedule_id = #{makeupRoomSchId},
+            makeup_schedule_id      = #{makeupSchId},
+            shoot_schedule_id       = #{shootSchId},
+            plan_schedule_id        = #{planSchId},
+            video_schedule_id       = #{videoSchId}
+        where process_id = #{proId} and company_id = #{companyId}
     </update>
     <delete id="deleteSceneSch">
-        delete from hm_erp_process_scene_schedule where process_id=#{proId} and company_id=#{companyId}
+        delete from hm_erp_process_scene_schedule
+        where process_id = #{proId} and company_id = #{companyId}
     </delete>
     <update id="updateOrder">
         UPDATE hm_erp_order
-            SET sale_id = #{saleId},
-             order_time =  #{orderTime},
-             srctype =  #{srcType},
-             kz_name =  #{kzName},
-             kz_phone =  #{kzPhone},
-             mate_name =  #{mateName},
-             mate_phone =  #{matePhone},
-             address =  #{address},
-             marry_time =  #{marryTime},
-             child_name =  #{childName},
-             birth_day =  #{birthday},
-             age =  #{age},
-             sex =  #{sex}
-             where company_id=#{companyId} and id=#{orderId}
+        SET sale_id = #{saleId},
+        order_time = #{orderTime},
+        srctype = #{srcType},
+        kz_name = #{kzName},
+        kz_phone = #{kzPhone},
+        mate_name = #{mateName},
+        mate_phone = #{matePhone},
+        address = #{address},
+        <if test="marry_time != null and marry_time !='' ">
+            marry_time = #{marryTime},
+        </if>
+        child_name = #{childName},
+        <if test="birth_day != null and birth_day !='' ">
+            birth_day = #{birthday},
+        </if>
+
+        age = #{age},
+        sex = #{sex}
+        where company_id=#{companyId} and id=#{orderId}
     </update>
     <update id="editMemo">
         UPDATE hm_erp_order
-            SET
-             order_memo=#{memo}
-             where company_id=#{companyId} and id=#{orderId}
+        SET
+            order_memo = #{memo}
+        where company_id = #{companyId} and id = #{orderId}
     </update>
     <select id="selectOrderLike" resultType="com.qiein.erp.pk.web.entity.vo.OrderLikeVO">
         SELECT
-        ord.id id,
-        ord.order_num orderNum,
-        ord.kz_name kzName,
-        ord.kz_phone kzPhone,
-        ord.mate_name mateName,
-        ord.mate_phone matePhone,
-        ord.type type,
-        ord.child_name childName
+            ord.id         id,
+            ord.order_num  orderNum,
+            ord.kz_name    kzName,
+            ord.kz_phone   kzPhone,
+            ord.mate_name  mateName,
+            ord.mate_phone matePhone,
+            ord.type       type,
+            ord.child_name childName
         FROM
-        hm_erp_order ord
+            hm_erp_order ord
         WHERE
-        ord.company_id = #{companyId}
-        AND (
-        ord.kz_name LIKE concat("%", #{key}, "%")
-        OR ord.kz_phone LIKE concat("%", #{key}, "%")
-        OR ord.mate_name LIKE concat("%", #{key}, "%")
-        OR ord.mate_phone LIKE concat("%", #{key}, "%")
-        OR ord.child_name LIKE concat("%", #{key}, "%")
-        )
+            ord.company_id = #{companyId}
+            AND (
+                ord.kz_name LIKE concat("%", #{key}, "%")
+                OR ord.kz_phone LIKE concat("%", #{key}, "%")
+                OR ord.mate_name LIKE concat("%", #{key}, "%")
+                OR ord.mate_phone LIKE concat("%", #{key}, "%")
+                OR ord.child_name LIKE concat("%", #{key}, "%")
+            )
     </select>
 </mapper>
