@@ -83,12 +83,18 @@ public class VenueScheduleServiceImpl implements VenueScheduleService {
                             venueScheduleVO.setCount(orderVenueScheduleVO.getCount());
                             venueScheduleVO.setScheduleId(orderVenueScheduleVO.getId());
                             if(StringUtil.isNotEmpty(orderVenueScheduleVO.getOrderType())){
+                                int type=0;
                                 for(String orderType:orderVenueScheduleVO.getOrderType().split(CommonConstant.STR_SEPARATOR)){
+
                                     if(orderType.equals(2)||orderType.equals(3)){
-                                        venueScheduleVO.setOrderType(2);
-                                    }else{
-                                        venueScheduleVO.setOrderType(1);
+                                        type=1;
                                     }
+
+                                }
+                                if(type==0){
+                                    venueScheduleVO.setOrderType(1);
+                                }else {
+                                    venueScheduleVO.setOrderType(2);
                                 }
                             }
 
