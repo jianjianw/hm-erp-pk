@@ -226,7 +226,8 @@
             service.id serviceId,
             room.room_id roomId,
             room.room_name roomName,
-            room.room_type roomType
+            room.room_type roomType,
+            room.room_status roomStatus
         FROM
             hm_erp_service service
         LEFT JOIN hm_erp_service_venue service_venue ON service_venue.company_id = service.company_id
