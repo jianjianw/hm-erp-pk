@@ -26,6 +26,8 @@ public class MakeupRoomSchedulePO implements Serializable {
     //add
     private Integer orderType;      //拍摄类型
 
+    private Integer countNum;  //拍摄流程个数
+
 
     public Integer getId() {
         return id;
@@ -89,5 +91,13 @@ public class MakeupRoomSchedulePO implements Serializable {
 
     public void setOrderType(Integer orderType) {
         this.orderType = orderType;
+    }
+
+    public Integer getCountNum() {
+        return countNum;
+    }
+
+    public void setCountNum(Integer countNum) {
+        this.countNum = countNum;
     }
 }

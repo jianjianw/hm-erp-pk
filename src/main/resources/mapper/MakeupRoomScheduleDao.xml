@@ -20,6 +20,7 @@
         <result column="makeup_day_limit" property="makeupDayLimit" jdbcType="SMALLINT" />
         <result column="company_id" property="companyId" jdbcType="INTEGER" />
         <result column="order_type" property="orderType" jdbcType="INTEGER" />
+        <result column="countNum" property="countNum" jdbcType="INTEGER" />
     </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -72,7 +73,22 @@
 
     <select id="selectMakeupRoomScheduleByDate" parameterType="map" resultMap="MakeupScheduleMap">
         select room_schedule.id, room_schedule.venue_id, room_schedule.service_id, room_schedule.makeup_room_id,
-        room_schedule.makeup_day,room_schedule. makeup_day_limit, room_schedule.company_id,order_process.order_type
+        room_schedule.makeup_day,room_schedule. makeup_day_limit, room_schedule.company_id,order_process.order_type,
+
+        ifnull(
+        (
+        SELECT
+        count(1)
+        FROM
+        hm_erp_process_shoot_schedule
+        WHERE
+        makeup_room_schedule_id = room_schedule.id
+        GROUP BY
+        makeup_room_schedule_id
+        ),
+        0
+        ) countNum
+
         from hm_erp_makeup_room_schedule room_schedule
         inner join hm_erp_process_shoot_schedule shoot_schedule on shoot_schedule.makeup_room_schedule_id = room_schedule.id
         and shoot_schedule.company_id = room_schedule.company_id

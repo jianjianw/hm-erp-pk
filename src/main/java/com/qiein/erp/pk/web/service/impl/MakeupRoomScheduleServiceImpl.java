@@ -102,6 +102,11 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                 makeupRoomScheduleVO.setVenueId(voVenueId);//每个房间场馆id
                 makeupRoomScheduleVO.setServiceId(serviceId);//服务id
                 Integer roomId = venueAndRoomVO.getRoomId();//房间id
+                Integer roomStatus;
+                if(venueAndRoomVO.isRoomStatus()){roomStatus=1;}
+                else{
+                    roomStatus=0;
+                }
                 makeupRoomScheduleVO.setMakeupRoomId(roomId);
                 List<MakeupRoomDTO> makeupRoomsDTOs = makeupRoomScheduleVO.getMakeupRooms();
                 for (Integer datetime : everyDayOfMonth) {//每个场馆下面的服务，服务下面的化妆间都需要一个list
@@ -113,6 +118,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                         makeupRoomsDTO.setIsSunday(true);
                     }
                     makeupRoomsDTO.setServiceName(serviceName);
+                    makeupRoomsDTO.setRoomStatus(roomStatus);
                     makeupRoomsDTOs.add(makeupRoomsDTO);
                 }
                 data.add(makeupRoomScheduleVO);//封装每个房间中的数据
@@ -120,33 +126,38 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
         }
         //上面是封装数据时间数据
         //将数据封装到 data 中
-        for (MakeupRoomSchedulePO makeupRoomSchedulePO : makeupRoomSchedulePOS) {
-            Integer poVenueId = makeupRoomSchedulePO.getVenueId();
-            Integer poServiceId = makeupRoomSchedulePO.getServiceId();
-            Integer poMakeupRoomId = makeupRoomSchedulePO.getMakeupRoomId();
-            Integer makeupDay = makeupRoomSchedulePO.getMakeupDay();//化妆间的档期
-            Integer orderType = makeupRoomSchedulePO.getOrderType();
-            Integer makeupDayLimit = makeupRoomSchedulePO.getMakeupDayLimit();
+       for(MakeupRoomSchedulePO makeupRoomSchedulePO : makeupRoomSchedulePOS){
+           Integer poVenueId = makeupRoomSchedulePO.getVenueId();
+           Integer poServiceId = makeupRoomSchedulePO.getServiceId();
+           Integer poMakeupRoomId = makeupRoomSchedulePO.getMakeupRoomId();
+           Integer makeupDay = makeupRoomSchedulePO.getMakeupDay();//化妆间的档期
+           Integer orderType = makeupRoomSchedulePO.getOrderType();
+           Integer makeupDayLimit = makeupRoomSchedulePO.getMakeupDayLimit();
+           Integer countNum = makeupRoomSchedulePO.getCountNum();
 
 
-            for (MakeupRoomScheduleVO makeupRoomScheduleVO : data) {
-                Integer voVenueId = makeupRoomScheduleVO.getVenueId();
-                Integer voServiceId = makeupRoomScheduleVO.getServiceId();
-                Integer voMakeupRoomId = makeupRoomScheduleVO.getMakeupRoomId();
-                if ((poVenueId.equals(voVenueId)) && (poServiceId.equals(voServiceId)) && poMakeupRoomId.equals(voMakeupRoomId)) {
-                    List<MakeupRoomDTO> makeupRooms = makeupRoomScheduleVO.getMakeupRooms();
-                    for (MakeupRoomDTO makeupRoomDTO : makeupRooms) {
-                        //档期中的时间  如果 和list中的日期相等
-                        if (makeupDay.equals(makeupRoomDTO.getDate())) {
-                            makeupRoomDTO.setMakeupDayLimit(makeupDayLimit);//每天限额。
-                            makeupRoomDTO.setScheduleId(makeupRoomSchedulePO.getId());
-                            makeupRoomDTO.setOrderType(orderType);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+           for(MakeupRoomScheduleVO makeupRoomScheduleVO :data){
+               Integer voVenueId = makeupRoomScheduleVO.getVenueId();
+               Integer voServiceId = makeupRoomScheduleVO.getServiceId();
+               Integer voMakeupRoomId = makeupRoomScheduleVO.getMakeupRoomId();
+               if((poVenueId.equals(voVenueId)) && (poServiceId.equals(voServiceId)) && poMakeupRoomId.equals(voMakeupRoomId)){
+                   List<MakeupRoomDTO> makeupRooms = makeupRoomScheduleVO.getMakeupRooms();
+                   for(MakeupRoomDTO makeupRoomDTO : makeupRooms){
+                       //档期中的时间  如果 和list中的日期相等
+                       if(makeupDay.equals(makeupRoomDTO.getDate())){
+                           makeupRoomDTO.setMakeupDayLimit(makeupDayLimit);//每天限额。
+                           makeupRoomDTO.setScheduleId(makeupRoomSchedulePO.getId());
+                           makeupRoomDTO.setOrderType(orderType);
+                           makeupRoomDTO.setCountNum(countNum);//关联的拍摄流程的个数
+                           break;
+                       }
+                   }
+               }
+           }
+       }
+
+       //查询拍摄流程
+
 
         MakeupRoomShowVO result = new MakeupRoomShowVO();
         result.setServiceVenueRoomVOS(serviceAndMakeupRooms);
