@@ -67,20 +67,13 @@ public class MealPO implements Serializable{
 	/**
 	 * 其他服务
 	 */
-	private Integer other_service;
+	private Integer otherService;
 	/**
 	 * 其他服务名称
 	 */
 	private String otherServiceName;  
 	
-	public Integer getOther_service() {
-		return other_service;
-	}
-
-	public void setOther_service(Integer other_service) {
-		this.other_service = other_service;
-	}
-
+	
 	public String getOtherServiceName() {
 		return otherServiceName;
 	}
@@ -88,11 +81,6 @@ public class MealPO implements Serializable{
 	public void setOtherServiceName(String otherServiceName) {
 		this.otherServiceName = otherServiceName;
 	}
-	/**
-	 * 其他服务
-	 * @return
-	 */
-	private Integer otherService;
 
 	public Integer getOtherService() {
 		return otherService;

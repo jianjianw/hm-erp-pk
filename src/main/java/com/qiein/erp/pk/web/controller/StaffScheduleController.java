@@ -153,7 +153,6 @@ public class StaffScheduleController extends InitController{
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
     	 staffScheduleVO.setCompanyId(companyId);
     	 staffScheduleVO.setStaffDayLimit(1);
-    	 staffScheduleVO.setStaffStatus(2);
     	 StaffScheduleVO staffScheduleVOtemp= staffScheduleService.selectRest(staffScheduleVO);
     	 if(staffScheduleVOtemp == null){
     		 staffScheduleService.insertRest(staffScheduleVO);
@@ -161,7 +160,8 @@ public class StaffScheduleController extends InitController{
     	 }
     	 //更新状态
     	 if(staffScheduleVOtemp != null){
-    		 staffScheduleService.updateStaffStatus(staffScheduleVOtemp);
+    		 staffScheduleVO.setId(staffScheduleVOtemp.getId());
+    		 staffScheduleService.updateStaffStatus(staffScheduleVO);
     		 return ResultInfoUtil.success("状态已更新");
     	 }
     	 
