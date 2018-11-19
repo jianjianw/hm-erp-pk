@@ -7,11 +7,41 @@ public class TempStaffVO {
 	private int count;//接单合计
     private String mealName;
     private Integer staffStatus;
-    
-	@Override
-	public String toString() {
-		return "TempStaffVO [id=" + id + ", count=" + count + ", mealName=" + mealName + ", staffStatus=" + staffStatus
-				+ "]";
+    private Integer servieceId;
+    private String serviceName;
+    private Integer photoId;
+    private String photoName;
+    private Integer staffDay;
+	
+	public Integer getServieceId() {
+		return servieceId;
+	}
+	public void setServieceId(Integer servieceId) {
+		this.servieceId = servieceId;
+	}
+	public String getServiceName() {
+		return serviceName;
+	}
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+	public Integer getPhotoId() {
+		return photoId;
+	}
+	public void setPhotoId(Integer photoId) {
+		this.photoId = photoId;
+	}
+	public String getPhotoName() {
+		return photoName;
+	}
+	public void setPhotoName(String photoName) {
+		this.photoName = photoName;
+	}
+	public Integer getStaffDay() {
+		return staffDay;
+	}
+	public void setStaffDay(Integer staffDay) {
+		this.staffDay = staffDay;
 	}
 	public Integer getId() {
 		return id;

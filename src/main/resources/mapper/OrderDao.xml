@@ -32,6 +32,10 @@
         <result property="marryTime" column="marry_time"/>
         <result property="collectorName" column="collector_name"/>
         <result property="saleId" column="sale_id"/>
+        <result property="followPeopleId" column="follow_people_id"/>
+        <result property="followPeopleName" column="follow_people_name"/>
+
+
     </resultMap>
     <resultMap id="orderMap" type="com.qiein.erp.pk.web.entity.vo.OrderProVO">
         <id column="order_id" property="orderId"/>
@@ -75,6 +79,8 @@
             <result column="plan_schedule_id" property="planSchId"/>
             <result column="planName" property="planName"/>
             <result column="planTime" property="planTime"/>
+            <result property="followPeopleId" column="follow_people_id"/>
+            <result property="followPeopleName" column="follow_people_name"/>
             <collection property="shootRooms" ofType="com.qiein.erp.pk.web.entity.vo.ShootRoomVO">
                 <id column="shoot_room_schedule_id" property="shootRoomSchId"/>
                 <result column="room_id" property="roomId"/>
@@ -140,10 +146,10 @@
     AND staff_sch1.company_id = shoot_pro.company_id
     LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
     AND staff_sch2.company_id = shoot_pro.company_id
-        LEFT JOIN hm_erp_staff_schedule staff_sch3 ON staff_sch3.id = shoot_pro.video_schedule_id
-        AND staff_sch3.company_id = shoot_pro.company_id
-        LEFT JOIN hm_pub_staff staff3 ON staff3.ID = staff_sch3.staff_id
-        AND staff3.COMPANYID = staff_sch3.company_id
+    LEFT JOIN hm_erp_staff_schedule staff_sch3 ON staff_sch3.id = shoot_pro.video_schedule_id
+    AND staff_sch3.company_id = shoot_pro.company_id
+    LEFT JOIN hm_pub_staff staff3 ON staff3.ID = staff_sch3.staff_id
+    AND staff3.COMPANYID = staff_sch3.company_id
     LEFT JOIN hm_pub_staff staff1 ON staff1.ID = staff_sch1.staff_id
     AND staff1.COMPANYID = staff_sch1.company_id
     LEFT JOIN hm_pub_staff staff2 ON staff2.ID = staff_sch2.staff_id
@@ -323,7 +329,9 @@
             ) venue_day,
             venue_sch.venue_id,
             venue_sch.service_id,
-            plan_sch.staff_day planTime
+            plan_sch.staff_day planTime,
+            staff5.id follow_people_id,
+            staff5.NICKNAME follow_people_name
         FROM
             hm_erp_order ord
         LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
@@ -362,6 +370,8 @@
         AND staff2.COMPANYID = staff_sch2.company_id
         LEFT JOIN hm_erp_plan_schedule plan_sch ON plan_sch.id = shoot_pro.plan_schedule_id
         AND plan_sch.company_id = shoot_pro.company_id
+        LEFT JOIN hm_pub_staff staff5 ON staff5.ID = plan_sch.follow_people
+        AND staff5.COMPANYID = plan_sch.company_id
         LEFT JOIN hm_pub_staff staff3 ON staff3.id = plan_sch.staff_id
         AND plan_sch.company_id = staff3.companyId
         LEFT JOIN hm_erp_staff_schedule staff_sch4 ON staff_sch4.id = shoot_pro.video_schedule_id
@@ -424,7 +434,9 @@
             ) venue_day,
             venue_sch.venue_id,
             venue_sch.service_id,
-            plan_sch.staff_day planTime
+            plan_sch.staff_day planTime,
+        staff5.id follow_people_id,
+        staff5.NICKNAME follow_people_name
         FROM
             hm_erp_order ord
         LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
@@ -463,6 +475,8 @@
         AND plan_sch.company_id = shoot_pro.company_id
         LEFT JOIN hm_pub_staff staff3 ON staff3.id = plan_sch.staff_id
         AND plan_sch.company_id = staff3.companyId
+        LEFT JOIN hm_pub_staff staff5 ON staff5.ID = plan_sch.follow_people
+        AND staff5.COMPANYID = plan_sch.company_id
         LEFT JOIN hm_erp_staff_schedule staff_sch4 ON staff_sch4.id = shoot_pro.video_schedule_id
         AND staff_sch4.company_id = shoot_pro.company_id
         LEFT JOIN hm_pub_staff staff4 ON staff4.ID = staff_sch4.staff_id
@@ -544,7 +558,9 @@
             ) venue_day,
             venue_sch.venue_id,
             venue_sch.service_id,
-            plan_sch.staff_day planTime
+            plan_sch.staff_day planTime,
+        staff5.id follow_people_id,
+        staff5.NICKNAME follow_people_name
         FROM
             hm_erp_order ord
         LEFT JOIN hm_erp_order_process pro ON pro.order_id = ord.id
@@ -581,6 +597,8 @@
         AND staff2.COMPANYID = staff_sch2.company_id
         LEFT JOIN hm_erp_plan_schedule plan_sch ON plan_sch.id = shoot_pro.plan_schedule_id
         AND plan_sch.company_id = shoot_pro.company_id
+        LEFT JOIN hm_pub_staff staff5 ON staff5.ID = plan_sch.follow_people
+        AND staff5.COMPANYID = plan_sch.company_id
         LEFT JOIN hm_pub_staff staff3 ON staff3.id = plan_sch.staff_id
         AND plan_sch.company_id = staff3.companyId
         LEFT JOIN hm_erp_staff_schedule staff_sch4 ON staff_sch4.id = shoot_pro.video_schedule_id
@@ -654,5 +672,26 @@
              order_memo=#{memo}
              where company_id=#{companyId} and id=#{orderId}
     </update>
-
+    <select id="selectOrderLike" resultType="com.qiein.erp.pk.web.entity.vo.OrderLikeVO">
+        SELECT
+        ord.id id,
+        ord.order_num orderNum,
+        ord.kz_name kzName,
+        ord.kz_phone kzPhone,
+        ord.mate_name mateName,
+        ord.mate_phone matePhone,
+        ord.type type,
+        ord.child_name childName
+        FROM
+        hm_erp_order ord
+        WHERE
+        ord.company_id = #{companyId}
+        AND (
+        ord.kz_name LIKE concat("%", #{key}, "%")
+        OR ord.kz_phone LIKE concat("%", #{key}, "%")
+        OR ord.mate_name LIKE concat("%", #{key}, "%")
+        OR ord.mate_phone LIKE concat("%", #{key}, "%")
+        OR ord.child_name LIKE concat("%", #{key}, "%")
+        )
+    </select>
 </mapper>

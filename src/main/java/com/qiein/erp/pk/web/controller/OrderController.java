@@ -5,6 +5,7 @@ import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.dto.OrderDTO;
 import com.qiein.erp.pk.web.entity.dto.OrderSelectDTO;
+import com.qiein.erp.pk.web.entity.dto.RequestInfoDTO;
 import com.qiein.erp.pk.web.entity.po.OrderEditPO;
 import com.qiein.erp.pk.web.entity.po.OrderPO;
 import com.qiein.erp.pk.web.entity.po.ProcessPO;
@@ -111,6 +112,13 @@ public class OrderController extends InitController{
         StaffPO staffPO=getCurrentLoginStaff();
         return ResultInfoUtil.success(orderService.selectOrderByStaff(staffPO.getCompanyId(),staffPO.getId(),start,end,type));
 
+    }
+    /**
+     * 模糊查询
+     */
+    @GetMapping("select_order_like")
+    public ResultInfo selectOrderLike(@RequestParam String key){
+        return ResultInfoUtil.success(orderService.selectOrderLike(getCurrentLoginStaff().getCompanyId(),key));
     }
 }
 

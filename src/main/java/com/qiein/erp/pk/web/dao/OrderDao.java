@@ -5,6 +5,7 @@ import com.qiein.erp.pk.web.entity.dto.OrderSelectDTO;
 import com.qiein.erp.pk.web.entity.po.OrderEditPO;
 import com.qiein.erp.pk.web.entity.po.OrderPO;
 import com.qiein.erp.pk.web.entity.po.ProcessPO;
+import com.qiein.erp.pk.web.entity.vo.OrderLikeVO;
 import com.qiein.erp.pk.web.entity.vo.OrderProVO;
 import com.qiein.erp.pk.web.entity.vo.OrderVO;
 import org.apache.ibatis.annotations.Param;
@@ -89,4 +90,6 @@ public interface OrderDao {
      * 根据员工搜索
      */
     List<OrderProVO> selectOrderByStaff(@Param("companyId")Integer companyId,@Param("staffId")Integer staffId,@Param("start")Integer start,@Param("end")Integer end,@Param("type")String type);
+
+    List<OrderLikeVO> selectOrderLike(@Param("companyId")Integer companyId,@Param("key")String key);
 }

@@ -63,6 +63,7 @@
                 AND pro.company_id = sch.company_id
                 WHERE
                     venue_schedule_id IS NOT NULL
+                group by venue_schedule_id
             ) ord ON sd.id = ord.venue_schedule_id
             AND sd.company_id = ord.company_id
             WHERE

@@ -23,7 +23,7 @@
   
   <resultMap id="RoleMap" type="com.qiein.erp.pk.web.entity.po.RolePO">
   		<id column="id" property="id" jdbcType="INTEGER" />
-    	<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    	<result column="role_name" property="otherServiceName" jdbcType="VARCHAR" />
     	<result column="company_id" property="companyId" jdbcType="INTEGER" />
   </resultMap>
   
@@ -48,7 +48,11 @@
 		</collection>
 	</resultMap>
   <select id="mealSelect" resultMap="mealSelectMap">
-	  select meal_type,dic.DICNAME,meal.id,meal_name,clothes_num,other_service from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId} and meal.service_id=#{serviceId} and meal_status=1
+	  select meal_type,dic.DICNAME,meal.id,meal_name,clothes_num,other_service from hm_erp_meal meal left join hm_crm_dictionary dic on dic.DICTYPE="meal_type" and dic.DICCODE=meal.meal_type and dic.COMPANYID=meal.company_id where company_id=#{companyId}
+	  <if test="serviceId !=null and serviceId!=''">
+	  and meal.service_id=#{serviceId}
+	  </if>
+	  and meal_status=1
   </select>
   <!--查询其他服务  -->
   <select id="selectOtherService" resultMap="RoleMap">
@@ -223,7 +227,7 @@
   <!--查询套餐  -->
    <select id="selectAll" resultMap="MealMap" >
 	SELECT
-		meal.other_service,r.role_name other_service_name,dic.DICNAME photo_name ,meal.id,meal.meal_name, meal.photo_type, meal.meal_type,meal.meal_status,
+		r.id other_service,r.role_name other_service_name,dic.DICNAME photo_name ,meal.id,meal.meal_name, meal.photo_type, meal.meal_type,meal.meal_status,
 		meal.meal_amount,meal.memo,meal.priority,meal.clothes_num,meal.company_id,meal.service_id,ser.service_name
 	FROM
 		hm_erp_meal meal
