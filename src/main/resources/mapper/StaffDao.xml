@@ -190,13 +190,12 @@
         SELECT
             staff.staff_id id,
             role.role_id roleIds,
-        sta.NICKNAME nickName,rela.venue_id, ve.venue_name, if(sch.id is null,true,false) flag
+        sta.NICKNAME nickName,rela.venue_id, ve.venue_name
         FROM
             hm_erp_staff staff
         LEFT JOIN hm_erp_staff_role role ON role.staff_id = staff.staff_id
         left join hm_pub_staff sta on sta.id=staff.staff_id and sta.COMPANYID=staff.company_id
         LEFT JOIN hm_erp_staff_venue rela ON rela.company_id = staff.company_id AND staff.staff_id = rela.staff_id
-        	LEFT JOIN hm_erp_plan_schedule sch ON sch.company_id = staff.company_id AND sch.follow_people = staff.staff_id AND sch.staff_status =1 AND sch.venue_id = #{venueId} AND sch.staff_day = #{time}
 		LEFT JOIN hm_erp_venue ve ON ve.company_id = rela.company_id AND ve.id = rela.venue_id
         AND staff.company_id = role.company_id
         where sta.id is not null and sta.isdel=0
@@ -213,8 +212,8 @@
         LEFT JOIN hm_erp_staff_role role ON role.staff_id = staff.staff_id
         left join hm_pub_staff sta on sta.id=staff.staff_id and sta.COMPANYID=staff.company_id
         LEFT JOIN hm_erp_staff_venue rela ON rela.company_id = staff.company_id AND staff.staff_id = rela.staff_id
-        	LEFT JOIN hm_erp_plan_schedule sch ON sch.company_id = staff.company_id AND sch.follow_people = staff.staff_id AND sch.staff_status =1 AND sch.venue_id = #{venueId} AND sch.staff_day = #{time}
 		LEFT JOIN hm_erp_venue ve ON ve.company_id = rela.company_id AND ve.id = rela.venue_id
+		LEFT JOIN hm_erp_plan_schedule sch ON sch.company_id = staff.company_id AND sch.follow_people = staff.staff_id AND sch.staff_status =1 AND sch.venue_id = #{venueId} AND sch.staff_day = #{time}
         AND staff.company_id = role.company_id
         where sta.id is not null and sta.isdel=0
         and staff.company_id=#{companyId} and role.role_id in (${roleId})
