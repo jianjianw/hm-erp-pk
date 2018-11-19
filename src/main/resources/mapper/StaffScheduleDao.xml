@@ -16,6 +16,7 @@
     <result column="time" property="time" jdbcType="INTEGER" />
     <result column="count" property="count" jdbcType="INTEGER" />
     <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
     <!--新增字段  -->
     <result column="service_id" property="servieceId" jdbcType="INTEGER" />
     <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
@@ -117,7 +118,7 @@
   <!--查询当日休息摄影师 或者已经排好日期 -->
   <select id="staffRest" resultMap="StaffScheduleMap">
   	SELECT
-		ss.id,ss.staff_id,sr.role_id,ss.venue_id,ss.staff_status
+		ss.id,ss.staff_id,sr.role_id,ss.venue_id,ss.staff_status,ss.company_id
 	FROM
 		hm_erp_staff_schedule ss
 	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ss.staff_id AND sr.company_id=ss.company_id
@@ -158,7 +159,7 @@
   <!--查询摄影师人员休息  -->
   <select id="selectRest" resultMap="StaffScheduleMap">
   	SELECT
-		ss.staff_id,ss.staff_day time,ss.staff_status,sr.role_id,ss.venue_id
+		ss.id,ss.staff_id,ss.staff_day time,sr.role_id,ss.venue_id,ss.company_id
 	FROM
 		hm_erp_staff_schedule ss
 	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ss.staff_id AND sr.company_id=ss.company_id
