@@ -79,9 +79,10 @@ public interface StaffDao {
      * @param companyId
      */
     void editRoleLevel(@Param("roleId") Integer roleId, @Param("staffId") Integer staffId, @Param("roleLevel") Integer roleLevel, @Param("companyId") Integer companyId);
+
     /**
      * 角色下拉框
      */
-    List<StaffSelectVO> staffSelect(@Param("companyId") Integer companyId, @Param("roleId") String roleId);
+    List<StaffSelectVO> staffSelect(@Param("companyId") Integer companyId, @Param("roleId") String roleId, @Param("time") int time, @Param("venueId") int venueId);
 
 }

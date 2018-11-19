@@ -66,13 +66,13 @@ public class StaffServiceImpl implements StaffService {
                 roleName = "化妆师";
                 break;
             case 3:
-                roleName="摄像师";
+                roleName = "摄像师";
                 break;
             case 4:
-                roleName="销售";
+                roleName = "销售";
                 break;
             case 5:
-                roleName="主管";
+                roleName = "主管";
                 break;
             default:
                 break;
@@ -171,11 +171,12 @@ public class StaffServiceImpl implements StaffService {
     public StaffPO getById(int id, int companyId) {
         return staffDao.getByIdAndCid(id, companyId);
     }
+
     /**
      * 角色下拉框
      */
-    public List<StaffSelectVO> staffSelect(Integer companyId,String roleId){
-        return staffDao.staffSelect(companyId,roleId);
+    public List<StaffSelectVO> staffSelect(Integer companyId, String roleId, int time, int venueId) {
+        return staffDao.staffSelect(companyId, roleId, time, venueId);
     }
 
 
