@@ -187,6 +187,11 @@ public class StaffScheduleController extends InitController{
   			tempStaff.setMealName(staffScheduleVO.getMealName());
   			tempStaff.setStaffStatus(staffScheduleVO.getStaffStatus());
   			tempStaff.setId(staffScheduleVO.getId());
+  			tempStaff.setServieceId(staffScheduleVO.getServieceId());
+  			tempStaff.setServiceName(staffScheduleVO.getServiceName());
+  			tempStaff.setPhotoId(staffScheduleVO.getPhotoId());
+  			tempStaff.setPhotoName(staffScheduleVO.getPhotoName());
+  			tempStaff.setStaffDay(staffScheduleVO.getStaffDay());
   			Map<String, Object> row = new HashMap<>();
   			row.put("id", staffScheduleVO.getId());
   			row.put("venueId", staffScheduleVO.getVenueId());

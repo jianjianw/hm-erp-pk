@@ -19,14 +19,41 @@ public class StaffScheduleVO {
     private int status;
     private int count;//接单合计
     private String mealName;
+    private Integer servieceId;
+    private String serviceName;
+    private Integer photoId;
+    private String photoName;
+    private Integer staffDay;
     
-	@Override
-	public String toString() {
-		return "StaffScheduleVO [id=" + id + ", venueId=" + venueId + ", staffDayLimit=" + staffDayLimit
-				+ ", staffStatus=" + staffStatus + ", venueName=" + venueName + ", staffId=" + staffId + ", nickName="
-				+ nickName + ", roleLevel=" + roleLevel + ", roleId=" + roleId + ", roleName=" + roleName + ", time="
-				+ time + ", companyId=" + companyId + ", status=" + status + ", count=" + count + ", mealName="
-				+ mealName + "]";
+	public String getPhotoName() {
+		return photoName;
+	}
+	public void setPhotoName(String photoName) {
+		this.photoName = photoName;
+	}
+	public Integer getServieceId() {
+		return servieceId;
+	}
+	public void setServieceId(Integer servieceId) {
+		this.servieceId = servieceId;
+	}
+	public String getServiceName() {
+		return serviceName;
+	}
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+	public Integer getPhotoId() {
+		return photoId;
+	}
+	public void setPhotoId(Integer photoId) {
+		this.photoId = photoId;
+	}
+	public Integer getStaffDay() {
+		return staffDay;
+	}
+	public void setStaffDay(Integer staffDay) {
+		this.staffDay = staffDay;
 	}
 	public StaffScheduleVO() {
 		super();
