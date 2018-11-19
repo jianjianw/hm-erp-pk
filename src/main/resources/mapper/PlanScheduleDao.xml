@@ -16,6 +16,12 @@
     <result column="time" property="time" jdbcType="INTEGER" />
     <result column="count" property="count" jdbcType="INTEGER" />
     <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
+    <!--新增字段  -->
+    <result column="service_id" property="servieceId" jdbcType="INTEGER" />
+    <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
+    <result column="photo_id" property="photoId" jdbcType="INTEGER" />
+    <result column="photo_name" property="photoName" jdbcType="VARCHAR" />
+    <result column="staff_day" property="staffDay" jdbcType="INTEGER" />
   </resultMap>
   
   <resultMap id="VenueMap" type="com.qiein.erp.pk.web.entity.po.VenuePO" >
@@ -225,7 +231,8 @@
 		meal.meal_name,ps.id,ps.venue_id,ps.staff_day,ps.staff_day_limit,
 		ps.staff_status,ve.venue_name,ps.staff_id,st.NICKNAME,
 		reals.role_level,reals.role_id,r.role_name,
-		FROM_UNIXTIME(ps.staff_day, '%d') time,COUNT(1) count
+		FROM_UNIXTIME(ps.staff_day, '%d') time,COUNT(1) count,
+		ps.staff_day,ser.service_name,meal.service_id,meal.photo_type photo_id,dic.DICNAME photo_name
 	FROM
 		hm_erp_process_shoot_schedule shoot
 	LEFT JOIN hm_erp_plan_schedule ps ON shoot.plan_schedule_id=ps.id AND shoot.company_id=ps.company_id
@@ -236,6 +243,8 @@
 	LEFT JOIN hm_erp_order_process op ON shoot.process_id=op.id AND shoot.company_id=op.company_id
 	LEFT JOIN hm_erp_order eo ON eo.id=op.order_id AND eo.company_id=op.company_id
 	LEFT JOIN hm_erp_meal meal ON eo.meal_id=meal.id AND eo.company_id=meal.company_id
+	LEFT JOIN hm_erp_service ser ON meal.service_id=ser.id AND meal.company_id=ser.company_id
+	LEFT JOIN hm_crm_dictionary dic ON dic.DICCODE=meal.photo_type AND dic.COMPANYID=meal.company_id AND dic.DICTYPE='common_type'
 	WHERE 
 		ps.company_id=#{companyId}
 		AND ps.staff_day BETWEEN #{firstTime} AND #{endTime}

@@ -216,7 +216,7 @@
     	<if test="serviceId != null and serviceId != 0 ">
     		service_id=#{serviceId},
     	</if>
-    	<if test="otherService != null and otherService != 0 ">
+    	<if test="otherService != null  ">
     		other_service=#{otherService}
     	</if>
     </set> 

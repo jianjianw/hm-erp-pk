@@ -37,14 +37,14 @@ public class PlancheduleController extends InitController{
      * 更新人员状态
      * @return
      */
-    @PostMapping("/update_staff_status")
+    /*@PostMapping("/update_staff_status")
     public ResultInfo updateStaffStatus(@RequestBody StaffScheduleVO staffSchedule){
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
 		//放入公司id
 		staffSchedule.setCompanyId(companyId);
 		planScheduleService.updateStaffStatus(staffSchedule);
         return ResultInfoUtil.success("成功");
-    }
+    }*/
     /**
      * 新增人员档期，返回id和员工
      * @return
@@ -256,6 +256,11 @@ public class PlancheduleController extends InitController{
   			tempStaff.setMealName(staffScheduleVO.getMealName());
   			tempStaff.setStaffStatus(staffScheduleVO.getStaffStatus());
   			tempStaff.setId(staffScheduleVO.getId());
+  			tempStaff.setServieceId(staffScheduleVO.getServieceId());
+  			tempStaff.setServiceName(staffScheduleVO.getServiceName());
+  			tempStaff.setPhotoId(staffScheduleVO.getPhotoId());
+  			tempStaff.setPhotoName(staffScheduleVO.getPhotoName());
+  			tempStaff.setStaffDay(staffScheduleVO.getStaffDay());
   			Map<String, Object> row = new HashMap<>();
   			row.put("id", staffScheduleVO.getId());
   			row.put("venueId", staffScheduleVO.getVenueId());
