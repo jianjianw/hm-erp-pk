@@ -101,6 +101,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                 makeupRoomScheduleVO.setVenueId(voVenueId);//每个房间场馆id
                 makeupRoomScheduleVO.setServiceId(serviceId);//服务id
                 Integer roomId = venueAndRoomVO.getRoomId();//房间id
+                Integer roomStatus = venueAndRoomVO.getRoomStatus();//房间状态
                 makeupRoomScheduleVO.setMakeupRoomId(roomId);
                 List<MakeupRoomDTO> makeupRoomsDTOs = makeupRoomScheduleVO.getMakeupRooms();
                 for(Integer datetime : everyDayOfMonth){//每个场馆下面的服务，服务下面的化妆间都需要一个list
@@ -112,6 +113,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                         makeupRoomsDTO.setIsSunday(true);
                     }
                     makeupRoomsDTO.setServiceName(serviceName);
+                    makeupRoomsDTO.setRoomStatus(roomStatus);
                     makeupRoomsDTOs.add(makeupRoomsDTO);
                 }
                 data.add(makeupRoomScheduleVO);//封装每个房间中的数据
