@@ -69,10 +69,10 @@ public class StaffScheduleController extends InitController{
          if(venueStaffScheduleVOAlls !=null && staffScheduleVOPKs!=null){
         	 for (VenueStaffScheduleVO venueStaffScheduleVO : venueStaffScheduleVOAlls) {
         		 List<StaffScheduleVO> staffScheduleVO = venueStaffScheduleVO.getStaffScheduleVO();
-        		System.out.println(staffScheduleVO);
+        		/*System.out.println(staffScheduleVO);
         		for (StaffScheduleVO staffScheduleVO2 : staffScheduleVO) {
 					System.out.println(staffScheduleVO2);
-				}
+				}*/
         		 /*for (StaffScheduleVO staffScheduleAll : staffScheduleVO) {
         			 //有排班的摄影师放入
         			 for (StaffScheduleVO staffScheduleVOPK : staffScheduleVOPKs) {
