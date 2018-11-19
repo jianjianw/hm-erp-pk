@@ -21,6 +21,7 @@ import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 import com.qiein.erp.pk.web.entity.vo.TempStaffVO;
+import com.qiein.erp.pk.web.entity.vo.VenueStaffScheduleVO;
 import com.qiein.erp.pk.web.service.StaffScheduleService;
 
 import retrofit2.http.POST;
@@ -61,36 +62,46 @@ public class StaffScheduleController extends InitController{
     	}
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
     	 //获取全部摄影师
-         List<StaffScheduleVO> StaffScheduleVOAlls= staffScheduleService.staffAll(companyId,roleId,venueId,time);
+         List<VenueStaffScheduleVO> venueStaffScheduleVOAlls= staffScheduleService.staffAll(companyId,roleId,venueId,time);
          //获取已排班摄影师
-         List<StaffScheduleVO> StaffScheduleVOPKs= staffScheduleService.staffPK(companyId,roleId,venueId,time);
-         if(StaffScheduleVOAlls !=null && StaffScheduleVOPKs!=null){
-        	 for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
-            	 for (StaffScheduleVO StaffScheduleVOPK : StaffScheduleVOPKs) {
-         			if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVOPK.getVenueId()) && 
-         					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
-         				StaffScheduleVOAll.setId(StaffScheduleVOPK.getId());
-         				StaffScheduleVOAll.setStatus(1);
-         				StaffScheduleVOAll.setCount(StaffScheduleVOPK.getCount());
-         			}
-         		}
+         List<StaffScheduleVO> staffScheduleVOPKs= staffScheduleService.staffPK(companyId,roleId,venueId,time);
+         
+         if(venueStaffScheduleVOAlls !=null && staffScheduleVOPKs!=null){
+        	 for (VenueStaffScheduleVO venueStaffScheduleVO : venueStaffScheduleVOAlls) {
+        		 List<StaffScheduleVO> staffScheduleVO = venueStaffScheduleVO.getStaffScheduleVO();
+        		System.out.println(staffScheduleVO);
+        		for (StaffScheduleVO staffScheduleVO2 : staffScheduleVO) {
+					System.out.println(staffScheduleVO2);
+				}
+        		 /*for (StaffScheduleVO staffScheduleAll : staffScheduleVO) {
+        			 //有排班的摄影师放入
+        			 for (StaffScheduleVO staffScheduleVOPK : staffScheduleVOPKs) {
+        				 if(staffScheduleAll.getVenueId().equals(staffScheduleVOPK.getVenueId())&&
+        						staffScheduleAll.getStaffId().equals(staffScheduleVOPK.getStaffId()) ){
+        					 staffScheduleAll.setId(staffScheduleVOPK.getId());
+        					 staffScheduleAll.setStatus(1);
+        					 staffScheduleAll.setCount(staffScheduleVOPK.getCount());
+        				 }
+        			 }
+        		 }*/
     		}
          }
-         
         //获取休息摄影师
-        List<StaffScheduleVO> StaffScheduleVORests= staffScheduleService.staffRest(companyId,roleId,venueId,time);
-        if(StaffScheduleVORests!=null && StaffScheduleVOAlls !=null){
-        	for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
-        		for (StaffScheduleVO StaffScheduleVORest : StaffScheduleVORests) {
-					if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVORest.getVenueId())&&
-							StaffScheduleVOAll.getStaffId().equals(StaffScheduleVORest.getStaffId())){
-						StaffScheduleVOAll.setId(StaffScheduleVORest.getId());
-						StaffScheduleVOAll.setStatus(StaffScheduleVORest.getStaffStatus());
-					}
-				}
+       /* List<StaffScheduleVO> staffScheduleVORests= staffScheduleService.staffRest(companyId,roleId,venueId,time);
+        if(staffScheduleVORests.size()>0&&venueStaffScheduleVOAlls.size()>0){
+        	for (VenueStaffScheduleVO venueStaffScheduleVO : venueStaffScheduleVOAlls) {
+        		for (StaffScheduleVO staffScheduleAll : venueStaffScheduleVO.getStaffScheduleVO()) {
+        			for (StaffScheduleVO staffScheduleVORest : staffScheduleVORests) {
+        				if(staffScheduleAll.getVenueId().equals(staffScheduleVORest.getVenueId())&&
+        						staffScheduleAll.getStaffId().equals(staffScheduleVORest.getStaffId())){
+        					staffScheduleAll.setId(staffScheduleVORest.getId());
+        					staffScheduleAll.setStatus(staffScheduleVORest.getStaffStatus());
+        				}
+        			}
+        		}
         	}
-        }
-        return ResultInfoUtil.success(StaffScheduleVOAlls);
+        }*/
+        return ResultInfoUtil.success(venueStaffScheduleVOAlls);
     }
     
     /**
