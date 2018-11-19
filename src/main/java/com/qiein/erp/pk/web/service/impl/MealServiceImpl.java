@@ -1,7 +1,6 @@
 package com.qiein.erp.pk.web.service.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.qiein.erp.pk.web.dao.MealDao;
@@ -110,6 +109,26 @@ public class MealServiceImpl implements MealService {
 	 */
 	public List<MealSelectVO> mealSelect(Integer companyId ,Integer serviceId){
 		return mealDao.mealSelect(companyId,serviceId);
+	}
+	/**
+	 * 主套餐名去重
+	 * @param companyId
+	 * @return
+	 */
+	@Override
+	public List<MealPO> mealReapt(MealPO meal) {
+		List<MealPO> mealReapt=mealDao.mealReapt(meal);
+		return mealReapt;
+	}
+	/**
+	 * 套餐分类名去重
+	 * @param companyId
+	 * @return
+	 */
+	@Override
+	public List<DictionaryErp> mealTypeRepeat(DictionaryErp dictionaryErp) {
+		List<DictionaryErp> dic=mealDao.mealTypeRepeat(dictionaryErp);
+		return dic;
 	}
 	
 }

@@ -17,6 +17,14 @@ public class ProcessPO {
     private Integer orderType;
     private Integer orderId;
 
+    public Integer getVideoSchId() {
+        return videoSchId;
+    }
+
+    public void setVideoSchId(Integer videoSchId) {
+        this.videoSchId = videoSchId;
+    }
+
     public Integer getOrderType() {
         return orderType;
     }
