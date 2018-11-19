@@ -217,6 +217,7 @@
         <if test="venueId != null">
             and service_venue.venue_id = #{venueId}
         </if>
+         order by service_venue.venue_id asc,service.id asc
 
     </select>
 
