@@ -10,7 +10,9 @@ public class MakeupRoomDTO implements Serializable {
     private Integer scheduleId; //档期id
     private Boolean isSunday; //是否是星期天
     private Integer makeupDayLimit; //  每日档期限额
+    //add
     private Integer orderType;  //订单类型
+    private String serviceName; //服务类型
 
 
     public Integer getDate() {
@@ -51,5 +53,13 @@ public class MakeupRoomDTO implements Serializable {
 
     public void setOrderType(Integer orderType) {
         this.orderType = orderType;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 }

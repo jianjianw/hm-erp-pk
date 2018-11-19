@@ -73,6 +73,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
         for (ServiceVenueRoomVO serviceVenueRoomVO : serviceAndMakeupRooms){
             Integer voVenueId = serviceVenueRoomVO.getVenueId();
             Integer serviceId = serviceVenueRoomVO.getServiceId();
+            String serviceName = serviceVenueRoomVO.getServiceName();
             List<VenueAndRoomVO> makeupRooms = serviceVenueRoomVO.getMakeupRooms();
             // 如果服务下面没有房间  也要返回数据  对应的房间id没有值
             if(makeupRooms.size() == 0){
@@ -88,9 +89,11 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                     if(Calendar.SUNDAY == calendar.get(Calendar.DAY_OF_WEEK)){
                         makeupRoomsDTO.setIsSunday(true);
                     }
+                    makeupRoomsDTO.setServiceName(serviceName);
                     makeupRooms1.add(makeupRoomsDTO);
                 }
                 data.add(makeupRoomScheduleVO);//封装服务下面没有放假的数据
+                continue;
             }
 
             for (VenueAndRoomVO venueAndRoomVO : makeupRooms){//每个房间封装数据
@@ -108,6 +111,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                     if(Calendar.SUNDAY == calendar.get(Calendar.DAY_OF_WEEK)){
                         makeupRoomsDTO.setIsSunday(true);
                     }
+                    makeupRoomsDTO.setServiceName(serviceName);
                     makeupRoomsDTOs.add(makeupRoomsDTO);
                 }
                 data.add(makeupRoomScheduleVO);//封装每个房间中的数据
@@ -122,6 +126,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
            Integer makeupDay = makeupRoomSchedulePO.getMakeupDay();//化妆间的档期
            Integer orderType = makeupRoomSchedulePO.getOrderType();
            Integer makeupDayLimit = makeupRoomSchedulePO.getMakeupDayLimit();
+
 
            for(MakeupRoomScheduleVO makeupRoomScheduleVO :data){
                Integer voVenueId = makeupRoomScheduleVO.getVenueId();
