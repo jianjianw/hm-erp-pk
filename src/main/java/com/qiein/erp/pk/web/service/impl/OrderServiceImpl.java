@@ -12,6 +12,7 @@ import com.qiein.erp.pk.web.entity.dto.OrderSelectDTO;
 import com.qiein.erp.pk.web.entity.po.OrderEditPO;
 import com.qiein.erp.pk.web.entity.po.OrderPO;
 import com.qiein.erp.pk.web.entity.po.ProcessPO;
+import com.qiein.erp.pk.web.entity.vo.OrderLikeVO;
 import com.qiein.erp.pk.web.entity.vo.OrderProVO;
 import com.qiein.erp.pk.web.entity.vo.OrderVO;
 import com.qiein.erp.pk.web.service.OrderService;
@@ -149,5 +150,8 @@ public class OrderServiceImpl implements OrderService {
      */
     public List<OrderProVO> selectOrderByStaff(Integer companyId,Integer staffId,Integer start,Integer end,String type){
         return orderDao.selectOrderByStaff(companyId,staffId,start,end,type);
+    }
+    public List<OrderLikeVO> selectOrderLike(Integer companyId, String key){
+        return orderDao.selectOrderLike(companyId,key);
     }
 }

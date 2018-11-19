@@ -226,9 +226,7 @@
         staff1.NICKNAME shoot_name,
         staff_sch2.id makeup_id,
         staff2.NICKNAME makeup_name,
-        staff3.Nickname video_name,
-        staff5.id follow_people_id,
-        staff5.NICKNAME follow_people_name
+        staff3.Nickname video_name
         FROM
         hm_erp_order ord
         LEFT JOIN hm_erp_meal meal ON ord.meal_id = meal.id
@@ -249,8 +247,6 @@
         AND staff_sch3.company_id = shoot_pro.company_id
         LEFT JOIN hm_pub_staff staff3 ON staff3.ID = staff_sch3.staff_id
         AND staff3.COMPANYID = staff_sch3.company_id
-        LEFT JOIN hm_pub_staff staff5 ON staff5.ID = plan_sch.follow_people
-        AND staff5.COMPANYID = plan_sch.company_id
         WHERE
         ord.company_id = #{companyId}
         <if test="venueSchId!=null and venueSchId !=''">
@@ -676,5 +672,26 @@
              order_memo=#{memo}
              where company_id=#{companyId} and id=#{orderId}
     </update>
-
+    <select id="selectOrderLike" resultType="com.qiein.erp.pk.web.entity.vo.OrderLikeVO">
+        SELECT
+        ord.id id,
+        ord.order_num orderNum,
+        ord.kz_name kzName,
+        ord.kz_phone kzPhone,
+        ord.mate_name mateName,
+        ord.mate_phone matePhone,
+        ord.type type,
+        ord.child_name childName
+        FROM
+        hm_erp_order ord
+        WHERE
+        ord.company_id = #{companyId}
+        AND (
+        ord.kz_name LIKE concat("%", #{key}, "%")
+        OR ord.kz_phone LIKE concat("%", #{key}, "%")
+        OR ord.mate_name LIKE concat("%", #{key}, "%")
+        OR ord.mate_phone LIKE concat("%", #{key}, "%")
+        OR ord.child_name LIKE concat("%", #{key}, "%")
+        )
+    </select>
 </mapper>
