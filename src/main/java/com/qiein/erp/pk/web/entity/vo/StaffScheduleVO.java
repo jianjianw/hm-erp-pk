@@ -20,6 +20,14 @@ public class StaffScheduleVO {
     private int count;//接单合计
     private String mealName;
     
+	@Override
+	public String toString() {
+		return "StaffScheduleVO [id=" + id + ", venueId=" + venueId + ", staffDayLimit=" + staffDayLimit
+				+ ", staffStatus=" + staffStatus + ", venueName=" + venueName + ", staffId=" + staffId + ", nickName="
+				+ nickName + ", roleLevel=" + roleLevel + ", roleId=" + roleId + ", roleName=" + roleName + ", time="
+				+ time + ", companyId=" + companyId + ", status=" + status + ", count=" + count + ", mealName="
+				+ mealName + "]";
+	}
 	public StaffScheduleVO() {
 		super();
 		// TODO Auto-generated constructor stub
