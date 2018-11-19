@@ -70,12 +70,7 @@ public class StaffScheduleController extends InitController {
 
         if (venueStaffScheduleVOAlls != null && staffScheduleVOPKs != null) {
             for (VenueStaffScheduleVO venueStaffScheduleVO : venueStaffScheduleVOAlls) {
-                List<StaffScheduleVO> staffScheduleVO = venueStaffScheduleVO.getStaffScheduleVO();
-
-                for (StaffScheduleVO staffScheduleVO2 : staffScheduleVO) {
-                    System.out.println(staffScheduleVO2);
-                }
-        		 /*for (StaffScheduleVO staffScheduleAll : staffScheduleVO) {
+        		 for (StaffScheduleVO staffScheduleAll : venueStaffScheduleVO.getStaffScheduleVO()) {
         			 //有排班的摄影师放入
         			 for (StaffScheduleVO staffScheduleVOPK : staffScheduleVOPKs) {
         				 if(staffScheduleAll.getVenueId().equals(staffScheduleVOPK.getVenueId())&&
@@ -85,11 +80,11 @@ public class StaffScheduleController extends InitController {
         					 staffScheduleAll.setCount(staffScheduleVOPK.getCount());
         				 }
         			 }
-        		 }*/
+        		 }
             }
         }
         //获取休息摄影师
-       /* List<StaffScheduleVO> staffScheduleVORests= staffScheduleService.staffRest(companyId,roleId,venueId,time);
+       List<StaffScheduleVO> staffScheduleVORests= staffScheduleService.staffRest(companyId,roleId,venueId,time);
         if(staffScheduleVORests.size()>0&&venueStaffScheduleVOAlls.size()>0){
         	for (VenueStaffScheduleVO venueStaffScheduleVO : venueStaffScheduleVOAlls) {
         		for (StaffScheduleVO staffScheduleAll : venueStaffScheduleVO.getStaffScheduleVO()) {
@@ -102,7 +97,7 @@ public class StaffScheduleController extends InitController {
         			}
         		}
         	}
-        }*/
+        }
         return ResultInfoUtil.success(venueStaffScheduleVOAlls);
     }
 
