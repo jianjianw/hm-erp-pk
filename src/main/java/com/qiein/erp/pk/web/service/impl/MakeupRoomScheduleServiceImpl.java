@@ -126,6 +126,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
            Integer makeupDay = makeupRoomSchedulePO.getMakeupDay();//化妆间的档期
            Integer orderType = makeupRoomSchedulePO.getOrderType();
            Integer makeupDayLimit = makeupRoomSchedulePO.getMakeupDayLimit();
+           Integer countNum = makeupRoomSchedulePO.getCountNum();
 
 
            for(MakeupRoomScheduleVO makeupRoomScheduleVO :data){
@@ -140,12 +141,16 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                            makeupRoomDTO.setMakeupDayLimit(makeupDayLimit);//每天限额。
                            makeupRoomDTO.setScheduleId(makeupRoomSchedulePO.getId());
                            makeupRoomDTO.setOrderType(orderType);
+                           makeupRoomDTO.setCountNum(countNum);//关联的拍摄流程的个数
                            break;
                        }
                    }
                }
            }
        }
+
+       //查询拍摄流程
+
 
         MakeupRoomShowVO result = new MakeupRoomShowVO();
         result.setServiceVenueRoomVOS(serviceAndMakeupRooms);
