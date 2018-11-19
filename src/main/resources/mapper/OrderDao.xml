@@ -249,6 +249,8 @@
         AND staff_sch3.company_id = shoot_pro.company_id
         LEFT JOIN hm_pub_staff staff3 ON staff3.ID = staff_sch3.staff_id
         AND staff3.COMPANYID = staff_sch3.company_id
+        LEFT JOIN hm_pub_staff staff5 ON staff5.ID = plan_sch.follow_people
+        AND staff5.COMPANYID = plan_sch.company_id
         WHERE
         ord.company_id = #{companyId}
         <if test="venueSchId!=null and venueSchId !=''">
