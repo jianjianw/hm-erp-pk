@@ -7,6 +7,7 @@ import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
 import com.qiein.erp.pk.web.entity.po.MealPO;
+import com.qiein.erp.pk.web.entity.po.RolePO;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.service.MealService;
 
@@ -20,6 +21,16 @@ public class MealController extends InitController{
     @Autowired
     private MealService mealService;  
     
+    /**
+     * 查询拍摄类别
+     * @return
+     */
+    @GetMapping("/select_other_service")
+    public ResultInfo selectOtherService(){
+        Integer companyId=getCurrentLoginStaff().getCompanyId();
+         List<RolePO> RolePO= mealService.selectOtherService(companyId);
+        return ResultInfoUtil.success(RolePO);
+    }
     /**
      * 查询拍摄类别
      * @return

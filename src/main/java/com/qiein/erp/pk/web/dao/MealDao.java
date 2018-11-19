@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import com.qiein.erp.pk.web.entity.po.DictionaryErp;
 import com.qiein.erp.pk.web.entity.po.MealPO;
+import com.qiein.erp.pk.web.entity.po.RolePO;
 import com.qiein.erp.pk.web.entity.po.ServicePO;
 import com.qiein.erp.pk.web.entity.vo.MealSelectVO;
 /**
@@ -75,4 +76,10 @@ public interface MealDao {
 	 * @return
 	 */
 	List<DictionaryErp> mealTypeRepeat(DictionaryErp dictionaryErp);
+	/**
+	 * 查询其他服务
+	 * @param companyId
+	 * @return
+	 */
+	List<RolePO> selectOtherService(Integer companyId);
 }
