@@ -668,11 +668,11 @@
         mate_name = #{mateName},
         mate_phone = #{matePhone},
         address = #{address},
-        <if test="marry_time != null and marry_time !='' ">
+        <if test="marryTime != null and marryTime !='' ">
             marry_time = #{marryTime},
         </if>
         child_name = #{childName},
-        <if test="birth_day != null and birth_day !='' ">
+        <if test="birthday != null and birthday !='' ">
             birth_day = #{birthday},
         </if>
 
