@@ -217,11 +217,12 @@
     		service_id=#{serviceId},
     	</if>
     	<if test="otherService != null and otherService != 0 ">
-    		other_service=#{otherService},
+    		other_service=#{otherService}
     	</if>
     </set> 
     WHERE 
-    	id = #{id} and company_id=#{companyId}
+    	id = #{id} 
+    	and company_id=#{companyId}
   </update> 
   
   <!--查询套餐  -->
