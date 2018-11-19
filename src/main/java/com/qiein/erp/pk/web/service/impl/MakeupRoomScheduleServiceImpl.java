@@ -156,9 +156,19 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
            }
        }
 
-       //查询拍摄流程
+       //查询拍摄流程休息设置
+       for(MakeupRoomScheduleVO makeupRoomScheduleVO : data){
+           List<MakeupRoomDTO> makeupRooms = makeupRoomScheduleVO.getMakeupRooms();
+           for( int i = makeupRooms.size() - 1;i >= 0;i--){
+               MakeupRoomDTO makeupRoomDTO = makeupRooms.get(i);
+               Integer countNum = makeupRoomDTO.getCountNum();
+               Integer roomStatus = makeupRoomDTO.getRoomStatus();
+               if((countNum == null || countNum == 0) && (roomStatus == null || roomStatus == 0) ){
+                   makeupRooms.remove(i);
+               }
+           }
 
-
+       }
         MakeupRoomShowVO result = new MakeupRoomShowVO();
         result.setServiceVenueRoomVOS(serviceAndMakeupRooms);
         result.setMakeupRoomScheduleVOS(data);
