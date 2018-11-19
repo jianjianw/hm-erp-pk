@@ -255,5 +255,7 @@
 	GROUP BY 
 		time,ps.staff_id
   </select>
-  
+  <update id="update">
+	  update hm_erp_plan_schedule set follow_people=#{staffId} where id=#{schId}
+  </update>
 </mapper>

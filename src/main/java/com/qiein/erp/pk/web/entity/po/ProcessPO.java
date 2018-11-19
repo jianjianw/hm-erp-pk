@@ -16,6 +16,15 @@ public class ProcessPO {
     private Integer companyId;//公司id
     private Integer orderType;
     private Integer orderId;
+    private Integer followPeople;
+
+    public Integer getFollowPeople() {
+        return followPeople;
+    }
+
+    public void setFollowPeople(Integer followPeople) {
+        this.followPeople = followPeople;
+    }
 
     public Integer getVideoSchId() {
         return videoSchId;

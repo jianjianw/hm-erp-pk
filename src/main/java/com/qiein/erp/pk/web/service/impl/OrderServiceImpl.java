@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.qiein.erp.pk.constant.CommonConstant;
 import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.web.dao.OrderDao;
+import com.qiein.erp.pk.web.dao.PlanScheduleDao;
 import com.qiein.erp.pk.web.entity.dto.OrderDTO;
 import com.qiein.erp.pk.web.entity.dto.OrderSelectDTO;
 import com.qiein.erp.pk.web.entity.po.OrderEditPO;
@@ -28,6 +29,8 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
+    @Autowired
+    private PlanScheduleDao planScheduleDao;
 
     /**
      * 获取订单总页面
@@ -73,6 +76,9 @@ public class OrderServiceImpl implements OrderService {
             }
             orderDao.insertSceneSch(orderPO.getProId(), list, orderPO.getCompanyId());
         }
+        if(orderPO.getPlanSchId()!=null){
+            planScheduleDao.update(orderPO.getFollowPeople(),orderPO.getPlanSchId());
+        }
 
     }
 
@@ -117,6 +123,9 @@ public class OrderServiceImpl implements OrderService {
                 list.add(shootRoomId);
             }
             orderDao.insertSceneSch(processPO.getProId(), list, processPO.getCompanyId());
+        }
+        if(processPO.getPlanSchId()!=null){
+            planScheduleDao.update(processPO.getFollowPeople(),processPO.getPlanSchId());
         }
     }
 

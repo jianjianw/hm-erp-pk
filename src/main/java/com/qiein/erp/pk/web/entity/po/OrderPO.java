@@ -38,6 +38,23 @@ public class OrderPO {
     private Integer letterId;
     private String orderMemo;
     private Integer videoSchId;//摄像师档期id
+    private Integer followPeople;//企划陪同人员
+
+    public Integer getVideoSchId() {
+        return videoSchId;
+    }
+
+    public void setVideoSchId(Integer videoSchId) {
+        this.videoSchId = videoSchId;
+    }
+
+    public Integer getFollowPeople() {
+        return followPeople;
+    }
+
+    public void setFollowPeople(Integer followPeople) {
+        this.followPeople = followPeople;
+    }
 
     public String getOrderMemo() {
         return orderMemo;
