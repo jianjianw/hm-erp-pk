@@ -149,17 +149,16 @@ public class PlancheduleController extends InitController{
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
     	 staffScheduleVO.setCompanyId(companyId);
     	 staffScheduleVO.setStaffDayLimit(1);
-    	 staffScheduleVO.setStaffStatus(2);
-    	 StaffScheduleVO staffScheduleVOs= planScheduleService.selectRest(staffScheduleVO);
-    	 if(staffScheduleVOs==null){
+    	 StaffScheduleVO staffScheduleVOtemp= planScheduleService.selectRest(staffScheduleVO);
+    	 if(staffScheduleVOtemp == null){
     		 planScheduleService.insertRest(staffScheduleVO);
     		 return ResultInfoUtil.success("设置成功");
     	 }
-    	 if(staffScheduleVOs.getStaffStatus()==1){
-    		 return ResultInfoUtil.success("不可修改");
-    	 }
-    	 if(staffScheduleVOs.getStaffStatus()==2){
-    		 return ResultInfoUtil.success("当日已休息");
+    	 //更新状态
+    	 if(staffScheduleVOtemp != null){
+    		 staffScheduleVO.setId(staffScheduleVOtemp.getId());
+    		 planScheduleService.updateStaffStatus(staffScheduleVO);
+    		 return ResultInfoUtil.success("状态已更新");
     	 }
         return ResultInfoUtil.success(null);
     }

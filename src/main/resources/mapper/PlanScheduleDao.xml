@@ -138,8 +138,8 @@
   
   <!--查询摄影师人员休息  -->
   <select id="selectRest" resultMap="StaffScheduleMap">
-		SELECT
-		ps.staff_id,ps.staff_day time,ps.staff_status,sr.role_id,ps.venue_id
+	SELECT
+		ps.id,ps.staff_id,ps.staff_day time,ps.staff_status,sr.role_id,ps.venue_id
 	FROM
 		hm_erp_plan_schedule ps
 	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ps.staff_id AND sr.company_id=ps.company_id
