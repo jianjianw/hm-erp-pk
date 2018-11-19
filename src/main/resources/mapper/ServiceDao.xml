@@ -243,27 +243,50 @@
             </if>
     </select>
 
-    <select id="findMakeupRoomsByServiceId" parameterType="map" resultType="com.qiein.erp.pk.web.entity.vo.VenueAndRoomVO">
+    <!--<select id="findMakeupRoomsByServiceId" parameterType="map" resultType="com.qiein.erp.pk.web.entity.vo.VenueAndRoomVO">-->
 
-        select   room.venue_id venueId,
-                  service.id serviceId,
-                  room.room_id roomId,
-                  room.room_name roomName,
-                  room.room_type roomType,
-                  room.room_status roomStatus
-        from hm_erp_service service
-        inner join hm_erp_service_venue service_venue on service_venue.service_id = service.id
-        and service_venue.company_id = service.company_id
-        inner join hm_erp_service_venue_link service_vence_link on service_vence_link.service_venue_id = service_venue.id
-        and service_vence_link.company_id = service_venue.company_id
-        inner join hm_erp_venue_room room on room.room_id = service_vence_link.link_id
-        and room.company_id = service_vence_link.company_id
-        where
-              service.id = #{serviceId}
-              and service_venue.venue_id = #{venueId}
-              and service.company_id = #{companyId}
-              and room.room_type = 1
+        <!--select   room.venue_id venueId,-->
+                  <!--service.id serviceId,-->
+                  <!--room.room_id roomId,-->
+                  <!--room.room_name roomName,-->
+                  <!--room.room_type roomType,-->
+                  <!--room.room_status roomStatus-->
+        <!--from hm_erp_service service-->
+        <!--inner join hm_erp_service_venue service_venue on service_venue.service_id = service.id-->
+        <!--and service_venue.company_id = service.company_id-->
+        <!--inner join hm_erp_service_venue_link service_vence_link on service_vence_link.service_venue_id = service_venue.id-->
+        <!--and service_vence_link.company_id = service_venue.company_id-->
+        <!--inner join hm_erp_venue_room room on room.room_id = service_vence_link.link_id-->
+        <!--and room.company_id = service_vence_link.company_id-->
+        <!--where-->
+              <!--service.id = #{serviceId}-->
+              <!--and service_venue.venue_id = #{venueId}-->
+              <!--and service.company_id = #{companyId}-->
+              <!--and room.room_type = 1-->
 
+    <!--</select>-->
+    <select id="findMakeupRoomsByServiceId" resultType="com.qiein.erp.pk.web.entity.vo.VenueAndRoomVO">
+        SELECT
+            service_venue.venue_id venueId,
+            service_venue.service_id serviceId,
+            service_venue_link.link_id roomId,
+            venue_room.room_name roomName
+        FROM
+            hm_erp_service_venue service_venue
+        LEFT JOIN hm_erp_service_venue_link service_venue_link ON service_venue.id = service_venue_link.service_venue_id
+        AND service_venue.company_id = service_venue_link.company_id
+        LEFT JOIN hm_erp_venue_room venue_room ON venue_room.room_id = service_venue_link.link_id
+        AND venue_room.company_id = service_venue_link.company_id
+        LEFT JOIN hm_erp_service service ON service.id = service_venue.service_id
+        AND service.company_id = service_venue.company_id
+        LEFT JOIN hm_erp_venue venue ON venue.id = service_venue.venue_id
+        AND venue.company_id = service_venue.company_id
+        WHERE
+            service_venue_link.link_type = 1
+        AND venue_room.room_status = 1
+        AND service_venue.company_id = #{companyId}
+        AND service_venue.venue_id = #{venueId}
+        AND service_venue.service_id =#{serviceId}
     </select>
 
 </mapper>

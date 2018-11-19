@@ -1,5 +1,6 @@
 package com.qiein.erp.pk.web.dao;
 
+import com.qiein.erp.pk.web.entity.dto.MakeupRoomSchDTO;
 import com.qiein.erp.pk.web.entity.po.MakeupRoomSchedulePO;
 import org.apache.ibatis.annotations.Param;
 
@@ -51,4 +52,11 @@ public interface MakeupRoomScheduleDao {
      * @param makeupRoomSchedulePOS
      */
     void batSave(List<MakeupRoomSchedulePO> makeupRoomSchedulePOS);
+    /**
+     * 判定下拉框是否能被选中
+     */
+    List<MakeupRoomSchDTO> checkMakeupRoom(@Param("companyId") Integer companyId,
+                                           @Param("venueId") Integer venueId,
+                                           @Param("serviceId") Integer serviceId,
+                                           @Param("date") Integer date);
 }

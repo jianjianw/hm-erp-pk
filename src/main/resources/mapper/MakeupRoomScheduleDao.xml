@@ -158,5 +158,23 @@
                   company_id = values(company_id);
 
   </insert>
-
+    <select id="checkMakeupRoom" resultType="com.qiein.erp.pk.web.entity.dto.MakeupRoomSchDTO">
+        SELECT
+            sch.id makeupRoomSchId,
+            sch.makeup_room_id roomId,
+            ifnull((
+                SELECT
+                    count(1)
+                FROM
+                    hm_erp_process_shoot_schedule pro
+                WHERE
+                    pro.makeup_room_schedule_id = sch.id
+            ),0) count
+        FROM
+            hm_erp_makeup_room_schedule sch
+        where sch.venue_id=#{venueId}
+        and sch.service_id=#{serviceId}
+        and sch.company_id=#{companyId}
+        and sch.makeup_day=#{date}
+    </select>
 </mapper>

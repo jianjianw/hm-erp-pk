@@ -13,10 +13,9 @@ public class VenueAndRoomVO implements Serializable {
     private Integer roomId;//房间id
     private String roomName;//房间名
     private Integer roomType;//房间类型
-
     //订单页面用到的数据
     //add
-    private Integer roomStatus;//房间状态   1 开启  0  关闭
+    private boolean roomStatus;//房间状态   1 开启  0  关闭
     //add
     private Integer makeupRoomScheduleId; //化妆间档期id
 
@@ -61,11 +60,11 @@ public class VenueAndRoomVO implements Serializable {
         this.venueId = venueId;
     }
 
-    public Integer getRoomStatus() {
+    public boolean isRoomStatus() {
         return roomStatus;
     }
 
-    public void setRoomStatus(Integer roomStatus) {
+    public void setRoomStatus(boolean roomStatus) {
         this.roomStatus = roomStatus;
     }
 
