@@ -73,8 +73,20 @@ public class StaffController extends InitController {
      * @return
      */
     @GetMapping("/staff_select")
-    public ResultInfo staffSelect(@RequestParam("roleId") String roleId, @RequestParam("time") int time, @RequestParam("venueId") int venueId) {
+    public ResultInfo staffSelect(@RequestParam("roleId") String roleId) {
         Integer companyId = getCurrentLoginStaff().getCompanyId();
-        return ResultInfoUtil.success(staffService.staffSelect(companyId, roleId, time, venueId));
+        return ResultInfoUtil.success(staffService.staffSelect(companyId, roleId));
+    }
+
+    /**
+     * 企划档期，化妆师下拉选项
+     *
+     * @param roleId
+     * @return
+     */
+    @GetMapping("/staff_plan_select")
+    public ResultInfo staffPlanSelect(@RequestParam("roleId") String roleId, @RequestParam("time") int time, @RequestParam("venueId") int venueId) {
+        Integer companyId = getCurrentLoginStaff().getCompanyId();
+        return ResultInfoUtil.success(staffService.staffPlanSelect(companyId, roleId, time, venueId));
     }
 }

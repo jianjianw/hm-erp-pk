@@ -175,9 +175,14 @@ public class StaffServiceImpl implements StaffService {
     /**
      * 角色下拉框
      */
-    public List<StaffSelectVO> staffSelect(Integer companyId, String roleId, int time, int venueId) {
-        return staffDao.staffSelect(companyId, roleId, time, venueId);
+    public List<StaffSelectVO> staffSelect(Integer companyId, String roleId) {
+        return staffDao.staffSelect(companyId, roleId);
     }
 
-
+    /**
+     * 企划档期，化妆师下拉选项
+     */
+    public List<StaffSelectVO> staffPlanSelect(Integer companyId, String roleId, int time, int venueId) {
+        return staffDao.staffPlanSelect(companyId, roleId, time, venueId);
+    }
 }
