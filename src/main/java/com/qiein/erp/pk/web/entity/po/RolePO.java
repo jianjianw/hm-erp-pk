@@ -3,7 +3,7 @@ package com.qiein.erp.pk.web.entity.po;
 public class RolePO {
 	private int id;
 	private Integer companyId;
-	private String roleName;
+	private String otherServiceName;
 	public int getId() {
 		return id;
 	}
@@ -16,11 +16,12 @@ public class RolePO {
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}
-	public String getRoleName() {
-		return roleName;
+	public String getOtherServiceName() {
+		return otherServiceName;
 	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setOtherServiceName(String otherServiceName) {
+		this.otherServiceName = otherServiceName;
 	}
+	
 	
 }

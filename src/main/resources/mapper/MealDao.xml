@@ -23,7 +23,7 @@
   
   <resultMap id="RoleMap" type="com.qiein.erp.pk.web.entity.po.RolePO">
   		<id column="id" property="id" jdbcType="INTEGER" />
-    	<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    	<result column="role_name" property="otherServiceName" jdbcType="VARCHAR" />
     	<result column="company_id" property="companyId" jdbcType="INTEGER" />
   </resultMap>
   
@@ -223,7 +223,7 @@
   <!--查询套餐  -->
    <select id="selectAll" resultMap="MealMap" >
 	SELECT
-		meal.other_service,r.role_name other_service_name,dic.DICNAME photo_name ,meal.id,meal.meal_name, meal.photo_type, meal.meal_type,meal.meal_status,
+		r.id other_service,r.role_name other_service_name,dic.DICNAME photo_name ,meal.id,meal.meal_name, meal.photo_type, meal.meal_type,meal.meal_status,
 		meal.meal_amount,meal.memo,meal.priority,meal.clothes_num,meal.company_id,meal.service_id,ser.service_name
 	FROM
 		hm_erp_meal meal
