@@ -257,6 +257,45 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
     public List<VenueAndRoomVO> findMakeupRoomScheduleByServiceId(Integer companyId, Integer venueId, Integer serviceId, Integer date) {
         //查询服务下面的化妆间  和 状态
         List<VenueAndRoomVO> makeupRooms = serviceService.findMakeupRoomsByServiceId(companyId, venueId, serviceId);
+
+        List<Integer> roomIds = new ArrayList<>();
+        //先查询数据
+        for(VenueAndRoomVO venueAndRoomVO : makeupRooms){
+            roomIds.add(venueAndRoomVO.getRoomId());
+        }
+        //查询化妆间的档期
+        List<MakeupRoomSchedulePO> makeupRoomSchedulePOS = makeupRoomScheduleDao.findMakeupRoomScheduleByDateAndRoomIds(companyId, venueId, serviceId, date, roomIds);
+        //如果有档期，封装到makeupRooms中
+        for (VenueAndRoomVO venueAndRoomVO : makeupRooms) {
+            Integer venueId1 = venueAndRoomVO.getVenueId();
+            Integer serviceId1 = venueAndRoomVO.getServiceId();
+            Integer roomId = venueAndRoomVO.getRoomId();
+            for (MakeupRoomSchedulePO makeupRoomSchedulePO : makeupRoomSchedulePOS) {
+                Integer venueId2 = makeupRoomSchedulePO.getVenueId();
+                Integer serviceId2 = makeupRoomSchedulePO.getServiceId();
+                Integer makeupRoomId = makeupRoomSchedulePO.getMakeupRoomId();
+                if (venueId1.equals(venueId2) && serviceId1.equals(serviceId2) && roomId.equals(makeupRoomId)) {
+                    venueAndRoomVO.setMakeupRoomScheduleId(makeupRoomSchedulePO.getId());//封装化妆间档期
+                }
+            }
+        }
+        List<MakeupRoomSchedulePO> batSave = new ArrayList<>();
+        for (VenueAndRoomVO venueAndRoomVO : makeupRooms) {
+            MakeupRoomSchedulePO save = new MakeupRoomSchedulePO();
+            save.setCompanyId(companyId);
+            save.setVenueId(venueId);
+            save.setServiceId(serviceId);
+            save.setMakeupDay(date);
+            save.setMakeupDayLimit(1);
+            save.setMakeupRoomId(venueAndRoomVO.getRoomId());
+            save.setId(venueAndRoomVO.getMakeupRoomScheduleId());//已经存在的档期
+            batSave.add(save);
+        }
+        if (batSave != null && batSave.size() > 0) {
+            //档期表里面不存在的 insert  存在的只更新companyId,查询和更新的companyId是一致的，所以就只是insert不存在的
+            makeupRoomScheduleDao.batSave(batSave);
+        }
+
         List<MakeupRoomSchDTO> checkDTO = makeupRoomScheduleDao.checkMakeupRoom(companyId, venueId, serviceId, date);
         for (VenueAndRoomVO venueAndRoomVO : makeupRooms) {
             for (MakeupRoomSchDTO makeupRoomSchDTO : checkDTO) {
