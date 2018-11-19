@@ -35,6 +35,24 @@ public class OrderVO {
     private Integer saleId;
     private String orderMemo;//订单备注
     private String videoName;//摄像师名称
+    private Integer followPeopleId;
+    private String followPeopleName;
+
+    public Integer getFollowPeopleId() {
+        return followPeopleId;
+    }
+
+    public void setFollowPeopleId(Integer followPeopleId) {
+        this.followPeopleId = followPeopleId;
+    }
+
+    public String getFollowPeopleName() {
+        return followPeopleName;
+    }
+
+    public void setFollowPeopleName(String followPeopleName) {
+        this.followPeopleName = followPeopleName;
+    }
 
     public String getVideoName() {
         return videoName;
