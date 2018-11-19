@@ -38,7 +38,7 @@
 
     </resultMap>
 
-    <resultMap id="StaffVenueMap" type="com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO">
+    <resultMap id="StaffVenueMap" type="com.qiein.erp.pk.web.entity.vo.StaffVenueVO">
         <result column="venue_id" property="venueId" jdbcType="INTEGER"/>
         <result column="venue_name" property="venueName" jdbcType="VARCHAR"/>
         <collection property="staffList" ofType="com.qiein.erp.pk.web.entity.vo.StaffVO" javaType="List">
