@@ -103,6 +103,8 @@ public class OrderServiceImpl implements OrderService {
             orderPO.setCompanyId(processPO.getCompanyId());
             orderDao.insertPro(orderPO);
             processPO.setProId(orderPO.getProId());
+            orderDao.insertShootSch(orderPO);
+
         }
         //编辑流程档期档期（除了拍摄间）
         orderDao.updateProcessShootSch(processPO);
