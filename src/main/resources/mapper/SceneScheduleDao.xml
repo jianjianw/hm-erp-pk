@@ -198,7 +198,7 @@
     </select>
 
     <!-- 关联流程-->
-    <select id="selectSceneScheduleBySceneIdAndDateTime" parameterType="com.qiein.erp.pk.web.entity.dto.SceneDTO" resultMap="BaseResultMap">
+   <!-- <select id="selectSceneScheduleBySceneIdAndDateTime" parameterType="com.qiein.erp.pk.web.entity.dto.SceneDTO" resultMap="BaseResultMap">
         select scene.id,scene.shoot_id,scene.scene_id,scene.start_time,scene.end_time,scene.status_id,scene.company_id,scene.venue_id
         from hm_erp_scene_schedule scene inner join hm_erp_process_scene_schedule process on scene.id = process.shoot_schedule_id
         where scene.company_id = #{companyId}
@@ -207,6 +207,17 @@
         and scene.venue_id = #{venueId}
         and scene.shoot_id = #{shootId}
         and scene.scene_id = #{sceneId}
+    </select>-->
+
+    <select id="selectSceneScheduleBySceneIdAndDateTime" parameterType="com.qiein.erp.pk.web.entity.dto.SceneDTO" resultMap="BaseResultMap">
+        select scene.id,scene.shoot_id,scene.scene_id,scene.start_time,scene.end_time,scene.status_id,scene.company_id,scene.venue_id
+        from hm_erp_scene_schedule scene inner join hm_erp_process_scene_schedule process on scene.id = process.shoot_schedule_id
+        where scene.company_id = #{companyId}
+                  and  (scene.start_time = #{startTime} and scene.end_time = #{endTime})
+                  or (#{startTime} >= scene.start_time AND #{startTime} &lt; scene.end_time)
+                  and scene.venue_id = #{venueId}
+                  and scene.shoot_id = #{shootId}
+                  and scene.scene_id = #{sceneId}
     </select>
 
     <delete id="batDelete" parameterType="ArrayList">
