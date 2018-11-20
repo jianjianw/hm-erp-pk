@@ -24,7 +24,14 @@ public class StaffScheduleVO {
     private Integer photoId;
     private String photoName;
     private Integer staffDay;
+    private Integer orderId;
     
+	public Integer getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
 	public String getPhotoName() {
 		return photoName;
 	}
