@@ -156,7 +156,7 @@
         AND staff2.COMPANYID = staff_sch2.company_id
 
         WHERE
-        ord.company_id =#{companyId}
+        ord.company_id =#{companyId} and  ord.is_del=0
         <if test="timeType == 'ps'">
             and venue_sch.venue_day BETWEEN #{start} and #{end}
         </if>
@@ -248,7 +248,7 @@
         LEFT JOIN hm_pub_staff staff3 ON staff3.ID = staff_sch3.staff_id
         AND staff3.COMPANYID = staff_sch3.company_id
         WHERE
-        ord.company_id = #{companyId}
+        ord.company_id = #{companyId} and  ord.is_del=0
         <if test="venueSchId!=null and venueSchId !=''">
             AND shoot_pro.venue_schedule_id = #{venueSchId}
         </if>
@@ -379,7 +379,7 @@
                                                           AND staff_sch4.company_id = shoot_pro.company_id
             LEFT JOIN hm_pub_staff staff4 ON staff4.ID = staff_sch4.staff_id
                                              AND staff4.COMPANYID = staff_sch4.company_id
-        where ord.id = #{orderId} and ord.company_id = #{companyId}
+        where ord.id = #{orderId} and ord.company_id = #{companyId} and  ord.is_del=0
     </select>
     <select id="selectForPhone" resultMap="orderMap">
         SELECT
@@ -482,7 +482,7 @@
         AND staff_sch4.company_id = shoot_pro.company_id
         LEFT JOIN hm_pub_staff staff4 ON staff4.ID = staff_sch4.staff_id
         AND staff4.COMPANYID = staff_sch4.company_id
-        where ord.company_id=#{companyId}
+        where ord.company_id=#{companyId} and  ord.is_del=0
         <if test="venueSchId!=null and venueSchId !=''">
             AND shoot_pro.venue_schedule_id = #{venueSchId}
         </if>
@@ -606,7 +606,7 @@
         AND staff_sch4.company_id = shoot_pro.company_id
         LEFT JOIN hm_pub_staff staff4 ON staff4.ID = staff_sch4.staff_id
         AND staff4.COMPANYID = staff_sch4.company_id
-        where ord.company_id=#{companyId}
+        where ord.company_id=#{companyId} and  ord.is_del=0
         <if test="type == 'ps'">
             and venue_sch.venue_day BETWEEN #{start} and #{end}
         </if>
@@ -695,11 +695,14 @@
             ord.mate_name  mateName,
             ord.mate_phone matePhone,
             ord.type       type,
-            ord.child_name childName
+            ord.child_name childName,
+        	meal.meal_name mealName
         FROM
             hm_erp_order ord
+            left join hm_erp_meal meal on meal.id =ord.meal_id and meal.company_id=ord.company_id
         WHERE
             ord.company_id = #{companyId}
+            and  ord.is_del=0
             AND (
                 ord.kz_name LIKE concat("%", #{key}, "%")
                 OR ord.kz_phone LIKE concat("%", #{key}, "%")
@@ -707,5 +710,9 @@
                 OR ord.mate_phone LIKE concat("%", #{key}, "%")
                 OR ord.child_name LIKE concat("%", #{key}, "%")
             )
+            order by ord.type, ord.id
     </select>
+    <update id="closeOrder">
+        update hm_erp_order set is_del=1 where id=#{orderId} and company_id=#{companyId}
+    </update>
 </mapper>

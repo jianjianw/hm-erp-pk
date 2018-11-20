@@ -92,4 +92,11 @@ public interface OrderDao {
     List<OrderProVO> selectOrderByStaff(@Param("companyId")Integer companyId,@Param("staffId")Integer staffId,@Param("start")Integer start,@Param("end")Integer end,@Param("type")String type);
 
     List<OrderLikeVO> selectOrderLike(@Param("companyId")Integer companyId,@Param("key")String key);
+
+    /**
+     * 关闭订单
+     * @param companyId
+     * @param orderId
+     */
+    void closeOrder(@Param("companyId")Integer companyId,@Param("orderId")Integer orderId);
 }

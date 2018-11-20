@@ -29,6 +29,7 @@ public class TimeUtil {
     public static SimpleDateFormat yyyyMMddHHmmssSSS_ = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
     public static SimpleDateFormat yyyyMMddHHmmssSSSLeft = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss,SSS");
     public static SimpleDateFormat yyyyMMddHHmmssSSSNoCut = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+    public static SimpleDateFormat yyyyMMddHHmmss = new SimpleDateFormat("yyyyMMddHHmmss");
 
     public static int INVALID_RANGE = 60;// 合理时间差
 

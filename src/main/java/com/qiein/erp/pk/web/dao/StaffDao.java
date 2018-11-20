@@ -6,6 +6,7 @@ import com.qiein.erp.pk.web.entity.po.StaffRoleInsertPO;
 import com.qiein.erp.pk.web.entity.po.StaffVenueInsertPO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
+import com.qiein.erp.pk.web.entity.vo.StaffVenueVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -83,6 +84,6 @@ public interface StaffDao {
     /**
      * 角色下拉框
      */
-    List<StaffSelectVO> staffSelect(@Param("companyId") Integer companyId, @Param("roleId") String roleId);
+    List<StaffVenueVO> staffSelect(@Param("companyId") Integer companyId, @Param("roleId") String roleId);
 
 }

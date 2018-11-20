@@ -120,5 +120,13 @@ public class OrderController extends InitController{
     public ResultInfo selectOrderLike(@RequestParam String key){
         return ResultInfoUtil.success(orderService.selectOrderLike(getCurrentLoginStaff().getCompanyId(),key));
     }
+    /**
+     * 关闭订单
+     */
+    @GetMapping("close_order")
+    public ResultInfo closeOrder(@RequestParam Integer orderId){
+        orderService.closeOrder(getCurrentLoginStaff().getCompanyId(),orderId);
+        return ResultInfoUtil.success(TipMsgEnum.CLOSE_SUCCESS);
+    }
 }
 
