@@ -38,15 +38,6 @@
 
     </resultMap>
 
-    <resultMap id="StaffVenueMap" type="com.qiein.erp.pk.web.entity.vo.StaffVenueVO">
-        <result column="venue_id" property="venueId" jdbcType="INTEGER"/>
-        <result column="venue_name" property="venueName" jdbcType="VARCHAR"/>
-        <collection property="staffList" ofType="com.qiein.erp.pk.web.entity.vo.StaffVO" javaType="List">
-            <result column="id" property="id"/>
-            <result column="nickName" property="nickName"/>
-        </collection>
-    </resultMap>
-
     <sql id="baseColumn">
         ID, NICKNAME, PHONE, USERNAME, PASSWORD, COMPANYID, CORPID, DINGUSERID, HEADIMG,
         TOKEN, STATUSFLAG, ISLOCK, ISDEL, TODAYNUM, WEIGHT, LIMITDAY, LASTPUSHTIME, LIMITCHANNELIDS,
