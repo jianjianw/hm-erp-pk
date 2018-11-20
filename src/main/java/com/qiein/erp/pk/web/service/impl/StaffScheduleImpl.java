@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.service.impl;
 
 import java.util.List;
 
+import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectForOrderInVO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectForOrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,6 +158,9 @@ public class StaffScheduleImpl implements StaffScheduleService {
 			for(StaffSelectForOrderInVO staffSelectForOrderInVO:staffSelectForOrderVO.getStaffSelectForOrderInVOS()){
 				if(staffSelectForOrderInVO.getCount()!=0&&staffSelectForOrderInVO.getStatus()==1){
 					staffSelectForOrderInVO.setStatus(0);
+				}
+				if(staffSelectForOrderInVO.getStatus()==null){
+					staffSelectForOrderInVO.setStatus(1);
 				}
 			}
 		}
