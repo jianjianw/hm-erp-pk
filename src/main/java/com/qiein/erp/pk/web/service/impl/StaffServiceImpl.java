@@ -6,6 +6,7 @@ import com.qiein.erp.pk.web.dao.VenueDao;
 import com.qiein.erp.pk.web.entity.po.*;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
+import com.qiein.erp.pk.web.entity.vo.StaffVenueVO;
 import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
 import com.qiein.erp.pk.web.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,14 +176,8 @@ public class StaffServiceImpl implements StaffService {
     /**
      * 角色下拉框
      */
-    public List<StaffSelectVO> staffSelect(Integer companyId, String roleId) {
+    public List<StaffVenueVO> staffSelect(Integer companyId, String roleId) {
         return staffDao.staffSelect(companyId, roleId);
     }
 
-    /**
-     * 企划档期，化妆师下拉选项
-     */
-    public List<StaffSelectVO> staffPlanSelect(Integer companyId, String roleId, int time, int venueId) {
-        return staffDao.staffPlanSelect(companyId, roleId, time, venueId);
-    }
 }

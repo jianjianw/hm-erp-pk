@@ -3,6 +3,7 @@ package com.qiein.erp.pk.web.service;
 import com.qiein.erp.pk.web.entity.po.StaffPO;
 import com.qiein.erp.pk.web.entity.vo.ProducerShowVO;
 import com.qiein.erp.pk.web.entity.vo.StaffSelectVO;
+import com.qiein.erp.pk.web.entity.vo.StaffVenueVO;
 import com.qiein.erp.pk.web.entity.vo.VenueSelectVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -52,11 +53,6 @@ public interface StaffService {
     /**
      * 角色下拉框
      */
-    List<StaffSelectVO> staffSelect(Integer companyId, String roleId);
-
-    /**
-     * 企划档期，化妆师下拉选项
-     */
-    List<StaffSelectVO> staffPlanSelect(Integer companyId, String roleId, int time, int venueId);
+    List<StaffVenueVO> staffSelect(Integer companyId, String roleId);
 
 }
