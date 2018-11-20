@@ -1,6 +1,5 @@
 package com.qiein.erp.pk.web.service.impl;
 
-import com.qiein.erp.pk.exception.ExceptionEnum;
 import com.qiein.erp.pk.exception.RException;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
