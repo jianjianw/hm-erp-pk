@@ -1,9 +1,12 @@
 package com.qiein.erp.pk.exception;
 
+import com.alibaba.fastjson.JSONObject;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.util.dingmsg.DingMsgUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -28,6 +31,9 @@ import java.util.List;
 public class RExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Autowired
+    private DingMsgUtil dingMsgUtil;
+
     /**
      * 全局异常
      *
@@ -38,6 +44,13 @@ public class RExceptionHandler {
     public ResultInfo handleException(Exception e) {
         logger.error(e.getMessage());
         e.printStackTrace();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msgtype", "text");
+        JSONObject msg = new JSONObject();
+        msg.put("content", e.toString());
+        jsonObject.put("text", msg);
+        dingMsgUtil.postMsg(jsonObject);
+
         return ResultInfoUtil.error(ExceptionEnum.UNKNOW_ERROR);
     }
 
