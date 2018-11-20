@@ -27,6 +27,18 @@
     	<result column="staff_day" property="staffDay" jdbcType="INTEGER" />
   	</collection>
   </resultMap>
+	<resultMap id="staffSelectMap" type="com.qiein.erp.pk.web.entity.vo.StaffSelectForOrderVO">
+		<result column="venue_id" property="venueId"/>
+		<result column="venue_name" property="venueName"/>
+		<collection property="staffSelectForOrderInVOS" ofType="com.qiein.erp.pk.web.entity.vo.StaffSelectForOrderInVO">
+			<result column="id" property="id"/>
+			<result column="staff_id" property="staffId"/>
+			<result column="NICKNAME" property="staffName"/>
+			<result column="staff_status" property="status"/>
+			<result column="count" property="count"/>
+		</collection>
+
+	</resultMap>
   <resultMap id="StaffScheduleMap" type="com.qiein.erp.pk.web.entity.vo.StaffScheduleVO" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="venue_id" property="venueId" jdbcType="INTEGER" />
@@ -292,4 +304,27 @@
   <update id="update">
 	  update hm_erp_plan_schedule set follow_people=#{staffId} where id=#{schId}
   </update>
+	<select id="staffSelect" resultMap="staffSelectMap">
+		SELECT
+			staff_venue.venue_id,
+			venue.venue_name,
+			staff_venue.staff_id,
+			staff.NICKNAME,
+			staff_sch.staff_status,
+			staff_sch.id,
+		(select count(1) from hm_erp_process_shoot_schedule pro where pro.plan_schedule_id=staff_sch.id) count
+		FROM
+			hm_erp_staff_venue staff_venue
+		LEFT JOIN hm_erp_plan_schedule staff_sch ON staff_sch.staff_id = staff_venue.staff_id
+		AND staff_sch.company_id = staff_venue.company_id and staff_sch.staff_day=#{time}
+		LEFT JOIN hm_erp_venue venue ON staff_venue.venue_id = venue.id
+		AND staff_venue.company_id = venue.company_id
+		LEFT JOIN hm_pub_staff staff ON staff.ID = staff_venue.staff_id
+		AND staff.COMPANYID = staff_venue.company_id
+		LEFT JOIN hm_erp_staff_role role ON role.staff_id = staff_venue.staff_id
+		AND role.company_id = staff_venue.company_id
+		WHERE
+			role.role_id = #{roleId}
+		and staff_venue.company_id=#{companyId}
+	</select>
 </mapper>

@@ -2,6 +2,7 @@ package com.qiein.erp.pk.web.dao;
 
 import java.util.List;
 
+import com.qiein.erp.pk.web.entity.vo.StaffSelectForOrderVO;
 import org.apache.ibatis.annotations.Param;
 
 import com.qiein.erp.pk.web.entity.po.VenuePO;
@@ -91,7 +92,11 @@ public interface PlanScheduleDao {
 	void updateStaffStatus(StaffScheduleVO staffSchedule);
 
 	void update(@Param("staffId")Integer staffId,@Param("schId")Integer schId);
-	
+	/**
+	 * 人员下拉框
+	 */
+	List<StaffSelectForOrderVO> staffSelect(@Param("companyId")Integer companyId, @Param("roleId")Integer roleId,
+											@Param("time")Integer time);
 	
 	
 	

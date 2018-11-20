@@ -68,83 +68,92 @@ public class PlancheduleController extends InitController{
      * 查询摄影师档期--订单界面下拉框
      * @return
      */
-    @GetMapping("/select_box")
-    public ResultInfo selectBox(@RequestParam(value="roleId") Integer roleId,@RequestParam("venueId")String venueId,
-    		@RequestParam("time")Integer time){
-    	//校验参数
-    	if(StringUtil.isEmpty(venueId)){
-    		return ResultInfoUtil.error(9999,"缺少场馆id");
-    	}
-		Integer companyId=getCurrentLoginStaff().getCompanyId();
-    	 /*//获取全部摄影师
-         List<StaffScheduleVO> StaffScheduleVOAlls= planScheduleService.staffAll(companyId,roleId,venueId,time);
-         //获取已排班摄影师
-         List<StaffScheduleVO> StaffScheduleVOPKs= planScheduleService.staffPK(companyId,roleId,venueId,time);
-         if(StaffScheduleVOAlls !=null && StaffScheduleVOPKs!=null){
-        	 for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
-            	 for (StaffScheduleVO StaffScheduleVOPK : StaffScheduleVOPKs) {
-         			if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVOPK.getVenueId()) && 
-         					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
-         				StaffScheduleVOAll.setId(StaffScheduleVOPK.getId());
-         				StaffScheduleVOAll.setStatus(1);
-         				StaffScheduleVOAll.setTime(StaffScheduleVOPK.getTime());
-         				StaffScheduleVOAll.setCount(StaffScheduleVOPK.getCount());
-         			}
-         		}
-    		}
-         }
-         
-        //获取休息摄影师
-        List<StaffScheduleVO> StaffScheduleVORests= planScheduleService.staffRest(companyId,roleId,venueId,time);
-        if(StaffScheduleVORests!=null && StaffScheduleVOAlls !=null){
-        	for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
-        		for (StaffScheduleVO StaffScheduleVORest : StaffScheduleVORests) {
-					if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVORest.getVenueId())&&
-							StaffScheduleVOAll.getStaffId().equals(StaffScheduleVORest.getStaffId())){
-						StaffScheduleVOAll.setId(StaffScheduleVORest.getId());
-						StaffScheduleVOAll.setStatus(StaffScheduleVORest.getStaffStatus());
-					}
-				}
-        	}
-        }*/
-		
-		//获取全部摄影师
-        List<VenueStaffScheduleVO> venueStaffScheduleVOAlls = planScheduleService.staffAll(companyId, roleId, venueId, time);
-        //获取已排班摄影师
-        List<StaffScheduleVO> staffScheduleVOPKs = planScheduleService.staffPK(companyId, roleId, venueId, time);
-
-        if (venueStaffScheduleVOAlls != null && staffScheduleVOPKs != null) {
-            for (VenueStaffScheduleVO venueStaffScheduleVO : venueStaffScheduleVOAlls) {
-        		 for (StaffScheduleVO staffScheduleAll : venueStaffScheduleVO.getStaffScheduleVO()) {
-        			 //有排班的摄影师放入
-        			 for (StaffScheduleVO staffScheduleVOPK : staffScheduleVOPKs) {
-        				 if(staffScheduleAll.getVenueId().equals(staffScheduleVOPK.getVenueId())&&
-        						staffScheduleAll.getStaffId().equals(staffScheduleVOPK.getStaffId()) ){
-        					 staffScheduleAll.setId(staffScheduleVOPK.getId());
-        					 staffScheduleAll.setStatus(1);
-        					 staffScheduleAll.setCount(staffScheduleVOPK.getCount());
-        				 }
-        			 }
-        		 }
-            }
-        }
-        //获取休息摄影师
-       List<StaffScheduleVO> staffScheduleVORests= planScheduleService.staffRest(companyId,roleId,venueId,time);
-        if(staffScheduleVORests.size()>0&&venueStaffScheduleVOAlls.size()>0){
-        	for (VenueStaffScheduleVO venueStaffScheduleVO : venueStaffScheduleVOAlls) {
-        		for (StaffScheduleVO staffScheduleAll : venueStaffScheduleVO.getStaffScheduleVO()) {
-        			for (StaffScheduleVO staffScheduleVORest : staffScheduleVORests) {
-        				if(staffScheduleAll.getVenueId().equals(staffScheduleVORest.getVenueId())&&
-        						staffScheduleAll.getStaffId().equals(staffScheduleVORest.getStaffId())){
-        					staffScheduleAll.setId(staffScheduleVORest.getId());
-        					staffScheduleAll.setStatus(staffScheduleVORest.getStaffStatus());
-        				}
-        			}
-        		}
-        	}
-        }
-        return ResultInfoUtil.success(venueStaffScheduleVOAlls);
-    }
+//    @GetMapping("/select_box")
+//    public ResultInfo selectBox(@RequestParam(value="roleId") Integer roleId,@RequestParam("venueId")String venueId,
+//    		@RequestParam("time")Integer time){
+//    	//校验参数
+//    	if(StringUtil.isEmpty(venueId)){
+//    		return ResultInfoUtil.error(9999,"缺少场馆id");
+//    	}
+//		Integer companyId=getCurrentLoginStaff().getCompanyId();
+//    	 /*//获取全部摄影师
+//         List<StaffScheduleVO> StaffScheduleVOAlls= planScheduleService.staffAll(companyId,roleId,venueId,time);
+//         //获取已排班摄影师
+//         List<StaffScheduleVO> StaffScheduleVOPKs= planScheduleService.staffPK(companyId,roleId,venueId,time);
+//         if(StaffScheduleVOAlls !=null && StaffScheduleVOPKs!=null){
+//        	 for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
+//            	 for (StaffScheduleVO StaffScheduleVOPK : StaffScheduleVOPKs) {
+//         			if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVOPK.getVenueId()) &&
+//         					StaffScheduleVOAll.getStaffId().equals(StaffScheduleVOPK.getStaffId())){
+//         				StaffScheduleVOAll.setId(StaffScheduleVOPK.getId());
+//         				StaffScheduleVOAll.setStatus(1);
+//         				StaffScheduleVOAll.setTime(StaffScheduleVOPK.getTime());
+//         				StaffScheduleVOAll.setCount(StaffScheduleVOPK.getCount());
+//         			}
+//         		}
+//    		}
+//         }
+//
+//        //获取休息摄影师
+//        List<StaffScheduleVO> StaffScheduleVORests= planScheduleService.staffRest(companyId,roleId,venueId,time);
+//        if(StaffScheduleVORests!=null && StaffScheduleVOAlls !=null){
+//        	for (StaffScheduleVO StaffScheduleVOAll : StaffScheduleVOAlls) {
+//        		for (StaffScheduleVO StaffScheduleVORest : StaffScheduleVORests) {
+//					if(StaffScheduleVOAll.getVenueId().equals(StaffScheduleVORest.getVenueId())&&
+//							StaffScheduleVOAll.getStaffId().equals(StaffScheduleVORest.getStaffId())){
+//						StaffScheduleVOAll.setId(StaffScheduleVORest.getId());
+//						StaffScheduleVOAll.setStatus(StaffScheduleVORest.getStaffStatus());
+//					}
+//				}
+//        	}
+//        }*/
+//
+//		//获取全部摄影师
+//        List<VenueStaffScheduleVO> venueStaffScheduleVOAlls = planScheduleService.staffAll(companyId, roleId, venueId, time);
+//        //获取已排班摄影师
+//        List<StaffScheduleVO> staffScheduleVOPKs = planScheduleService.staffPK(companyId, roleId, venueId, time);
+//
+//        if (venueStaffScheduleVOAlls != null && staffScheduleVOPKs != null) {
+//            for (VenueStaffScheduleVO venueStaffScheduleVO : venueStaffScheduleVOAlls) {
+//        		 for (StaffScheduleVO staffScheduleAll : venueStaffScheduleVO.getStaffScheduleVO()) {
+//        			 //有排班的摄影师放入
+//        			 for (StaffScheduleVO staffScheduleVOPK : staffScheduleVOPKs) {
+//        				 if(staffScheduleAll.getVenueId().equals(staffScheduleVOPK.getVenueId())&&
+//        						staffScheduleAll.getStaffId().equals(staffScheduleVOPK.getStaffId()) ){
+//        					 staffScheduleAll.setId(staffScheduleVOPK.getId());
+//        					 staffScheduleAll.setStatus(1);
+//        					 staffScheduleAll.setCount(staffScheduleVOPK.getCount());
+//        				 }
+//        			 }
+//        		 }
+//            }
+//        }
+//        //获取休息摄影师
+//       List<StaffScheduleVO> staffScheduleVORests= planScheduleService.staffRest(companyId,roleId,venueId,time);
+//        if(staffScheduleVORests.size()>0&&venueStaffScheduleVOAlls.size()>0){
+//        	for (VenueStaffScheduleVO venueStaffScheduleVO : venueStaffScheduleVOAlls) {
+//        		for (StaffScheduleVO staffScheduleAll : venueStaffScheduleVO.getStaffScheduleVO()) {
+//        			for (StaffScheduleVO staffScheduleVORest : staffScheduleVORests) {
+//        				if(staffScheduleAll.getVenueId().equals(staffScheduleVORest.getVenueId())&&
+//        						staffScheduleAll.getStaffId().equals(staffScheduleVORest.getStaffId())){
+//        					staffScheduleAll.setId(staffScheduleVORest.getId());
+//        					staffScheduleAll.setStatus(staffScheduleVORest.getStaffStatus());
+//        				}
+//        			}
+//        		}
+//        	}
+//        }
+//        return ResultInfoUtil.success(venueStaffScheduleVOAlls);
+//    }
+	/**
+	 * 查询摄影师档期--订单界面下拉框
+	 * @return
+	 */
+	@GetMapping("/select_box")
+	public ResultInfo selectBox(@RequestParam(value="roleId") Integer roleId,@RequestParam("venueId")String venueId,
+								@RequestParam("time")Integer time){
+		return ResultInfoUtil.success(planScheduleService.staffSelect(getCurrentLoginStaff().getCompanyId(),roleId,time));
+	}
     /**
      * 查询场馆
      * @return
