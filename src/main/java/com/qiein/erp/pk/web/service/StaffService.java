@@ -54,9 +54,4 @@ public interface StaffService {
      */
     List<StaffSelectVO> staffSelect(Integer companyId, String roleId);
 
-    /**
-     * 企划档期，化妆师下拉选项
-     */
-    List<StaffSelectVO> staffPlanSelect(Integer companyId, String roleId, int time, int venueId);
-
 }
