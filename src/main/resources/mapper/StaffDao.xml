@@ -185,7 +185,7 @@
         set role_level = #{roleLevel}
         where company_id = #{companyId} and staff_id = #{staffId} and role_id = #{roleId}
     </update>
-    <select id="staffSelect" resultMap="com.qiein.erp.pk.web.entity.vo.StaffSelectVO">
+    <select id="staffSelect" resultType="com.qiein.erp.pk.web.entity.vo.StaffSelectVO">
         SELECT
             staff.staff_id id,
             role.role_id roleIds,
