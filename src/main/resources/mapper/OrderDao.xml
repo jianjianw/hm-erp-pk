@@ -235,6 +235,10 @@
         AND ord.company_id = pro.company_id
         LEFT JOIN hm_erp_process_shoot_schedule shoot_pro ON shoot_pro.process_id = pro.id
         AND shoot_pro.company_id = pro.company_id
+        <if test="shootRoomSchId!=null and shootRoomSchId !=''">
+            left join hm_erp_process_scene_schedule sence_pro on sence_pro.process_id=pro.id
+            AND sence_pro.company_id = pro.company_id
+        </if>
         LEFT JOIN hm_erp_staff_schedule staff_sch1 ON staff_sch1.id = shoot_pro.shoot_schedule_id
         AND staff_sch1.company_id = shoot_pro.company_id
         LEFT JOIN hm_erp_staff_schedule staff_sch2 ON staff_sch2.id = shoot_pro.makeup_schedule_id
@@ -247,6 +251,7 @@
         AND staff_sch3.company_id = shoot_pro.company_id
         LEFT JOIN hm_pub_staff staff3 ON staff3.ID = staff_sch3.staff_id
         AND staff3.COMPANYID = staff_sch3.company_id
+
         WHERE
         ord.company_id = #{companyId} and  ord.is_del=0
         <if test="venueSchId!=null and venueSchId !=''">
