@@ -12,6 +12,15 @@ public class OrderLikeVO {
     private String matePhone;
     private String childName;
     private Integer type;
+    private String mealName;
+
+    public String getMealName() {
+        return mealName;
+    }
+
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
+    }
 
     public Integer getId() {
         return id;

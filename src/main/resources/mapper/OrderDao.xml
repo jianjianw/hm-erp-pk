@@ -695,9 +695,11 @@
             ord.mate_name  mateName,
             ord.mate_phone matePhone,
             ord.type       type,
-            ord.child_name childName
+            ord.child_name childName,
+        	meal.meal_name mealName
         FROM
             hm_erp_order ord
+            left join hm_erp_meal meal on meal.id =ord.meal_id and meal.company_id=ord.company_id
         WHERE
             ord.company_id = #{companyId}
             AND (
