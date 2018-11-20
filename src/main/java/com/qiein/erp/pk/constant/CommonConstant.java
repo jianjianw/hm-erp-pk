@@ -251,6 +251,9 @@ public class CommonConstant {
      * 三年的时间戳
      */
     public static final Integer THERE_YEAR_TIME=94608000;
-
+    /**
+     * 星期一到星期日全选
+     */
+    public static final String WEEK="1,2,3,4,5,6,7";
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
+import com.qiein.erp.pk.web.entity.vo.StaffSelectForOrderVO;
 import com.qiein.erp.pk.web.entity.vo.VenueStaffScheduleVO;
 
 
@@ -77,5 +78,10 @@ public interface PlanScheduleService {
      * @return
      */
 	void updateStaffStatus(StaffScheduleVO staffSchedule);
+	/**
+	 * 人员下拉框
+	 */
+	List<StaffSelectForOrderVO> staffSelect(Integer companyId, Integer roleId,
+											Integer time);
 
 }

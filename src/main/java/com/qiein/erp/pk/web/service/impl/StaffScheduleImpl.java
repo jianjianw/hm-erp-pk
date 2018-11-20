@@ -2,6 +2,9 @@ package com.qiein.erp.pk.web.service.impl;
 
 import java.util.List;
 
+import com.qiein.erp.pk.util.StringUtil;
+import com.qiein.erp.pk.web.entity.vo.StaffSelectForOrderInVO;
+import com.qiein.erp.pk.web.entity.vo.StaffSelectForOrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -136,6 +139,32 @@ public class StaffScheduleImpl implements StaffScheduleService {
 	@Override
 	public void updateStaffStatus(StaffScheduleVO staffSchedule) {
 		staffScheduleDao.updateStaffStatus(staffSchedule);
+	}
+	/**
+	 * 人员下拉框
+	 */
+	public List<StaffSelectForOrderVO> staffSelect(Integer companyId, Integer roleId,
+											Integer time){
+		String staff="";
+		if(roleId==1){
+			staff="shoot_schedule_id";
+		}else if(roleId==2){
+			staff="makeup_schedule_id";
+		}else if(roleId==3){
+			staff="video_schedule_id";
+		}
+		List<StaffSelectForOrderVO> staffSelectForOrderVOS=staffScheduleDao.staffSelect(companyId,roleId,time,staff);
+		for(StaffSelectForOrderVO staffSelectForOrderVO:staffSelectForOrderVOS){
+			for(StaffSelectForOrderInVO staffSelectForOrderInVO:staffSelectForOrderVO.getStaffSelectForOrderInVOS()){
+				if(staffSelectForOrderInVO.getCount()!=0&&staffSelectForOrderInVO.getStatus()==1){
+					staffSelectForOrderInVO.setStatus(0);
+				}
+				if(staffSelectForOrderInVO.getStatus()==null){
+					staffSelectForOrderInVO.setStatus(1);
+				}
+			}
+		}
+		return staffSelectForOrderVOS;
 	}
 	
 }

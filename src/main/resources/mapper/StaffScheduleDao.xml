@@ -71,12 +71,45 @@
     <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
     
   </resultMap>
-  
+  <resultMap id="staffSelectMap" type="com.qiein.erp.pk.web.entity.vo.StaffSelectForOrderVO">
+	  <result column="venue_id" property="venueId"/>
+	  <result column="venue_name" property="venueName"/>
+	  <collection property="staffSelectForOrderInVOS" ofType="com.qiein.erp.pk.web.entity.vo.StaffSelectForOrderInVO">
+		  <result column="id" property="id"/>
+		  <result column="staff_id" property="staffId"/>
+		  <result column="NICKNAME" property="staffName"/>
+		  <result column="staff_status" property="status"/>
+		  <result column="count" property="count"/>
+	  </collection>
+
+  </resultMap>
   <sql id="baseColumn">
   	id,venue_id, staff_day_limit, staff_status,venue_name,staff_id,NICKNAME,
   		role_level,role_id,role_name,time
   </sql>
-  
+  <select id="staffSelect" resultMap="staffSelectMap">
+	  SELECT
+		staff_venue.venue_id,
+		venue.venue_name,
+		staff_venue.staff_id,
+		staff.NICKNAME,
+		staff_sch.staff_status,
+		staff_sch.id,
+	(select count(1) from hm_erp_process_shoot_schedule pro where pro.${staff}=staff_sch.id) count
+	FROM
+		hm_erp_staff_venue staff_venue
+	LEFT JOIN hm_erp_staff_schedule staff_sch ON staff_sch.staff_id = staff_venue.staff_id
+	AND staff_sch.company_id = staff_venue.company_id and staff_sch.staff_day=#{time}
+	LEFT JOIN hm_erp_venue venue ON staff_venue.venue_id = venue.id
+	AND staff_venue.company_id = venue.company_id
+	LEFT JOIN hm_pub_staff staff ON staff.ID = staff_venue.staff_id
+	AND staff.COMPANYID = staff_venue.company_id
+	LEFT JOIN hm_erp_staff_role role ON role.staff_id = staff_venue.staff_id
+	AND role.company_id = staff_venue.company_id
+	WHERE
+		role.role_id = #{roleId}
+	and staff_venue.company_id=#{companyId}
+  </select>
   <!--更新人员状态  -->
   <update id="updateStaffStatus" >
 	UPDATE
