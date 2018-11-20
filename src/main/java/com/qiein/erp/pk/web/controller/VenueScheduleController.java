@@ -4,6 +4,7 @@ import com.qiein.erp.pk.constant.CommonConstant;
 import com.qiein.erp.pk.enums.TipMsgEnum;
 import com.qiein.erp.pk.util.ResultInfo;
 import com.qiein.erp.pk.util.ResultInfoUtil;
+import com.qiein.erp.pk.util.StringUtil;
 import com.qiein.erp.pk.web.entity.dto.VenueScheduleSetDTO;
 import com.qiein.erp.pk.web.service.VenueScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,9 @@ public class VenueScheduleController extends InitController{
     public ResultInfo VenueScheduleSet(@RequestBody VenueScheduleSetDTO venueScheduleSetDTO) {
         Integer companyId=getCurrentLoginStaff().getCompanyId();
         venueScheduleSetDTO.setCompanyId(companyId);
+        if(StringUtil.isEmpty(venueScheduleSetDTO.getWeek())){
+            venueScheduleSetDTO.setWeek(CommonConstant.WEEK);
+        }
         if (venueScheduleSetDTO.getEnd() == null) {
             venueScheduleSetDTO.setEnd(venueScheduleSetDTO.getStart() + CommonConstant.THERE_YEAR_TIME);
         }
