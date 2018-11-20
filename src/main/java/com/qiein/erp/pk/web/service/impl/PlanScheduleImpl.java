@@ -9,6 +9,7 @@ import com.qiein.erp.pk.web.dao.PlanScheduleDao;
 import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
+import com.qiein.erp.pk.web.entity.vo.VenueStaffScheduleVO;
 import com.qiein.erp.pk.web.service.PlanScheduleService;
 
 @Service
@@ -77,8 +78,8 @@ public class PlanScheduleImpl implements PlanScheduleService {
      * @return
      */
 	@Override
-	public List<StaffScheduleVO> staffAll(int companyId, Integer roleId, String venueId, Integer time) {
-		List<StaffScheduleVO> StaffScheduleVO=planScheduleDao.staffAll(companyId,roleId,venueId,time);
+	public List<VenueStaffScheduleVO> staffAll(int companyId, Integer roleId, String venueId, Integer time) {
+		List<VenueStaffScheduleVO> StaffScheduleVO=planScheduleDao.staffAll(companyId,roleId,venueId,time);
 		return StaffScheduleVO;
 	}
 	/**

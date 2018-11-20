@@ -207,6 +207,7 @@
           and venue.id = #{venueId}
         </if>
           and room.room_type = 2
+          order by room.venue_id asc,scene.id asc
   </select>
 
     <select id="findSceneCount" parameterType="map" resultType="Integer">

@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qiein.erp.pk.web.dao.StaffScheduleDao" >
-
+	
+  <!--场馆人员关联  -->
+  <resultMap  id="VenueStaffScheduleVOMap" type="com.qiein.erp.pk.web.entity.vo.VenueStaffScheduleVO">
+  	<id column="venue_id" property="venueId" jdbcType="INTEGER" />
+  	<result column="venue_name" property="venueName" jdbcType="VARCHAR" />
+  	<collection property="staffScheduleVO" ofType="com.qiein.erp.pk.web.entity.vo.StaffScheduleVO" javaType="List">
+  		<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="venue_id" property="venueId" jdbcType="INTEGER" />
+    	<result column="staff_day_limit" property="staffDayLimit" jdbcType="INTEGER" />
+    	<result column="staff_status" property="staffStatus" jdbcType="INTEGER" />
+    	<result column="venue_name" property="venueName" jdbcType="VARCHAR" />
+    	<result column="staff_id" property="staffId" jdbcType="INTEGER" />
+    	<result column="NICKNAME" property="nickName" jdbcType="VARCHAR" />
+    	<result column="role_level" property="roleLevel" jdbcType="INTEGER" />
+    	<result column="role_id" property="roleId" jdbcType="INTEGER" />
+    	<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    	<result column="time" property="time" jdbcType="INTEGER" />
+    	<result column="count" property="count" jdbcType="INTEGER" />
+    	<result column="meal_name" property="mealName" jdbcType="VARCHAR" />
+    	<result column="company_id" property="companyId" jdbcType="INTEGER" />
+    	<result column="service_id" property="servieceId" jdbcType="INTEGER" />
+    	<result column="service_name" property="serviceName" jdbcType="VARCHAR" />
+    	<result column="photo_id" property="photoId" jdbcType="INTEGER" />
+    	<result column="photo_name" property="photoName" jdbcType="VARCHAR" />
+    	<result column="staff_day" property="staffDay" jdbcType="INTEGER" />
+  	</collection>
+  </resultMap>
+  
   <resultMap id="StaffScheduleMap" type="com.qiein.erp.pk.web.entity.vo.StaffScheduleVO" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="venue_id" property="venueId" jdbcType="INTEGER" />
@@ -16,6 +43,7 @@
     <result column="time" property="time" jdbcType="INTEGER" />
     <result column="count" property="count" jdbcType="INTEGER" />
     <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
     <!--新增字段  -->
     <result column="service_id" property="servieceId" jdbcType="INTEGER" />
     <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
@@ -23,7 +51,7 @@
     <result column="photo_name" property="photoName" jdbcType="VARCHAR" />
     <result column="staff_day" property="staffDay" jdbcType="INTEGER" />
   </resultMap>
-  
+ 
   <resultMap id="VenueMap" type="com.qiein.erp.pk.web.entity.po.VenuePO" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
@@ -40,6 +68,8 @@
   
   <resultMap id="StaffRoleTypeVOMap" type="com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO" >
     <result column="role_level" property="roleLevel" jdbcType="VARCHAR" />
+    <result column="venue_name" property="venueName" jdbcType="VARCHAR" />
+    
   </resultMap>
   <resultMap id="staffSelectMap" type="com.qiein.erp.pk.web.entity.vo.StaffSelectForOrderVO">
 	  <result column="venue_id" property="venueId"/>
@@ -114,7 +144,7 @@
 	(#{venueId}, #{staffId}, #{time}, #{staffStatus},#{companyId},#{staffDayLimit})
   </insert>
   <!--查询摄影师或者化妆师  -->
-  <select id="staffAll" resultMap="StaffScheduleMap">
+  <select id="staffAll" resultMap="VenueStaffScheduleVOMap">
 	SELECT
 		sv.venue_id,v.venue_name,sv.staff_id,st.NICKNAME
 	FROM
@@ -125,7 +155,7 @@
 	WHERE 
 		v.company_id=#{companyId}
 		AND sr.role_id=#{roleId}
-		AND v.id=#{venueId}
+		<!-- AND v.id=#{venueId} -->
 		AND st.ISDEL=0
 		AND st.NICKNAME IS NOT NULL
 	GROUP BY v.id,sr.staff_id
@@ -137,12 +167,20 @@
 		ss.id,ss.staff_id,ss.venue_id,sr.role_id,ss.staff_day time,COUNT(1) count
 	FROM
 	 	hm_erp_process_shoot_schedule shoot
-	LEFT JOIN hm_erp_staff_schedule ss ON shoot.shoot_schedule_id=ss.id AND shoot.company_id=ss.company_id
+	<if test="roleId ==1 ">
+    	LEFT JOIN hm_erp_staff_schedule ss ON shoot.shoot_schedule_id=ss.id AND shoot.company_id=ss.company_id
+    </if>
+	<if test="roleId ==2 ">
+    	LEFT JOIN hm_erp_staff_schedule ss ON shoot.makeup_schedule_id=ss.id AND shoot.company_id=ss.company_id
+    </if>
+    <if test="roleId ==3 ">
+    	LEFT JOIN hm_erp_staff_schedule ss ON shoot.video_schedule_id=ss.id AND shoot.company_id=ss.company_id
+    </if>
 	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ss.staff_id AND sr.company_id=ss.company_id
 	WHERE
 		ss.company_id=#{companyId}
 		AND sr.role_id=#{roleId}
-		AND ss.venue_id=#{venueId}
+		<!-- AND ss.venue_id=#{venueId} -->
 		AND ss.staff_status=1
 		AND ss.staff_day=#{time}
   </select>
@@ -150,13 +188,13 @@
   <!--查询当日休息摄影师 或者已经排好日期 -->
   <select id="staffRest" resultMap="StaffScheduleMap">
   	SELECT
-		ss.id,ss.staff_id,sr.role_id,ss.venue_id,ss.staff_status
+		ss.id,ss.staff_id,sr.role_id,ss.venue_id,ss.staff_status,ss.company_id
 	FROM
 		hm_erp_staff_schedule ss
 	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ss.staff_id AND sr.company_id=ss.company_id
 	WHERE
 		ss.company_id=#{companyId}
-		AND ss.venue_id=#{venueId}
+		<!-- AND ss.venue_id=#{venueId} -->
 		AND ss.staff_day=#{time}
 		AND sr.role_id=#{roleId}
   </select>
@@ -191,7 +229,7 @@
   <!--查询摄影师人员休息  -->
   <select id="selectRest" resultMap="StaffScheduleMap">
   	SELECT
-		ss.staff_id,ss.staff_day time,ss.staff_status,sr.role_id,ss.venue_id
+		ss.id,ss.staff_id,ss.staff_day time,sr.role_id,ss.venue_id,ss.company_id
 	FROM
 		hm_erp_staff_schedule ss
 	LEFT JOIN hm_erp_staff_role sr ON sr.staff_id=ss.staff_id AND sr.company_id=ss.company_id
@@ -267,7 +305,15 @@
 		ss.staff_day,ser.service_name,meal.service_id,meal.photo_type photo_id,dic.DICNAME photo_name
 	FROM
 		 hm_erp_process_shoot_schedule shoot
-	LEFT JOIN hm_erp_staff_schedule ss ON shoot.shoot_schedule_id=ss.id AND shoot.company_id=ss.company_id
+	<if test="roleId ==1 ">
+    	LEFT JOIN hm_erp_staff_schedule ss ON shoot.shoot_schedule_id=ss.id AND shoot.company_id=ss.company_id
+    </if>
+	<if test="roleId ==2 ">
+    	LEFT JOIN hm_erp_staff_schedule ss ON shoot.makeup_schedule_id=ss.id AND shoot.company_id=ss.company_id
+    </if>
+    <if test="roleId ==3 ">
+    	LEFT JOIN hm_erp_staff_schedule ss ON shoot.video_schedule_id=ss.id AND shoot.company_id=ss.company_id
+    </if>
 	LEFT JOIN hm_pub_staff st ON st.ID=ss.staff_id AND st.COMPANYID=ss.company_id
 	LEFT JOIN hm_erp_venue ve ON ve.id=ss.venue_id AND ve.company_id=ss.company_id
 	LEFT JOIN hm_erp_staff_role reals ON reals.staff_id =ss.staff_id AND reals.company_id=ss.company_id

@@ -8,6 +8,8 @@ public class MakeupRoomSchDTO {
     private Integer makeupRoomSchId;
     private Integer roomId;
     private Integer count;
+    //add
+    private Integer venueId; //场馆id
 
     public Integer getMakeupRoomSchId() {
         return makeupRoomSchId;
@@ -31,5 +33,13 @@ public class MakeupRoomSchDTO {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public Integer getVenueId() {
+        return venueId;
+    }
+
+    public void setVenueId(Integer venueId) {
+        this.venueId = venueId;
     }
 }

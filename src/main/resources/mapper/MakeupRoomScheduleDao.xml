@@ -22,6 +22,7 @@
         <result column="order_type" property="orderType" jdbcType="INTEGER" />
         <result column="countNum" property="countNum" jdbcType="INTEGER" />
         <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
+        <result column="order_id" property="orderId" jdbcType="INTEGER" />
     </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -62,19 +63,12 @@
 
 
 
- <!-- <select id="selectMakeupRoomScheduleByDate" parameterType="map" resultMap="BaseResultMap">
-      select id, venue_id, service_id, makeup_room_id, makeup_day, makeup_day_limit, company_id
-      from hm_erp_makeup_room_schedule
-      where company_id = #{companyId}
-      and makeup_day BETWEEN #{startTime} AND #{endTime}
-      <if test="venueId != null">
-        and venue_id = #{venueId}
-      </if>
-  </select>-->
+
 
     <select id="selectMakeupRoomScheduleByDate" parameterType="map" resultMap="MakeupScheduleMap">
         select room_schedule.id, room_schedule.venue_id, room_schedule.service_id, room_schedule.makeup_room_id,
-        room_schedule.makeup_day,room_schedule. makeup_day_limit, room_schedule.company_id,order_process.order_type,meal.meal_name,
+        room_schedule.makeup_day,room_schedule. makeup_day_limit, room_schedule.company_id,
+        order_process.order_type,meal.meal_name,order_process.order_id,
 
         ifnull(
         (
@@ -155,7 +149,9 @@
     select id, venue_id, service_id, makeup_room_id, makeup_day, makeup_day_limit, company_id
     from hm_erp_makeup_room_schedule
     where venue_id = #{venueId}
-          and service_id = #{serviceId}
+          <if test="serviceId != null">
+              and service_id = #{serviceId}
+          </if>
           and makeup_day = #{date}
           <if test="roomIds != null and roomIds.size() > 0">
             and  makeup_room_id in
@@ -191,11 +187,14 @@
                     hm_erp_process_shoot_schedule pro
                 WHERE
                     pro.makeup_room_schedule_id = sch.id
-            ),0) count
+            ),0) count,
+            sch.venue_id venueId
         FROM
             hm_erp_makeup_room_schedule sch
         where sch.venue_id=#{venueId}
-        and sch.service_id=#{serviceId}
+        <if test="serviceId != null">
+            and sch.service_id=#{serviceId}
+        </if>
         and sch.company_id=#{companyId}
         and sch.makeup_day=#{date}
     </select>

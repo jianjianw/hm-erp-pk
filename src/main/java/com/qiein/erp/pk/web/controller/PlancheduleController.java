@@ -21,6 +21,7 @@ import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
 import com.qiein.erp.pk.web.entity.vo.TempStaffVO;
+import com.qiein.erp.pk.web.entity.vo.VenueStaffScheduleVO;
 import com.qiein.erp.pk.web.service.PlanScheduleService;
 
 /**
@@ -37,14 +38,14 @@ public class PlancheduleController extends InitController{
      * 更新人员状态
      * @return
      */
-    @PostMapping("/update_staff_status")
+    /*@PostMapping("/update_staff_status")
     public ResultInfo updateStaffStatus(@RequestBody StaffScheduleVO staffSchedule){
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
 		//放入公司id
 		staffSchedule.setCompanyId(companyId);
 		planScheduleService.updateStaffStatus(staffSchedule);
         return ResultInfoUtil.success("成功");
-    }
+    }*/
     /**
      * 新增人员档期，返回id和员工
      * @return
@@ -75,7 +76,7 @@ public class PlancheduleController extends InitController{
     		return ResultInfoUtil.error(9999,"缺少场馆id");
     	}
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
-    	 //获取全部摄影师
+    	 /*//获取全部摄影师
          List<StaffScheduleVO> StaffScheduleVOAlls= planScheduleService.staffAll(companyId,roleId,venueId,time);
          //获取已排班摄影师
          List<StaffScheduleVO> StaffScheduleVOPKs= planScheduleService.staffPK(companyId,roleId,venueId,time);
@@ -105,8 +106,44 @@ public class PlancheduleController extends InitController{
 					}
 				}
         	}
+        }*/
+		
+		//获取全部摄影师
+        List<VenueStaffScheduleVO> venueStaffScheduleVOAlls = planScheduleService.staffAll(companyId, roleId, venueId, time);
+        //获取已排班摄影师
+        List<StaffScheduleVO> staffScheduleVOPKs = planScheduleService.staffPK(companyId, roleId, venueId, time);
+
+        if (venueStaffScheduleVOAlls != null && staffScheduleVOPKs != null) {
+            for (VenueStaffScheduleVO venueStaffScheduleVO : venueStaffScheduleVOAlls) {
+        		 for (StaffScheduleVO staffScheduleAll : venueStaffScheduleVO.getStaffScheduleVO()) {
+        			 //有排班的摄影师放入
+        			 for (StaffScheduleVO staffScheduleVOPK : staffScheduleVOPKs) {
+        				 if(staffScheduleAll.getVenueId().equals(staffScheduleVOPK.getVenueId())&&
+        						staffScheduleAll.getStaffId().equals(staffScheduleVOPK.getStaffId()) ){
+        					 staffScheduleAll.setId(staffScheduleVOPK.getId());
+        					 staffScheduleAll.setStatus(1);
+        					 staffScheduleAll.setCount(staffScheduleVOPK.getCount());
+        				 }
+        			 }
+        		 }
+            }
         }
-        return ResultInfoUtil.success(StaffScheduleVOAlls);
+        //获取休息摄影师
+       List<StaffScheduleVO> staffScheduleVORests= planScheduleService.staffRest(companyId,roleId,venueId,time);
+        if(staffScheduleVORests.size()>0&&venueStaffScheduleVOAlls.size()>0){
+        	for (VenueStaffScheduleVO venueStaffScheduleVO : venueStaffScheduleVOAlls) {
+        		for (StaffScheduleVO staffScheduleAll : venueStaffScheduleVO.getStaffScheduleVO()) {
+        			for (StaffScheduleVO staffScheduleVORest : staffScheduleVORests) {
+        				if(staffScheduleAll.getVenueId().equals(staffScheduleVORest.getVenueId())&&
+        						staffScheduleAll.getStaffId().equals(staffScheduleVORest.getStaffId())){
+        					staffScheduleAll.setId(staffScheduleVORest.getId());
+        					staffScheduleAll.setStatus(staffScheduleVORest.getStaffStatus());
+        				}
+        			}
+        		}
+        	}
+        }
+        return ResultInfoUtil.success(venueStaffScheduleVOAlls);
     }
     /**
      * 查询场馆
@@ -149,17 +186,16 @@ public class PlancheduleController extends InitController{
 		Integer companyId=getCurrentLoginStaff().getCompanyId();
     	 staffScheduleVO.setCompanyId(companyId);
     	 staffScheduleVO.setStaffDayLimit(1);
-    	 staffScheduleVO.setStaffStatus(2);
-    	 StaffScheduleVO staffScheduleVOs= planScheduleService.selectRest(staffScheduleVO);
-    	 if(staffScheduleVOs==null){
+    	 StaffScheduleVO staffScheduleVOtemp= planScheduleService.selectRest(staffScheduleVO);
+    	 if(staffScheduleVOtemp == null){
     		 planScheduleService.insertRest(staffScheduleVO);
     		 return ResultInfoUtil.success("设置成功");
     	 }
-    	 if(staffScheduleVOs.getStaffStatus()==1){
-    		 return ResultInfoUtil.success("不可修改");
-    	 }
-    	 if(staffScheduleVOs.getStaffStatus()==2){
-    		 return ResultInfoUtil.success("当日已休息");
+    	 //更新状态
+    	 if(staffScheduleVOtemp != null){
+    		 staffScheduleVO.setId(staffScheduleVOtemp.getId());
+    		 planScheduleService.updateStaffStatus(staffScheduleVO);
+    		 return ResultInfoUtil.success("状态已更新");
     	 }
         return ResultInfoUtil.success(null);
     }
@@ -183,6 +219,11 @@ public class PlancheduleController extends InitController{
   			tempStaff.setMealName(staffScheduleVO.getMealName());
   			tempStaff.setStaffStatus(staffScheduleVO.getStaffStatus());
   			tempStaff.setId(staffScheduleVO.getId());
+  			tempStaff.setServieceId(staffScheduleVO.getServieceId());
+  			tempStaff.setServiceName(staffScheduleVO.getServiceName());
+  			tempStaff.setPhotoId(staffScheduleVO.getPhotoId());
+  			tempStaff.setPhotoName(staffScheduleVO.getPhotoName());
+  			tempStaff.setStaffDay(staffScheduleVO.getStaffDay());
   			Map<String, Object> row = new HashMap<>();
   			row.put("id", staffScheduleVO.getId());
   			row.put("venueId", staffScheduleVO.getVenueId());
@@ -256,6 +297,7 @@ public class PlancheduleController extends InitController{
   			tempStaff.setMealName(staffScheduleVO.getMealName());
   			tempStaff.setStaffStatus(staffScheduleVO.getStaffStatus());
   			tempStaff.setId(staffScheduleVO.getId());
+  			
   			Map<String, Object> row = new HashMap<>();
   			row.put("id", staffScheduleVO.getId());
   			row.put("venueId", staffScheduleVO.getVenueId());
