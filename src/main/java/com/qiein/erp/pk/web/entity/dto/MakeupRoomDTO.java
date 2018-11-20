@@ -17,6 +17,7 @@ public class MakeupRoomDTO implements Serializable {
     private String mealName;    //套餐名字
     private String serviceName; //服务名字
     private String venueName;   //场馆名字
+    private Integer orderId;     //订单id
 
 
     public Integer getDate() {
@@ -97,5 +98,13 @@ public class MakeupRoomDTO implements Serializable {
 
     public void setVenueName(String venueName) {
         this.venueName = venueName;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 }

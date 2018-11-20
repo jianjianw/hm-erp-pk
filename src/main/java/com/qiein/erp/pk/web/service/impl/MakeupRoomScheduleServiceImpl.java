@@ -139,6 +139,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
            Integer makeupDayLimit = makeupRoomSchedulePO.getMakeupDayLimit();
            Integer countNum = makeupRoomSchedulePO.getCountNum();
            String mealName = makeupRoomSchedulePO.getMealName();
+           Integer orderId = makeupRoomSchedulePO.getOrderId();
 
 
            for(MakeupRoomScheduleVO makeupRoomScheduleVO :data){
@@ -155,6 +156,7 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
                            makeupRoomDTO.setOrderType(orderType);
                            makeupRoomDTO.setCountNum(countNum);//关联的拍摄流程的个数
                            makeupRoomDTO.setMealName(mealName);
+                           makeupRoomDTO.setOrderId(orderId);
                            break;
                        }
                    }

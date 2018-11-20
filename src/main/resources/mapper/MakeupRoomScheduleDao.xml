@@ -22,6 +22,7 @@
         <result column="order_type" property="orderType" jdbcType="INTEGER" />
         <result column="countNum" property="countNum" jdbcType="INTEGER" />
         <result column="meal_name" property="mealName" jdbcType="VARCHAR" />
+        <result column="order_id" property="orderId" jdbcType="INTEGER" />
     </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -66,7 +67,8 @@
 
     <select id="selectMakeupRoomScheduleByDate" parameterType="map" resultMap="MakeupScheduleMap">
         select room_schedule.id, room_schedule.venue_id, room_schedule.service_id, room_schedule.makeup_room_id,
-        room_schedule.makeup_day,room_schedule. makeup_day_limit, room_schedule.company_id,order_process.order_type,meal.meal_name,
+        room_schedule.makeup_day,room_schedule. makeup_day_limit, room_schedule.company_id,
+        order_process.order_type,meal.meal_name,order_process.order_id,
 
         ifnull(
         (

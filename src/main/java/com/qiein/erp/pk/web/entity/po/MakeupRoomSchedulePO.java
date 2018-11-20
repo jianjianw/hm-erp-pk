@@ -30,6 +30,8 @@ public class MakeupRoomSchedulePO implements Serializable {
 
     private String mealName;    //套餐名字
 
+    private Integer orderId;    //订单id
+
 
 
     public Integer getId() {
@@ -110,5 +112,13 @@ public class MakeupRoomSchedulePO implements Serializable {
 
     public void setMealName(String mealName) {
         this.mealName = mealName;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 }
