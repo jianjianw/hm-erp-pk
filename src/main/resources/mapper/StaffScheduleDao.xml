@@ -291,8 +291,6 @@
 		</if>
 		AND st.ISDEL=0
 		AND st.NICKNAME IS NOT NULL
-	GROUP BY v.id,sr.role_level,sr.staff_id
-	ORDER BY sr.role_level
   </select>
   
  <!--查询主页面  -->
