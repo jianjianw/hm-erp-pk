@@ -4,6 +4,7 @@ import java.util.List;
 import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
+import com.qiein.erp.pk.web.entity.vo.VenueStaffScheduleVO;
 
 
 public interface PlanScheduleService {
@@ -43,7 +44,7 @@ public interface PlanScheduleService {
      * 查询全部摄影师
      * @return
      */
-	List<StaffScheduleVO> staffAll(int companyId, Integer roleId, String venueId,
+	List<VenueStaffScheduleVO> staffAll(int companyId, Integer roleId, String venueId,
 			Integer time);
 	/**
      * 查询已排班摄影师

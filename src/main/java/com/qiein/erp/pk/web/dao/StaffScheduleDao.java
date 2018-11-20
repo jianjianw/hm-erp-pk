@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.qiein.erp.pk.web.entity.po.VenuePO;
 import com.qiein.erp.pk.web.entity.vo.StaffRoleTypeVO;
 import com.qiein.erp.pk.web.entity.vo.StaffScheduleVO;
+import com.qiein.erp.pk.web.entity.vo.VenueStaffScheduleVO;
 /**
  * 摄影师排空
  * @author Han
@@ -51,7 +52,7 @@ public interface StaffScheduleDao {
      * 查询全部摄影师
      * @return
      */
-	List<StaffScheduleVO> staffAll(@Param("companyId")Integer companyId, @Param("roleId")Integer roleId, 
+	List<VenueStaffScheduleVO> staffAll(@Param("companyId")Integer companyId, @Param("roleId")Integer roleId, 
 			@Param("venueId")String venueId,@Param("time")Integer time);
 	/**
      * 查询已排班摄影师

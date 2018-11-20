@@ -12,6 +12,8 @@ public class StaffVO implements Serializable {
 
     private String nickName;//员工name
 
+    private Boolean flag;//是否可选
+
 
     public Integer getId() {
         return id;
@@ -27,5 +29,13 @@ public class StaffVO implements Serializable {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public Boolean getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Boolean flag) {
+        this.flag = flag;
     }
 }
