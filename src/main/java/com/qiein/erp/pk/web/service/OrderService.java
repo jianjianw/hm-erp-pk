@@ -68,4 +68,10 @@ public interface OrderService {
     List<OrderProVO> selectOrderByStaff(Integer companyId,Integer staffId,Integer start,Integer end,String type);
 
     List<OrderLikeVO> selectOrderLike(Integer companyId,String key);
+    /**
+     * 关闭订单
+     * @param companyId
+     * @param orderId
+     */
+    void closeOrder(Integer companyId,Integer orderId);
 }

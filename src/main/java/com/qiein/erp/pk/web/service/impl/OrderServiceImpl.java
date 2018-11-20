@@ -154,4 +154,12 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderLikeVO> selectOrderLike(Integer companyId, String key){
         return orderDao.selectOrderLike(companyId,key);
     }
+    /**
+     * 关闭订单
+     * @param companyId
+     * @param orderId
+     */
+    public void closeOrder(Integer companyId,Integer orderId){
+        orderDao.closeOrder(companyId, orderId);
+    }
 }

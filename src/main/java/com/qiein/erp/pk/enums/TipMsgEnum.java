@@ -48,7 +48,10 @@ public enum TipMsgEnum {
      * 密码不能为空
      */
     PASS_WORD_NOT_NULL("密码不能为空"),
-
+    /**
+     * 关闭成功
+     */
+    CLOSE_SUCCESS("关闭成功"),
     /**
      * 艺名不能为空
      */
@@ -199,7 +202,7 @@ public enum TipMsgEnum {
     ENTERING_SUNCCESS("录入成功"),
 
     OPEN_SUCCESS("开启成功"),
-    CLOSE_SUCCESS("关闭成功"),
+
 
     IS_COLLECTOR("员工是录入员"),
     IS_NOT_COLLECTOR("员工不是录入员");
