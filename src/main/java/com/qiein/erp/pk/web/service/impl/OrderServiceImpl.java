@@ -1,10 +1,10 @@
 package com.qiein.erp.pk.web.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qiein.erp.pk.constant.CommonConstant;
 import com.qiein.erp.pk.util.StringUtil;
+import com.qiein.erp.pk.util.TimeUtil;
 import com.qiein.erp.pk.web.dao.OrderDao;
 import com.qiein.erp.pk.web.dao.PlanScheduleDao;
 import com.qiein.erp.pk.web.entity.dto.OrderDTO;
@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
             //新增订单
             orderDao.insertOrder(orderPO);
             //编辑订单编号
-            orderDao.insertOrderNum(StringUtil.to26Jinzhi(orderPO.getOrderId()), orderPO.getOrderId());
+            orderDao.insertOrderNum(TimeUtil.yyyyMMddHHmmss.format(new Date())+StringUtil.to26Jinzhi(orderPO.getOrderId()), orderPO.getOrderId());
         }
         orderDao.insertPro(orderPO);
         //给流程添加档期（除了拍摄间）
