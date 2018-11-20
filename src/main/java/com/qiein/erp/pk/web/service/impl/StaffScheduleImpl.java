@@ -149,6 +149,8 @@ public class StaffScheduleImpl implements StaffScheduleService {
 			staff="shoot_schedule_id";
 		}else if(roleId==2){
 			staff="makeup_schedule_id";
+		}else if(roleId==3){
+			staff="video_schedule_id";
 		}
 		List<StaffSelectForOrderVO> staffSelectForOrderVOS=staffScheduleDao.staffSelect(companyId,roleId,time,staff);
 		for(StaffSelectForOrderVO staffSelectForOrderVO:staffSelectForOrderVOS){
