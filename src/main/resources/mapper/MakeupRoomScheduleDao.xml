@@ -147,7 +147,9 @@
     select id, venue_id, service_id, makeup_room_id, makeup_day, makeup_day_limit, company_id
     from hm_erp_makeup_room_schedule
     where venue_id = #{venueId}
-          and service_id = #{serviceId}
+          <if test="serviceId != null">
+              and service_id = #{serviceId}
+          </if>
           and makeup_day = #{date}
           <if test="roomIds != null and roomIds.size() > 0">
             and  makeup_room_id in
@@ -187,7 +189,9 @@
         FROM
             hm_erp_makeup_room_schedule sch
         where sch.venue_id=#{venueId}
-        and sch.service_id=#{serviceId}
+        <if test="serviceId != null">
+            and sch.service_id=#{serviceId}
+        </if>
         and sch.company_id=#{companyId}
         and sch.makeup_day=#{date}
     </select>

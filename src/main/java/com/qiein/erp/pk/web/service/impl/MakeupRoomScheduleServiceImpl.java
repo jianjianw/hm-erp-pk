@@ -264,17 +264,20 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
             roomIds.add(venueAndRoomVO.getRoomId());
         }
         //查询化妆间的档期
-        List<MakeupRoomSchedulePO> makeupRoomSchedulePOS = makeupRoomScheduleDao.findMakeupRoomScheduleByDateAndRoomIds(companyId, venueId, serviceId, date, roomIds);
+        List<MakeupRoomSchedulePO> makeupRoomSchedulePOS = makeupRoomScheduleDao.findMakeupRoomScheduleByDateAndRoomIds(companyId, venueId, null, date, roomIds);
         //如果有档期，封装到makeupRooms中
         for (VenueAndRoomVO venueAndRoomVO : makeupRooms) {
             Integer venueId1 = venueAndRoomVO.getVenueId();
-            Integer serviceId1 = venueAndRoomVO.getServiceId();
+            //Integer serviceId1 = venueAndRoomVO.getServiceId();
             Integer roomId = venueAndRoomVO.getRoomId();
             for (MakeupRoomSchedulePO makeupRoomSchedulePO : makeupRoomSchedulePOS) {
                 Integer venueId2 = makeupRoomSchedulePO.getVenueId();
-                Integer serviceId2 = makeupRoomSchedulePO.getServiceId();
+                //Integer serviceId2 = makeupRoomSchedulePO.getServiceId();
                 Integer makeupRoomId = makeupRoomSchedulePO.getMakeupRoomId();
-                if (venueId1.equals(venueId2) && serviceId1.equals(serviceId2) && roomId.equals(makeupRoomId)) {
+                /*if (venueId1.equals(venueId2) && serviceId1.equals(serviceId2) && roomId.equals(makeupRoomId)) {
+                    venueAndRoomVO.setMakeupRoomScheduleId(makeupRoomSchedulePO.getId());//封装化妆间档期
+                }*/
+                if (venueId1.equals(venueId2) && roomId.equals(makeupRoomId)) {
                     venueAndRoomVO.setMakeupRoomScheduleId(makeupRoomSchedulePO.getId());//封装化妆间档期
                 }
             }
@@ -296,10 +299,14 @@ public class MakeupRoomScheduleServiceImpl implements MakeupRoomScheduleService 
             makeupRoomScheduleDao.batSave(batSave);
         }
 
-        List<MakeupRoomSchDTO> checkDTO = makeupRoomScheduleDao.checkMakeupRoom(companyId, venueId, serviceId, date);
+        List<MakeupRoomSchDTO> checkDTO = makeupRoomScheduleDao.checkMakeupRoom(companyId, venueId, null, date);
         for (VenueAndRoomVO venueAndRoomVO : makeupRooms) {
+            Integer venueId1 = venueAndRoomVO.getVenueId();
+            Integer roomId1 = venueAndRoomVO.getRoomId();
             for (MakeupRoomSchDTO makeupRoomSchDTO : checkDTO) {
-                if (venueAndRoomVO.getRoomId().equals(makeupRoomSchDTO.getRoomId())) {
+                Integer venueId2 = makeupRoomSchDTO.getVenueId();
+                Integer roomId2 = makeupRoomSchDTO.getRoomId();
+                if (venueId1.equals(venueId2) && roomId1.equals(roomId2)) {
                     venueAndRoomVO.setMakeupRoomScheduleId(makeupRoomSchDTO.getMakeupRoomSchId());
                     if (makeupRoomSchDTO.getCount() == 0) {
                         venueAndRoomVO.setRoomStatus(true);
