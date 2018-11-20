@@ -62,15 +62,7 @@
 
 
 
- <!-- <select id="selectMakeupRoomScheduleByDate" parameterType="map" resultMap="BaseResultMap">
-      select id, venue_id, service_id, makeup_room_id, makeup_day, makeup_day_limit, company_id
-      from hm_erp_makeup_room_schedule
-      where company_id = #{companyId}
-      and makeup_day BETWEEN #{startTime} AND #{endTime}
-      <if test="venueId != null">
-        and venue_id = #{venueId}
-      </if>
-  </select>-->
+
 
     <select id="selectMakeupRoomScheduleByDate" parameterType="map" resultMap="MakeupScheduleMap">
         select room_schedule.id, room_schedule.venue_id, room_schedule.service_id, room_schedule.makeup_room_id,
